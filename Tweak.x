@@ -191,3 +191,23 @@
 }
 
 %end
+
+%hook SBAppSwitcherPageView
+
+-(void)setVisible:(BOOL)arg1 {
+
+	%orig;
+
+	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
+	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
+
+	id AppSwitcherFeedback = [bundleDefaults valueForKey:@"AppSwitcherFeedback"];
+	if ([AppSwitcherFeedback isEqual:@1]) {
+
+		AudioServicesPlaySystemSound(1519);
+
+	}
+
+}
+
+%end

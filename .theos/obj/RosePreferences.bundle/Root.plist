@@ -92,7 +92,7 @@
 			<key>key</key>
 			<string>WakeWithSleepButton</string>
 			<key>label</key>
-			<string>Display wakes with Sleep Button</string>
+			<string>Display Wakes With Sleep Button</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -104,7 +104,7 @@
 			<key>key</key>
 			<string>ForceTouchDismiss</string>
 			<key>label</key>
-			<string>3DTouch action/dismisses</string>
+			<string>3DTouch Action/Dismisses</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -116,7 +116,19 @@
 			<key>key</key>
 			<string>ChargerPluggedInOrOut</string>
 			<key>label</key>
-			<string>Charger plugged in/out</string>
+			<string>Charger Plugged In/Out</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>AppSwitcherFeedback</string>
+			<key>label</key>
+			<string>App Switcher Is Used</string>
 		</dict>
 		<dict>
 			<key>cell</key>
