@@ -211,3 +211,23 @@
 }
 
 %end
+
+%hook SiriUISiriStatusView
+
+-(void)layoutSubviews {
+
+	%orig;
+	
+	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
+	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
+
+	id SiriUIFeedback = [bundleDefaults valueForKey:@"SiriUIFeedback"];
+	if ([SiriUIFeedback isEqual:@1]) {
+
+		AudioServicesPlaySystemSound(1519);
+
+	}
+
+}
+
+%end

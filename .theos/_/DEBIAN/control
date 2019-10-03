@@ -2,9 +2,9 @@ Package: me.shymemoriees.rose
 Name: Rosé
 Depends: mobilesubstrate
 Architecture: iphoneos-arm
-Description: Getting peeped by a Rose doesn't feel that good, Rosé changes that. Features: -Vibrate on Unlock -Vibrate on Lock -Vibrate when Volume is changed -Vibrate when ReSpringing -Vibrate on Power Down View -Vibrate on App kill
+Description: Getting peeped by a Rose doesn't feel that good, Rosé changes that. Features: -Vibrate on Unlock -Vibrate on Lock -Vibrate when Volume is changed -Vibrate when ReSpringing -Vibrate on Power Down View -Vibrate on App kill -Vibrate when summoning Siri
 Maintainer: ShyMemoriees
 Author: ShyMemoriees
 Section: Tweaks
-Version: 1.9
+Version: 2.0
 Installed-Size: 552
