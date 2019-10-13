@@ -178,6 +178,7 @@ void triggerHapticFeedback() {
 }
 
 %end
+%end // Rose group
 
 %ctor {
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
