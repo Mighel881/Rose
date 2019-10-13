@@ -1,5 +1,24 @@
 #line 1 "Tweak.x"
 #import <AudioToolbox/AudioServices.h>
+#import <Cephei/HBPreferences.h>
+
+
+HBPreferences *pfs;
+
+
+BOOL enabled = NO;
+BOOL respringSwitch = NO;
+BOOL unlockSwitch = NO;
+BOOL lockSwitch = NO;
+BOOL wakeSwitch = NO;
+BOOL volumeSwitch = NO;
+BOOL powerSwitch = NO;
+BOOL killingSwitch = NO;
+BOOL forceSwitch = NO;
+BOOL pluggedSwitch = NO;
+BOOL switcherSwitch = NO;
+BOOL siriSwitch = NO;
+NSString *hapticLevel = @"1";
 
 
 #include <substrate.h>
@@ -22,25 +41,43 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBPowerDownController; @class SBAppSwitcherPageView; @class SBUIIconForceTouchController; @class SBUIController; @class VolumeControl; @class SBCoverSheetPrimarySlidingViewController; @class SiriUISiriStatusView; @class SBMainDisplaySceneManager; @class SpringBoard; @class SBSleepWakeHardwareButtonInteraction; 
-static void (*_logos_orig$_ungrouped$SpringBoard$applicationDidFinishLaunching$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$_ungrouped$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$VolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$VolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBPowerDownController$displayWillAppear)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBPowerDownController$displayWillAppear(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$)(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$)(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$_ungrouped$SBUIController$ACPowerChanged)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBAppSwitcherPageView$setVisible$)(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$_ungrouped$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$_ungrouped$SiriUISiriStatusView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); 
-
-#line 3 "Tweak.x"
+@class SBCoverSheetPrimarySlidingViewController; @class SiriUISiriStatusView; @class VolumeControl; @class SBUIController; @class SBAppSwitcherPageView; @class SBSleepWakeHardwareButtonInteraction; @class SBMainDisplaySceneManager; @class SBUIIconForceTouchController; @class SBPowerDownController; @class SpringBoard; 
 
 
-static void _logos_method$_ungrouped$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id application) {
+#line 22 "Tweak.x"
+static void (*_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_performWake)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_performWake(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownController$displayWillAppear)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBPowerDownController$displayWillAppear(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$)(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$)(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIController$ACPowerChanged)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBAppSwitcherPageView$setVisible$)(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); 
 
-	_logos_orig$_ungrouped$SpringBoard$applicationDidFinishLaunching$(self, _cmd, application);
+void triggerHapticFeedback() {
+    int hapticStrength = [hapticLevel intValue];
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
+    if(hapticStrength == 0)
+        AudioServicesPlaySystemSound(1519);
+    else if(hapticStrength == 1)
+        AudioServicesPlaySystemSound(1520);
+    else
+        AudioServicesPlaySystemSound(1521);
+}
 
-	id ReSpringSwitch = [bundleDefaults valueForKey:@"ReSpringSwitch"];
-	if ([ReSpringSwitch isEqual:@1]) {
 
-		AudioServicesPlaySystemSound(1519);
 
-	}
+static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id application) {
+
+	_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$(self, _cmd, application);
+
+	if (respringSwitch)
+		triggerHapticFeedback();
+}
+
+
+
+
+
+static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
+
+	_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(self, _cmd, arg1);
+
+	if (unlockSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -48,19 +85,21 @@ static void _logos_method$_ungrouped$SpringBoard$applicationDidFinishLaunching$(
 
 
 
-static void _logos_method$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
+static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(self, _cmd, arg1);
+	_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(self, _cmd);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
+	if (lockSwitch)
+		triggerHapticFeedback();
 
-	id UnlockSwitch = [bundleDefaults valueForKey:@"UnlockSwitch"];
-	if ([UnlockSwitch isEqual:@1]) {
+}
 
-		AudioServicesPlaySystemSound(1519);
+static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_performWake(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	}
+	_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_performWake(self, _cmd);
+
+	if (wakeSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -68,71 +107,21 @@ static void _logos_method$_ungrouped$SBCoverSheetPrimarySlidingViewController$vi
 
 
 
-static void _logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound(self, _cmd);
-
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id LockSwitch = [bundleDefaults valueForKey:@"LockSwitch"];
-	if ([LockSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
-
-}
-
-static void _logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-
-	_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake(self, _cmd);
-
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id WakeWithSleepButton = [bundleDefaults valueForKey:@"WakeWithSleepButton"];
-	if ([WakeWithSleepButton isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
-
-}
-
-
-
-
-
-static void _logos_method$_ungrouped$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-
-	_logos_orig$_ungrouped$VolumeControl$increaseVolume(self, _cmd);
+	_logos_orig$Rose$VolumeControl$increaseVolume(self, _cmd);
 	
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id VolumeChangedSwitch = [bundleDefaults valueForKey:@"VolumeChangedSwitch"];
-	if ([VolumeChangedSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (volumeSwitch)
+		triggerHapticFeedback();
 
 }
 
-static void _logos_method$_ungrouped$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$VolumeControl$decreaseVolume(self, _cmd);
+	_logos_orig$Rose$VolumeControl$decreaseVolume(self, _cmd);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id VolumeChangedSwitch = [bundleDefaults valueForKey:@"VolumeChangedSwitch"];
-	if ([VolumeChangedSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (volumeSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -140,19 +129,12 @@ static void _logos_method$_ungrouped$VolumeControl$decreaseVolume(_LOGOS_SELF_TY
 
 
 
-static void _logos_method$_ungrouped$SBPowerDownController$displayWillAppear(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+static void _logos_method$Rose$SBPowerDownController$displayWillAppear(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$SBPowerDownController$displayWillAppear(self, _cmd);
+	_logos_orig$Rose$SBPowerDownController$displayWillAppear(self, _cmd);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id PowerDownViewSwitch = [bundleDefaults valueForKey:@"PowerDownViewSwitch"];
-	if ([PowerDownViewSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (powerSwitch)		
+		triggerHapticFeedback();
 
 }
 
@@ -160,19 +142,12 @@ static void _logos_method$_ungrouped$SBPowerDownController$displayWillAppear(_LO
 
 
 
-static void _logos_method$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
+static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
 
-	_logos_orig$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(self, _cmd, arg1);
+	_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(self, _cmd, arg1);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id KillingAppSwitch = [bundleDefaults valueForKey:@"KillingAppSwitch"];
-	if ([KillingAppSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (killingSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -180,19 +155,12 @@ static void _logos_method$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSw
 
 
 
-static void _logos_method$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
+static void _logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
 
-	_logos_orig$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(self, _cmd, arg1);
+	_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(self, _cmd, arg1);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id ForceTouchDismiss = [bundleDefaults valueForKey:@"ForceTouchDismiss"];
-	if ([ForceTouchDismiss isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (forceSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -200,19 +168,12 @@ static void _logos_method$_ungrouped$SBUIIconForceTouchController$iconForceTouch
 
 
 
-static void _logos_method$_ungrouped$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$SBUIController$ACPowerChanged(self, _cmd);
+	_logos_orig$Rose$SBUIController$ACPowerChanged(self, _cmd);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id ChargerPluggedInOrOut = [bundleDefaults valueForKey:@"ChargerPluggedInOrOut"];
-	if ([ChargerPluggedInOrOut isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (pluggedSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -220,19 +181,12 @@ static void _logos_method$_ungrouped$SBUIController$ACPowerChanged(_LOGOS_SELF_T
 
 
 
-static void _logos_method$_ungrouped$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
+static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
 
-	_logos_orig$_ungrouped$SBAppSwitcherPageView$setVisible$(self, _cmd, arg1);
+	_logos_orig$Rose$SBAppSwitcherPageView$setVisible$(self, _cmd, arg1);
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id AppSwitcherFeedback = [bundleDefaults valueForKey:@"AppSwitcherFeedback"];
-	if ([AppSwitcherFeedback isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (switcherSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -240,23 +194,35 @@ static void _logos_method$_ungrouped$SBAppSwitcherPageView$setVisible$(_LOGOS_SE
 
 
 
-static void _logos_method$_ungrouped$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+static void _logos_method$Rose$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-	_logos_orig$_ungrouped$SiriUISiriStatusView$layoutSubviews(self, _cmd);
+	_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews(self, _cmd);
 	
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id SiriUIFeedback = [bundleDefaults valueForKey:@"SiriUIFeedback"];
-	if ([SiriUIFeedback isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (siriSwitch)
+		triggerHapticFeedback();
 
 }
 
 
-static __attribute__((constructor)) void _logosLocalInit() {
-{Class _logos_class$_ungrouped$SpringBoard = objc_getClass("SpringBoard"); MSHookMessageEx(_logos_class$_ungrouped$SpringBoard, @selector(applicationDidFinishLaunching:), (IMP)&_logos_method$_ungrouped$SpringBoard$applicationDidFinishLaunching$, (IMP*)&_logos_orig$_ungrouped$SpringBoard$applicationDidFinishLaunching$);Class _logos_class$_ungrouped$SBCoverSheetPrimarySlidingViewController = objc_getClass("SBCoverSheetPrimarySlidingViewController"); MSHookMessageEx(_logos_class$_ungrouped$SBCoverSheetPrimarySlidingViewController, @selector(viewWillDisappear:), (IMP)&_logos_method$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$, (IMP*)&_logos_orig$_ungrouped$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$);Class _logos_class$_ungrouped$SBSleepWakeHardwareButtonInteraction = objc_getClass("SBSleepWakeHardwareButtonInteraction"); MSHookMessageEx(_logos_class$_ungrouped$SBSleepWakeHardwareButtonInteraction, @selector(_playLockSound), (IMP)&_logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound, (IMP*)&_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_playLockSound);MSHookMessageEx(_logos_class$_ungrouped$SBSleepWakeHardwareButtonInteraction, @selector(_performWake), (IMP)&_logos_method$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake, (IMP*)&_logos_orig$_ungrouped$SBSleepWakeHardwareButtonInteraction$_performWake);Class _logos_class$_ungrouped$VolumeControl = objc_getClass("VolumeControl"); MSHookMessageEx(_logos_class$_ungrouped$VolumeControl, @selector(increaseVolume), (IMP)&_logos_method$_ungrouped$VolumeControl$increaseVolume, (IMP*)&_logos_orig$_ungrouped$VolumeControl$increaseVolume);MSHookMessageEx(_logos_class$_ungrouped$VolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$_ungrouped$VolumeControl$decreaseVolume, (IMP*)&_logos_orig$_ungrouped$VolumeControl$decreaseVolume);Class _logos_class$_ungrouped$SBPowerDownController = objc_getClass("SBPowerDownController"); MSHookMessageEx(_logos_class$_ungrouped$SBPowerDownController, @selector(displayWillAppear), (IMP)&_logos_method$_ungrouped$SBPowerDownController$displayWillAppear, (IMP*)&_logos_orig$_ungrouped$SBPowerDownController$displayWillAppear);Class _logos_class$_ungrouped$SBMainDisplaySceneManager = objc_getClass("SBMainDisplaySceneManager"); MSHookMessageEx(_logos_class$_ungrouped$SBMainDisplaySceneManager, @selector(_appKilledInAppSwitcher:), (IMP)&_logos_method$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$, (IMP*)&_logos_orig$_ungrouped$SBMainDisplaySceneManager$_appKilledInAppSwitcher$);Class _logos_class$_ungrouped$SBUIIconForceTouchController = objc_getClass("SBUIIconForceTouchController"); MSHookMessageEx(_logos_class$_ungrouped$SBUIIconForceTouchController, @selector(iconForceTouchViewControllerWillDismiss:), (IMP)&_logos_method$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$, (IMP*)&_logos_orig$_ungrouped$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$);Class _logos_class$_ungrouped$SBUIController = objc_getClass("SBUIController"); MSHookMessageEx(_logos_class$_ungrouped$SBUIController, @selector(ACPowerChanged), (IMP)&_logos_method$_ungrouped$SBUIController$ACPowerChanged, (IMP*)&_logos_orig$_ungrouped$SBUIController$ACPowerChanged);Class _logos_class$_ungrouped$SBAppSwitcherPageView = objc_getClass("SBAppSwitcherPageView"); MSHookMessageEx(_logos_class$_ungrouped$SBAppSwitcherPageView, @selector(setVisible:), (IMP)&_logos_method$_ungrouped$SBAppSwitcherPageView$setVisible$, (IMP*)&_logos_orig$_ungrouped$SBAppSwitcherPageView$setVisible$);Class _logos_class$_ungrouped$SiriUISiriStatusView = objc_getClass("SiriUISiriStatusView"); MSHookMessageEx(_logos_class$_ungrouped$SiriUISiriStatusView, @selector(layoutSubviews), (IMP)&_logos_method$_ungrouped$SiriUISiriStatusView$layoutSubviews, (IMP*)&_logos_orig$_ungrouped$SiriUISiriStatusView$layoutSubviews);} }
-#line 234 "Tweak.x"
+ 
+
+static __attribute__((constructor)) void _logosLocalCtor_c722081e(int __unused argc, char __unused **argv, char __unused **envp) {
+    pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
+
+    [pfs registerBool:&enabled default:NO forKey:@"Enabled"];
+    [pfs registerBool:&respringSwitch default:NO forKey:@"ReSpringSwitch"];
+    [pfs registerBool:&unlockSwitch default:NO forKey:@"UnlockSwitch"];
+    [pfs registerBool:&lockSwitch default:NO forKey:@"LockSwitch"];
+    [pfs registerBool:&wakeSwitch default:NO forKey:@"WakeWithSleepButton"];
+    [pfs registerBool:&volumeSwitch default:NO forKey:@"VolumeChangedSwitch"];
+    [pfs registerBool:&powerSwitch default:NO forKey:@"PowerDownViewSwitch"];
+    [pfs registerBool:&killingSwitch default:NO forKey:@"KillingAppSwitch"];
+    [pfs registerBool:&forceSwitch default:NO forKey:@"ForceTouchDismiss"];
+    [pfs registerBool:&pluggedSwitch default:NO forKey:@"ChargerPluggedInOrOut"];
+    [pfs registerBool:&switcherSwitch default:NO forKey:@"AppSwitcherFeedback"];
+    [pfs registerBool:&siriSwitch default:NO forKey:@"SiriUIFeedback"];
+    [pfs registerObject:&hapticLevel default:@"1" forKey:@"HapticStrength"];
+
+    if(enabled)
+    	{Class _logos_class$Rose$SpringBoard = objc_getClass("SpringBoard"); MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(applicationDidFinishLaunching:), (IMP)&_logos_method$Rose$SpringBoard$applicationDidFinishLaunching$, (IMP*)&_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$);Class _logos_class$Rose$SBCoverSheetPrimarySlidingViewController = objc_getClass("SBCoverSheetPrimarySlidingViewController"); MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewWillDisappear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$);Class _logos_class$Rose$SBSleepWakeHardwareButtonInteraction = objc_getClass("SBSleepWakeHardwareButtonInteraction"); MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(_playLockSound), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound);MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(_performWake), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_performWake, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_performWake);Class _logos_class$Rose$VolumeControl = objc_getClass("VolumeControl"); MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(increaseVolume), (IMP)&_logos_method$Rose$VolumeControl$increaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$increaseVolume);MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$Rose$VolumeControl$decreaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$decreaseVolume);Class _logos_class$Rose$SBPowerDownController = objc_getClass("SBPowerDownController"); MSHookMessageEx(_logos_class$Rose$SBPowerDownController, @selector(displayWillAppear), (IMP)&_logos_method$Rose$SBPowerDownController$displayWillAppear, (IMP*)&_logos_orig$Rose$SBPowerDownController$displayWillAppear);Class _logos_class$Rose$SBMainDisplaySceneManager = objc_getClass("SBMainDisplaySceneManager"); MSHookMessageEx(_logos_class$Rose$SBMainDisplaySceneManager, @selector(_appKilledInAppSwitcher:), (IMP)&_logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$, (IMP*)&_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$);Class _logos_class$Rose$SBUIIconForceTouchController = objc_getClass("SBUIIconForceTouchController"); MSHookMessageEx(_logos_class$Rose$SBUIIconForceTouchController, @selector(iconForceTouchViewControllerWillDismiss:), (IMP)&_logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$, (IMP*)&_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$);Class _logos_class$Rose$SBUIController = objc_getClass("SBUIController"); MSHookMessageEx(_logos_class$Rose$SBUIController, @selector(ACPowerChanged), (IMP)&_logos_method$Rose$SBUIController$ACPowerChanged, (IMP*)&_logos_orig$Rose$SBUIController$ACPowerChanged);Class _logos_class$Rose$SBAppSwitcherPageView = objc_getClass("SBAppSwitcherPageView"); MSHookMessageEx(_logos_class$Rose$SBAppSwitcherPageView, @selector(setVisible:), (IMP)&_logos_method$Rose$SBAppSwitcherPageView$setVisible$, (IMP*)&_logos_orig$Rose$SBAppSwitcherPageView$setVisible$);Class _logos_class$Rose$SiriUISiriStatusView = objc_getClass("SiriUISiriStatusView"); MSHookMessageEx(_logos_class$Rose$SiriUISiriStatusView, @selector(layoutSubviews), (IMP)&_logos_method$Rose$SiriUISiriStatusView$layoutSubviews, (IMP*)&_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews);}
+}

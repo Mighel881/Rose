@@ -1,14 +1,15 @@
 ARCHS = arm64 arm64e
+TARGET = iphone:clang:11.2:11.2
+GO_EASY_ON_ME = 1
 
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = RosePreferences
-
-RosePreferences_FILES = RSERootListController.m
-RosePreferences_INSTALL_PATH = /Library/PreferenceBundles
-RosePreferences_FRAMEWORKS = UIKit
-RosePreferences_PRIVATE_FRAMEWORKS = Preferences
-RosePreferences_CFLAGS = -fobjc-arc
+$(BUNDLE_NAME)_FILES = $(wildcard *.m)
+$(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
+$(BUNDLE_NAME)_FRAMEWORKS = UIKit
+$(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
+$(BUNDLE_NAME)_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
