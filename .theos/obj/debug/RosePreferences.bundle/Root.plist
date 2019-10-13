@@ -4,6 +4,22 @@
 <dict>
 	<key>items</key>
 	<array>
+		<!-- Enable -->
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>Enabled</string>
+			<key>label</key>
+			<string>Enabled</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
 		<!-- Behaviors -->
 		<dict>
 			<key>cell</key>
@@ -22,6 +38,8 @@
 			<string>UnlockSwitch</string>
 			<key>label</key>
 			<string>Unlocked/NC</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -34,6 +52,8 @@
 			<string>LockSwitch</string>
 			<key>label</key>
 			<string>Locked</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -46,6 +66,8 @@
 			<string>VolumeChangedSwitch</string>
 			<key>label</key>
 			<string>Volume Changed</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -58,6 +80,8 @@
 			<string>ReSpringSwitch</string>
 			<key>label</key>
 			<string>ReSpringing</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -70,6 +94,8 @@
 			<string>PowerDownViewSwitch</string>
 			<key>label</key>
 			<string>Entering Power Down View</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -82,6 +108,8 @@
 			<string>KillingAppSwitch</string>
 			<key>label</key>
 			<string>Killing App</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -94,6 +122,8 @@
 			<string>WakeWithSleepButton</string>
 			<key>label</key>
 			<string>Display Wakes With Sleep Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -106,6 +136,8 @@
 			<string>ForceTouchDismiss</string>
 			<key>label</key>
 			<string>3DTouch Action/Dismisses</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -118,6 +150,8 @@
 			<string>ChargerPluggedInOrOut</string>
 			<key>label</key>
 			<string>Charger Plugged In/Out</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -130,6 +164,8 @@
 			<string>AppSwitcherFeedback</string>
 			<key>label</key>
 			<string>App Switcher Is Used</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -142,6 +178,42 @@
 			<string>SiriUIFeedback</string>
 			<key>label</key>
 			<string>Summoning Siri</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<!-- Haptic Feedback Strength -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback Strength</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>HapticStrength</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Light</string>
+				<string>Medium</string>
+				<string>Strong</string>
+			</array>
+			<key>alignment</key>
+			<string>3</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<!-- Support Me -->
