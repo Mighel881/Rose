@@ -1,4 +1,36 @@
 #import <AudioToolbox/AudioServices.h>
+#import <Cephei/HBPreferences.h>
+
+// Utils
+HBPreferences *pfs;
+
+// Preferences
+BOOL enabled = NO;
+BOOL respringSwitch = NO;
+BOOL unlockSwitch = NO;
+BOOL lockSwitch = NO;
+BOOL wakeSwitch = NO;
+BOOL volumeSwitch = NO;
+BOOL powerSwitch = NO;
+BOOL killingSwitch = NO;
+BOOL forceSwitch = NO;
+BOOL pluggedSwitch = NO;
+BOOL switcherSwitch = NO;
+BOOL siriSwitch = NO;
+NSString *hapticLevel = @"1";
+
+%group Rose
+
+void triggerHapticFeedback() {
+    int hapticStrength = [hapticLevel intValue];
+
+    if(hapticStrength == 0)
+        AudioServicesPlaySystemSound(1519);
+    else if(hapticStrength == 1)
+        AudioServicesPlaySystemSound(1520);
+    else
+        AudioServicesPlaySystemSound(1521);
+}
 
 %hook SpringBoard
 
@@ -6,16 +38,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id ReSpringSwitch = [bundleDefaults valueForKey:@"ReSpringSwitch"];
-	if ([ReSpringSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
-
+	if (respringSwitch)
+		triggerHapticFeedback();
 }
 
 %end
@@ -26,15 +50,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id UnlockSwitch = [bundleDefaults valueForKey:@"UnlockSwitch"];
-	if ([UnlockSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (unlockSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -46,15 +63,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id LockSwitch = [bundleDefaults valueForKey:@"LockSwitch"];
-	if ([LockSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (lockSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -62,15 +72,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id WakeWithSleepButton = [bundleDefaults valueForKey:@"WakeWithSleepButton"];
-	if ([WakeWithSleepButton isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (wakeSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -82,15 +85,8 @@
 
 	%orig;
 	
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id VolumeChangedSwitch = [bundleDefaults valueForKey:@"VolumeChangedSwitch"];
-	if ([VolumeChangedSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (volumeSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -98,15 +94,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id VolumeChangedSwitch = [bundleDefaults valueForKey:@"VolumeChangedSwitch"];
-	if ([VolumeChangedSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (volumeSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -118,15 +107,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id PowerDownViewSwitch = [bundleDefaults valueForKey:@"PowerDownViewSwitch"];
-	if ([PowerDownViewSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (powerSwitch)		
+		triggerHapticFeedback();
 
 }
 
@@ -138,15 +120,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id KillingAppSwitch = [bundleDefaults valueForKey:@"KillingAppSwitch"];
-	if ([KillingAppSwitch isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (killingSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -158,15 +133,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id ForceTouchDismiss = [bundleDefaults valueForKey:@"ForceTouchDismiss"];
-	if ([ForceTouchDismiss isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (forceSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -178,15 +146,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id ChargerPluggedInOrOut = [bundleDefaults valueForKey:@"ChargerPluggedInOrOut"];
-	if ([ChargerPluggedInOrOut isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (pluggedSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -198,15 +159,8 @@
 
 	%orig;
 
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id AppSwitcherFeedback = [bundleDefaults valueForKey:@"AppSwitcherFeedback"];
-	if ([AppSwitcherFeedback isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (switcherSwitch)
+		triggerHapticFeedback();
 
 }
 
@@ -218,16 +172,30 @@
 
 	%orig;
 	
-	NSDictionary *bundleDefaults = [[NSUserDefaults standardUserDefaults]
-	persistentDomainForName:@"me.shymemoriees.rosepreferences"];
-
-	id SiriUIFeedback = [bundleDefaults valueForKey:@"SiriUIFeedback"];
-	if ([SiriUIFeedback isEqual:@1]) {
-
-		AudioServicesPlaySystemSound(1519);
-
-	}
+	if (siriSwitch)
+		triggerHapticFeedback();
 
 }
 
 %end
+
+%ctor {
+    pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
+
+    [pfs registerBool:&enabled default:NO forKey:@"Enabled"];
+    [pfs registerBool:&respringSwitch default:NO forKey:@"ReSpringSwitch"];
+    [pfs registerBool:&unlockSwitch default:NO forKey:@"UnlockSwitch"];
+    [pfs registerBool:&lockSwitch default:NO forKey:@"LockSwitch"];
+    [pfs registerBool:&wakeSwitch default:NO forKey:@"WakeWithSleepButton"];
+    [pfs registerBool:&volumeSwitch default:NO forKey:@"VolumeChangedSwitch"];
+    [pfs registerBool:&powerSwitch default:NO forKey:@"PowerDownViewSwitch"];
+    [pfs registerBool:&killingSwitch default:NO forKey:@"KillingAppSwitch"];
+    [pfs registerBool:&forceSwitch default:NO forKey:@"ForceTouchDismiss"];
+    [pfs registerBool:&pluggedSwitch default:NO forKey:@"ChargerPluggedInOrOut"];
+    [pfs registerBool:&switcherSwitch default:NO forKey:@"AppSwitcherFeedback"];
+    [pfs registerBool:&siriSwitch default:NO forKey:@"SiriUIFeedback"];
+    [pfs registerObject:&hapticLevel default:@"1" forKey:@"HapticStrength"];
+
+    if(enabled)
+    	%init(Rose);
+}
