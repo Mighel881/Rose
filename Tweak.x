@@ -1,5 +1,6 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
+#import <Rose.h>
 
 // Utils
 HBPreferences *pfs;
@@ -17,7 +18,11 @@ BOOL forceSwitch = NO;
 BOOL pluggedSwitch = NO;
 BOOL switcherSwitch = NO;
 BOOL siriSwitch = NO;
-NSString *hapticLevel = @"1";
+BOOL ccToggleSwitch = NO;
+BOOL folderSwitch = NO;
+BOOL openCloseAppSwitch = NO;
+BOOL pageSwipeSwitch = NO;
+NSString *hapticLevel = @"0";
 
 %group Rose
 
@@ -178,6 +183,67 @@ void triggerHapticFeedback() {
 }
 
 %end
+
+%hook CCUILabeledRoundButton
+
+-(void)buttonTapped:(id)arg1 {
+
+	%orig;
+
+	if (ccToggleSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBFolderController
+
+-(void)prepareToOpen {
+
+	%orig;
+
+	if (folderSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBIconController
+
+-(void)setIsEditing:(BOOL)arg1 {
+
+	%orig;
+
+	if (openCloseAppSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBFolderView
+
+-(void)scrollViewWillBeginDragging:(id)arg1 {
+
+	%orig;
+
+	if (pageSwipeSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
 %end // Rose group
 
 %ctor {
@@ -195,7 +261,11 @@ void triggerHapticFeedback() {
     [pfs registerBool:&pluggedSwitch default:NO forKey:@"ChargerPluggedInOrOut"];
     [pfs registerBool:&switcherSwitch default:NO forKey:@"AppSwitcherFeedback"];
     [pfs registerBool:&siriSwitch default:NO forKey:@"SiriUIFeedback"];
-    [pfs registerObject:&hapticLevel default:@"1" forKey:@"HapticStrength"];
+	[pfs registerBool:&ccToggleSwitch default:NO forKey:@"ControlCenterToggleFeedback"];
+	[pfs registerBool:&folderSwitch default:NO forKey:@"FolderFeedback"];
+	[pfs registerBool:&openCloseAppSwitch default:NO forKey:@"openCloseApp"];
+	[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
+    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 
     if(enabled)
     	%init(Rose);
