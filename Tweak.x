@@ -1,28 +1,4 @@
-#import <AudioToolbox/AudioServices.h>
-#import <Cephei/HBPreferences.h>
 #import <Rose.h>
-
-// Utils
-HBPreferences *pfs;
-
-// Preferences
-BOOL enabled = NO;
-BOOL respringSwitch = NO;
-BOOL unlockSwitch = NO;
-BOOL lockSwitch = NO;
-BOOL wakeSwitch = NO;
-BOOL volumeSwitch = NO;
-BOOL powerSwitch = NO;
-BOOL killingSwitch = NO;
-BOOL forceSwitch = NO;
-BOOL pluggedSwitch = NO;
-BOOL switcherSwitch = NO;
-BOOL siriSwitch = NO;
-BOOL ccToggleSwitch = NO;
-BOOL folderSwitch = NO;
-BOOL openCloseAppSwitch = NO;
-BOOL pageSwipeSwitch = NO;
-NSString *hapticLevel = @"0";
 
 %group Rose
 
@@ -45,6 +21,28 @@ void triggerHapticFeedback() {
 
 	if (respringSwitch)
 		triggerHapticFeedback();
+}
+
+-(void)_ringerChanged:(id)arg1 {
+
+	%orig;
+
+	if (ringerSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+-(void)takeScreenshotAndEdit:(BOOL)arg1 {
+
+	%orig;
+
+	if (screenshotSwitch) {
+		triggerHapticFeedback();
+
+	}
+	
 }
 
 %end
@@ -156,6 +154,17 @@ void triggerHapticFeedback() {
 
 }
 
+-(void)handleWillBeginReachabilityAnimation {
+
+	%orig;
+
+	if (reachabilitySwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
 %end
 
 %hook SBAppSwitcherPageView
@@ -244,7 +253,79 @@ void triggerHapticFeedback() {
 
 %end
 
+%hook SSScreenCapturer
+
++(void)playScreenshotSound {
+
+	%orig;
+
+	if (screenshotSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBUIPasscodeLockViewBase 
+
+-(void)_sendDelegateKeypadKeyDown {
+
+	%orig;
+
+	if (passcodeSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+-(void)setPlaysKeypadSounds:(BOOL)arg1 {
+
+	%orig;
+
+	if (passcodeSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end	
+
+%hook UIKeyboardLayoutStar
+
+-(void)playKeyClickSoundOnDownForKey:(UIKBTree *)key {
+	
+	%orig;
+
+	if (keyboardSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+-(void)setPlayKeyClickSoundOn:(int)arg1 {
+
+	UIKBTree *delKey = [%c(UIKBTree) key];
+	NSString *myDelKeyString = [delKey name];
+
+	%orig;
+
+
+	if (keyboardSwitch) {
+		triggerHapticFeedback();
+
+	}
+
+}
+
+%end
+
 %end // Rose group
+
 
 %ctor {
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
@@ -265,6 +346,11 @@ void triggerHapticFeedback() {
 	[pfs registerBool:&folderSwitch default:NO forKey:@"FolderFeedback"];
 	[pfs registerBool:&openCloseAppSwitch default:NO forKey:@"openCloseApp"];
 	[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
+	[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
+	[pfs registerBool:&passcodeSwitch default:NO forKey:@"enterPasscode"];
+	[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
+	[pfs registerBool:&ringerSwitch default:NO forKey:@"unmuting"];
+	[pfs registerBool:&reachabilitySwitch default:NO forKey:@"reachability"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 
     if(enabled)

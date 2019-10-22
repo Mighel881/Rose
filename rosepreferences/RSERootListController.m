@@ -8,7 +8,7 @@
     if (self) {
         RSEAppearanceSettings *appearanceSettings = [[RSEAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
-        self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"Respring" 
+        self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"ReSpring" 
                                     style:UIBarButtonItemStylePlain
                                     target:self 
                                     action:@selector(respring)];
@@ -124,7 +124,7 @@
 
 -(void)respring {
 	UIAlertController *respring = [UIAlertController alertControllerWithTitle:@"Rose"
-													 message:@"Are you sure you want respring?"
+													 message:@"ReSpringing is only required to enable/disable the tweak, haptic feedback enables/disables dynamically."
 													 preferredStyle:UIAlertControllerStyleAlert];
 	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
 			[self respringUtil];

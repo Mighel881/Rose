@@ -3,8 +3,8 @@ Name: Rose
 Depends: mobilesubstrate, ws.hbang.common
 Architecture: iphoneos-arm
 Description: Getting peeped by a Rose doesn't feel that good, Rosé changes that.
-Maintainer: ShyMemoriees & EsquilliDev
-Author: ShyMemoriees & EsquilliDev
+Maintainer: ShyMemoriees
+Author: ShyMemoriees
 Section: Tweaks
-Version: 2.1.1
+Version: 2.2
 Installed-Size: 676
