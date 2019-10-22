@@ -22,7 +22,7 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class CCUILabeledRoundButton; @class SBMainDisplaySceneManager; @class SBCoverSheetPrimarySlidingViewController; @class UIKBTree; @class SBAppSwitcherPageView; @class SBUIIconForceTouchController; @class SBPowerDownController; @class SBIconController; @class SBSleepWakeHardwareButtonInteraction; @class SBUIPasscodeLockViewBase; @class SBUIController; @class VolumeControl; @class SBFolderView; @class SpringBoard; @class UIKeyboardLayoutStar; @class SBFolderController; @class SSScreenCapturer; @class SiriUISiriStatusView; 
+@class SpringBoard; @class SBUIPasscodeLockViewBase; @class SBUIController; @class SBMainDisplaySceneManager; @class CCUILabeledRoundButton; @class SBFolderView; @class SBAppSwitcherPageView; @class SSScreenCapturer; @class VolumeControl; @class SBCoverSheetPrimarySlidingViewController; @class SBUIIconForceTouchController; @class SBPowerDownController; @class SiriUISiriStatusView; @class SBSleepWakeHardwareButtonInteraction; @class UIKeyboardLayoutStar; @class UIKBTree; @class SBFolderController; @class SBIconController; 
 
 static __inline__ __attribute__((always_inline)) __attribute__((unused)) Class _logos_static_class_lookup$UIKBTree(void) { static Class _klass; if(!_klass) { _klass = objc_getClass("UIKBTree"); } return _klass; }
 #line 3 "Tweak.x"
@@ -323,28 +323,32 @@ static void _logos_method$Rose$SBUIPasscodeLockViewBase$setPlaysKeypadSounds$(_L
 
 
 static void _logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, UIKBTree * key) {
-	
-	_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(self, _cmd, key);
 
 	if (keyboardSwitch) {
+		_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(self, _cmd, key);
 		triggerHapticFeedback();
 
+	}	
+	
+	else {
+		_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(self, _cmd, key);
 	}
-
 }
 
 static void _logos_method$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, int arg1) {
 
-	UIKBTree *delKey = [_logos_static_class_lookup$UIKBTree() key];
-	NSString *myDelKeyString = [delKey name];
-
-	_logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(self, _cmd, arg1);
-
-
 	if (keyboardSwitch) {
-		triggerHapticFeedback();
+	            UIKBTree *delKey = [_logos_static_class_lookup$UIKBTree() key];
+				NSString *myDelKeyString = [delKey name];
+
+		 if ([myDelKeyString isEqualToString:@"Delete-Key"]) {
+            
+		
+      } else {
+		  _logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(self, _cmd, arg1);
 
 	}
+}
 
 }
 
@@ -353,7 +357,7 @@ static void _logos_method$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(_LOG
  
 
 
-static __attribute__((constructor)) void _logosLocalCtor_bc09d24d(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_59a68cba(int __unused argc, char __unused **argv, char __unused **envp) {
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
 
     [pfs registerBool:&enabled default:NO forKey:@"Enabled"];

@@ -297,28 +297,32 @@ void triggerHapticFeedback() {
 %hook UIKeyboardLayoutStar
 
 -(void)playKeyClickSoundOnDownForKey:(UIKBTree *)key {
-	
-	%orig;
 
 	if (keyboardSwitch) {
+		%orig;
 		triggerHapticFeedback();
 
+	}	
+	
+	else {
+		%orig;
 	}
-
 }
 
 -(void)setPlayKeyClickSoundOn:(int)arg1 {
 
-	UIKBTree *delKey = [%c(UIKBTree) key];
-	NSString *myDelKeyString = [delKey name];
-
-	%orig;
-
-
 	if (keyboardSwitch) {
-		triggerHapticFeedback();
+	            UIKBTree *delKey = [%c(UIKBTree) key];
+				NSString *myDelKeyString = [delKey name];
+
+		 if ([myDelKeyString isEqualToString:@"Delete-Key"]) {
+            
+		
+      } else {
+		  %orig;
 
 	}
+}
 
 }
 
