@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<false/>
+			<true/>
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
@@ -331,6 +331,20 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
+			<string>iconTap</string>
+			<key>label</key>
+			<string>Only When Tapping Icon</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
 			<string>pageSwipe</string>
 			<key>label</key>
 			<string>Swiping To Next/Previous Page</string>
@@ -473,7 +487,71 @@
 			<key>key</key>
 			<string>sleepButton</string>
 			<key>label</key>
-			<string>Pressing Sleep Button</string>
+			<string>Pressing Only Sleep Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>homeButton</string>
+			<key>label</key>
+			<string>Pressing Home/Sleep Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>touches</string>
+			<key>label</key>
+			<string>Touching The Screen</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<!-- Warnings -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Warnings And Alerts</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>shutdownWarning</string>
+			<key>label</key>
+			<string>Show Shutdown Warning</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>featureWarning</string>
+			<key>label</key>
+			<string>Show Feature Warning If Needed</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -503,11 +581,11 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Github</string>
+			<string>Source Code</string>
 			<key>subtitle</key>
-			<string>My Github</string>
+			<string>Github</string>
 			<key>url</key>
-			<string>https://github.com/ShyMemoriees</string>
+			<string>https://github.com/ShyMemoriees/Rose</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -553,7 +631,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Provided Me Some Methods</string>
+			<string>Provided Me 4 Methods</string>
 		</dict>
 		<dict>
             <key>action</key>
@@ -568,6 +646,26 @@
             <string>iKilledAppl3</string>
             <key>user</key>
             <string>iKilledAppl3</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Taught Me Some Other Things</string>
+		</dict>
+		<dict>
+            <key>action</key>
+            <string>twitterartikus</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>@artikushg</string>
+            <key>cellClass</key>
+            <string>HBTwitterCell</string>
+            <key>label</key>
+            <string>ArtikusHG</string>
+            <key>user</key>
+            <string>artikushg</string>
         </dict>
 		<dict>
 			<key>cell</key>
