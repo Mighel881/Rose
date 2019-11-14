@@ -163,6 +163,32 @@ void triggerFeedback() {
 
 %end
 
+%hook SBVolumeControl
+
+- (void)increaseVolume {
+
+	%orig;
+	
+	if (enabled && volumeSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+- (void)decreaseVolume {
+
+	%orig;
+
+	if (enabled && volumeSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
 %hook SBPowerDownController
 
 - (void)orderFront {
@@ -246,6 +272,20 @@ void triggerFeedback() {
 
 	}
 
+}
+
+%end
+
+%hook SBPowerDownViewController
+
+-(void)viewWillAppear:(BOOL)arg1 {
+
+	%orig;
+
+	if (enabled && powerSwitch) {
+		triggerFeedback();
+
+	}
 }
 
 %end
@@ -411,6 +451,32 @@ void triggerFeedback() {
 
 %end
 
+%hook SBHIconManager
+
+- (void)iconTapped:(id)arg1 {
+
+	%orig;
+
+	if (enabled && iconTapSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)setEditing:(BOOL)arg1 {
+
+	%orig;
+
+	if (enabled && openCloseAppSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
 %hook SBFolderView
 
 - (void)scrollViewWillBeginDragging:(id)arg1 {
@@ -554,6 +620,25 @@ void triggerFeedback() {
 
 %end
 
+%hook SBDashBoardMesaUnlockBehavior
+
+-(void)setAuthenticated:(BOOL)arg1 {
+
+	%orig;
+
+    if (arg1) {
+
+		if (enabled && authenticationSwitch) {
+			triggerFeedback();
+
+		}
+
+	}
+
+}
+
+%end
+
 %hook SBBacklightController
 
 - (void)turnOnScreenFullyWithBacklightSource:(long long)source {
@@ -589,8 +674,18 @@ void triggerFeedback() {
 
 %end
 
-%end // Rose group
+%hook UIKBRenderConfig
 
+-(void)setLightKeyboard:(BOOL)arg1 {
+
+	arg1 = NO;
+
+}
+
+%end
+
+%end // Rose group
+ 
 %ctor {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);

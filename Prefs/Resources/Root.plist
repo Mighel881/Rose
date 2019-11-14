@@ -120,405 +120,73 @@
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<!-- Behaviors -->
+				<!-- Sub Menus -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback when...</string>
+			<string>Haptic Feedback Options</string>
 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>UnlockSwitch</string>
-			<key>label</key>
-			<string>Unlocked/NC</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Hardware Buttons</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>HardwareButtonsSub</string>
+ 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>LockSwitch</string>
-			<key>label</key>
-			<string>Locked</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Home-/Lockscreen</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>HomeLockScreenSub</string>
+ 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>VolumeChangedSwitch</string>
-			<key>label</key>
-			<string>Volume Changed</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Control Center</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>ControlCenterSub</string>
+ 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>ReSpringSwitch</string>
-			<key>label</key>
-			<string>ReSpringing</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Status Changes</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>StatusChangesSub</string>
+ 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>PowerDownViewSwitch</string>
-			<key>label</key>
-			<string>Entering Power Down View</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Other Hardware Actions</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>OtherHardwareActionsSub</string>
+ 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>KillingAppSwitch</string>
-			<key>label</key>
-			<string>Killing App</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>displayWake</string>
-			<key>label</key>
-			<string>Display Wakes</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>ForceTouchDismiss</string>
-			<key>label</key>
-			<string>3DTouch Action/Dismisses</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>ChargerPluggedInOrOut</string>
-			<key>label</key>
-			<string>Charger Plugged In/Out</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>AppSwitcherFeedback</string>
-			<key>label</key>
-			<string>App Switcher Is Used</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>SiriUIFeedback</string>
-			<key>label</key>
-			<string>Summoning Siri</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>ControlCenterToggleFeedback</string>
-			<key>label</key>
-			<string>Toggling CC Module</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>FolderFeedback</string>
-			<key>label</key>
-			<string>Opening/Closing Folder</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>openCloseApp</string>
-			<key>label</key>
-			<string>Open/Close App, CC, NC</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>iconTap</string>
-			<key>label</key>
-			<string>Only When Tapping Icon</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>pageSwipe</string>
-			<key>label</key>
-			<string>Swiping To Next/Previous Page</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>takeScreenshot</string>
-			<key>label</key>
-			<string>Taking Screenshot</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>enterPasscode</string>
-			<key>label</key>
-			<string>Entering Passcode</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>usingKeyboard</string>
-			<key>label</key>
-			<string>Using Keyboard - Typing</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>unmuting</string>
-			<key>label</key>
-			<string>Unmuting</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>reachability</string>
-			<key>label</key>
-			<string>Begin/End Reachability</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>textSelection</string>
-			<key>label</key>
-			<string>Using Text Selection</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>spotlight</string>
-			<key>label</key>
-			<string>Opening Spotlight Search</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>call</string>
-			<key>label</key>
-			<string>Call/FaceTime Status Changed</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>authentication</string>
-			<key>label</key>
-			<string>Authenticated With Touch/FaceID</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>sleepButton</string>
-			<key>label</key>
-			<string>Pressing Only Sleep Button</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>homeButton</string>
-			<key>label</key>
-			<string>Pressing Home/Sleep Button</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>touches</string>
-			<key>label</key>
-			<string>Touching The Screen</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Others</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>OthersSub</string>
+ 		</dict>
 
 		<!-- Warnings -->
 		<dict>
@@ -537,7 +205,7 @@
 			<key>key</key>
 			<string>shutdownWarning</string>
 			<key>label</key>
-			<string>Show Shutdown Warning</string>
+			<string>Show Shutdown Warning - iOS 12</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
