@@ -4,7 +4,7 @@ Haptic Feedback Tweak for iOS, trough iOS.
 
 ## Installation
 
-1. Add this repository to your Package Manager: https://repo.packix.com/ or https://repo.shymemoriees.me for Beta access
+1. Add this repository to your Package Manager: https://repo.shymemoriees.me
 2. Install Rose.
 
 ## Bugs
