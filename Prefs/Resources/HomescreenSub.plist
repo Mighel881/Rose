@@ -61,20 +61,6 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>SiriUIFeedback</string>
-			<key>label</key>
-			<string>Summoning Siri</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
 			<string>FolderFeedback</string>
 			<key>label</key>
 			<string>Opening/Closing Folder</string>
@@ -131,93 +117,9 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>takeScreenshot</string>
-			<key>label</key>
-			<string>Taking Screenshot</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>enterPasscode</string>
-			<key>label</key>
-			<string>Entering Passcode</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>usingKeyboard</string>
-			<key>label</key>
-			<string>Using Keyboard - Typing</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>reachability</string>
-			<key>label</key>
-			<string>Begin/End Reachability</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>textSelection</string>
-			<key>label</key>
-			<string>Using Text Selection</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
 			<string>spotlight</string>
 			<key>label</key>
 			<string>Opening Spotlight Search</string>
-			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
-			<key>key</key>
-			<string>PowerDownViewSwitch</string>
-			<key>label</key>
-			<string>Entering Power Down View</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>

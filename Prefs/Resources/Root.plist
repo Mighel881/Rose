@@ -4,7 +4,21 @@
 <dict>
 	<key>items</key>
 	<array>
-		<!-- Enable -->
+
+		<dict>
+            <key>action</key>
+            <string>twitterShy</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>@ShyMemoriees</string>
+            <key>cellClass</key>
+            <string>HBTwitterCell</string>
+            <key>label</key>
+            <string>ShyMemoriees</string>
+            <key>user</key>
+            <string>ShyMemoriees</string>
+        </dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -15,7 +29,7 @@
 			<key>key</key>
 			<string>Enabled</string>
 			<key>label</key>
-			<string>Enabled</string>
+			<string>Enabled (Respring required)</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -131,21 +145,41 @@
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Hardware Buttons</string>
+ 			<string>Homescreen</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>HardwareButtonsSub</string>
+ 			<string>HomescreenSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Home-/Lockscreen</string>
+ 			<string>Lockscreen</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>HomeLockScreenSub</string>
+ 			<string>LockscreenSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Anywhere</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>AnywhereSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Hardware Buttons</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>HardwareButtonsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -232,20 +266,6 @@
 			<string>Support Me</string>
 		</dict>
 		<dict>
-            <key>action</key>
-            <string>twitterShy</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@ShyMemoriees</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>ShyMemoriees</string>
-            <key>user</key>
-            <string>ShyMemoriees</string>
-        </dict>
-		<dict>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
@@ -260,10 +280,20 @@
 			<string>HBLinkTableCell</string>
 			<key>label</key>
 			<string>Found A Bug?</string>
-			<key>Leave A Github Issue Here</key>
-			<string>Github</string>
+			<key>subtitle</key>
+			<string>Leave A Bug Report Here</string>
 			<key>url</key>
 			<string>https://github.com/ShyMemoriees/Rose/issues/new</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Little Donation</string>
+			<key>subtitle</key>
+			<string>Helps Me To Pay For My Server</string>
+			<key>url</key>
+			<string>https://paypal.me/ShyMemoriees</string>
 		</dict>
 		<dict>
 			<key>cell</key>
