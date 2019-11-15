@@ -674,16 +674,6 @@ void triggerFeedback() {
 
 %end
 
-%hook UIKBRenderConfig
-
--(void)setLightKeyboard:(BOOL)arg1 {
-
-	arg1 = NO;
-
-}
-
-%end
-
 %end // Rose group
  
 %ctor {

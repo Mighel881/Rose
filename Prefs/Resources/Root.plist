@@ -256,6 +256,16 @@
 			<string>https://github.com/ShyMemoriees/Rose</string>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Found A Bug?</string>
+			<key>Leave A Github Issue Here</key>
+			<string>Github</string>
+			<key>url</key>
+			<string>https://github.com/ShyMemoriees/Rose/issues/new</string>
+		</dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
