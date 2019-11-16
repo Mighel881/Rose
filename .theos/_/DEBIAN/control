@@ -3,8 +3,11 @@ Name: Rose
 Depends: mobilesubstrate, ws.hbang.common (>= 1.11), com.spark.libpackageinfo (>= 1.1.4)
 Architecture: iphoneos-arm
 Description: Getting peeped by a Rose doesn't feel that good, Rose changes that
-Maintainer: ShyMemoriees
-Author: ShyMemoriees
+Maintainer: ShyMemoriees <shymemoriees@yahoo.com>
+Author: ShyMemoriees <shymemoriees@yahoo.com>
 Section: Tweaks
-Version: 3.0.2
-Installed-Size: 752
+Depiction: https://repo.shymemoriees.me/depictions/rsebeta/index.html
+SileoDepiction: https://repo.shymemoriees.me/depictions/rsebeta/rsebeta.json
+Icon: https://repo.shymemoriees.me/depictions/rsebeta/assets/icon.png
+Version: 3.1
+Installed-Size: 712

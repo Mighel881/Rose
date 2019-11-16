@@ -278,7 +278,7 @@ void triggerFeedback() {
 
 %hook SBPowerDownViewController
 
--(void)viewWillAppear:(BOOL)arg1 {
+- (void)viewWillAppear:(BOOL)arg1 {
 
 	%orig;
 
@@ -427,17 +427,6 @@ void triggerFeedback() {
 
 }
 
-- (void)setIsEditing:(BOOL)arg1 {
-
-	%orig;
-
-	if (enabled && openCloseAppSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
 - (void)iconTapped:(id)arg1 {
 
 	%orig;
@@ -458,17 +447,6 @@ void triggerFeedback() {
 	%orig;
 
 	if (enabled && iconTapSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
--(void)setEditing:(BOOL)arg1 {
-
-	%orig;
-
-	if (enabled && openCloseAppSwitch) {
 		triggerFeedback();
 
 	}
@@ -622,7 +600,7 @@ void triggerFeedback() {
 
 %hook SBDashBoardMesaUnlockBehavior
 
--(void)setAuthenticated:(BOOL)arg1 {
+- (void)setAuthenticated:(BOOL)arg1 {
 
 	%orig;
 
@@ -658,7 +636,7 @@ void triggerFeedback() {
 
 %hook UIWindow
 
--(BOOL)_shouldHitTestEntireScreen {
+- (BOOL)_shouldHitTestEntireScreen {
 
 	if (enabled && touchesSwitch) {
 		triggerFeedback();
@@ -667,6 +645,36 @@ void triggerFeedback() {
 
 	} else {
 		return %orig;
+
+	}
+
+}
+
+%end
+
+%hook SBControlCenterController
+
+- (void)_willPresent {
+
+	%orig;
+
+	if (enabled && openControlCenterSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook CCUIToggleViewController
+
+- (void)buttonTapped:(id)arg1 forEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && ccModuleSwitch) {
+		triggerFeedback();
 
 	}
 
@@ -701,7 +709,6 @@ void triggerFeedback() {
     [pfs registerBool:&siriSwitch default:NO forKey:@"SiriUIFeedback"];
 	[pfs registerBool:&ccToggleSwitch default:NO forKey:@"ControlCenterToggleFeedback"];
 	[pfs registerBool:&folderSwitch default:NO forKey:@"FolderFeedback"];
-	[pfs registerBool:&openCloseAppSwitch default:NO forKey:@"openCloseApp"];
 	[pfs registerBool:&iconTapSwitch default:NO forKey:@"iconTap"];
 	[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
 	[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
@@ -716,6 +723,8 @@ void triggerFeedback() {
 	[pfs registerBool:&sleepButtonSwitch default:NO forKey:@"sleepButton"];
 	[pfs registerBool:&homeButtonSwitch default:NO forKey:@"homeButton"];
 	[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
+	[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
+	[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];

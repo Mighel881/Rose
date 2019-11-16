@@ -22,7 +22,6 @@ BOOL switcherSwitch = NO;
 BOOL siriSwitch = NO;
 BOOL ccToggleSwitch = NO;
 BOOL folderSwitch = NO;
-BOOL openCloseAppSwitch = NO;
 BOOL iconTapSwitch = NO;
 BOOL pageSwipeSwitch = NO;
 BOOL screenshotSwitch = NO;
@@ -37,6 +36,8 @@ BOOL authenticationSwitch = NO;
 BOOL sleepButtonSwitch = NO;
 BOOL homeButtonSwitch = NO;
 BOOL touchesSwitch = NO;
+BOOL openControlCenterSwitch = NO;
+BOOL ccModuleSwitch = NO;
 BOOL shutdownWarningSwitch = YES;
 BOOL featureWarningSwitch = YES;
 
