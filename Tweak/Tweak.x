@@ -681,6 +681,263 @@ void triggerFeedback() {
 }
 
 %end
+// Spotify
+%hook SPTNowPlayingPlayButtonV2
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTplayButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingPreviousTrackButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTpreviousTrackButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingNextTrackButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTnextTrackButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingRepeatButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTrepeatButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingShuffleButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTshuffleButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingQueueButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTqueueButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingFreeTierFeedbackButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTfreeTierButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingSliderV2
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTsliderSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTGaiaDevicesAvailableViewImplementation
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTavailableDevicesButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingMarqueeLabel
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SPTnowPlayingLabelSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+// Instagram
+%hook IGUFIButtonBarView
+
+-(void)_onLikeButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGlikeButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onCommentButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGcommentButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onExternalShareButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGshareButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onRelatedPostsButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGrelatedPostsButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onReplyButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGreplyButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onSaveButtonLongPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGsaveButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onSaveButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGsaveButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+-(void)_onSendButtonPressed:(id)arg1 {
+
+	%orig;
+
+	if (enabled && ITGsendButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+// TikTok
+%hook AWEFeedVideoButton
+
+-(void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && TTlikeCommentShareButtonsSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
 
 %end // Rose group
  
@@ -725,6 +982,28 @@ void triggerFeedback() {
 	[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
 	[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
 	[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
+	// Spotify
+	[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
+	[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
+	[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
+	[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
+	[pfs registerBool:&SPTshuffleButtonSwitch default:NO forKey:@"SPTshuffleButton"];
+	[pfs registerBool:&SPTqueueButtonSwitch default:NO forKey:@"SPTqueueButton"];
+	[pfs registerBool:&SPTsliderSwitch default:NO forKey:@"SPTslider"];
+	[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
+	[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
+	[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
+	// Instagram
+	[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
+	[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
+	[pfs registerBool:&ITGshareButtonSwitch default:NO forKey:@"ITGshareButton"];
+	[pfs registerBool:&ITGrelatedPostsButtonSwitch default:NO forKey:@"ITGrelatedButton"];
+	[pfs registerBool:&ITGreplyButtonSwitch default:NO forKey:@"ITGreplyButton"];
+	[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
+	[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
+	// TikTok
+	[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
+
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];

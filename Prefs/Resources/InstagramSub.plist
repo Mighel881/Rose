@@ -19,9 +19,9 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>UnlockSwitch</string>
+			<string>ITGlikeButton</string>
 			<key>label</key>
-			<string>Unlocked/NC</string>
+			<string>Tapping Like Button</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -33,9 +33,9 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>LockSwitch</string>
+			<string>ITGcommentButton</string>
 			<key>label</key>
-			<string>Locked</string>
+			<string>Tapping Comment Button</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -47,9 +47,9 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>authentication</string>
+			<string>ITGshareButton</string>
 			<key>label</key>
-			<string>Authenticated With Touch/FaceID</string>
+			<string>Tapping Share Button</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -61,9 +61,51 @@
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
-			<string>call</string>
+			<string>ITGrelatedPostsButton</string>
 			<key>label</key>
-			<string>Call Connects/Disconnects</string>
+			<string>Tapping Related Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>ITGreplyButton</string>
+			<key>label</key>
+			<string>Tapping Reply Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>ITGsaveButton</string>
+			<key>label</key>
+			<string>Tapping Save Button</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>key</key>
+			<string>ITGsendButton</string>
+			<key>label</key>
+			<string>Tapping Send Button</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>

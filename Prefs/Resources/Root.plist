@@ -221,6 +221,16 @@
  			<key>RSESub</key>
  			<string>OthersSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Applications</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>ApplicationsSub</string>
+ 		</dict>
 
 		<!-- Warnings -->
 		<dict>
@@ -269,17 +279,7 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Found A Bug?</string>
-			<key>subtitle</key>
-			<string>Leave A Bug Report Here</string>
-			<key>url</key>
-			<string>https://github.com/ShyMemoriees/Rose/issues/new</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
-			<string>Little Donation</string>
+			<string>Little Donation 🌺</string>
 			<key>subtitle</key>
 			<string>Helps Me To Pay For My Server</string>
 			<key>url</key>
@@ -289,7 +289,7 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Feature Request?</string>
+			<string>Feature Request? ✨</string>
 			<key>subtitle</key>
 			<string>Send Me An Email With Your Request</string>
 			<key>url</key>
@@ -299,11 +299,21 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Source Code</string>
+			<string>Source Code 🌙</string>
 			<key>subtitle</key>
 			<string>Github</string>
 			<key>url</key>
 			<string>https://github.com/ShyMemoriees/Rose</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Found A Bug? 🌧</string>
+			<key>subtitle</key>
+			<string>Leave A Bug Report Here</string>
+			<key>url</key>
+			<string>https://github.com/ShyMemoriees/Rose/issues/new</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -389,7 +399,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Made With ❤️</string>
+			<string>Rose By ShyMemoriees, Made With ❤️</string>
 		</dict>
 	</array>
 	<key>title</key>

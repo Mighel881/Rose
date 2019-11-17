@@ -41,6 +41,30 @@ BOOL ccModuleSwitch = NO;
 BOOL shutdownWarningSwitch = YES;
 BOOL featureWarningSwitch = YES;
 
+// Spotify
+BOOL SPTplayButtonSwitch = NO;
+BOOL SPTpreviousTrackButtonSwitch = NO;
+BOOL SPTnextTrackButtonSwitch = NO;
+BOOL SPTrepeatButtonSwitch = NO;
+BOOL SPTshuffleButtonSwitch = NO;
+BOOL SPTqueueButtonSwitch = NO;
+BOOL SPTsliderSwitch = NO;
+BOOL SPTfreeTierButtonSwitch = NO;
+BOOL SPTavailableDevicesButtonSwitch = NO;
+BOOL SPTnowPlayingLabelSwitch = NO;
+
+// Instagram
+BOOL ITGlikeButtonSwitch = NO;
+BOOL ITGcommentButtonSwitch = NO;
+BOOL ITGshareButtonSwitch = NO;
+BOOL ITGrelatedPostsButtonSwitch = NO;
+BOOL ITGreplyButtonSwitch = NO;
+BOOL ITGsaveButtonSwitch = NO;
+BOOL ITGsendButtonSwitch = NO;
+
+// TikTok
+BOOL TTlikeCommentShareButtonsSwitch = NO;
+
 NSString *hapticLevel = @"0";
 NSString *tapticLevel = @"0";
 

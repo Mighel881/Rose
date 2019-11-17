@@ -49,7 +49,7 @@
 			<key>key</key>
 			<string>usingKeyboard</string>
 			<key>label</key>
-			<string>Using Keyboard - Typing</string>
+			<string>Typing</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
