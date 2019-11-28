@@ -51,6 +51,26 @@
  			<key>RSEApplicationsSub</key>
  			<string>TwitterSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Safari</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>SafariSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Phone</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>PhoneSub</string>
+ 		</dict>
 
 	</array>
 	<key>title</key>

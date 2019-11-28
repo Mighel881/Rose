@@ -70,6 +70,15 @@ BOOL TWTdirectMessagesTapSwitch = NO;
 BOOL TWTactivityTapSwitch = NO;
 BOOL TWTtweetButtonSwitch = NO;
 
+// Safari
+BOOL SFUrlSwitch = NO;
+
+// Phone
+BOOL PHNumberPadSwitch = NO;
+BOOL PHContactCellSwitch = NO;
+BOOL PHDialerDeleteButtonSwitch = NO;
+BOOL PHDialerCallButtonSwitch = NO;
+
 NSString *hapticLevel = @"0";
 NSString *tapticLevel = @"0";
 NSString *delayLevel = @"0";

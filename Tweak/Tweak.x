@@ -25,6 +25,8 @@ void prepareForHaptic() {
 	}
 
 	if (enableTapticEngineSwitch) {
+		[gen prepare];
+
 		if (tapticStrength == 0) {
 			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
 
@@ -432,7 +434,7 @@ if (enabled && delaySwitch) {
 
 	if (enabled && touchesSwitch && featureWarningSwitch) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Please consider to not using the 'feedback on every touch' feature too often, because it could harm your Haptic/Taptic Engine. It's not my fault if something happens.\n[This alert can be turned off in Rose's settings]"
+		message:@"Please consider to not using the 'feedback on every touch' feature too often, because it could harm your Haptic/Taptic Engine with very long usage. It's not my fault if something happens.\n[This alert can be turned off in Rose's settings]"
 		preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Understood" style:UIAlertActionStyleCancel handler:nil];
@@ -544,6 +546,9 @@ if (enabled && delaySwitch) {
 		  %orig;
 
 	}
+} else {
+	%orig;
+
 }
 
 }
@@ -998,6 +1003,81 @@ if (enabled && delaySwitch) {
 }
 
 %end
+// Safari
+%hook _SFNavigationBarURLButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && SFUrlSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+// Phone
+%hook PHHandsetDialerNumberPadButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && PHNumberPadSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook CNContactListTableViewCell
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && PHContactCellSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook PHHandsetDialerDeleteButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && PHDialerDeleteButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook PHBottomBarButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && PHDialerCallButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
 
 %end // Rose group
  
@@ -1066,6 +1146,13 @@ if (enabled && delaySwitch) {
 	[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
 	[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
 	[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
+	// Safari
+	[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
+	// Phone
+	[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
+	[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
+	[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
+	[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
 
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
