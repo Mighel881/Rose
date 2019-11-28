@@ -852,7 +852,7 @@ if (enabled && delaySwitch) {
 // Instagram
 %hook IGUFIButtonBarView
 
--(void)_onLikeButtonPressed:(id)arg1 {
+- (void)_onLikeButtonPressed:(id)arg1 {
 
 	%orig;
 
@@ -863,7 +863,7 @@ if (enabled && delaySwitch) {
 
 }
 
--(void)_onCommentButtonPressed:(id)arg1 {
+- (void)_onCommentButtonPressed:(id)arg1 {
 
 	%orig;
 
@@ -874,40 +874,7 @@ if (enabled && delaySwitch) {
 
 }
 
--(void)_onExternalShareButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (enabled && ITGshareButtonSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
--(void)_onRelatedPostsButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (enabled && ITGrelatedPostsButtonSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
--(void)_onReplyButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (enabled && ITGreplyButtonSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
--(void)_onSaveButtonLongPressed:(id)arg1 {
+- (void)_onSaveButtonLongPressed:(id)arg1 {
 
 	%orig;
 
@@ -918,7 +885,7 @@ if (enabled && delaySwitch) {
 
 }
 
--(void)_onSaveButtonPressed:(id)arg1 {
+- (void)_onSaveButtonPressed:(id)arg1 {
 
 	%orig;
 
@@ -929,7 +896,7 @@ if (enabled && delaySwitch) {
 
 }
 
--(void)_onSendButtonPressed:(id)arg1 {
+- (void)_onSendButtonPressed:(id)arg1 {
 
 	%orig;
 
@@ -937,7 +904,7 @@ if (enabled && delaySwitch) {
 		triggerFeedback();
 
 	}
-
+	
 }
 
 %end
@@ -1089,9 +1056,6 @@ if (enabled && delaySwitch) {
 	// Instagram
 	[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
 	[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
-	[pfs registerBool:&ITGshareButtonSwitch default:NO forKey:@"ITGshareButton"];
-	[pfs registerBool:&ITGrelatedPostsButtonSwitch default:NO forKey:@"ITGrelatedButton"];
-	[pfs registerBool:&ITGreplyButtonSwitch default:NO forKey:@"ITGreplyButton"];
 	[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
 	[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
 	// TikTok

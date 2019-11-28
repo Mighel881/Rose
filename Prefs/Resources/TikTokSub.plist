@@ -21,7 +21,7 @@
 			<key>key</key>
 			<string>TTlikeCommentShareButtons</string>
 			<key>label</key>
-			<string>Tapping Side Buttons</string>
+			<string>Tapping Like, Comment Or Share</string>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>

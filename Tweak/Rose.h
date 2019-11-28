@@ -57,9 +57,6 @@ BOOL SPTnowPlayingLabelSwitch = NO;
 // Instagram
 BOOL ITGlikeButtonSwitch = NO;
 BOOL ITGcommentButtonSwitch = NO;
-BOOL ITGshareButtonSwitch = NO;
-BOOL ITGrelatedPostsButtonSwitch = NO;
-BOOL ITGreplyButtonSwitch = NO;
 BOOL ITGsaveButtonSwitch = NO;
 BOOL ITGsendButtonSwitch = NO;
 
