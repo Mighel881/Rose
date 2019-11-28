@@ -41,6 +41,16 @@
  			<key>RSEApplicationsSub</key>
  			<string>TikTokSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Twitter</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>TwitterSub</string>
+ 		</dict>
 
 	</array>
 	<key>title</key>

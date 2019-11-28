@@ -1,7 +1,7 @@
 #import "../RoseCommon.h"
 #import "Rose.h"
 
-void triggerFeedback() {
+void prepareForHaptic() {
 
     int hapticStrength = [hapticLevel intValue];
 	int tapticStrength = [tapticLevel intValue];
@@ -43,6 +43,24 @@ void triggerFeedback() {
 		}
 
 		[gen impactOccurred];
+
+	}
+
+}
+
+void triggerFeedback() {
+
+if (enabled && delaySwitch) {
+		int delay = [delayLevel intValue];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+			prepareForHaptic();
+
+		});
+
+	} else if (enabled && (!delaySwitch)) {
+		prepareForHaptic();
 
 	}
 
@@ -938,6 +956,81 @@ void triggerFeedback() {
 }
 
 %end
+// Twitter
+%hook TFNCustomTabBar
+
+- (void)tap:(id)arg1 {
+
+	%orig;
+
+	if (enabled && TWTtabBarSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook T1StandardStatusView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && TWTtweetViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook T1DirectMessageInboxSummaryView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && TWTdirectMessagesTapSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook T1ActivityCell
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && TWTactivityTapSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook TFNFloatingActionButton
+
+- (void)_tfn_expandingButtonAction:(id)arg1 {
+
+	%orig;
+
+	if (enabled && TWTtweetButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
 
 %end // Rose group
  
@@ -1003,11 +1096,19 @@ void triggerFeedback() {
 	[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
 	// TikTok
 	[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
+	// Twitter
+	[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
+	[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
+	[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
+	[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
+	[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
 
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
+	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
+	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
 
     if(enabled)
     	%init(Rose);

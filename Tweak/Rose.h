@@ -9,6 +9,7 @@ HBPreferences *pfs;
 BOOL enabled = YES;
 BOOL enableHapticEngineSwitch = NO;
 BOOL enableTapticEngineSwitch = NO;
+BOOL delaySwitch = NO;
 BOOL respringSwitch = NO;
 BOOL unlockSwitch = NO;
 BOOL lockSwitch = NO;
@@ -65,8 +66,16 @@ BOOL ITGsendButtonSwitch = NO;
 // TikTok
 BOOL TTlikeCommentShareButtonsSwitch = NO;
 
+// Twitter
+BOOL TWTtabBarSwitch = NO;
+BOOL TWTtweetViewSwitch = NO;
+BOOL TWTdirectMessagesTapSwitch = NO;
+BOOL TWTactivityTapSwitch = NO;
+BOOL TWTtweetButtonSwitch = NO;
+
 NSString *hapticLevel = @"0";
 NSString *tapticLevel = @"0";
+NSString *delayLevel = @"0";
 
 UIImpactFeedbackGenerator *gen;
 
