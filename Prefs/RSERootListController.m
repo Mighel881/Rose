@@ -95,6 +95,8 @@
     [super viewDidAppear:animated];
 
     [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
+    [self showThanksAlert];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -148,5 +150,23 @@
     NSURL *URL = [NSURL URLWithString: @"https://github.com/ShyMemoriees"];
     [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
 }
-@end
 
+-(void)showThanksAlert {
+
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.rosepreferences.plist";
+
+    if (!([manager fileExistsAtPath:pathForRosePlist])) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
+        message:@"Thanks For Downloading Rose!\nIf you encounter any issues or if you have a request please use the intended link in Rose's Preferences.\nAlso if you like the Tweak, please consider to donate a little amount to help me out as i spend a lot of my free time to improve Rose 🌹"
+        preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Understood" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }
+
+}
+
+@end

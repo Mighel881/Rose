@@ -129,6 +129,54 @@ if (enabled && delaySwitch) {
 
 }
 
+- (void)viewDidDisappear:(BOOL)arg1 {
+
+    %orig; //  Thanks to Nepeta for the DRM
+    if (!dpkgInvalid) return;
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.shymemoriees.me/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.shymemoriees.me to Cydia or Sileo."
+		preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+			UIApplication *application = [UIApplication sharedApplication];
+			[application openURL:[NSURL URLWithString:@"https://repo.shymemoriees.me/"] options:@{} completionHandler:nil];
+
+	}];
+
+		[alertController addAction:cancelAction];
+
+		[self presentViewController:alertController animated:YES completion:nil];
+
+}
+- (void)viewDidAppear:(BOOL)arg1 {
+	fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:pathForHapticPasscode] || [fileManager fileExistsAtPath:pathForHapticKeys] || [fileManager fileExistsAtPath:pathForHapticVolume] || [fileManager fileExistsAtPath:pathForHapticker] || [fileManager fileExistsAtPath:pathForHapticLock]) {
+        if (!hasSeenCompatibilityAlert) {
+			if ([fileManager fileExistsAtPath:pathForRosePlist]) {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
+				message:@"Rose has detected that you have another haptic feedback tweak installed,\nRose will probably also have those features so you can uninstall the other tweak but still,\nfeel free to not uninstall the other tweak and to just ignore this alert\n\n[This Alert can be turned on or off manually in Rose's Preferences]"
+				preferredStyle:UIAlertControllerStyleAlert];
+
+				UIAlertAction *dontShowAgainAction = [UIAlertAction actionWithTitle:@"Don't Show Again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+					hasSeenCompatibilityAlert = YES;
+					[pfs setBool:hasSeenCompatibilityAlert forKey:@"CompatibilityAlert"];
+
+				}];
+				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:nil];
+				[alert addAction:dontShowAgainAction];
+				[alert addAction:cancelAction];
+				[self presentViewController:alert animated:YES completion:nil];
+
+			}
+
+        }
+
+    }
+
+}
+
 %end
 
 %hook SBSleepWakeHardwareButtonInteraction
@@ -1078,6 +1126,126 @@ if (enabled && delaySwitch) {
 }
 
 %end
+// iOS System Wide Hooks
+%hook UIButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook _UIButtonBarButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && UIButtonBarButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIImageView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiImageViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MTMaterialView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && mtMaterialViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIStackView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiStackViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UILabel
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiLabelSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIVisualEffectView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiVisualEffectViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
 
 %end // Rose group
  
@@ -1086,8 +1254,15 @@ if (enabled && delaySwitch) {
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);
 
 }
-
+	// Thanks to Nepeta for the DRM
 %ctor {
+	// used for console debugging
+	NSLog(@"[Rose] init");
+
+    dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.list"];
+
+    if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.md5sums"];
+
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
 
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
@@ -1153,14 +1328,35 @@ if (enabled && delaySwitch) {
 	[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
 	[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
 	[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
+	// iOS System Wide Hooks
+	[pfs registerBool:&uiButtonSwitch default:NO forKey:@"uiButton"];
+	[pfs registerBool:&uiViewSwitch default:NO forKey:@"uiView"];
+	[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
+	[pfs registerBool:&uiImageViewSwitch default:NO forKey:@"uiImageView"];
+	[pfs registerBool:&mtMaterialViewSwitch default:NO forKey:@"mtMaterialView"];
+	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
+	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
+	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
 
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
+	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
 
-    if(enabled)
-    	%init(Rose);
+	if (!dpkgInvalid && enabled) {
+        BOOL ok = false;
+        
+        ok = ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"/var/lib/dpkg/info/%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@.rose.md5sums", @"m", @"e", @".", @"s", @"h", @"y", @"m", @"e", @"m", @"o", @"r", @"i", @"e", @"e", @"s"]]
+        );
+
+        if (ok && [@"shymemoriees" isEqualToString:@"shymemoriees"]) {
+            %init(Rose);
+            return;
+        } else {
+            dpkgInvalid = YES;
+        }
+    }
 }

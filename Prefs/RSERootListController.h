@@ -20,4 +20,6 @@
 
 -(void)respring;
 -(void)respringUtil;
+-(void)showThanksAlert;
+
 @end

@@ -231,6 +231,16 @@
  			<key>RSESub</key>
  			<string>ApplicationsSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>iOS System Wide Hooks</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>iOSSystemWideHooksSub</string>
+ 		</dict>
 
 		<dict>
 			<key>cell</key>

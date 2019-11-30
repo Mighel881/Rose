@@ -5,6 +5,9 @@
 // Utils
 HBPreferences *pfs;
 
+// Thanks to Nepeta for the DRM
+BOOL dpkgInvalid = NO;
+
 // Preferences
 BOOL enabled = YES;
 BOOL enableHapticEngineSwitch = NO;
@@ -79,6 +82,16 @@ BOOL PHContactCellSwitch = NO;
 BOOL PHDialerDeleteButtonSwitch = NO;
 BOOL PHDialerCallButtonSwitch = NO;
 
+// iOS System Wide
+BOOL uiButtonSwitch = NO;
+BOOL uiViewSwitch= NO;
+BOOL UIButtonBarButtonSwitch = NO;
+BOOL uiImageViewSwitch = NO;
+BOOL mtMaterialViewSwitch = NO;
+BOOL uiStackViewSwitch = NO;
+BOOL uiLabelSwitch = NO;
+BOOL uiVisualEffectViewSwitch = NO;
+
 NSString *hapticLevel = @"0";
 NSString *tapticLevel = @"0";
 NSString *delayLevel = @"0";
@@ -91,6 +104,15 @@ UIApplication *application;
 NSString *pathForiCleaner = @"/Applications/iCleaner.app";
 NSString *pathForCydia = @"/Applications/Cydia.app";
 NSString *pathForSileo = @"/Applications/Sileo.app";
+
+BOOL hasSeenCompatibilityAlert = NO;
+NSString *pathForHapticPasscode = @"/Library/MobileSubstrate/DynamicLibraries/HapticPasscode.dylib";
+NSString *pathForHapticKeys = @"/Library/MobileSubstrate/DynamicLibraries/HapticKeys.dylib";
+NSString *pathForHapticVolume = @"/Library/MobileSubstrate/DynamicLibraries/HapticVolume.dylib";
+NSString *pathForHapticker = @"/Library/MobileSubstrate/DynamicLibraries/Hapticker.dylib";
+NSString *pathForHapticLock = @"/Library/MobileSubstrate/DynamicLibraries/HapticLock.dylib";
+
+NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.rosepreferences.plist";
 
 @interface UIKBTree : NSObject
 @property (nonatomic, strong, readwrite) NSString * name;
@@ -109,4 +131,9 @@ NSString *pathForSileo = @"/Applications/Sileo.app";
 
 @interface SBIconController : UIViewController
 - (void)viewDidAppear:(BOOL)animated;
+@end
+
+@interface SBCoverSheetPrimarySlidingViewController : UIViewController
+- (void)viewDidDisappear:(BOOL)arg1;
+- (void)viewDidAppear:(BOOL)arg1;
 @end
