@@ -9,5 +9,5 @@ Section: Tweaks
 Depiction: https://repo.shymemoriees.me/depictions/rsebeta/index.html
 SileoDepiction: https://repo.shymemoriees.me/depictions/rsebeta/rsebeta.json
 Icon: https://repo.shymemoriees.me/depictions/rsebeta/assets/icon.png
-Version: 3.5.2
-Installed-Size: 784
+Version: 3.6-1+debug
+Installed-Size: 892
