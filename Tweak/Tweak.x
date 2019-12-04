@@ -52,7 +52,7 @@ void prepareForHaptic() {
 
 void triggerFeedback() {
 
-	if (enabled && (!LowPowerModeSwitch)) {
+	if (enabled && (!LowPowerMode)) {
 		if (enabled && delaySwitch) {
 			int delay = [delayLevel intValue];
 			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
