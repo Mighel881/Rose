@@ -2,6 +2,8 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 // Utils
 HBPreferences *pfs;
 
@@ -92,6 +94,9 @@ BOOL uiStackViewSwitch = NO;
 BOOL uiLabelSwitch = NO;
 BOOL uiVisualEffectViewSwitch = NO;
 
+BOOL LowPowerMode;
+BOOL LowPowerModeSwitch = NO;
+
 NSString *hapticLevel = @"0";
 NSString *tapticLevel = @"0";
 NSString *delayLevel = @"0";
@@ -114,6 +119,8 @@ NSString *pathForHapticLock = @"/Library/MobileSubstrate/DynamicLibraries/Haptic
 
 NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.rosepreferences.plist";
 
+BOOL hasSeeniOSAlert = NO;
+
 @interface UIKBTree : NSObject
 @property (nonatomic, strong, readwrite) NSString * name;
 + (id)sharedInstance;
@@ -127,6 +134,11 @@ NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.r
 
 @interface SBPowerDownController : UIViewController
 - (void)cancel;
+@end
+
+@interface SBPowerDownViewController : UIViewController
+- (void)cancel;
+- (void)viewWillAppear:(BOOL)arg1;
 @end
 
 @interface SBIconController : UIViewController

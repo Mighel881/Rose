@@ -52,17 +52,20 @@ void prepareForHaptic() {
 
 void triggerFeedback() {
 
-if (enabled && delaySwitch) {
-		int delay = [delayLevel intValue];
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+	if (enabled && (!LowPowerModeSwitch)) {
+		if (enabled && delaySwitch) {
+			int delay = [delayLevel intValue];
+			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-			prepareForHaptic();
+				prepareForHaptic();
 
-		});
+			});
 
-	} else if (enabled && (!delaySwitch)) {
+	} else if (enabled && !(delaySwitch)) {
 		prepareForHaptic();
+
+	}
 
 	}
 
@@ -150,6 +153,7 @@ if (enabled && delaySwitch) {
 
 }
 - (void)viewDidAppear:(BOOL)arg1 {
+
 	fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:pathForHapticPasscode] || [fileManager fileExistsAtPath:pathForHapticKeys] || [fileManager fileExistsAtPath:pathForHapticVolume] || [fileManager fileExistsAtPath:pathForHapticker] || [fileManager fileExistsAtPath:pathForHapticLock]) {
         if (!hasSeenCompatibilityAlert) {
@@ -165,6 +169,31 @@ if (enabled && delaySwitch) {
 
 				}];
 				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:nil];
+				[alert addAction:dontShowAgainAction];
+				[alert addAction:cancelAction];
+				[self presentViewController:alert animated:YES completion:nil];
+
+			}
+
+        }
+
+    }
+
+    if (SYSTEM_VERSION_LESS_THAN(@"13.0")) {
+        if ([fileManager fileExistsAtPath:pathForRosePlist]) {
+			if (!hasSeeniOSAlert) {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose - Notice!"
+				message:@"Rose has detected that you're on iOS 12.x means Soft and Rigid Mode for your haptic strength are NOT available as it's only availble on iOS 13! Please use one of the other options, enjoy 💖"
+				preferredStyle:UIAlertControllerStyleAlert];
+
+				UIAlertAction *dontShowAgainAction = [UIAlertAction actionWithTitle:@"Don't Show Again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+					hasSeeniOSAlert = YES;
+					[pfs setBool:hasSeeniOSAlert forKey:@"iOSAlert"];
+
+				}];
+
+				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleCancel handler:nil];
 				[alert addAction:dontShowAgainAction];
 				[alert addAction:cancelAction];
 				[self presentViewController:alert animated:YES completion:nil];
@@ -354,6 +383,7 @@ if (enabled && delaySwitch) {
 		triggerFeedback();
 
 	}
+
 }
 
 %end
@@ -1247,6 +1277,18 @@ if (enabled && delaySwitch) {
 
 %end
 
+%hook NSProcessInfo
+
+-(BOOL)isLowPowerModeEnabled {
+
+	LowPowerMode = %orig;
+
+	return %orig;
+
+}
+
+%end
+
 %end // Rose group
  
 %ctor {
@@ -1256,15 +1298,13 @@ if (enabled && delaySwitch) {
 }
 	// Thanks to Nepeta for the DRM
 %ctor {
-	// used for console debugging
-	NSLog(@"[Rose] init");
 
     dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.list"];
 
     if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.md5sums"];
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
-
+	// Option Switches
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
@@ -1337,14 +1377,19 @@ if (enabled && delaySwitch) {
 	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
 	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
 	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
-
+	// Warnings
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
+	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
+	// Segmented Controls For Feedback Strength
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
+	// Delay Slider And Switch
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
+	// Low Power Mode
+	[pfs registerBool:&LowPowerMode default:NO forKey:@"LowPowerModeSwitch"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

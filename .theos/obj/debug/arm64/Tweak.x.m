@@ -53,7 +53,7 @@ void prepareForHaptic() {
 
 void triggerFeedback() {
 
-if (enabled && delaySwitch) {
+		if (enabled && delaySwitch) {
 		int delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -62,7 +62,7 @@ if (enabled && delaySwitch) {
 
 		});
 
-	} else if (enabled && (!delaySwitch)) {
+	} else if (enabled && !(delaySwitch)) {
 		prepareForHaptic();
 
 	}
@@ -90,7 +90,7 @@ if (enabled && delaySwitch) {
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBDashBoardMesaUnlockBehavior; @class AWEFeedVideoButton; @class SBIconController; @class UIKBTree; @class PHHandsetDialerNumberPadButton; @class UIView; @class TFNFloatingActionButton; @class SBAppSwitcherPageView; @class SBVolumeControl; @class SBMainDisplaySceneManager; @class SPTNowPlayingShuffleButton; @class UIButton; @class PHHandsetDialerDeleteButton; @class T1StandardStatusView; @class SBUIIconForceTouchController; @class T1DirectMessageInboxSummaryView; @class SPTNowPlayingQueueButton; @class SPTNowPlayingSliderV2; @class TFNCustomTabBar; @class IGUFIButtonBarView; @class _SFNavigationBarURLButton; @class ICSApplicationDelegate; @class SPTNowPlayingRepeatButton; @class SBDashBoardViewController; @class MTMaterialView; @class PHBottomBarButton; @class SBPowerDownController; @class UIVisualEffectView; @class SBFolderController; @class UIWindow; @class UIImageView; @class SPTNowPlayingMarqueeLabel; @class VolumeControl; @class CCUIToggleViewController; @class CNContactListTableViewCell; @class SBFolderView; @class SBUIController; @class SpringBoard; @class UIStackView; @class UILabel; @class SBUIPasscodeLockViewBase; @class SSScreenCapturer; @class SBSleepWakeHardwareButtonInteraction; @class _UIButtonBarButton; @class SBHIconManager; @class SPTGaiaDevicesAvailableViewImplementation; @class SPTNowPlayingNextTrackButton; @class SiriUISiriStatusView; @class SBCoverSheetPrimarySlidingViewController; @class SBSearchScrollView; @class SPTNowPlayingFreeTierFeedbackButton; @class SBPowerDownViewController; @class CCUILabeledRoundButton; @class T1ActivityCell; @class SBControlCenterController; @class SPTNowPlayingPreviousTrackButton; @class SBBacklightController; @class UIKeyboardLayoutStar; @class UICalloutBar; @class SPTNowPlayingPlayButtonV2; 
+@class SBUIController; @class CCUILabeledRoundButton; @class UIWindow; @class AWEFeedVideoButton; @class SBDashBoardViewController; @class IGUFIButtonBarView; @class T1ActivityCell; @class SBBacklightController; @class _UIButtonBarButton; @class SBAppSwitcherPageView; @class CCUIToggleViewController; @class SPTNowPlayingRepeatButton; @class PHHandsetDialerDeleteButton; @class SBVolumeControl; @class PHHandsetDialerNumberPadButton; @class UICalloutBar; @class SPTNowPlayingSliderV2; @class SpringBoard; @class SBUIPasscodeLockViewBase; @class UIStackView; @class SPTNowPlayingShuffleButton; @class PHBottomBarButton; @class T1StandardStatusView; @class UIButton; @class SPTNowPlayingMarqueeLabel; @class SBCoverSheetPrimarySlidingViewController; @class SBPowerDownViewController; @class SPTNowPlayingPreviousTrackButton; @class SBHIconManager; @class UIKeyboardLayoutStar; @class SiriUISiriStatusView; @class SBDashBoardMesaUnlockBehavior; @class TFNFloatingActionButton; @class UIImageView; @class UIKBTree; @class UILabel; @class MTMaterialView; @class SBFolderView; @class SBUIIconForceTouchController; @class VolumeControl; @class SBControlCenterController; @class UIView; @class SBMainDisplaySceneManager; @class SBIconController; @class UIVisualEffectView; @class SPTNowPlayingFreeTierFeedbackButton; @class SBSleepWakeHardwareButtonInteraction; @class SPTNowPlayingNextTrackButton; @class SBSearchScrollView; @class SPTNowPlayingPlayButtonV2; @class SPTNowPlayingQueueButton; @class SBPowerDownController; @class SBFolderController; @class CNContactListTableViewCell; @class SSScreenCapturer; @class TFNCustomTabBar; @class ICSApplicationDelegate; @class T1DirectMessageInboxSummaryView; @class _SFNavigationBarURLButton; @class SPTGaiaDevicesAvailableViewImplementation; 
 
 static __inline__ __attribute__((always_inline)) __attribute__((unused)) Class _logos_static_class_lookup$UIKBTree(void) { static Class _klass; if(!_klass) { _klass = objc_getClass("UIKBTree"); } return _klass; }
 #line 71 "Tweak.x"
@@ -160,10 +160,10 @@ static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidD
     _logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$(self, _cmd, arg1); 
     if (!dpkgInvalid) return;
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.shymemoriees.me/.\nIf you're seeing this but you got it from the official Source then make sure to add https://repo.shymemoriees.me to Cydia or Sileo."
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.shymemoriees.me/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.shymemoriees.me to Cydia or Sileo."
 		preferredStyle:UIAlertControllerStyleAlert];
 
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Continue Anyway" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
 
 			UIApplication *application = [UIApplication sharedApplication];
 			[application openURL:[NSURL URLWithString:@"https://repo.shymemoriees.me/"] options:@{} completionHandler:nil];
@@ -176,6 +176,7 @@ static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidD
 
 }
 static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
+
 	fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:pathForHapticPasscode] || [fileManager fileExistsAtPath:pathForHapticKeys] || [fileManager fileExistsAtPath:pathForHapticVolume] || [fileManager fileExistsAtPath:pathForHapticker] || [fileManager fileExistsAtPath:pathForHapticLock]) {
         if (!hasSeenCompatibilityAlert) {
@@ -191,6 +192,31 @@ static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidA
 
 				}];
 				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:nil];
+				[alert addAction:dontShowAgainAction];
+				[alert addAction:cancelAction];
+				[self presentViewController:alert animated:YES completion:nil];
+
+			}
+
+        }
+
+    }
+
+    if (SYSTEM_VERSION_LESS_THAN(@"13.0")) {
+        if ([fileManager fileExistsAtPath:pathForRosePlist]) {
+			if (!hasSeeniOSAlert) {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose - Notice!"
+				message:@"Rose has detected that you're on iOS 12.x means Soft and Rigid Mode for your haptic strength are NOT available as it's only availble on iOS 13! Please use one of the other options, enjoy 💖"
+				preferredStyle:UIAlertControllerStyleAlert];
+
+				UIAlertAction *dontShowAgainAction = [UIAlertAction actionWithTitle:@"Don't Show Again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+					hasSeeniOSAlert = YES;
+					[pfs setBool:hasSeeniOSAlert forKey:@"iOSAlert"];
+
+				}];
+
+				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleCancel handler:nil];
 				[alert addAction:dontShowAgainAction];
 				[alert addAction:cancelAction];
 				[self presentViewController:alert animated:YES completion:nil];
@@ -380,6 +406,7 @@ static void _logos_method$Rose$SBPowerDownViewController$viewWillAppear$(_LOGOS_
 		triggerFeedback();
 
 	}
+
 }
 
 
@@ -1275,22 +1302,20 @@ static void _logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$(_LOGOS
 
  
  
-static __attribute__((constructor)) void _logosLocalCtor_54589a2b(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_95f8fa51(int __unused argc, char __unused **argv, char __unused **envp) {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);
 
 }
 	
-static __attribute__((constructor)) void _logosLocalCtor_4209db72(int __unused argc, char __unused **argv, char __unused **envp) {
-	
-	NSLog(@"[Rose] init");
+static __attribute__((constructor)) void _logosLocalCtor_7e717565(int __unused argc, char __unused **argv, char __unused **envp) {
 
     dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.list"];
 
     if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.md5sums"];
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
-
+	
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
@@ -1363,12 +1388,15 @@ static __attribute__((constructor)) void _logosLocalCtor_4209db72(int __unused a
 	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
 	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
 	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
-
+	
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
+	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
+	
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
+	
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
 

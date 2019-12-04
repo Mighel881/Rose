@@ -241,6 +241,16 @@
  			<key>RSESub</key>
  			<string>iOSSystemWideHooksSub</string>
  		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Exceptions</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>ExceptionsSub</string>
+ 		</dict>
 
 		<dict>
 			<key>cell</key>
@@ -266,7 +276,7 @@
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>default</key>
-			<real>10</real>
+			<real>0</real>
 			<key>defaults</key>
 			<string>me.shymemoriees.rosepreferences</string>
 			<key>key</key>
