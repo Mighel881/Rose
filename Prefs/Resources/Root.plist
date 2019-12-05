@@ -215,16 +215,6 @@
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Others</string>
- 			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
- 			<key>RSESub</key>
- 			<string>OthersSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
  			<string>Applications</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>

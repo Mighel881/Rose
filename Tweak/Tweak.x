@@ -52,7 +52,7 @@ void prepareForHaptic() {
 
 void triggerFeedback() {
 
-	if (enabled && (!LowPowerMode)) {
+if (!LowPowerModeSwitch && !LowPowerMode) {
 		if (enabled && delaySwitch) {
 			int delay = [delayLevel intValue];
 			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
@@ -62,11 +62,12 @@ void triggerFeedback() {
 
 			});
 
-	} else if (enabled && !(delaySwitch)) {
-		prepareForHaptic();
+		} else if (enabled && !(delaySwitch)) {
+			prepareForHaptic();
 
-	}
-
+		
+		}
+	
 	}
 
 }
@@ -1389,7 +1390,7 @@ void triggerFeedback() {
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
 	// Low Power Mode
-	[pfs registerBool:&LowPowerMode default:NO forKey:@"LowPowerModeSwitch"];
+	[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"LowPowerModeSwitch"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;
