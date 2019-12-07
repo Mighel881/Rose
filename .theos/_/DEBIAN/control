@@ -1,6 +1,6 @@
 Package: me.shymemoriees.rose
 Name: Rose
-Depends: mobilesubstrate, ws.hbang.common (>= 1.11), com.spark.libpackageinfo (>= 1.1.4)
+Depends: mobilesubstrate, ws.hbang.common (>= 1.14)
 Architecture: iphoneos-arm
 Description: Getting peeped by a Rose doesn't feel that good, it's time to change that
 Maintainer: ShyMemoriees <shymemoriees@yahoo.com>
@@ -9,5 +9,5 @@ Section: Tweaks
 Depiction: https://repo.shymemoriees.me/depictions/rsebeta/index.html
 SileoDepiction: https://repo.shymemoriees.me/depictions/rsebeta/rsebeta.json
 Icon: https://repo.shymemoriees.me/depictions/rsebeta/assets/icon.png
-Version: 3.6-9+debug
-Installed-Size: 872
+Version: 3.6-2+debug
+Installed-Size: 884

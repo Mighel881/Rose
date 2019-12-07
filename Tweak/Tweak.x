@@ -52,22 +52,19 @@ void prepareForHaptic() {
 
 void triggerFeedback() {
 
-if (!LowPowerModeSwitch && !LowPowerMode) {
-		if (enabled && delaySwitch) {
-			int delay = [delayLevel intValue];
-			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+if (LowPowerModeSwitch && LowPowerMode == YES) {}
+	else if (enabled && delaySwitch) {
+		int delay = [delayLevel intValue];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
-				prepareForHaptic();
-
-			});
-
-		} else if (enabled && !(delaySwitch)) {
 			prepareForHaptic();
 
+		});
+
+	} else if (enabled && !(delaySwitch)) {
+		prepareForHaptic();
 		
-		}
-	
 	}
 
 }
