@@ -47,6 +47,16 @@ BOOL ccModuleSwitch = NO;
 BOOL shutdownWarningSwitch = YES;
 BOOL featureWarningSwitch = YES;
 
+// iOS System Wide
+BOOL uiButtonSwitch = NO;
+BOOL uiViewSwitch= NO;
+BOOL UIButtonBarButtonSwitch = NO;
+BOOL uiImageViewSwitch = NO;
+BOOL mtMaterialViewSwitch = NO;
+BOOL uiStackViewSwitch = NO;
+BOOL uiLabelSwitch = NO;
+BOOL uiVisualEffectViewSwitch = NO;
+
 // Spotify
 BOOL SPTplayButtonSwitch = NO;
 BOOL SPTpreviousTrackButtonSwitch = NO;
@@ -84,15 +94,10 @@ BOOL PHContactCellSwitch = NO;
 BOOL PHDialerDeleteButtonSwitch = NO;
 BOOL PHDialerCallButtonSwitch = NO;
 
-// iOS System Wide
-BOOL uiButtonSwitch = NO;
-BOOL uiViewSwitch= NO;
-BOOL UIButtonBarButtonSwitch = NO;
-BOOL uiImageViewSwitch = NO;
-BOOL mtMaterialViewSwitch = NO;
-BOOL uiStackViewSwitch = NO;
-BOOL uiLabelSwitch = NO;
-BOOL uiVisualEffectViewSwitch = NO;
+// Facebook
+BOOL FBTabBarSwitch = NO;
+BOOL QuickAccessButtonsSwitch = NO;
+BOOL FBNavigationBarButtonSwitch = NO;
 
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch = NO;

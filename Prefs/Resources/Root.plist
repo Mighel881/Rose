@@ -149,7 +149,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>HomescreenSub</string>
+ 			<string>FunctionalitySubMenus/HomescreenSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -159,7 +159,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>LockscreenSub</string>
+ 			<string>FunctionalitySubMenus/LockscreenSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -169,7 +169,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>AnywhereSub</string>
+ 			<string>FunctionalitySubMenus/AnywhereSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -179,7 +179,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>HardwareButtonsSub</string>
+ 			<string>FunctionalitySubMenus/HardwareButtonsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -189,7 +189,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>ControlCenterSub</string>
+ 			<string>FunctionalitySubMenus/ControlCenterSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -199,7 +199,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>StatusChangesSub</string>
+ 			<string>FunctionalitySubMenus/StatusChangesSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -209,17 +209,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>OtherHardwareActionsSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Applications</string>
- 			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
- 			<key>RSESub</key>
- 			<string>ApplicationsSub</string>
+ 			<string>FunctionalitySubMenus/OtherHardwareActionsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -229,7 +219,17 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>iOSSystemWideHooksSub</string>
+ 			<string>FunctionalitySubMenus/iOSSystemWideHooksSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Applications</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>FunctionalitySubMenus/ApplicationsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -239,7 +239,7 @@
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>ExceptionsSub</string>
+ 			<string>FunctionalitySubMenus/ExceptionsSub</string>
  		</dict>
 
 		<dict>

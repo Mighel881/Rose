@@ -780,6 +780,126 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+// iOS System Wide Hooks
+%hook UIButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook _UIButtonBarButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && UIButtonBarButtonSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIImageView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiImageViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MTMaterialView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && mtMaterialViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIStackView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiStackViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UILabel
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiLabelSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIVisualEffectView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (enabled && uiVisualEffectViewSwitch) {
+		triggerFeedback();
+
+	}
+
+}
+
+%end
 // Spotify
 %hook SPTNowPlayingPlayButtonV2
 
@@ -1154,14 +1274,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
-// iOS System Wide Hooks
-%hook UIButton
+// Facebook
+%hook FBTabBar
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
-	if (enabled && uiButtonSwitch) {
+	if (enabled && FBTabBarSwitch) {
 		triggerFeedback();
 
 	}
@@ -1170,13 +1290,13 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%hook UIView
+%hook FDSTetraPressStateAnnouncingControl
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
-	if (enabled && uiViewSwitch) {
+	if (enabled && QuickAccessButtonsSwitch) {
 		triggerFeedback();
 
 	}
@@ -1185,88 +1305,13 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%hook _UIButtonBarButton
+%hook FBNavigationBarButton
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
-	if (enabled && UIButtonBarButtonSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UIImageView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && uiImageViewSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MTMaterialView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && mtMaterialViewSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UIStackView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && uiStackViewSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UILabel
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && uiLabelSwitch) {
-		triggerFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UIVisualEffectView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && uiVisualEffectViewSwitch) {
+	if (enabled && FBNavigationBarButtonSwitch) {
 		triggerFeedback();
 
 	}
@@ -1335,6 +1380,15 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
 	[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
 	[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
+	// iOS System Wide Hooks
+	[pfs registerBool:&uiButtonSwitch default:NO forKey:@"uiButton"];
+	[pfs registerBool:&uiViewSwitch default:NO forKey:@"uiView"];
+	[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
+	[pfs registerBool:&uiImageViewSwitch default:NO forKey:@"uiImageView"];
+	[pfs registerBool:&mtMaterialViewSwitch default:NO forKey:@"mtMaterialView"];
+	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
+	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
+	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
 	// Spotify
 	[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
 	[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
@@ -1366,15 +1420,10 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
 	[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
 	[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
-	// iOS System Wide Hooks
-	[pfs registerBool:&uiButtonSwitch default:NO forKey:@"uiButton"];
-	[pfs registerBool:&uiViewSwitch default:NO forKey:@"uiView"];
-	[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
-	[pfs registerBool:&uiImageViewSwitch default:NO forKey:@"uiImageView"];
-	[pfs registerBool:&mtMaterialViewSwitch default:NO forKey:@"mtMaterialView"];
-	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
-	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
-	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
+	// Facebook
+	[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
+	[pfs registerBool:&QuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
+	[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
 	// Warnings
 	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
