@@ -27,6 +27,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Play Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTplayButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -39,6 +80,47 @@
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Previous Track Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTpreviousTrackButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -55,6 +137,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Skip Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTnextTrackButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -67,6 +190,47 @@
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Repeat Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTrepeatButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -83,6 +247,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Shuffle Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTshuffleButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -95,6 +300,47 @@
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Queue Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTqueueButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -111,6 +357,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Time Slider Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTslider</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -123,6 +410,47 @@
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Like Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTfreeTierButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -139,6 +467,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Available Devices Button Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTavailableDevicesButton</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -148,6 +517,46 @@
 			<string>SPTnowPlayingLabel</string>
 			<key>label</key>
 			<string>Tapping Song Label</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Label Strength</string>
+			<key>key</key>
+			<string>customStrengthSPTnowPlayingLabel</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>

@@ -1,6 +1,7 @@
 #import "../RoseCommon.h"
 #import "Rose.h"
-
+	
+	// Rose wide haptics controller
 void prepareForHaptic() {
 
     int hapticStrength = [hapticLevel intValue];
@@ -50,6 +51,7 @@ void prepareForHaptic() {
 
 }
 
+	// Rose wide haptics trigger
 void triggerFeedback() {
 
 if (LowPowerModeSwitch && LowPowerMode == YES) {}
@@ -69,6 +71,70 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 }
 
+	// Rose custom haptis controller
+void prepareCustomFeedback() {
+
+	switch(customFeedbackValue) {
+	case 1:
+		AudioServicesPlaySystemSound(1519);
+		break;
+	case 2:
+		AudioServicesPlaySystemSound(1520);
+		break;
+	case 3:
+		AudioServicesPlaySystemSound(1521);
+		break;
+	case 4:
+		[gen prepare];
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+		[gen impactOccurred];
+		break;
+	case 5:
+		[gen prepare];
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+		[gen impactOccurred];
+		break;
+	case 6:
+		[gen prepare];
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
+		[gen impactOccurred];
+		break;
+	case 7:
+		[gen prepare];
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleSoft];
+		[gen impactOccurred];
+		break;
+	case 8:
+		[gen prepare];
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
+		[gen impactOccurred];
+		break;
+	default:
+		break;
+	}
+
+}
+
+	// Rose custom haptics trigger
+void triggerCustomFeedback() {
+
+	if (LowPowerModeSwitch && LowPowerMode == YES) {}
+	else if (enabled && delaySwitch) {
+		int delay = [delayLevel intValue];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+			prepareCustomFeedback();
+
+		});
+
+	} else if (enabled && !(delaySwitch)) {
+		prepareCustomFeedback();
+		
+	}
+
+}
+
 %group Rose
 
 %hook SpringBoard
@@ -77,8 +143,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && respringSwitch) {
+	int customStrength = [customStrengthRespringControl intValue];
+
+	if (respringSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (respringSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -88,8 +160,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ringerSwitch) {
+	int customStrength = [customStrengthRingerControl intValue];
+
+	if (ringerSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ringerSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -103,16 +181,22 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	//int type = arg1.allPresses.allObjects[0].type;
 	int force = arg1.allPresses.allObjects[0].force;
+	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
-		if (enabled && homeButtonSwitch) {
+		if (homeButtonSwitch && customStrength == 0) {
 			triggerFeedback();
+
+		} else if (homeButtonSwitch && customStrength != 0) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
 
 		}
 
 	}
 
 	return %orig;
+
 }
 
 %end
@@ -123,8 +207,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && unlockSwitch) {
+	int customStrength = [customStrengthUnlockControl intValue];
+
+	if (unlockSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (unlockSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -212,8 +302,16 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && lockSwitch) {
+	%orig;
+
+	int customStrength = [customStrengthLockControl intValue];
+
+	if (lockSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (lockSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -221,8 +319,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)consumeInitialPressDown {
 
-	if (enabled && sleepButtonSwitch) {
+	int customStrength = [customStrengthSleepButtonControl intValue];
+
+	if (sleepButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (sleepButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -237,9 +341,15 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 - (void)increaseVolume {
 
 	%orig;
-	
-	if (enabled && volumeSwitch) {
+
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (volumeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (volumeSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -249,8 +359,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && volumeSwitch) {
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (volumeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (volumeSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -263,9 +379,15 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 - (void)increaseVolume {
 
 	%orig;
-	
-	if (enabled && volumeSwitch) {
+
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (volumeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (volumeSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -275,8 +397,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && volumeSwitch) {
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (volumeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (volumeSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -290,80 +418,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && shutdownWarningSwitch) {
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
-	message:@"It is recommended to disable Rose with [iCleaner] before shutting down because your device will be stuck in a respring loop when rejailbreaking. That's [cephei]'s fault and not Rose's"
-	preferredStyle:UIAlertControllerStyleAlert];
+	int customStrength = [customStrengthPowerDownControl intValue];
 
-	UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"Continue Anyway" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-		if (powerSwitch) {
-			triggerFeedback();
-
-		}
-	}];
-
-	UIAlertAction *iCleanerAction = [UIAlertAction actionWithTitle:@"Open iCleaner" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-		fileManager = [NSFileManager defaultManager];
-		if ([fileManager fileExistsAtPath:pathForiCleaner]) {
-			application = [UIApplication sharedApplication];
-			NSURL *URL = [NSURL URLWithString:@"icleaner://"];
-			[application openURL:URL options:@{} completionHandler:nil];
-
-		} else {
-			UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
-			message:@"iCleaner is not installed, do you want to open your package manager to install it?"
-			preferredStyle:UIAlertControllerStyleAlert];
-			
-			UIAlertAction *openPackageManagerAction = [UIAlertAction actionWithTitle:@"Open Package Manager" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-				fileManager = [NSFileManager defaultManager];
-
-				if ([fileManager fileExistsAtPath:pathForCydia]) {
-					application = [UIApplication sharedApplication];
-					NSURL *URL = [NSURL URLWithString:@"cydia://"];
-					[application openURL:URL options:@{} completionHandler:nil];
-
-				} else if ([fileManager fileExistsAtPath:pathForSileo]) {
-					application = [UIApplication sharedApplication];
-					NSURL *URL = [NSURL URLWithString:@"sileo://"];
-					[application openURL:URL options:@{} completionHandler:nil];
-
-				}
-
-			}];
-
-			UIAlertAction *backAction = [UIAlertAction actionWithTitle:@"Back" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-					[self cancel];
-			}];
-				
-			[alert addAction:openPackageManagerAction];
-			[alert addAction:backAction];
-
-			[self presentViewController:alert animated:YES completion:nil];
-
-		}
-
-	}];
-
-	UIAlertAction *backAction = [UIAlertAction actionWithTitle:@"Back" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-		[self cancel];
-
-	}];
-	
-	[alert addAction:continueAction];
-	[alert addAction:iCleanerAction];
-	[alert addAction:backAction];
-
-	[self presentViewController:alert animated:YES completion:nil];
-
-	} else if (enabled && powerSwitch) {
-		%orig;
+	if (powerSwitch && customStrength == 0) {
 		triggerFeedback();
 
-	} else {
-		%orig;
+	} else if (powerSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -377,8 +439,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && powerSwitch) {
+	int customStrength = [customStrengthPowerDownControl intValue];
+
+	if (powerSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (powerSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -392,8 +460,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && killingSwitch) {
+	int customStrength = [customStrengthKillingControl intValue];
+
+	if (killingSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (killingSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -407,8 +481,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && forceSwitch) {
+	int customStrength = [customStrengthForceTouchControl intValue];
+
+	if (forceSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (forceSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -422,8 +502,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && pluggedSwitch) {
+	int customStrength = [customStrengthPluggedControl intValue];
+
+	if (pluggedSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (pluggedSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -433,8 +519,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && reachabilitySwitch) {
+	int customStrength = [customStrengthReachabilityControl intValue];
+
+	if (reachabilitySwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (reachabilitySwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -448,8 +540,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && switcherSwitch) {
+	int customStrength = [customStrengthSwitcherControl intValue];
+
+	if (switcherSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (switcherSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -462,9 +560,15 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 - (void)layoutSubviews {
 
 	%orig;
-	
-	if (enabled && siriSwitch) {
+
+	int customStrength = [customStrengthSiriControl intValue];
+
+	if (siriSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (siriSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -478,8 +582,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ccToggleSwitch) {
+	int customStrength = [customStrengthCCToggleControl intValue];
+
+	if (ccToggleSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ccToggleSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -493,8 +603,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && folderSwitch) {
+	int customStrength = [customStrengthFolderControl intValue];
+
+	if (folderSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (folderSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -527,8 +643,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && iconTapSwitch) {
+	int customStrength = [customStrengthIconTapControl intValue];
+
+	if (iconTapSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (iconTapSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -542,8 +664,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && iconTapSwitch) {
+	int customStrength = [customStrengthIconTapControl intValue];
+
+	if (iconTapSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (iconTapSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -557,8 +685,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && pageSwipeSwitch) {
+	int customStrength = [customStrengthPageSwipeControl intValue];
+
+	if (pageSwipeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (pageSwipeSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -572,8 +706,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && screenshotSwitch) {
+	int customStrength = [customStrengthScreenshotControl intValue];
+
+	if (screenshotSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (screenshotSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -587,8 +727,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && passcodeSwitch) {
+	int customStrength = [customStrengthPasscodeControl intValue];
+
+	if (passcodeSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (passcodeSwitch &&  customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -602,8 +748,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && keyboardSwitch) {
+	int customStrength = [customStrengthKeyboardControl intValue];
+
+	if (keyboardSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (keyboardSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -637,8 +789,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && textSelectionSwitch) {
+	int customStrength = [customStrengthTextSelectionControl intValue];
+
+	if (textSelectionSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (textSelectionSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -650,10 +808,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)gestureRecognizerShouldBegin:(id)arg1 {
 
-	%orig;
+	int customStrength = [customStrengthSpotlightControl intValue];
 
-	if (enabled && spotlightSwitch) {
+	if (spotlightSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (spotlightSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -669,8 +831,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && callSwitch) {
+	int customStrength = [customStrengthCallControl intValue];
+
+	if (callSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (callSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -686,8 +854,16 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
     if (authenticated) {
 
-		if (enabled && authenticationSwitch) {
+	%orig;
+
+		int customStrength = [customStrengthAuthenticationControl intValue];
+
+		if (authenticationSwitch && customStrength == 0) {
 			triggerFeedback();
+
+		} else if (authenticationSwitch && customStrength != 0) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
 
 		}
 
@@ -705,8 +881,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
     if (arg1) {
 
-		if (enabled && authenticationSwitch) {
+		int customStrength = [customStrengthAuthenticationControl intValue];
+
+		if (authenticationSwitch && customStrength == 0) {
 			triggerFeedback();
+
+		} else if (authenticationSwitch && customStrength != 0) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
 
 		}
 
@@ -723,8 +905,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	%orig;
 	// 26 - source of screenshots on newer ios version (afaik); eg this method gets called with source == 26 if u make a screenshot
 	if (source != 26) {
-		if (enabled && wakeSwitch) {
+		int customStrength = [customStrengthWakeControl intValue];
+
+		if (wakeSwitch && customStrength == 0) {
 			triggerFeedback();
+
+		} else if (wakeSwitch && customStrength != 0) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
 
 		}
 
@@ -737,8 +925,16 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)_shouldHitTestEntireScreen {
 
-	if (enabled && touchesSwitch) {
+	int customStrength = [customStrengthTouchesControl intValue];
+
+	if (touchesSwitch && customStrength == 0) {
 		triggerFeedback();
+
+		return YES;
+
+	} else if (touchesSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 		return YES;
 
@@ -757,8 +953,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && openControlCenterSwitch) {
+	int customStrength = [customStrengthOpenControlCenterControl intValue];
+
+	if (openControlCenterSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (openControlCenterSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -772,8 +974,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ccModuleSwitch) {
+	int customStrength = [customStrengthCCModuleControl intValue];
+
+	if (ccModuleSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ccModuleSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -787,8 +995,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiButtonSwitch) {
+	int customStrength = [customStrengthuiButtonControl intValue];
+
+	if (uiButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -802,8 +1016,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiViewSwitch) {
+	int customStrength = [customStrengthuiViewControl intValue];
+
+	if (uiViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -817,8 +1037,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && UIButtonBarButtonSwitch) {
+	int customStrength = [customStrengthuiButtonBarButtonControl intValue];
+
+	if (UIButtonBarButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (UIButtonBarButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -832,8 +1058,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiImageViewSwitch) {
+	int customStrength = [customStrengthuiImageViewControl intValue];
+
+	if (uiImageViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiImageViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -847,8 +1079,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && mtMaterialViewSwitch) {
+	int customStrength = [customStrengthmtMaterialViewControl intValue];
+
+	if (mtMaterialViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (mtMaterialViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -862,8 +1100,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiStackViewSwitch) {
+	int customStrength = [customStrengthuiStackViewControl intValue];
+
+	if (uiStackViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiStackViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -877,8 +1121,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiLabelSwitch) {
+	int customStrength = [customStrengthuiLabelControl intValue];
+
+	if (uiLabelSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiLabelSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -892,8 +1142,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && uiVisualEffectViewSwitch) {
+	int customStrength = [customStrengthuiVisualEffectViewControl intValue];
+
+	if (uiVisualEffectViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (uiVisualEffectViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -907,8 +1163,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTplayButtonSwitch) {
+	int customStrength = [customStrengthSPTplayButtonControl intValue];
+
+	if (SPTplayButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTplayButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -922,8 +1184,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTpreviousTrackButtonSwitch) {
+	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
+
+	if (SPTpreviousTrackButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -937,8 +1205,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTnextTrackButtonSwitch) {
+	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
+
+	if (SPTnextTrackButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTnextTrackButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -952,8 +1226,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTrepeatButtonSwitch) {
+	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
+
+	if (SPTrepeatButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTrepeatButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -967,8 +1247,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTshuffleButtonSwitch) {
+	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
+
+	if (SPTshuffleButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTshuffleButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -982,23 +1268,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTqueueButtonSwitch) {
+	int customStrength = [customStrengthSPTqueueButtonControl intValue];
+
+	if (SPTqueueButtonSwitch && customStrength == 0) {
 		triggerFeedback();
 
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingFreeTierFeedbackButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (enabled && SPTfreeTierButtonSwitch) {
-		triggerFeedback();
+	} else if (SPTqueueButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1012,8 +1289,35 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTsliderSwitch) {
+	int customStrength = [customStrengthSPTsliderControl intValue];
+
+	if (SPTsliderSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTsliderSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SPTNowPlayingFreeTierFeedbackButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
+
+	if (SPTfreeTierButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SPTfreeTierButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1027,8 +1331,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTavailableDevicesButtonSwitch) {
+	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
+
+	if (SPTavailableDevicesButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1042,8 +1352,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SPTnowPlayingLabelSwitch) {
+	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
+
+	if (SPTnowPlayingLabelSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SPTnowPlayingLabelSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1057,8 +1373,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ITGlikeButtonSwitch) {
+	int customStrength = [customStrengthITGlikeButtonControl intValue];
+
+	if (ITGlikeButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ITGlikeButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1068,8 +1390,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ITGcommentButtonSwitch) {
+	int customStrength = [customStrengthITGcommentButtonControl intValue];
+
+	if (ITGcommentButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ITGcommentButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1079,8 +1407,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ITGsaveButtonSwitch) {
+	int customStrength = [customStrengthITGsaveButtonControl intValue];
+
+	if (ITGsaveButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1090,8 +1424,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ITGsaveButtonSwitch) {
+	int customStrength = [customStrengthITGsaveButtonControl intValue];
+
+	if (ITGsaveButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1101,8 +1441,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && ITGsendButtonSwitch) {
+	int customStrength = [customStrengthITGsendButtonControl intValue];
+
+	if (ITGsendButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (ITGsendButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 	
@@ -1116,8 +1462,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TTlikeCommentShareButtonsSwitch) {
+	int customStrength = [customStrengthTTlikeCommentShareButtonsControl intValue];
+
+	if (TTlikeCommentShareButtonsSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1131,8 +1483,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TWTtabBarSwitch) {
+	int customStrength = [customStrengthTWTtabBarControl intValue];
+
+	if (TWTtabBarSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TWTtabBarSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1146,8 +1504,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TWTtweetViewSwitch) {
+	int customStrength = [customStrengthTWTtweetViewControl intValue];
+
+	if (TWTtweetViewSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TWTtweetViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1161,8 +1525,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TWTdirectMessagesTapSwitch) {
+	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
+
+	if (TWTdirectMessagesTapSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TWTdirectMessagesTapSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1176,8 +1546,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TWTactivityTapSwitch) {
+	int customStrength = [customStrengthTWTactivityTapControl intValue];
+
+	if (TWTactivityTapSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TWTactivityTapSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1191,8 +1567,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && TWTtweetButtonSwitch) {
+	int customStrength = [customStrengthTWTtweetButtonControl intValue];
+
+	if (TWTtweetButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (TWTtweetButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1206,8 +1588,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && SFUrlSwitch) {
+	int customStrength = [customStrengthSFUrlControl intValue];
+
+	if (SFUrlSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (SFUrlSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1221,8 +1609,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && PHNumberPadSwitch) {
+	int customStrength = [customStrengthPHNumberPadControl intValue];
+
+	if (PHNumberPadSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (PHNumberPadSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1236,8 +1630,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && PHContactCellSwitch) {
+	int customStrength = [customStrengthPHContactCellControl intValue];
+
+	if (PHContactCellSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (PHContactCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1251,8 +1651,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && PHDialerDeleteButtonSwitch) {
+	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
+
+	if (PHDialerDeleteButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (PHDialerDeleteButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1266,8 +1672,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && PHDialerCallButtonSwitch) {
+	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
+
+	if (PHDialerCallButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (PHDialerCallButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1281,8 +1693,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && FBTabBarSwitch) {
+	int customStrength = [customStrengthFBTabBarControl intValue];
+
+	if (FBTabBarSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (FBTabBarSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1296,8 +1714,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && QuickAccessButtonsSwitch) {
+	int customStrength = [customStrengthFBQuickAccessButtonsControl intValue];
+
+	if (FBQuickAccessButtonsSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (FBQuickAccessButtonsSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1311,8 +1735,14 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	if (enabled && FBNavigationBarButtonSwitch) {
+	int customStrength = [customStrengthFBNavigationBarButtonControl intValue];
+
+	if (FBNavigationBarButtonSwitch && customStrength == 0) {
 		triggerFeedback();
+
+	} else if (FBNavigationBarButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
 
 	}
 
@@ -1341,6 +1771,34 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 	// Thanks to Nepeta for the DRM
 %ctor {
+
+	if (![NSProcessInfo processInfo]) return;
+    NSString *processName = [NSProcessInfo processInfo].processName;
+    bool isSpringboard = [@"SpringBoard" isEqualToString:processName];
+
+    // Someone smarter than Nepeta invented this.
+    // https://www.reddit.com/r/jailbreak/comments/4yz5v5/questionremote_messages_not_enabling/d6rlh88/
+    bool shouldLoad = NO;
+    NSArray *args = [[NSClassFromString(@"NSProcessInfo") processInfo] arguments];
+    NSUInteger count = args.count;
+    if (count != 0) {
+        NSString *executablePath = args[0];
+        if (executablePath) {
+            NSString *processName = [executablePath lastPathComponent];
+            BOOL isApplication = [executablePath rangeOfString:@"/Application/"].location != NSNotFound || [executablePath rangeOfString:@"/Applications/"].location != NSNotFound;
+            BOOL isFileProvider = [[processName lowercaseString] rangeOfString:@"fileprovider"].location != NSNotFound;
+            BOOL skip = [processName isEqualToString:@"AdSheet"]
+                        || [processName isEqualToString:@"CoreAuthUI"]
+                        || [processName isEqualToString:@"InCallService"]
+                        || [processName isEqualToString:@"MessagesNotificationViewService"]
+                        || [executablePath rangeOfString:@".appex/"].location != NSNotFound;
+            if ((!isFileProvider && isApplication && !skip) || isSpringboard) {
+                shouldLoad = YES;
+            }
+        }
+    }
+
+    if (!shouldLoad) return;
 
     dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.list"];
 
@@ -1422,10 +1880,9 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
 	// Facebook
 	[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
-	[pfs registerBool:&QuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
+	[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
 	[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
 	// Warnings
-	[pfs registerBool:&shutdownWarningSwitch default:YES forKey:@"shutdownWarning"];
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
 	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
@@ -1437,6 +1894,81 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
 	// Low Power Mode
 	[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"LowPowerModeSwitch"];
+	// Custom Feedback Link List Controllers
+	[pfs registerObject:&customStrengthRespringControl default:@"0" forKey:@"customStrengthRespring"];
+	[pfs registerObject:&customStrengthRingerControl default:@"0" forKey:@"customStrengthRinger"];
+	[pfs registerObject:&customStrengthHomeButtonControl default:@"0" forKey:@"customStrengthHomeButton"];
+	[pfs registerObject:&customStrengthUnlockControl default:@"0" forKey:@"customStrengthUnlock"];
+	[pfs registerObject:&customStrengthLockControl default:@"0" forKey:@"customStrengthLock"];
+	[pfs registerObject:&customStrengthSleepButtonControl default:@"0" forKey:@"customStrengthSleepButton"];
+	[pfs registerObject:&customStrengthVolumeControl default:@"0" forKey:@"customStrengthVolume"];
+	[pfs registerObject:&customStrengthPowerDownControl default:@"0" forKey:@"customStrengthPowerDown"];
+	[pfs registerObject:&customStrengthKillingControl default:@"0" forKey:@"customStrengthKilling"];
+	[pfs registerObject:&customStrengthForceTouchControl default:@"0" forKey:@"customStrengthForceTouch"];
+	[pfs registerObject:&customStrengthPluggedControl default:@"0" forKey:@"customStrengthPlugged"];
+	[pfs registerObject:&customStrengthReachabilityControl default:@"0" forKey:@"customStrengthReachability"];
+	[pfs registerObject:&customStrengthSwitcherControl default:@"0" forKey:@"customStrengthSwitcher"];
+	[pfs registerObject:&customStrengthSiriControl default:@"0" forKey:@"customStrengthSiri"];
+	[pfs registerObject:&customStrengthCCToggleControl default:@"0" forKey:@"customStrengthCCToggle"];
+	[pfs registerObject:&customStrengthFolderControl default:@"0" forKey:@"customStrengthFolder"];
+	[pfs registerObject:&customStrengthIconTapControl default:@"0" forKey:@"customStrengthIconTap"];
+	[pfs registerObject:&customStrengthPageSwipeControl default:@"0" forKey:@"customStrengthPageSwipe"];
+	[pfs registerObject:&customStrengthScreenshotControl default:@"0" forKey:@"customStrengthScreenshot"];
+	[pfs registerObject:&customStrengthPasscodeControl default:@"0" forKey:@"customStrengthPasscode"];
+	[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
+	[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
+	[pfs registerObject:&customStrengthSpotlightControl default:@"0" forKey:@"customStrengthSpotlight"];
+	[pfs registerObject:&customStrengthCallControl default:@"0" forKey:@"customStrengthCall"];
+	[pfs registerObject:&customStrengthAuthenticationControl default:@"0" forKey:@"customStrengthAuthentication"];
+	[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthWake"];
+	[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
+	[pfs registerObject:&customStrengthOpenControlCenterControl default:@"0" forKey:@"customStrengthOpenControlCenter"];
+	[pfs registerObject:&customStrengthCCModuleControl default:@"0" forKey:@"customStrengthCCModule"];
+
+	[pfs registerObject:&customStrengthuiButtonControl default:@"0" forKey:@"customStrengthuiButton"];
+	[pfs registerObject:&customStrengthuiViewControl default:@"0" forKey:@"customStrengthuiView"];
+	[pfs registerObject:&customStrengthuiButtonBarButtonControl default:@"0" forKey:@"customStrengthuiButtonBarButton"];
+	[pfs registerObject:&customStrengthuiImageViewControl default:@"0" forKey:@"customStrengthuiImageView"];
+	[pfs registerObject:&customStrengthmtMaterialViewControl default:@"0" forKey:@"customStrengthmtMaterialView"];
+	[pfs registerObject:&customStrengthuiStackViewControl default:@"0" forKey:@"customStrengthuiStackView"];
+	[pfs registerObject:&customStrengthuiLabelControl default:@"0" forKey:@"customStrengthuiLabel"];
+	[pfs registerObject:&customStrengthuiVisualEffectViewControl default:@"0" forKey:@"customStrengthuiVisualEffectView"];
+
+	[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
+	[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
+	[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
+	[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
+	[pfs registerObject:&customStrengthSPTshuffleButtonControl default:@"0" forKey:@"customStrengthSPTshuffleButton"];
+	[pfs registerObject:&customStrengthSPTqueueButtonControl default:@"0" forKey:@"customStrengthSPTqueueButton"];
+	[pfs registerObject:&customStrengthSPTsliderControl default:@"0" forKey:@"customStrengthSPTslider"];
+	[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
+	[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
+	[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
+
+	[pfs registerObject:&customStrengthITGlikeButtonControl default:@"0" forKey:@"customStrengthITGlikeButton"];
+	[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
+	[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
+	[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
+
+	[pfs registerObject:&customStrengthTTlikeCommentShareButtonsControl default:@"0" forKey:@"customStrengthTTlikeCommentShareButtons"];
+
+	[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
+	[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
+	[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
+	[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
+
+	[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
+
+	[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
+
+	[pfs registerObject:&customStrengthPHNumberPadControl default:@"0" forKey:@"customStrengthPHNumberPad"];
+	[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
+	[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
+	[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
+
+	[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
+	[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
+	[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

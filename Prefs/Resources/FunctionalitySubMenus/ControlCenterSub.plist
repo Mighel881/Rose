@@ -27,6 +27,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom CC Toggle Strength</string>
+			<key>key</key>
+			<string>customStrengthCCToggle</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -41,6 +82,47 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Open Control Center Strength</string>
+			<key>key</key>
+			<string>customStrengthOpenControlCenter</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -50,6 +132,46 @@
 			<string>ccModule</string>
 			<key>label</key>
 			<string>Toggling CC Module (Experimental)</string>
+			<key>PostNotification</key>
+			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>me.shymemoriees.rosepreferences</string>
+			<key>label</key>
+			<string>Custom CC Module Strength</string>
+			<key>key</key>
+			<string>customStrengthCCModule</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
 			<key>PostNotification</key>
 			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
 		</dict>
