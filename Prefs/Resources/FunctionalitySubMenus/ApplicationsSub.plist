@@ -15,6 +15,16 @@
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
+ 			<string>Music</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/MusicSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
  			<string>Spotify</string>
  			<key>detail</key>
  			<string>RSEApplicationsSubPrefsListController</string>
@@ -80,6 +90,26 @@
  			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSEApplicationsSub</key>
  			<string>ApplicationSubMenus/FacebookSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Calculator</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/CalculatorSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Sileo</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/SileoSub</string>
  		</dict>
 
 	</array>

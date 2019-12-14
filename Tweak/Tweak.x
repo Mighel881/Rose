@@ -1,5 +1,10 @@
 #import "../RoseCommon.h"
 #import "Rose.h"
+
+@interface MusicApplicationPlayButton : NSObject {
+}
+
+@end
 	
 	// Rose wide haptics controller
 void prepareForHaptic() {
@@ -1366,6 +1371,27 @@ void triggerCustomFeedback() {
 }
 
 %end
+
+%hook SPTNowPlayingBarPlayButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
+
+	if (SPTplayBarButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SPTplayBarButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
 // Instagram
 %hook IGUFIButtonBarView
 
@@ -1735,16 +1761,7 @@ void triggerCustomFeedback() {
 
 	%orig;
 
-	int customStrength = [customStrengthFBNavigationBarButtonControl intValue];
-
-	if (FBNavigationBarButtonSwitch && customStrength == 0) {
-		triggerFeedback();
-
-	} else if (FBNavigationBarButtonSwitch && customStrength != 0) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	}
+	triggerFeedback();
 
 }
 
@@ -1763,7 +1780,412 @@ void triggerCustomFeedback() {
 %end
 
 %end // Rose group
- 
+// Music
+%group Music
+
+%hook MusicApplicationPlayButton // Play/Pause, Skip, Previous Song buttons
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
+
+	if (MusicPlayPauseButtonsSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider // This is not a ObjC method, just badly converted to ObjC , Volume Slider
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
+
+	if (MusicVolumeSliderSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicVolumeSliderSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MusicApplicationContextualActionsButton // "..." More Actions Button
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
+
+	if (MusicContextualActionsButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicContextualActionsButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MusicApplicationTimeSlider // Time Slider
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
+
+	if (MusicTimeSliderSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicTimeSliderSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MusicApplicationSongCell // Song Cell
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
+
+	if (MusicSongCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicSongCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook  _TtCC16MusicApplication30LibraryMenuTableViewController4Cell // Same here, badly converted to ObjC , Library selections like "Songs" or "Albums"
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthLibraryCellControl intValue];
+
+	if (MusicLibraryCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicLibraryCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MusicApplicationAlbumCell // Album Cell
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
+
+	if (MusicAlbumCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicAlbumCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MPRouteButton // Airplay Button
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMPRouteButtonControl intValue];
+
+	if (MusicAirPlayButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicAirPlayButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook MPButton // Live Lyrics, Queue Button
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthMPButtonControl intValue];
+
+	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%ctor {
+    %init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
+}
+
+%end
+
+%group Calculator
+
+%hook CalculatorApplicationKeyPadButton // Keypad Button
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
+
+	if (CalculatorKeyPadButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%ctor {
+	%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
+}
+
+%end
+
+%group Sileo
+
+%hook SileoSourcesCell // Sources Cell
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSileoSourcesCellControl intValue];
+
+	if (SileoSourcesCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SileoSourcesCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SileoPackageCollectionViewCell // Package Cell
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSileoPackageCollectionViewCellControl intValue];
+
+	if (SileoPackageCollectionViewCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SileoTableViewCell // Table View Cell
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSileoTableViewCellControl intValue];
+
+	if (SileoTableViewCellSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SileoTableViewCellSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SileoFeaturedBannerView // Featured Banner View
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSileoFeaturedBannerViewControl intValue];
+
+	if (SileoFeaturedBannerViewSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SileoConfirmDownloadButton // Download Confirm / ReSpring Button
+
+-(id)init {
+
+    return %orig;
+
+}
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	int customStrength = [customStrengthSileoConfirmDownloadButtonControl intValue];
+
+	if (SileoConfirmDownloadButtonSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
+%ctor {
+	%init(Sileo, SileoSourcesCell=objc_getClass("Sileo.SourcesTableViewCell"), SileoPackageCollectionViewCell=objc_getClass("Sileo.PackageCollectionViewCell"), SileoTableViewCell=objc_getClass("Sileo.SileoTableViewCell"), SileoFeaturedBannerView=objc_getClass("Sileo.FeaturedBannerView"), SileoConfirmDownloadButton=objc_getClass("Sileo.DownloadConfirmButton"));
+}
+
+%end
+
 %ctor {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);
@@ -1849,6 +2271,7 @@ void triggerCustomFeedback() {
 	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
 	// Spotify
 	[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
+	[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
 	[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
 	[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
 	[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
@@ -1882,6 +2305,24 @@ void triggerCustomFeedback() {
 	[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
 	[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
 	[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
+	// Music
+	[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
+	[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
+	[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
+	[pfs registerBool:&MusicTimeSliderSwitch default:NO forKey:@"MusicTimeSlider"];
+	[pfs registerBool:&MusicSongCellSwitch default:NO forKey:@"MusicSongCell"];
+	[pfs registerBool:&MusicLibraryCellSwitch default:NO forKey:@"MusicLibraryCell"];
+	[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
+	[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
+	[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
+	// Calculator
+	[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
+	// Sileo
+	[pfs registerBool:&SileoSourcesCellSwitch default:NO forKey:@"SileoSourcesCell"];
+	[pfs registerBool:&SileoPackageCollectionViewCellSwitch default:NO forKey:@"SileoPackageCollectionViewCell"];
+	[pfs registerBool:&SileoTableViewCellSwitch default:NO forKey:@"SileoTableViewCell"];
+	[pfs registerBool:&SileoFeaturedBannerViewSwitch default:NO forKey:@"SileoFeaturedBannerView"];
+	[pfs registerBool:&SileoConfirmDownloadButtonSwitch default:NO forKey:@"SileoConfirmDownloadButton"];
 	// Warnings
 	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
@@ -1935,6 +2376,7 @@ void triggerCustomFeedback() {
 	[pfs registerObject:&customStrengthuiVisualEffectViewControl default:@"0" forKey:@"customStrengthuiVisualEffectView"];
 
 	[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
+	[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
 	[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
 	[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
 	[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
@@ -1969,6 +2411,24 @@ void triggerCustomFeedback() {
 	[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
 	[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
 	[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
+
+	[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
+	[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
+	[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
+	[pfs registerObject:&customStrengthMusicApplicationTimeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationTimeSlider"];
+	[pfs registerObject:&customStrengthMusicApplicationSongCellControl default:@"0" forKey:@"customStrengthMusicApplicationSongCell"];
+	[pfs registerObject:&customStrengthLibraryCellControl default:@"0" forKey:@"customStrengthLibraryCell"];
+	[pfs registerObject:&customStrengthMusicApplicationAlbumCellControl default:@"0" forKey:@"customStrengthMusicApplicationAlbumCell"];
+	[pfs registerObject:&customStrengthMPRouteButtonControl default:@"0" forKey:@"customStrengthMPRouteButton"];
+	[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
+
+	[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
+
+	[pfs registerObject:&customStrengthSileoSourcesCellControl default:@"0" forKey:@"customStrengthSileoSourcesCell"];
+	[pfs registerObject:&customStrengthSileoPackageCollectionViewCellControl default:@"0" forKey:@"customStrengthSileoPackageCollectionViewCell"];
+	[pfs registerObject:&customStrengthSileoTableViewCellControl default:@"0" forKey:@"customStrengthSileoTableViewCell"];
+	[pfs registerObject:&customStrengthSileoFeaturedBannerViewControl default:@"0" forKey:@"customStrengthSileoFeaturedBannerView"];
+	[pfs registerObject:&customStrengthSileoConfirmDownloadButtonControl default:@"0" forKey:@"customStrengthSileoConfirmDownloadButton"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

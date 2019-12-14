@@ -59,6 +59,7 @@ BOOL uiVisualEffectViewSwitch = NO;
 
 // Spotify
 BOOL SPTplayButtonSwitch = NO;
+BOOL SPTplayBarButtonSwitch = NO;
 BOOL SPTpreviousTrackButtonSwitch = NO;
 BOOL SPTnextTrackButtonSwitch = NO;
 BOOL SPTrepeatButtonSwitch = NO;
@@ -98,6 +99,27 @@ BOOL PHDialerCallButtonSwitch = NO;
 BOOL FBTabBarSwitch = NO;
 BOOL FBQuickAccessButtonsSwitch = NO;
 BOOL FBNavigationBarButtonSwitch = NO;
+
+// Music
+BOOL MusicPlayPauseButtonsSwitch = NO;
+BOOL MusicVolumeSliderSwitch = NO;
+BOOL MusicContextualActionsButtonSwitch = NO;
+BOOL MusicTimeSliderSwitch = NO;
+BOOL MusicSongCellSwitch = NO;
+BOOL MusicLibraryCellSwitch = NO;
+BOOL MusicAlbumCellSwitch = NO;
+BOOL MusicAirPlayButtonSwitch = NO;
+BOOL MusicLiveLyricsQueueButtonSwitch = NO;
+
+// Calculator
+BOOL CalculatorKeyPadButtonSwitch = NO;
+
+// Sileo
+BOOL SileoSourcesCellSwitch = NO;
+BOOL SileoPackageCollectionViewCellSwitch = NO;
+BOOL SileoTableViewCellSwitch = NO;
+BOOL SileoFeaturedBannerViewSwitch = NO;
+BOOL SileoConfirmDownloadButtonSwitch = NO;
 
 // Low Power Mode recognition
 BOOL LowPowerMode;
@@ -150,6 +172,7 @@ NSString *customStrengthuiLabelControl = @"0";
 NSString *customStrengthuiVisualEffectViewControl = @"0";
 
 NSString *customStrengthSPTplayButtonControl = @"0";
+NSString *customStrengthSPTplayBarButtonControl = @"0";
 NSString *customStrengthSPTpreviousTrackButtonControl = @"0";
 NSString *customStrengthSPTnextTrackButtonControl = @"0";
 NSString *customStrengthSPTrepeatButtonControl = @"0";
@@ -183,6 +206,24 @@ NSString *customStrengthPHDialerCallButtonControl = @"0";
 NSString *customStrengthFBTabBarControl = @"0";
 NSString *customStrengthFBQuickAccessButtonsControl = @"0";
 NSString *customStrengthFBNavigationBarButtonControl = @"0";
+
+NSString *customStrengthMusicApplicationPlayButtonControl = @"0";
+NSString *customStrengthMusicApplicationVolumeSliderControl = @"0";
+NSString *customStrengthMusicApplicationContextualActionsButtonControl = @"0";
+NSString *customStrengthMusicApplicationTimeSliderControl = @"0";
+NSString *customStrengthMusicApplicationSongCellControl = @"0";
+NSString *customStrengthLibraryCellControl = @"0";
+NSString *customStrengthMusicApplicationAlbumCellControl = @"0";
+NSString *customStrengthMPRouteButtonControl = @"0";
+NSString *customStrengthMPButtonControl = @"0";
+
+NSString *customStrengthCalculatorApplicationKeyPadButtonControl = @"0";
+
+NSString *customStrengthSileoSourcesCellControl = @"0";
+NSString *customStrengthSileoPackageCollectionViewCellControl = @"0";
+NSString *customStrengthSileoTableViewCellControl = @"0";
+NSString *customStrengthSileoFeaturedBannerViewControl = @"0";
+NSString *customStrengthSileoConfirmDownloadButtonControl = @"0";
 
 // Taptic Engine Feedback generator
 UIImpactFeedbackGenerator *gen;
