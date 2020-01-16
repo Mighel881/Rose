@@ -17,13 +17,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>displayWake</string>
 			<key>label</key>
 			<string>Display Wakes</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -33,7 +33,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Wake Strength</string>
 			<key>key</key>
@@ -63,7 +63,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -72,13 +72,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>ChargerPluggedInOrOut</string>
 			<key>label</key>
 			<string>Charger Plugged In/Out</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -88,7 +88,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Plugged Strength</string>
 			<key>key</key>
@@ -118,7 +118,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 	</array>

@@ -44,6 +44,7 @@ BOOL homeButtonSwitch = NO;
 BOOL touchesSwitch = NO;
 BOOL openControlCenterSwitch = NO;
 BOOL ccModuleSwitch = NO;
+BOOL enterBackgroundSwitch = NO;
 BOOL shutdownWarningSwitch = YES;
 BOOL featureWarningSwitch = YES;
 
@@ -161,6 +162,7 @@ NSString *customStrengthWakeControl = @"0";
 NSString *customStrengthTouchesControl = @"0";
 NSString *customStrengthOpenControlCenterControl = @"0";
 NSString *customStrengthCCModuleControl = @"0";
+NSString *customStrengthEnterBackgroundControl = @"0";
 
 NSString *customStrengthuiButtonControl = @"0";
 NSString *customStrengthuiViewControl = @"0";

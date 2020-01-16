@@ -1,13 +1,13 @@
-Package: me.shymemoriees.rose
+Package: sh.litten.rose
 Name: Rose
 Depends: mobilesubstrate, ws.hbang.common (>= 1.14)
 Architecture: iphoneos-arm
 Description: Getting peeped by a Rose doesn't feel that good, it's time to change that
-Maintainer: ShyMemoriees <shymemoriees@yahoo.com>
-Author: ShyMemoriees <shymemoriees@yahoo.com>
+Maintainer: Litten <hello@litten.sh>
+Author: Litten <hello@litten.sh>
 Section: Tweaks
-Depiction: https://repo.shymemoriees.me/depictions/rsebeta/index.html
-SileoDepiction: https://repo.shymemoriees.me/depictions/rsebeta/rsebeta.json
-Icon: https://repo.shymemoriees.me/depictions/rsebeta/assets/icon.png
-Version: 4.1
-Installed-Size: 1148
+Depiction: https://repo.litten.sh/depictions/rse/index.html
+SileoDepiction: https://repo.litten.sh/depictions/rse/rse.json
+Icon: https://repo.litten.sh/depictions/rse/assets/icon.png
+Version: 4.2
+Installed-Size: 880

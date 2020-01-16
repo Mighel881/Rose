@@ -1,10 +1,5 @@
 #import "../RoseCommon.h"
 #import "Rose.h"
-
-@interface MusicApplicationPlayButton : NSObject {
-}
-
-@end
 	
 	// Rose wide haptics controller
 void prepareForHaptic() {
@@ -230,13 +225,13 @@ void triggerCustomFeedback() {
     %orig; //  Thanks to Nepeta for the DRM
     if (!dpkgInvalid) return;
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.shymemoriees.me/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.shymemoriees.me to Cydia or Sileo."
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
 		preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
 
 			UIApplication *application = [UIApplication sharedApplication];
-			[application openURL:[NSURL URLWithString:@"https://repo.shymemoriees.me/"] options:@{} completionHandler:nil];
+			[application openURL:[NSURL URLWithString:@"https://repo.litten.sh/"] options:@{} completionHandler:nil];
 
 	}];
 
@@ -480,6 +475,27 @@ void triggerCustomFeedback() {
 
 %end
 
+%hook SBApplication
+
+- (void)_didExitWithContext:(id)arg1 {
+
+	%orig;
+
+	int customStrength = [customStrengthKillingControl intValue];
+
+	if (killingSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (killingSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+%end
+
 %hook SBUIIconForceTouchController
 
 - (void)iconForceTouchViewControllerWillDismiss:(id)arg1 {
@@ -625,6 +641,23 @@ void triggerCustomFeedback() {
 
 %hook SBIconController
 
+- (void)viewWillAppear:(BOOL)arg1 {
+
+	%orig;
+
+	int customStrength = [customStrengthEnterBackgroundControl intValue];
+
+	if (enterBackgroundSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (enterBackgroundSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 
 	%orig;
@@ -654,6 +687,23 @@ void triggerCustomFeedback() {
 		triggerFeedback();
 
 	} else if (iconTapSwitch && customStrength != 0) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	}
+
+}
+
+-(void)_iconForceTouchControllerDidDismiss:(id)arg1 {
+
+	%orig;
+
+	int customStrength = [customStrengthForceTouchControl intValue];
+
+	if (forceSwitch && customStrength == 0) {
+		triggerFeedback();
+
+	} else if (forceSwitch && customStrength != 0) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
@@ -2222,11 +2272,11 @@ void triggerCustomFeedback() {
 
     if (!shouldLoad) return;
 
-    dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.list"];
+    dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.list"];
 
-    if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/me.shymemoriees.rose.md5sums"];
+    if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.md5sums"];
 
-    pfs = [[HBPreferences alloc] initWithIdentifier:@"me.shymemoriees.rosepreferences"];
+    pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 	// Option Switches
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
@@ -2260,6 +2310,7 @@ void triggerCustomFeedback() {
 	[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
 	[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
 	[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
+	[pfs registerBool:&enterBackgroundSwitch default:NO forKey:@"enterBackground"];
 	// iOS System Wide Hooks
 	[pfs registerBool:&uiButtonSwitch default:NO forKey:@"uiButton"];
 	[pfs registerBool:&uiViewSwitch default:NO forKey:@"uiView"];
@@ -2365,6 +2416,7 @@ void triggerCustomFeedback() {
 	[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
 	[pfs registerObject:&customStrengthOpenControlCenterControl default:@"0" forKey:@"customStrengthOpenControlCenter"];
 	[pfs registerObject:&customStrengthCCModuleControl default:@"0" forKey:@"customStrengthCCModule"];
+	[pfs registerObject:&customStrengthEnterBackgroundControl default:@"0" forKey:@"customStrengthEnterBackground"];
 
 	[pfs registerObject:&customStrengthuiButtonControl default:@"0" forKey:@"customStrengthuiButton"];
 	[pfs registerObject:&customStrengthuiViewControl default:@"0" forKey:@"customStrengthuiView"];
@@ -2433,10 +2485,10 @@ void triggerCustomFeedback() {
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;
         
-        ok = ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"/var/lib/dpkg/info/%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@.rose.md5sums", @"m", @"e", @".", @"s", @"h", @"y", @"m", @"e", @"m", @"o", @"r", @"i", @"e", @"e", @"s"]]
+        ok = ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"/var/lib/dpkg/info/%@%@%@%@%@%@%@%@%@.rose.md5sums", @"s", @"h", @".", @"l", @"i", @"t", @"t", @"e", @"n"]]
         );
 
-        if (ok && [@"shymemoriees" isEqualToString:@"shymemoriees"]) {
+        if (ok && [@"litten" isEqualToString:@"litten"]) {
             %init(Rose);
             return;
         } else {

@@ -17,13 +17,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>SiriUIFeedback</string>
 			<key>label</key>
 			<string>Summoning Siri</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -33,7 +33,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Siri Strength</string>
 			<key>key</key>
@@ -63,7 +63,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -72,13 +72,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>takeScreenshot</string>
 			<key>label</key>
 			<string>Taking Screenshot</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -88,7 +88,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Screenshot Strength</string>
 			<key>key</key>
@@ -118,7 +118,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -127,13 +127,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>reachability</string>
 			<key>label</key>
 			<string>Begin/End Reachability</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -143,7 +143,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Reachability Strength</string>
 			<key>key</key>
@@ -173,7 +173,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -182,13 +182,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>textSelection</string>
 			<key>label</key>
 			<string>Using Text Selection</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -198,7 +198,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Text Selection Strength</string>
 			<key>key</key>
@@ -228,7 +228,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -237,13 +237,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>PowerDownViewSwitch</string>
 			<key>label</key>
 			<string>Entering Power Down View</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -253,7 +253,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Power Down Strength</string>
 			<key>key</key>
@@ -283,7 +283,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -292,13 +292,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>ReSpringSwitch</string>
 			<key>label</key>
 			<string>ReSpringing</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -308,7 +308,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Respring Strength</string>
 			<key>key</key>
@@ -338,7 +338,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 
@@ -348,13 +348,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>touches</string>
 			<key>label</key>
 			<string>Touching The Screen</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -364,7 +364,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Touches Strength</string>
 			<key>key</key>
@@ -394,7 +394,7 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -403,13 +403,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>usingKeyboard</string>
 			<key>label</key>
 			<string>Typing</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -419,7 +419,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>label</key>
 			<string>Custom Keyboard Strength</string>
 			<key>key</key>
@@ -449,7 +449,62 @@
 				<string>Rigid: Taptic-Engine</string>
 			</array>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>enterBackground</string>
+			<key>label</key>
+			<string>Entering HomeScreen</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>label</key>
+			<string>Custom Entering HomeScreen Strength</string>
+			<key>key</key>
+			<string>customStrengthEnterBackground</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>None</string>
+				<string>Light: Haptic-Engine</string>
+				<string>Medium: Haptic-Engine</string>
+				<string>Heavy: Haptic-Engine</string>
+				<string>Light: Taptic-Engine</string>
+				<string>Medium: Taptic-Engine</string>
+				<string>Strong: Taptic-Engine</string>
+				<string>Soft: Taptic-Engine</string>
+				<string>Rigid: Taptic-Engine</string>
+			</array>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 	</array>

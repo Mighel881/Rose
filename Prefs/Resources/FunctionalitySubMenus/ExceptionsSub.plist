@@ -17,13 +17,13 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>me.shymemoriees.rosepreferences</string>
+			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
 			<string>LowPowerModeSwitch</string>
 			<key>label</key>
 			<string>Low Power Mode Is On</string>
 			<key>PostNotification</key>
-			<string>me.shymemoriees.rosepreferences/ReloadPrefs</string>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
 	</array>

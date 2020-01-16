@@ -1,2 +1,2 @@
 
-#define RoseTriggerActivator @"me.shymemoriees.rose/Action"
+#define RoseTriggerActivator @"sh.litten.rose/Action"

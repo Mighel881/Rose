@@ -6,6 +6,7 @@
     self = [super init];
 
     if (self) {
+
         RSEAppearanceSettings *appearanceSettings = [[RSEAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
         self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"ReSpring" 
@@ -146,15 +147,10 @@
     [t launch];
 }
 
--(IBAction)twitterEsquilli {
-    NSURL *URL = [NSURL URLWithString: @"https://github.com/ShyMemoriees"];
-    [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
-}
-
 -(void)showThanksAlert {
 
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.rosepreferences.plist";
+    NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist";
 
     if (!([manager fileExistsAtPath:pathForRosePlist])) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
