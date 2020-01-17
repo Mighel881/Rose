@@ -481,15 +481,18 @@ void triggerCustomFeedback() {
 
 	%orig;
 
-	int customStrength = [customStrengthKillingControl intValue];
+	if (!(SYSTEM_VERSION_LESS_THAN(@"13.0"))) {
+		int customStrength = [customStrengthKillingControl intValue];
 
-	if (killingSwitch && customStrength == 0) {
-		triggerFeedback();
+		if (killingSwitch && customStrength == 0) {
+			triggerFeedback();
 
-	} else if (killingSwitch && customStrength != 0) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		} else if (killingSwitch && customStrength != 0) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
 
+		}
+	
 	}
 
 }
@@ -687,23 +690,6 @@ void triggerCustomFeedback() {
 		triggerFeedback();
 
 	} else if (iconTapSwitch && customStrength != 0) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	}
-
-}
-
--(void)_iconForceTouchControllerDidDismiss:(id)arg1 {
-
-	%orig;
-
-	int customStrength = [customStrengthForceTouchControl intValue];
-
-	if (forceSwitch && customStrength == 0) {
-		triggerFeedback();
-
-	} else if (forceSwitch && customStrength != 0) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 

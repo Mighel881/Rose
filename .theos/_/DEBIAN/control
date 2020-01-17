@@ -1,6 +1,6 @@
 Package: sh.litten.rose
 Name: Rose
-Depends: mobilesubstrate, ws.hbang.common (>= 1.14)
+Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14)
 Architecture: iphoneos-arm
 Description: Getting peeped by a Rose doesn't feel that good, it's time to change that
 Maintainer: Litten <hello@litten.sh>
@@ -9,5 +9,5 @@ Section: Tweaks
 Depiction: https://repo.litten.sh/depictions/rse/index.html
 SileoDepiction: https://repo.litten.sh/depictions/rse/rse.json
 Icon: https://repo.litten.sh/depictions/rse/assets/icon.png
-Version: 4.2
-Installed-Size: 880
+Version: 4.2.1-1+debug
+Installed-Size: 1020
