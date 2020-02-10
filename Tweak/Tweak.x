@@ -135,6 +135,66 @@ void triggerCustomFeedback() {
 
 }
 
+// https://stackoverflow.com/a/43816242
+void AudioServicesPlaySystemSoundWithVibration(UInt32 inSystemSoundID, id arg, NSDictionary* vibratePattern);
+
+void prepareLegacyFeedback(float durationInSeconds, float intensivity, long count)  {
+
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    NSMutableArray* arr = [NSMutableArray array];
+
+    for (long i = count; i--;) {
+		[arr addObject:[NSNumber numberWithBool:YES]];
+        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
+
+        [arr addObject:[NSNumber numberWithBool:NO]];
+        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
+
+    }
+
+    [dict setObject:arr forKey:@"VibePattern"];
+    [dict setObject:[NSNumber numberWithFloat:intensivity] forKey:@"Intensity"];
+
+    AudioServicesPlaySystemSoundWithVibration(4095,nil,dict);
+
+}
+
+	// Rose legacy haptics trigger
+void triggerLegacyFeedback() {
+
+int selectedLegacyMode = [legacyLevel intValue];
+double customLegacyDuration = [customlegacyDurationLevel doubleValue];
+double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+
+if (LowPowerModeSwitch && LowPowerMode == YES) {}
+	else if (enabled && delaySwitch) {
+		int delay = [delayLevel intValue];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+			if (selectedLegacyMode == 0) {
+				prepareLegacyFeedback(.025, .05, 1);
+
+			} else if (selectedLegacyMode == 1) {
+				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
+
+			}
+
+		});
+
+	} else if (enabled && !(delaySwitch)) {
+		if (selectedLegacyMode == 0) {
+				prepareLegacyFeedback(.025, .05, 1);
+
+			} else if (selectedLegacyMode == 1) {
+				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
+
+			}
+		
+	}
+
+}
+
 %group Rose
 
 %hook SpringBoard
@@ -145,12 +205,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthRespringControl intValue];
 
-	if (respringSwitch && customStrength == 0) {
+	if (respringSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (respringSwitch && customStrength != 0) {
+	} else if (respringSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (respringSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -162,12 +225,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthRingerControl intValue];
 
-	if (ringerSwitch && customStrength == 0) {
+	if (ringerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ringerSwitch && customStrength != 0) {
+	} else if (ringerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ringerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -184,14 +250,17 @@ void triggerCustomFeedback() {
 	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
-		if (homeButtonSwitch && customStrength == 0) {
+		if (homeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (homeButtonSwitch && customStrength != 0) {
+		} else if (homeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (homeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -209,12 +278,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthUnlockControl intValue];
 
-	if (unlockSwitch && customStrength == 0) {
+	if (unlockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (unlockSwitch && customStrength != 0) {
+	} else if (unlockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (unlockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -306,12 +378,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthLockControl intValue];
 
-	if (lockSwitch && customStrength == 0) {
+	if (lockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (lockSwitch && customStrength != 0) {
+	} else if (lockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (lockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -321,12 +396,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSleepButtonControl intValue];
 
-	if (sleepButtonSwitch && customStrength == 0) {
+	if (sleepButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (sleepButtonSwitch && customStrength != 0) {
+	} else if (sleepButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (sleepButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -344,12 +422,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -361,12 +442,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -382,12 +466,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -399,12 +486,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -420,12 +510,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0) {
+	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0) {
+	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -441,12 +534,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0) {
+	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0) {
+	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -462,12 +558,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthKillingControl intValue];
 
-	if (killingSwitch && customStrength == 0) {
+	if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (killingSwitch && customStrength != 0) {
+	} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -484,14 +583,17 @@ void triggerCustomFeedback() {
 	if (!(SYSTEM_VERSION_LESS_THAN(@"13.0"))) {
 		int customStrength = [customStrengthKillingControl intValue];
 
-		if (killingSwitch && customStrength == 0) {
+		if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (killingSwitch && customStrength != 0) {
+		} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 	
 	}
 
@@ -507,12 +609,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthForceTouchControl intValue];
 
-	if (forceSwitch && customStrength == 0) {
+	if (forceSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (forceSwitch && customStrength != 0) {
+	} else if (forceSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (forceSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -528,12 +633,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPluggedControl intValue];
 
-	if (pluggedSwitch && customStrength == 0) {
+	if (pluggedSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pluggedSwitch && customStrength != 0) {
+	} else if (pluggedSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (pluggedSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -545,12 +653,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthReachabilityControl intValue];
 
-	if (reachabilitySwitch && customStrength == 0) {
+	if (reachabilitySwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (reachabilitySwitch && customStrength != 0) {
+	} else if (reachabilitySwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (reachabilitySwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -566,12 +677,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSwitcherControl intValue];
 
-	if (switcherSwitch && customStrength == 0) {
+	if (switcherSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (switcherSwitch && customStrength != 0) {
+	} else if (switcherSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (switcherSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -587,12 +701,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSiriControl intValue];
 
-	if (siriSwitch && customStrength == 0) {
+	if (siriSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (siriSwitch && customStrength != 0) {
+	} else if (siriSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (siriSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -608,12 +725,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthCCToggleControl intValue];
 
-	if (ccToggleSwitch && customStrength == 0) {
+	if (ccToggleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccToggleSwitch && customStrength != 0) {
+	} else if (ccToggleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ccToggleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -629,12 +749,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthFolderControl intValue];
 
-	if (folderSwitch && customStrength == 0) {
+	if (folderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (folderSwitch && customStrength != 0) {
+	} else if (folderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (folderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -650,12 +773,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthEnterBackgroundControl intValue];
 
-	if (enterBackgroundSwitch && customStrength == 0) {
+	if (enterBackgroundSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (enterBackgroundSwitch && customStrength != 0) {
+	} else if (enterBackgroundSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (enterBackgroundSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -686,12 +812,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0) {
+	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0) {
+	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -707,12 +836,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0) {
+	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0) {
+	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -728,12 +860,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPageSwipeControl intValue];
 
-	if (pageSwipeSwitch && customStrength == 0) {
+	if (pageSwipeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pageSwipeSwitch && customStrength != 0) {
+	} else if (pageSwipeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (pageSwipeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -749,12 +884,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthScreenshotControl intValue];
 
-	if (screenshotSwitch && customStrength == 0) {
+	if (screenshotSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (screenshotSwitch && customStrength != 0) {
+	} else if (screenshotSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (screenshotSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -770,12 +908,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPasscodeControl intValue];
 
-	if (passcodeSwitch && customStrength == 0) {
+	if (passcodeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (passcodeSwitch &&  customStrength != 0) {
+	} else if (passcodeSwitch &&  customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (passcodeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -791,34 +932,17 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthKeyboardControl intValue];
 
-	if (keyboardSwitch && customStrength == 0) {
+	if (keyboardSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (keyboardSwitch && customStrength != 0) {
+	} else if (keyboardSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	}
-
-}
-
-- (void)setPlayKeyClickSoundOn:(int)arg1 {
-
-	if (enabled && keyboardSwitch) {
-	            UIKBTree *delKey = [%c(UIKBTree) key];
-				NSString *myDelKeyString = [delKey name];
-
-		 if ([myDelKeyString isEqualToString:@"Delete-Key"]) {
-            
-		
-      } else {
-		  %orig;
+	} else if (keyboardSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
-} else {
-	%orig;
-
-}
 
 }
 
@@ -832,12 +956,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTextSelectionControl intValue];
 
-	if (textSelectionSwitch && customStrength == 0) {
+	if (textSelectionSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (textSelectionSwitch && customStrength != 0) {
+	} else if (textSelectionSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (textSelectionSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -851,12 +978,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSpotlightControl intValue];
 
-	if (spotlightSwitch && customStrength == 0) {
+	if (spotlightSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (spotlightSwitch && customStrength != 0) {
+	} else if (spotlightSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (spotlightSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -874,12 +1004,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthCallControl intValue];
 
-	if (callSwitch && customStrength == 0) {
+	if (callSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (callSwitch && customStrength != 0) {
+	} else if (callSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (callSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -895,18 +1028,19 @@ void triggerCustomFeedback() {
 
     if (authenticated) {
 
-	%orig;
-
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0) {
+		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0) {
+		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -914,24 +1048,26 @@ void triggerCustomFeedback() {
 
 %end
 
-%hook SBDashBoardMesaUnlockBehavior
+%hook SBDashBoardLockScreenEnvironment // iOS 13
 
-- (void)setAuthenticated:(BOOL)arg1 {
+-(void)setAuthenticated:(BOOL)arg1 {
 
 	%orig;
 
-    if (arg1) {
-
+	if (arg1) {
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0) {
+		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0) {
+		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -948,14 +1084,17 @@ void triggerCustomFeedback() {
 	if (source != 26) {
 		int customStrength = [customStrengthWakeControl intValue];
 
-		if (wakeSwitch && customStrength == 0) {
+		if (wakeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (wakeSwitch && customStrength != 0) {
+		} else if (wakeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (wakeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 }
@@ -968,14 +1107,19 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTouchesControl intValue];
 
-	if (touchesSwitch && customStrength == 0) {
+	if (touchesSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
 		return YES;
 
-	} else if (touchesSwitch && customStrength != 0) {
+	} else if (touchesSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+		return YES;
+
+	} else if (touchesSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 		return YES;
 
@@ -996,12 +1140,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthOpenControlCenterControl intValue];
 
-	if (openControlCenterSwitch && customStrength == 0) {
+	if (openControlCenterSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (openControlCenterSwitch && customStrength != 0) {
+	} else if (openControlCenterSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (openControlCenterSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1017,12 +1164,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthCCModuleControl intValue];
 
-	if (ccModuleSwitch && customStrength == 0) {
+	if (ccModuleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccModuleSwitch && customStrength != 0) {
+	} else if (ccModuleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ccModuleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1038,12 +1188,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiButtonControl intValue];
 
-	if (uiButtonSwitch && customStrength == 0) {
+	if (uiButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiButtonSwitch && customStrength != 0) {
+	} else if (uiButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1059,12 +1212,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiViewControl intValue];
 
-	if (uiViewSwitch && customStrength == 0) {
+	if (uiViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiViewSwitch && customStrength != 0) {
+	} else if (uiViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1080,12 +1236,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiButtonBarButtonControl intValue];
 
-	if (UIButtonBarButtonSwitch && customStrength == 0) {
+	if (UIButtonBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (UIButtonBarButtonSwitch && customStrength != 0) {
+	} else if (UIButtonBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (UIButtonBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1101,12 +1260,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiImageViewControl intValue];
 
-	if (uiImageViewSwitch && customStrength == 0) {
+	if (uiImageViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiImageViewSwitch && customStrength != 0) {
+	} else if (uiImageViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiImageViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1122,12 +1284,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthmtMaterialViewControl intValue];
 
-	if (mtMaterialViewSwitch && customStrength == 0) {
+	if (mtMaterialViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (mtMaterialViewSwitch && customStrength != 0) {
+	} else if (mtMaterialViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (mtMaterialViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1143,12 +1308,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiStackViewControl intValue];
 
-	if (uiStackViewSwitch && customStrength == 0) {
+	if (uiStackViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiStackViewSwitch && customStrength != 0) {
+	} else if (uiStackViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiStackViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1164,12 +1332,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiLabelControl intValue];
 
-	if (uiLabelSwitch && customStrength == 0) {
+	if (uiLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiLabelSwitch && customStrength != 0) {
+	} else if (uiLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1185,12 +1356,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthuiVisualEffectViewControl intValue];
 
-	if (uiVisualEffectViewSwitch && customStrength == 0) {
+	if (uiVisualEffectViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiVisualEffectViewSwitch && customStrength != 0) {
+	} else if (uiVisualEffectViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiVisualEffectViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1206,12 +1380,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTplayButtonControl intValue];
 
-	if (SPTplayButtonSwitch && customStrength == 0) {
+	if (SPTplayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayButtonSwitch && customStrength != 0) {
+	} else if (SPTplayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTplayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1227,12 +1404,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
 
-	if (SPTpreviousTrackButtonSwitch && customStrength == 0) {
+	if (SPTpreviousTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0) {
+	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTpreviousTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1248,12 +1428,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
 
-	if (SPTnextTrackButtonSwitch && customStrength == 0) {
+	if (SPTnextTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnextTrackButtonSwitch && customStrength != 0) {
+	} else if (SPTnextTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTnextTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1269,12 +1452,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
 
-	if (SPTrepeatButtonSwitch && customStrength == 0) {
+	if (SPTrepeatButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTrepeatButtonSwitch && customStrength != 0) {
+	} else if (SPTrepeatButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTrepeatButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1290,12 +1476,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
 
-	if (SPTshuffleButtonSwitch && customStrength == 0) {
+	if (SPTshuffleButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTshuffleButtonSwitch && customStrength != 0) {
+	} else if (SPTshuffleButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTshuffleButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1311,12 +1500,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTqueueButtonControl intValue];
 
-	if (SPTqueueButtonSwitch && customStrength == 0) {
+	if (SPTqueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTqueueButtonSwitch && customStrength != 0) {
+	} else if (SPTqueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTqueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1332,12 +1524,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTsliderControl intValue];
 
-	if (SPTsliderSwitch && customStrength == 0) {
+	if (SPTsliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTsliderSwitch && customStrength != 0) {
+	} else if (SPTsliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTsliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1353,12 +1548,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
 
-	if (SPTfreeTierButtonSwitch && customStrength == 0) {
+	if (SPTfreeTierButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTfreeTierButtonSwitch && customStrength != 0) {
+	} else if (SPTfreeTierButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTfreeTierButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1374,12 +1572,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
 
-	if (SPTavailableDevicesButtonSwitch && customStrength == 0) {
+	if (SPTavailableDevicesButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0) {
+	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTavailableDevicesButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1395,12 +1596,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
 
-	if (SPTnowPlayingLabelSwitch && customStrength == 0) {
+	if (SPTnowPlayingLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnowPlayingLabelSwitch && customStrength != 0) {
+	} else if (SPTnowPlayingLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTnowPlayingLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1416,12 +1620,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
 
-	if (SPTplayBarButtonSwitch && customStrength == 0) {
+	if (SPTplayBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayBarButtonSwitch && customStrength != 0) {
+	} else if (SPTplayBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTplayBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1437,12 +1644,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthITGlikeButtonControl intValue];
 
-	if (ITGlikeButtonSwitch && customStrength == 0) {
+	if (ITGlikeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGlikeButtonSwitch && customStrength != 0) {
+	} else if (ITGlikeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGlikeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1454,12 +1664,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthITGcommentButtonControl intValue];
 
-	if (ITGcommentButtonSwitch && customStrength == 0) {
+	if (ITGcommentButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGcommentButtonSwitch && customStrength != 0) {
+	} else if (ITGcommentButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGcommentButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1471,12 +1684,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0) {
+	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1488,12 +1704,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0) {
+	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1505,12 +1724,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthITGsendButtonControl intValue];
 
-	if (ITGsendButtonSwitch && customStrength == 0) {
+	if (ITGsendButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsendButtonSwitch && customStrength != 0) {
+	} else if (ITGsendButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsendButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 	
@@ -1526,12 +1748,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTTlikeCommentShareButtonsControl intValue];
 
-	if (TTlikeCommentShareButtonsSwitch && customStrength == 0) {
+	if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0) {
+	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1547,12 +1772,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTWTtabBarControl intValue];
 
-	if (TWTtabBarSwitch && customStrength == 0) {
+	if (TWTtabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtabBarSwitch && customStrength != 0) {
+	} else if (TWTtabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1568,12 +1796,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTWTtweetViewControl intValue];
 
-	if (TWTtweetViewSwitch && customStrength == 0) {
+	if (TWTtweetViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetViewSwitch && customStrength != 0) {
+	} else if (TWTtweetViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1589,12 +1820,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
 
-	if (TWTdirectMessagesTapSwitch && customStrength == 0) {
+	if (TWTdirectMessagesTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTdirectMessagesTapSwitch && customStrength != 0) {
+	} else if (TWTdirectMessagesTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTdirectMessagesTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1610,12 +1844,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTWTactivityTapControl intValue];
 
-	if (TWTactivityTapSwitch && customStrength == 0) {
+	if (TWTactivityTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTactivityTapSwitch && customStrength != 0) {
+	} else if (TWTactivityTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTactivityTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1631,12 +1868,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthTWTtweetButtonControl intValue];
 
-	if (TWTtweetButtonSwitch && customStrength == 0) {
+	if (TWTtweetButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetButtonSwitch && customStrength != 0) {
+	} else if (TWTtweetButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1652,12 +1892,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSFUrlControl intValue];
 
-	if (SFUrlSwitch && customStrength == 0) {
+	if (SFUrlSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SFUrlSwitch && customStrength != 0) {
+	} else if (SFUrlSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SFUrlSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1673,12 +1916,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPHNumberPadControl intValue];
 
-	if (PHNumberPadSwitch && customStrength == 0) {
+	if (PHNumberPadSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHNumberPadSwitch && customStrength != 0) {
+	} else if (PHNumberPadSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHNumberPadSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1694,12 +1940,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPHContactCellControl intValue];
 
-	if (PHContactCellSwitch && customStrength == 0) {
+	if (PHContactCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHContactCellSwitch && customStrength != 0) {
+	} else if (PHContactCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHContactCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1715,12 +1964,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
 
-	if (PHDialerDeleteButtonSwitch && customStrength == 0) {
+	if (PHDialerDeleteButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHDialerDeleteButtonSwitch && customStrength != 0) {
+	} else if (PHDialerDeleteButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHDialerDeleteButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1736,12 +1988,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
 
-	if (PHDialerCallButtonSwitch && customStrength == 0) {
+	if (PHDialerCallButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHDialerCallButtonSwitch && customStrength != 0) {
+	} else if (PHDialerCallButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHDialerCallButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1757,12 +2012,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthFBTabBarControl intValue];
 
-	if (FBTabBarSwitch && customStrength == 0) {
+	if (FBTabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBTabBarSwitch && customStrength != 0) {
+	} else if (FBTabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (FBTabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1778,26 +2036,17 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthFBQuickAccessButtonsControl intValue];
 
-	if (FBQuickAccessButtonsSwitch && customStrength == 0) {
+	if (FBQuickAccessButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBQuickAccessButtonsSwitch && customStrength != 0) {
+	} else if (FBQuickAccessButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
+	} else if (FBQuickAccessButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
 	}
-
-}
-
-%end
-
-%hook FBNavigationBarButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	triggerFeedback();
 
 }
 
@@ -1816,6 +2065,9 @@ void triggerCustomFeedback() {
 %end
 
 %end // Rose group
+
+// I put these apps below because they're swift apps and i want to seperate them from objc apps
+
 // Music
 %group Music
 
@@ -1833,12 +2085,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
 
-	if (MusicPlayPauseButtonsSwitch && customStrength == 0) {
+	if (MusicPlayPauseButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0) {
+	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicPlayPauseButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1854,12 +2109,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
 
-	if (MusicVolumeSliderSwitch && customStrength == 0) {
+	if (MusicVolumeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicVolumeSliderSwitch && customStrength != 0) {
+	} else if (MusicVolumeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicVolumeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1881,12 +2139,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
 
-	if (MusicContextualActionsButtonSwitch && customStrength == 0) {
+	if (MusicContextualActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicContextualActionsButtonSwitch && customStrength != 0) {
+	} else if (MusicContextualActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicContextualActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1908,12 +2169,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
 
-	if (MusicTimeSliderSwitch && customStrength == 0) {
+	if (MusicTimeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicTimeSliderSwitch && customStrength != 0) {
+	} else if (MusicTimeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicTimeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1935,12 +2199,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
 
-	if (MusicSongCellSwitch && customStrength == 0) {
+	if (MusicSongCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicSongCellSwitch && customStrength != 0) {
+	} else if (MusicSongCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicSongCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1956,12 +2223,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthLibraryCellControl intValue];
 
-	if (MusicLibraryCellSwitch && customStrength == 0) {
+	if (MusicLibraryCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicLibraryCellSwitch && customStrength != 0) {
+	} else if (MusicLibraryCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicLibraryCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1983,12 +2253,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
 
-	if (MusicAlbumCellSwitch && customStrength == 0) {
+	if (MusicAlbumCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicAlbumCellSwitch && customStrength != 0) {
+	} else if (MusicAlbumCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicAlbumCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2004,12 +2277,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMPRouteButtonControl intValue];
 
-	if (MusicAirPlayButtonSwitch && customStrength == 0) {
+	if (MusicAirPlayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicAirPlayButtonSwitch && customStrength != 0) {
+	} else if (MusicAirPlayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicAirPlayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2025,12 +2301,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthMPButtonControl intValue];
 
-	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0) {
+	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0) {
+	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2060,12 +2339,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
 
-	if (CalculatorKeyPadButtonSwitch && customStrength == 0) {
+	if (CalculatorKeyPadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0) {
+	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (CalculatorKeyPadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2095,12 +2377,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSileoSourcesCellControl intValue];
 
-	if (SileoSourcesCellSwitch && customStrength == 0) {
+	if (SileoSourcesCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoSourcesCellSwitch && customStrength != 0) {
+	} else if (SileoSourcesCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoSourcesCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2122,12 +2407,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSileoPackageCollectionViewCellControl intValue];
 
-	if (SileoPackageCollectionViewCellSwitch && customStrength == 0) {
+	if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0) {
+	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2149,12 +2437,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSileoTableViewCellControl intValue];
 
-	if (SileoTableViewCellSwitch && customStrength == 0) {
+	if (SileoTableViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoTableViewCellSwitch && customStrength != 0) {
+	} else if (SileoTableViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoTableViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2176,12 +2467,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSileoFeaturedBannerViewControl intValue];
 
-	if (SileoFeaturedBannerViewSwitch && customStrength == 0) {
+	if (SileoFeaturedBannerViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0) {
+	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoFeaturedBannerViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2203,12 +2497,15 @@ void triggerCustomFeedback() {
 
 	int customStrength = [customStrengthSileoConfirmDownloadButtonControl intValue];
 
-	if (SileoConfirmDownloadButtonSwitch && customStrength == 0) {
+	if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0) {
+	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2219,6 +2516,35 @@ void triggerCustomFeedback() {
 %ctor {
 	%init(Sileo, SileoSourcesCell=objc_getClass("Sileo.SourcesTableViewCell"), SileoPackageCollectionViewCell=objc_getClass("Sileo.PackageCollectionViewCell"), SileoTableViewCell=objc_getClass("Sileo.SileoTableViewCell"), SileoFeaturedBannerView=objc_getClass("Sileo.FeaturedBannerView"), SileoConfirmDownloadButton=objc_getClass("Sileo.DownloadConfirmButton"));
 }
+
+%end
+
+%group RoseIntegrityFail
+
+%hook SBIconController
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    %orig; //  Thanks to Nepeta for the DRM
+    if (!dpkgInvalid) return;
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Melody"
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Melody from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
+		preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+			UIApplication *application = [UIApplication sharedApplication];
+			[application openURL:[NSURL URLWithString:@"https://repo.litten.sh/"] options:@{} completionHandler:nil];
+
+	}];
+
+		[alertController addAction:cancelAction];
+
+		[self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+%end
 
 %end
 
@@ -2262,11 +2588,17 @@ void triggerCustomFeedback() {
 
     if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.md5sums"];
 
+	if (dpkgInvalid) {
+        %init(RoseIntegrityFail);
+        return;
+    }
+
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 	// Option Switches
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
-	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
+	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
+	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
     [pfs registerBool:&respringSwitch default:NO forKey:@"ReSpringSwitch"];
     [pfs registerBool:&unlockSwitch default:NO forKey:@"UnlockSwitch"];
     [pfs registerBool:&lockSwitch default:NO forKey:@"LockSwitch"];
@@ -2365,8 +2697,12 @@ void triggerCustomFeedback() {
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
 	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
 	// Segmented Controls For Feedback Strength
-    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
+    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
+	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+	// Custom Legacy Sliders
+	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
+	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 	// Delay Slider And Switch
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];

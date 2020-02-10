@@ -137,6 +137,66 @@ void triggerCustomFeedback() {
 }
 
 
+void AudioServicesPlaySystemSoundWithVibration(UInt32 inSystemSoundID, id arg, NSDictionary* vibratePattern);
+
+void prepareLegacyFeedback(float durationInSeconds, float intensivity, long count)  {
+
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    NSMutableArray* arr = [NSMutableArray array];
+
+    for (long i = count; i--;) {
+		[arr addObject:[NSNumber numberWithBool:YES]];
+        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
+
+        [arr addObject:[NSNumber numberWithBool:NO]];
+        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
+
+    }
+
+    [dict setObject:arr forKey:@"VibePattern"];
+    [dict setObject:[NSNumber numberWithFloat:intensivity] forKey:@"Intensity"];
+
+    AudioServicesPlaySystemSoundWithVibration(4095,nil,dict);
+
+}
+
+	
+void triggerLegacyFeedback() {
+
+int selectedLegacyMode = [legacyLevel intValue];
+double customLegacyDuration = [customlegacyDurationLevel doubleValue];
+double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+
+if (LowPowerModeSwitch && LowPowerMode == YES) {}
+	else if (enabled && delaySwitch) {
+		int delay = [delayLevel intValue];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+			if (selectedLegacyMode == 0) {
+				prepareLegacyFeedback(.025, .05, 1);
+
+			} else if (selectedLegacyMode == 1) {
+				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
+
+			}
+
+		});
+
+	} else if (enabled && !(delaySwitch)) {
+		if (selectedLegacyMode == 0) {
+				prepareLegacyFeedback(.025, .05, 1);
+
+			} else if (selectedLegacyMode == 1) {
+				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
+
+			}
+		
+	}
+
+}
+
+
 #include <substrate.h>
 #if defined(__clang__)
 #if __has_feature(objc_arc)
@@ -157,11 +217,11 @@ void triggerCustomFeedback() {
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBAppSwitcherPageView; @class UIButton; @class UIVisualEffectView; @class MPRouteButton; @class SBBacklightController; @class SileoPackageCollectionViewCell; @class T1ActivityCell; @class NSProcessInfo; @class MusicApplicationPlayButton; @class CalculatorApplicationKeyPadButton; @class SSScreenCapturer; @class SPTNowPlayingNextTrackButton; @class SileoConfirmDownloadButton; @class UILabel; @class FBNavigationBarButton; @class UIKBTree; @class T1StandardStatusView; @class SPTNowPlayingMarqueeLabel; @class T1DirectMessageInboxSummaryView; @class TFNFloatingActionButton; @class VolumeControl; @class _SFNavigationBarURLButton; @class MusicApplicationAlbumCell; @class SBMainDisplaySceneManager; @class FBTabBar; @class UIWindow; @class SPTNowPlayingFreeTierFeedbackButton; @class SBFolderController; @class SPTGaiaDevicesAvailableViewImplementation; @class SBDashBoardMesaUnlockBehavior; @class SBUIPasscodeLockViewBase; @class SileoTableViewCell; @class SPTNowPlayingSliderV2; @class PHHandsetDialerDeleteButton; @class SBPowerDownViewController; @class UIView; @class SPTNowPlayingRepeatButton; @class SBHIconManager; @class CCUILabeledRoundButton; @class SPTNowPlayingBarPlayButton; @class UIStackView; @class _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider; @class UIImageView; @class SBUIController; @class FDSTetraPressStateAnnouncingControl; @class PHBottomBarButton; @class SPTNowPlayingShuffleButton; @class TFNCustomTabBar; @class SileoFeaturedBannerView; @class SBSearchScrollView; @class MTMaterialView; @class SiriUISiriStatusView; @class SBVolumeControl; @class SBFolderView; @class SBDashBoardViewController; @class MusicApplicationSongCell; @class ICSApplicationDelegate; @class CCUIToggleViewController; @class SileoSourcesCell; @class SPTNowPlayingPreviousTrackButton; @class SPTNowPlayingQueueButton; @class UICalloutBar; @class SBPowerDownController; @class PHHandsetDialerNumberPadButton; @class MusicApplicationContextualActionsButton; @class SpringBoard; @class CNContactListTableViewCell; @class MPButton; @class AWEFeedVideoButton; @class SBCoverSheetPrimarySlidingViewController; @class IGUFIButtonBarView; @class SPTNowPlayingPlayButtonV2; @class SBControlCenterController; @class SBSleepWakeHardwareButtonInteraction; @class MusicApplicationTimeSlider; @class UIKeyboardLayoutStar; @class SBApplication; @class _UIButtonBarButton; @class _TtCC16MusicApplication30LibraryMenuTableViewController4Cell; @class SBIconController; 
+@class SiriUISiriStatusView; @class SileoFeaturedBannerView; @class CCUILabeledRoundButton; @class UIWindow; @class SPTNowPlayingMarqueeLabel; @class SileoPackageCollectionViewCell; @class UICalloutBar; @class CalculatorApplicationKeyPadButton; @class _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider; @class UIKeyboardLayoutStar; @class SPTNowPlayingSliderV2; @class SBSleepWakeHardwareButtonInteraction; @class T1ActivityCell; @class NSProcessInfo; @class SBBacklightController; @class SBApplication; @class SBSearchScrollView; @class T1DirectMessageInboxSummaryView; @class SBControlCenterController; @class SBDashBoardViewController; @class UIVisualEffectView; @class TFNCustomTabBar; @class MusicApplicationAlbumCell; @class CCUIToggleViewController; @class SPTNowPlayingShuffleButton; @class UILabel; @class SBHIconManager; @class UIButton; @class ICSApplicationDelegate; @class _TtCC16MusicApplication30LibraryMenuTableViewController4Cell; @class MPRouteButton; @class PHBottomBarButton; @class UIStackView; @class SBPowerDownController; @class SBUIController; @class UIImageView; @class TFNFloatingActionButton; @class SBUIIconForceTouchController; @class _SFNavigationBarURLButton; @class FBTabBar; @class SBFolderView; @class SSScreenCapturer; @class SBMainDisplaySceneManager; @class SBCoverSheetPrimarySlidingViewController; @class MusicApplicationTimeSlider; @class SPTNowPlayingBarPlayButton; @class SBFolderController; @class MTMaterialView; @class MusicApplicationSongCell; @class SBIconController; @class SileoConfirmDownloadButton; @class AWEFeedVideoButton; @class SileoTableViewCell; @class SBDashBoardLockScreenEnvironment; @class SPTNowPlayingQueueButton; @class MPButton; @class SPTNowPlayingPlayButtonV2; @class SPTNowPlayingRepeatButton; @class FDSTetraPressStateAnnouncingControl; @class SPTGaiaDevicesAvailableViewImplementation; @class SpringBoard; @class MusicApplicationPlayButton; @class PHHandsetDialerNumberPadButton; @class SPTNowPlayingNextTrackButton; @class SPTNowPlayingPreviousTrackButton; @class IGUFIButtonBarView; @class SBUIPasscodeLockViewBase; @class SPTNowPlayingFreeTierFeedbackButton; @class SBVolumeControl; @class SBPowerDownViewController; @class T1StandardStatusView; @class SileoSourcesCell; @class UIView; @class SBAppSwitcherPageView; @class PHHandsetDialerDeleteButton; @class VolumeControl; @class _UIButtonBarButton; @class MusicApplicationContextualActionsButton; @class CNContactListTableViewCell; 
 
-static __inline__ __attribute__((always_inline)) __attribute__((unused)) Class _logos_static_class_lookup$UIKBTree(void) { static Class _klass; if(!_klass) { _klass = objc_getClass("UIKBTree"); } return _klass; }
-#line 138 "Tweak.x"
-static void (*_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SpringBoard$_ringerChanged$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$_ringerChanged$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static BOOL _logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownController$orderFront)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBPowerDownController$orderFront(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownViewController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBPowerDownViewController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$)(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBApplication$_didExitWithContext$)(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBApplication$_didExitWithContext$(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIController$ACPowerChanged)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIController$handleWillBeginReachabilityAnimation)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimation(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBAppSwitcherPageView$setVisible$)(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUILabeledRoundButton$buttonTapped$)(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$CCUILabeledRoundButton$buttonTapped$(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderController$prepareToOpen)(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBFolderController$prepareToOpen(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBIconController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBIconController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBIconController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBIconController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBIconController$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBIconController$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBHIconManager$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBHIconManager$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderView$scrollViewWillBeginDragging$)(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_meta_orig$Rose$SSScreenCapturer$playScreenshotSound)(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void _logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown)(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$)(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void _logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void (*_logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$)(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, int); static void _logos_method$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, int); static void (*_logos_orig$Rose$UICalloutBar$buttonPressed$)(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$UICalloutBar$buttonPressed$(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$)(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static BOOL _logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$ICSApplicationDelegate$audioCallStatusChanged$)(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardViewController$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardMesaUnlockBehavior* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardMesaUnlockBehavior* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$)(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static void _logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static BOOL (*_logos_orig$Rose$UIWindow$_shouldHitTestEntireScreen)(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$UIWindow$_shouldHitTestEntireScreen(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBControlCenterController$_willPresent)(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBControlCenterController$_willPresent(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUIToggleViewController$buttonTapped$forEvent$)(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$_UIButtonBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIImageView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIImageView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIImageView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIImageView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$MTMaterialView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL MTMaterialView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$MTMaterialView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL MTMaterialView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIStackView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIStackView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIStackView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIStackView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UILabel$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UILabel* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UILabel$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UILabel* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIVisualEffectView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIVisualEffectView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIVisualEffectView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPlayButtonV2* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPlayButtonV2* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPreviousTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPreviousTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingNextTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingNextTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingRepeatButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingRepeatButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingShuffleButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingShuffleButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingQueueButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingQueueButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingSliderV2* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingSliderV2* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingFreeTierFeedbackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingFreeTierFeedbackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTGaiaDevicesAvailableViewImplementation* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTGaiaDevicesAvailableViewImplementation* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingMarqueeLabel* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingMarqueeLabel* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingBarPlayButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingBarPlayButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onLikeButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onLikeButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onCommentButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onCommentButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSendButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSendButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$AWEFeedVideoButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL AWEFeedVideoButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$AWEFeedVideoButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL AWEFeedVideoButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$TFNCustomTabBar$tap$)(_LOGOS_SELF_TYPE_NORMAL TFNCustomTabBar* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$TFNCustomTabBar$tap$(_LOGOS_SELF_TYPE_NORMAL TFNCustomTabBar* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$T1StandardStatusView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1StandardStatusView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1StandardStatusView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1StandardStatusView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1DirectMessageInboxSummaryView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1DirectMessageInboxSummaryView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$T1ActivityCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1ActivityCell* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1ActivityCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1ActivityCell* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$)(_LOGOS_SELF_TYPE_NORMAL TFNFloatingActionButton* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$(_LOGOS_SELF_TYPE_NORMAL TFNFloatingActionButton* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _SFNavigationBarURLButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _SFNavigationBarURLButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerNumberPadButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerNumberPadButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$CNContactListTableViewCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL CNContactListTableViewCell* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$CNContactListTableViewCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL CNContactListTableViewCell* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerDeleteButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerDeleteButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHBottomBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHBottomBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHBottomBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHBottomBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$FBTabBar$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL FBTabBar* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$FBTabBar$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FBTabBar* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL FDSTetraPressStateAnnouncingControl* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FDSTetraPressStateAnnouncingControl* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$FBNavigationBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL FBNavigationBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$FBNavigationBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FBNavigationBarButton* _LOGOS_SELF_CONST, SEL, id, id); static BOOL (*_logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled)(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); 
+
+#line 198 "Tweak.x"
+static void (*_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SpringBoard$_ringerChanged$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$_ringerChanged$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static BOOL _logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownController$orderFront)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBPowerDownController$orderFront(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownViewController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBPowerDownViewController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$)(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBApplication$_didExitWithContext$)(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBApplication$_didExitWithContext$(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$)(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIController$ACPowerChanged)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIController$handleWillBeginReachabilityAnimation)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimation(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBAppSwitcherPageView$setVisible$)(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUILabeledRoundButton$buttonTapped$)(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$CCUILabeledRoundButton$buttonTapped$(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderController$prepareToOpen)(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBFolderController$prepareToOpen(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBIconController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBIconController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBIconController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBIconController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBIconController$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBIconController$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBHIconManager$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBHIconManager$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderView$scrollViewWillBeginDragging$)(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_meta_orig$Rose$SSScreenCapturer$playScreenshotSound)(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void _logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown)(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$)(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void _logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void (*_logos_orig$Rose$UICalloutBar$buttonPressed$)(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$UICalloutBar$buttonPressed$(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$)(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static BOOL _logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$ICSApplicationDelegate$audioCallStatusChanged$)(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardViewController$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardLockScreenEnvironment* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardLockScreenEnvironment* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$)(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static void _logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static BOOL (*_logos_orig$Rose$UIWindow$_shouldHitTestEntireScreen)(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$UIWindow$_shouldHitTestEntireScreen(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBControlCenterController$_willPresent)(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBControlCenterController$_willPresent(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUIToggleViewController$buttonTapped$forEvent$)(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$_UIButtonBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIImageView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIImageView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIImageView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIImageView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$MTMaterialView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL MTMaterialView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$MTMaterialView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL MTMaterialView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIStackView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIStackView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIStackView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIStackView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UILabel$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UILabel* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UILabel$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UILabel* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UIVisualEffectView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIVisualEffectView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIVisualEffectView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPlayButtonV2* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPlayButtonV2* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPreviousTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingPreviousTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingNextTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingNextTrackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingRepeatButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingRepeatButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingShuffleButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingShuffleButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingQueueButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingQueueButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingSliderV2* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingSliderV2* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingFreeTierFeedbackButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingFreeTierFeedbackButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTGaiaDevicesAvailableViewImplementation* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTGaiaDevicesAvailableViewImplementation* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingMarqueeLabel* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingMarqueeLabel* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingBarPlayButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL SPTNowPlayingBarPlayButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onLikeButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onLikeButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onCommentButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onCommentButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$IGUFIButtonBarView$_onSendButtonPressed$)(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$IGUFIButtonBarView$_onSendButtonPressed$(_LOGOS_SELF_TYPE_NORMAL IGUFIButtonBarView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$AWEFeedVideoButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL AWEFeedVideoButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$AWEFeedVideoButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL AWEFeedVideoButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$TFNCustomTabBar$tap$)(_LOGOS_SELF_TYPE_NORMAL TFNCustomTabBar* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$TFNCustomTabBar$tap$(_LOGOS_SELF_TYPE_NORMAL TFNCustomTabBar* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$T1StandardStatusView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1StandardStatusView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1StandardStatusView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1StandardStatusView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1DirectMessageInboxSummaryView* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1DirectMessageInboxSummaryView* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$T1ActivityCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL T1ActivityCell* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$T1ActivityCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL T1ActivityCell* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$)(_LOGOS_SELF_TYPE_NORMAL TFNFloatingActionButton* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$(_LOGOS_SELF_TYPE_NORMAL TFNFloatingActionButton* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _SFNavigationBarURLButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _SFNavigationBarURLButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerNumberPadButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerNumberPadButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$CNContactListTableViewCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL CNContactListTableViewCell* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$CNContactListTableViewCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL CNContactListTableViewCell* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerDeleteButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHHandsetDialerDeleteButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$PHBottomBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL PHBottomBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$PHBottomBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL PHBottomBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$FBTabBar$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL FBTabBar* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$FBTabBar$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FBTabBar* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL FDSTetraPressStateAnnouncingControl* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FDSTetraPressStateAnnouncingControl* _LOGOS_SELF_CONST, SEL, id, id); static BOOL (*_logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled)(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); 
 
 
 
@@ -171,12 +231,15 @@ static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS
 
 	int customStrength = [customStrengthRespringControl intValue];
 
-	if (respringSwitch && customStrength == 0) {
+	if (respringSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (respringSwitch && customStrength != 0) {
+	} else if (respringSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (respringSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -188,12 +251,15 @@ static void _logos_method$Rose$SpringBoard$_ringerChanged$(_LOGOS_SELF_TYPE_NORM
 
 	int customStrength = [customStrengthRingerControl intValue];
 
-	if (ringerSwitch && customStrength == 0) {
+	if (ringerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ringerSwitch && customStrength != 0) {
+	} else if (ringerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ringerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -210,14 +276,17 @@ static BOOL _logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$(_LOGOS_SE
 	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
-		if (homeButtonSwitch && customStrength == 0) {
+		if (homeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (homeButtonSwitch && customStrength != 0) {
+		} else if (homeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (homeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -235,12 +304,15 @@ static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWill
 
 	int customStrength = [customStrengthUnlockControl intValue];
 
-	if (unlockSwitch && customStrength == 0) {
+	if (unlockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (unlockSwitch && customStrength != 0) {
+	} else if (unlockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (unlockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -332,12 +404,15 @@ static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSou
 
 	int customStrength = [customStrengthLockControl intValue];
 
-	if (lockSwitch && customStrength == 0) {
+	if (lockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (lockSwitch && customStrength != 0) {
+	} else if (lockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (lockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -347,12 +422,15 @@ static BOOL _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeIniti
 
 	int customStrength = [customStrengthSleepButtonControl intValue];
 
-	if (sleepButtonSwitch && customStrength == 0) {
+	if (sleepButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (sleepButtonSwitch && customStrength != 0) {
+	} else if (sleepButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (sleepButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -370,12 +448,15 @@ static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NOR
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -387,12 +468,15 @@ static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NOR
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -408,12 +492,15 @@ static void _logos_method$Rose$SBVolumeControl$increaseVolume(_LOGOS_SELF_TYPE_N
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -425,12 +512,15 @@ static void _logos_method$Rose$SBVolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_N
 
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0) {
+	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0) {
+	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -446,12 +536,15 @@ static void _logos_method$Rose$SBPowerDownController$orderFront(_LOGOS_SELF_TYPE
 
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0) {
+	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0) {
+	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -467,12 +560,15 @@ static void _logos_method$Rose$SBPowerDownViewController$viewWillAppear$(_LOGOS_
 
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0) {
+	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0) {
+	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -488,12 +584,15 @@ static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher
 
 	int customStrength = [customStrengthKillingControl intValue];
 
-	if (killingSwitch && customStrength == 0) {
+	if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (killingSwitch && customStrength != 0) {
+	} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -507,15 +606,45 @@ static void _logos_method$Rose$SBApplication$_didExitWithContext$(_LOGOS_SELF_TY
 
 	_logos_orig$Rose$SBApplication$_didExitWithContext$(self, _cmd, arg1);
 
-	int customStrength = [customStrengthKillingControl intValue];
+	if (!(SYSTEM_VERSION_LESS_THAN(@"13.0"))) {
+		int customStrength = [customStrengthKillingControl intValue];
 
-	if (killingSwitch && customStrength == 0) {
+		if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+	
+	}
+
+}
+
+
+
+
+
+static void _logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
+
+	_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(self, _cmd, arg1);
+
+	int customStrength = [customStrengthForceTouchControl intValue];
+
+	if (forceSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (killingSwitch && customStrength != 0) {
+	} else if (forceSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
-	
+
+	} else if (forceSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
 	}
 
 }
@@ -530,12 +659,15 @@ static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NO
 
 	int customStrength = [customStrengthPluggedControl intValue];
 
-	if (pluggedSwitch && customStrength == 0) {
+	if (pluggedSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pluggedSwitch && customStrength != 0) {
+	} else if (pluggedSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (pluggedSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -547,12 +679,15 @@ static void _logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimati
 
 	int customStrength = [customStrengthReachabilityControl intValue];
 
-	if (reachabilitySwitch && customStrength == 0) {
+	if (reachabilitySwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (reachabilitySwitch && customStrength != 0) {
+	} else if (reachabilitySwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (reachabilitySwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -568,12 +703,15 @@ static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYP
 
 	int customStrength = [customStrengthSwitcherControl intValue];
 
-	if (switcherSwitch && customStrength == 0) {
+	if (switcherSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (switcherSwitch && customStrength != 0) {
+	} else if (switcherSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (switcherSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -589,12 +727,15 @@ static void _logos_method$Rose$SiriUISiriStatusView$layoutSubviews(_LOGOS_SELF_T
 
 	int customStrength = [customStrengthSiriControl intValue];
 
-	if (siriSwitch && customStrength == 0) {
+	if (siriSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (siriSwitch && customStrength != 0) {
+	} else if (siriSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (siriSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -610,12 +751,15 @@ static void _logos_method$Rose$CCUILabeledRoundButton$buttonTapped$(_LOGOS_SELF_
 
 	int customStrength = [customStrengthCCToggleControl intValue];
 
-	if (ccToggleSwitch && customStrength == 0) {
+	if (ccToggleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccToggleSwitch && customStrength != 0) {
+	} else if (ccToggleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ccToggleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -631,12 +775,15 @@ static void _logos_method$Rose$SBFolderController$prepareToOpen(_LOGOS_SELF_TYPE
 
 	int customStrength = [customStrengthFolderControl intValue];
 
-	if (folderSwitch && customStrength == 0) {
+	if (folderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (folderSwitch && customStrength != 0) {
+	} else if (folderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (folderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -652,12 +799,15 @@ static void _logos_method$Rose$SBIconController$viewWillAppear$(_LOGOS_SELF_TYPE
 
 	int customStrength = [customStrengthEnterBackgroundControl intValue];
 
-	if (enterBackgroundSwitch && customStrength == 0) {
+	if (enterBackgroundSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (enterBackgroundSwitch && customStrength != 0) {
+	} else if (enterBackgroundSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (enterBackgroundSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -688,12 +838,15 @@ static void _logos_method$Rose$SBIconController$iconTapped$(_LOGOS_SELF_TYPE_NOR
 
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0) {
+	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0) {
+	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -709,12 +862,15 @@ static void _logos_method$Rose$SBHIconManager$iconTapped$(_LOGOS_SELF_TYPE_NORMA
 
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0) {
+	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0) {
+	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -730,12 +886,15 @@ static void _logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$(_LOGOS_
 
 	int customStrength = [customStrengthPageSwipeControl intValue];
 
-	if (pageSwipeSwitch && customStrength == 0) {
+	if (pageSwipeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pageSwipeSwitch && customStrength != 0) {
+	} else if (pageSwipeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (pageSwipeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -751,12 +910,15 @@ static void _logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound(_LOGOS_
 
 	int customStrength = [customStrengthScreenshotControl intValue];
 
-	if (screenshotSwitch && customStrength == 0) {
+	if (screenshotSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (screenshotSwitch && customStrength != 0) {
+	} else if (screenshotSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (screenshotSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -772,12 +934,15 @@ static void _logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDo
 
 	int customStrength = [customStrengthPasscodeControl intValue];
 
-	if (passcodeSwitch && customStrength == 0) {
+	if (passcodeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (passcodeSwitch &&  customStrength != 0) {
+	} else if (passcodeSwitch &&  customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (passcodeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -793,34 +958,17 @@ static void _logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKe
 
 	int customStrength = [customStrengthKeyboardControl intValue];
 
-	if (keyboardSwitch && customStrength == 0) {
+	if (keyboardSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (keyboardSwitch && customStrength != 0) {
+	} else if (keyboardSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	}
-
-}
-
-static void _logos_method$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, int arg1) {
-
-	if (enabled && keyboardSwitch) {
-	            UIKBTree *delKey = [_logos_static_class_lookup$UIKBTree() key];
-				NSString *myDelKeyString = [delKey name];
-
-		 if ([myDelKeyString isEqualToString:@"Delete-Key"]) {
-            
-		
-      } else {
-		  _logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(self, _cmd, arg1);
+	} else if (keyboardSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
-} else {
-	_logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$(self, _cmd, arg1);
-
-}
 
 }
 
@@ -834,12 +982,15 @@ static void _logos_method$Rose$UICalloutBar$buttonPressed$(_LOGOS_SELF_TYPE_NORM
 
 	int customStrength = [customStrengthTextSelectionControl intValue];
 
-	if (textSelectionSwitch && customStrength == 0) {
+	if (textSelectionSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (textSelectionSwitch && customStrength != 0) {
+	} else if (textSelectionSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (textSelectionSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -853,12 +1004,15 @@ static BOOL _logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$(
 
 	int customStrength = [customStrengthSpotlightControl intValue];
 
-	if (spotlightSwitch && customStrength == 0) {
+	if (spotlightSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (spotlightSwitch && customStrength != 0) {
+	} else if (spotlightSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (spotlightSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -876,12 +1030,15 @@ static void _logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$(_L
 
 	int customStrength = [customStrengthCallControl intValue];
 
-	if (callSwitch && customStrength == 0) {
+	if (callSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (callSwitch && customStrength != 0) {
+	} else if (callSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (callSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -897,18 +1054,19 @@ static void _logos_method$Rose$SBDashBoardViewController$setAuthenticated$(_LOGO
 
     if (authenticated) {
 
-	_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$(self, _cmd, authenticated);
-
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0) {
+		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0) {
+		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -916,24 +1074,26 @@ static void _logos_method$Rose$SBDashBoardViewController$setAuthenticated$(_LOGO
 
 
 
+ 
 
+static void _logos_method$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardLockScreenEnvironment* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
 
-static void _logos_method$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardMesaUnlockBehavior* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL arg1) {
+	_logos_orig$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$(self, _cmd, arg1);
 
-	_logos_orig$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$(self, _cmd, arg1);
-
-    if (arg1) {
-
+	if (arg1) {
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0) {
+		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0) {
+		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 
@@ -950,14 +1110,17 @@ static void _logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBackli
 	if (source != 26) {
 		int customStrength = [customStrengthWakeControl intValue];
 
-		if (wakeSwitch && customStrength == 0) {
+		if (wakeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (wakeSwitch && customStrength != 0) {
+		} else if (wakeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		}
+		} else if (wakeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
 
 	}
 }
@@ -970,14 +1133,19 @@ static BOOL _logos_method$Rose$UIWindow$_shouldHitTestEntireScreen(_LOGOS_SELF_T
 
 	int customStrength = [customStrengthTouchesControl intValue];
 
-	if (touchesSwitch && customStrength == 0) {
+	if (touchesSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
 		return YES;
 
-	} else if (touchesSwitch && customStrength != 0) {
+	} else if (touchesSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+		return YES;
+
+	} else if (touchesSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 		return YES;
 
@@ -998,12 +1166,15 @@ static void _logos_method$Rose$SBControlCenterController$_willPresent(_LOGOS_SEL
 
 	int customStrength = [customStrengthOpenControlCenterControl intValue];
 
-	if (openControlCenterSwitch && customStrength == 0) {
+	if (openControlCenterSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (openControlCenterSwitch && customStrength != 0) {
+	} else if (openControlCenterSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (openControlCenterSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1019,12 +1190,15 @@ static void _logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$(_
 
 	int customStrength = [customStrengthCCModuleControl intValue];
 
-	if (ccModuleSwitch && customStrength == 0) {
+	if (ccModuleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccModuleSwitch && customStrength != 0) {
+	} else if (ccModuleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ccModuleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1040,12 +1214,15 @@ static void _logos_method$Rose$UIButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE
 
 	int customStrength = [customStrengthuiButtonControl intValue];
 
-	if (uiButtonSwitch && customStrength == 0) {
+	if (uiButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiButtonSwitch && customStrength != 0) {
+	} else if (uiButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1061,12 +1238,15 @@ static void _logos_method$Rose$UIView$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_N
 
 	int customStrength = [customStrengthuiViewControl intValue];
 
-	if (uiViewSwitch && customStrength == 0) {
+	if (uiViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiViewSwitch && customStrength != 0) {
+	} else if (uiViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1082,12 +1262,15 @@ static void _logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$(_LOGOS
 
 	int customStrength = [customStrengthuiButtonBarButtonControl intValue];
 
-	if (UIButtonBarButtonSwitch && customStrength == 0) {
+	if (UIButtonBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (UIButtonBarButtonSwitch && customStrength != 0) {
+	} else if (UIButtonBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (UIButtonBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1103,12 +1286,15 @@ static void _logos_method$Rose$UIImageView$touchesBegan$withEvent$(_LOGOS_SELF_T
 
 	int customStrength = [customStrengthuiImageViewControl intValue];
 
-	if (uiImageViewSwitch && customStrength == 0) {
+	if (uiImageViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiImageViewSwitch && customStrength != 0) {
+	} else if (uiImageViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiImageViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1124,12 +1310,15 @@ static void _logos_method$Rose$MTMaterialView$touchesBegan$withEvent$(_LOGOS_SEL
 
 	int customStrength = [customStrengthmtMaterialViewControl intValue];
 
-	if (mtMaterialViewSwitch && customStrength == 0) {
+	if (mtMaterialViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (mtMaterialViewSwitch && customStrength != 0) {
+	} else if (mtMaterialViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (mtMaterialViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1145,12 +1334,15 @@ static void _logos_method$Rose$UIStackView$touchesBegan$withEvent$(_LOGOS_SELF_T
 
 	int customStrength = [customStrengthuiStackViewControl intValue];
 
-	if (uiStackViewSwitch && customStrength == 0) {
+	if (uiStackViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiStackViewSwitch && customStrength != 0) {
+	} else if (uiStackViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiStackViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1166,12 +1358,15 @@ static void _logos_method$Rose$UILabel$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_
 
 	int customStrength = [customStrengthuiLabelControl intValue];
 
-	if (uiLabelSwitch && customStrength == 0) {
+	if (uiLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiLabelSwitch && customStrength != 0) {
+	} else if (uiLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1187,12 +1382,15 @@ static void _logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$(_LOGOS
 
 	int customStrength = [customStrengthuiVisualEffectViewControl intValue];
 
-	if (uiVisualEffectViewSwitch && customStrength == 0) {
+	if (uiVisualEffectViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiVisualEffectViewSwitch && customStrength != 0) {
+	} else if (uiVisualEffectViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (uiVisualEffectViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1208,12 +1406,15 @@ static void _logos_method$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$
 
 	int customStrength = [customStrengthSPTplayButtonControl intValue];
 
-	if (SPTplayButtonSwitch && customStrength == 0) {
+	if (SPTplayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayButtonSwitch && customStrength != 0) {
+	} else if (SPTplayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTplayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1229,12 +1430,15 @@ static void _logos_method$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$wit
 
 	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
 
-	if (SPTpreviousTrackButtonSwitch && customStrength == 0) {
+	if (SPTpreviousTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0) {
+	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTpreviousTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1250,12 +1454,15 @@ static void _logos_method$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEve
 
 	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
 
-	if (SPTnextTrackButtonSwitch && customStrength == 0) {
+	if (SPTnextTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnextTrackButtonSwitch && customStrength != 0) {
+	} else if (SPTnextTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTnextTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1271,12 +1478,15 @@ static void _logos_method$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$
 
 	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
 
-	if (SPTrepeatButtonSwitch && customStrength == 0) {
+	if (SPTrepeatButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTrepeatButtonSwitch && customStrength != 0) {
+	} else if (SPTrepeatButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTrepeatButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1292,12 +1502,15 @@ static void _logos_method$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent
 
 	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
 
-	if (SPTshuffleButtonSwitch && customStrength == 0) {
+	if (SPTshuffleButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTshuffleButtonSwitch && customStrength != 0) {
+	} else if (SPTshuffleButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTshuffleButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1313,12 +1526,15 @@ static void _logos_method$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$(
 
 	int customStrength = [customStrengthSPTqueueButtonControl intValue];
 
-	if (SPTqueueButtonSwitch && customStrength == 0) {
+	if (SPTqueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTqueueButtonSwitch && customStrength != 0) {
+	} else if (SPTqueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTqueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1334,12 +1550,15 @@ static void _logos_method$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$(_LO
 
 	int customStrength = [customStrengthSPTsliderControl intValue];
 
-	if (SPTsliderSwitch && customStrength == 0) {
+	if (SPTsliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTsliderSwitch && customStrength != 0) {
+	} else if (SPTsliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTsliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1355,12 +1574,15 @@ static void _logos_method$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$
 
 	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
 
-	if (SPTfreeTierButtonSwitch && customStrength == 0) {
+	if (SPTfreeTierButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTfreeTierButtonSwitch && customStrength != 0) {
+	} else if (SPTfreeTierButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTfreeTierButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1376,12 +1598,15 @@ static void _logos_method$Rose$SPTGaiaDevicesAvailableViewImplementation$touches
 
 	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
 
-	if (SPTavailableDevicesButtonSwitch && customStrength == 0) {
+	if (SPTavailableDevicesButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0) {
+	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTavailableDevicesButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1397,12 +1622,15 @@ static void _logos_method$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$
 
 	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
 
-	if (SPTnowPlayingLabelSwitch && customStrength == 0) {
+	if (SPTnowPlayingLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnowPlayingLabelSwitch && customStrength != 0) {
+	} else if (SPTnowPlayingLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTnowPlayingLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1418,12 +1646,15 @@ static void _logos_method$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent
 
 	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
 
-	if (SPTplayBarButtonSwitch && customStrength == 0) {
+	if (SPTplayBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayBarButtonSwitch && customStrength != 0) {
+	} else if (SPTplayBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SPTplayBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1439,12 +1670,15 @@ static void _logos_method$Rose$IGUFIButtonBarView$_onLikeButtonPressed$(_LOGOS_S
 
 	int customStrength = [customStrengthITGlikeButtonControl intValue];
 
-	if (ITGlikeButtonSwitch && customStrength == 0) {
+	if (ITGlikeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGlikeButtonSwitch && customStrength != 0) {
+	} else if (ITGlikeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGlikeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1456,12 +1690,15 @@ static void _logos_method$Rose$IGUFIButtonBarView$_onCommentButtonPressed$(_LOGO
 
 	int customStrength = [customStrengthITGcommentButtonControl intValue];
 
-	if (ITGcommentButtonSwitch && customStrength == 0) {
+	if (ITGcommentButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGcommentButtonSwitch && customStrength != 0) {
+	} else if (ITGcommentButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGcommentButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1473,12 +1710,15 @@ static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$(_LOG
 
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0) {
+	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1490,12 +1730,15 @@ static void _logos_method$Rose$IGUFIButtonBarView$_onSaveButtonPressed$(_LOGOS_S
 
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0) {
+	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0) {
+	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1507,12 +1750,15 @@ static void _logos_method$Rose$IGUFIButtonBarView$_onSendButtonPressed$(_LOGOS_S
 
 	int customStrength = [customStrengthITGsendButtonControl intValue];
 
-	if (ITGsendButtonSwitch && customStrength == 0) {
+	if (ITGsendButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsendButtonSwitch && customStrength != 0) {
+	} else if (ITGsendButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (ITGsendButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 	
@@ -1528,12 +1774,15 @@ static void _logos_method$Rose$AWEFeedVideoButton$touchesBegan$withEvent$(_LOGOS
 
 	int customStrength = [customStrengthTTlikeCommentShareButtonsControl intValue];
 
-	if (TTlikeCommentShareButtonsSwitch && customStrength == 0) {
+	if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0) {
+	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1549,12 +1798,15 @@ static void _logos_method$Rose$TFNCustomTabBar$tap$(_LOGOS_SELF_TYPE_NORMAL TFNC
 
 	int customStrength = [customStrengthTWTtabBarControl intValue];
 
-	if (TWTtabBarSwitch && customStrength == 0) {
+	if (TWTtabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtabBarSwitch && customStrength != 0) {
+	} else if (TWTtabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1570,12 +1822,15 @@ static void _logos_method$Rose$T1StandardStatusView$touchesBegan$withEvent$(_LOG
 
 	int customStrength = [customStrengthTWTtweetViewControl intValue];
 
-	if (TWTtweetViewSwitch && customStrength == 0) {
+	if (TWTtweetViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetViewSwitch && customStrength != 0) {
+	} else if (TWTtweetViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1591,12 +1846,15 @@ static void _logos_method$Rose$T1DirectMessageInboxSummaryView$touchesBegan$with
 
 	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
 
-	if (TWTdirectMessagesTapSwitch && customStrength == 0) {
+	if (TWTdirectMessagesTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTdirectMessagesTapSwitch && customStrength != 0) {
+	} else if (TWTdirectMessagesTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTdirectMessagesTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1612,12 +1870,15 @@ static void _logos_method$Rose$T1ActivityCell$touchesBegan$withEvent$(_LOGOS_SEL
 
 	int customStrength = [customStrengthTWTactivityTapControl intValue];
 
-	if (TWTactivityTapSwitch && customStrength == 0) {
+	if (TWTactivityTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTactivityTapSwitch && customStrength != 0) {
+	} else if (TWTactivityTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTactivityTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1633,12 +1894,15 @@ static void _logos_method$Rose$TFNFloatingActionButton$_tfn_expandingButtonActio
 
 	int customStrength = [customStrengthTWTtweetButtonControl intValue];
 
-	if (TWTtweetButtonSwitch && customStrength == 0) {
+	if (TWTtweetButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetButtonSwitch && customStrength != 0) {
+	} else if (TWTtweetButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1654,12 +1918,15 @@ static void _logos_method$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$
 
 	int customStrength = [customStrengthSFUrlControl intValue];
 
-	if (SFUrlSwitch && customStrength == 0) {
+	if (SFUrlSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SFUrlSwitch && customStrength != 0) {
+	} else if (SFUrlSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SFUrlSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1675,12 +1942,15 @@ static void _logos_method$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withE
 
 	int customStrength = [customStrengthPHNumberPadControl intValue];
 
-	if (PHNumberPadSwitch && customStrength == 0) {
+	if (PHNumberPadSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHNumberPadSwitch && customStrength != 0) {
+	} else if (PHNumberPadSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHNumberPadSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1696,12 +1966,15 @@ static void _logos_method$Rose$CNContactListTableViewCell$touchesBegan$withEvent
 
 	int customStrength = [customStrengthPHContactCellControl intValue];
 
-	if (PHContactCellSwitch && customStrength == 0) {
+	if (PHContactCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHContactCellSwitch && customStrength != 0) {
+	} else if (PHContactCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHContactCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1717,12 +1990,15 @@ static void _logos_method$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEven
 
 	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
 
-	if (PHDialerDeleteButtonSwitch && customStrength == 0) {
+	if (PHDialerDeleteButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHDialerDeleteButtonSwitch && customStrength != 0) {
+	} else if (PHDialerDeleteButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHDialerDeleteButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1738,12 +2014,15 @@ static void _logos_method$Rose$PHBottomBarButton$touchesBegan$withEvent$(_LOGOS_
 
 	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
 
-	if (PHDialerCallButtonSwitch && customStrength == 0) {
+	if (PHDialerCallButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHDialerCallButtonSwitch && customStrength != 0) {
+	} else if (PHDialerCallButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (PHDialerCallButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1759,12 +2038,15 @@ static void _logos_method$Rose$FBTabBar$touchesBegan$withEvent$(_LOGOS_SELF_TYPE
 
 	int customStrength = [customStrengthFBTabBarControl intValue];
 
-	if (FBTabBarSwitch && customStrength == 0) {
+	if (FBTabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBTabBarSwitch && customStrength != 0) {
+	} else if (FBTabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (FBTabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1780,26 +2062,17 @@ static void _logos_method$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$
 
 	int customStrength = [customStrengthFBQuickAccessButtonsControl intValue];
 
-	if (FBQuickAccessButtonsSwitch && customStrength == 0) {
+	if (FBQuickAccessButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBQuickAccessButtonsSwitch && customStrength != 0) {
+	} else if (FBQuickAccessButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
+	} else if (FBQuickAccessButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
 	}
-
-}
-
-
-
-
-
-static void _logos_method$Rose$FBNavigationBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL FBNavigationBarButton* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1, id arg2) {
-
-	_logos_orig$Rose$FBNavigationBarButton$touchesBegan$withEvent$(self, _cmd, arg1, arg2);
-
-	triggerFeedback();
 
 }
 
@@ -1819,6 +2092,9 @@ static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_T
 
  
 
+
+
+
 static id (*_logos_orig$Music$MusicApplicationPlayButton$init)(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static id _logos_method$Music$MusicApplicationPlayButton$init(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static void (*_logos_orig$Music$MusicApplicationPlayButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MusicApplicationPlayButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider* _LOGOS_SELF_CONST, SEL, id, id); static id (*_logos_orig$Music$MusicApplicationContextualActionsButton$init)(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static id _logos_method$Music$MusicApplicationContextualActionsButton$init(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static void (*_logos_orig$Music$MusicApplicationContextualActionsButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MusicApplicationContextualActionsButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static id (*_logos_orig$Music$MusicApplicationTimeSlider$init)(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static id _logos_method$Music$MusicApplicationTimeSlider$init(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static void (*_logos_orig$Music$MusicApplicationTimeSlider$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MusicApplicationTimeSlider$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static id (*_logos_orig$Music$MusicApplicationSongCell$init)(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static id _logos_method$Music$MusicApplicationSongCell$init(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static void (*_logos_orig$Music$MusicApplicationSongCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MusicApplicationSongCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _TtCC16MusicApplication30LibraryMenuTableViewController4Cell* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _TtCC16MusicApplication30LibraryMenuTableViewController4Cell* _LOGOS_SELF_CONST, SEL, id, id); static id (*_logos_orig$Music$MusicApplicationAlbumCell$init)(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static id _logos_method$Music$MusicApplicationAlbumCell$init(_LOGOS_SELF_TYPE_INIT id, SEL) _LOGOS_RETURN_RETAINED; static void (*_logos_orig$Music$MusicApplicationAlbumCell$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MusicApplicationAlbumCell$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL id _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Music$MPRouteButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL MPRouteButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MPRouteButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL MPRouteButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Music$MPButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL MPButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Music$MPButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL MPButton* _LOGOS_SELF_CONST, SEL, id, id); 
 
  
@@ -1835,12 +2111,15 @@ static void _logos_method$Music$MusicApplicationPlayButton$touchesBegan$withEven
 
 	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
 
-	if (MusicPlayPauseButtonsSwitch && customStrength == 0) {
+	if (MusicPlayPauseButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0) {
+	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicPlayPauseButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1856,12 +2135,15 @@ static void _logos_method$Music$_TtCC16MusicApplication32NowPlayingControlsViewC
 
 	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
 
-	if (MusicVolumeSliderSwitch && customStrength == 0) {
+	if (MusicVolumeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicVolumeSliderSwitch && customStrength != 0) {
+	} else if (MusicVolumeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicVolumeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1883,12 +2165,15 @@ static void _logos_method$Music$MusicApplicationContextualActionsButton$touchesB
 
 	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
 
-	if (MusicContextualActionsButtonSwitch && customStrength == 0) {
+	if (MusicContextualActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicContextualActionsButtonSwitch && customStrength != 0) {
+	} else if (MusicContextualActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicContextualActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1910,12 +2195,15 @@ static void _logos_method$Music$MusicApplicationTimeSlider$touchesBegan$withEven
 
 	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
 
-	if (MusicTimeSliderSwitch && customStrength == 0) {
+	if (MusicTimeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicTimeSliderSwitch && customStrength != 0) {
+	} else if (MusicTimeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicTimeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1937,12 +2225,15 @@ static void _logos_method$Music$MusicApplicationSongCell$touchesBegan$withEvent$
 
 	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
 
-	if (MusicSongCellSwitch && customStrength == 0) {
+	if (MusicSongCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicSongCellSwitch && customStrength != 0) {
+	} else if (MusicSongCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicSongCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1958,12 +2249,15 @@ static void _logos_method$Music$_TtCC16MusicApplication30LibraryMenuTableViewCon
 
 	int customStrength = [customStrengthLibraryCellControl intValue];
 
-	if (MusicLibraryCellSwitch && customStrength == 0) {
+	if (MusicLibraryCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicLibraryCellSwitch && customStrength != 0) {
+	} else if (MusicLibraryCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicLibraryCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -1985,12 +2279,15 @@ static void _logos_method$Music$MusicApplicationAlbumCell$touchesBegan$withEvent
 
 	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
 
-	if (MusicAlbumCellSwitch && customStrength == 0) {
+	if (MusicAlbumCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicAlbumCellSwitch && customStrength != 0) {
+	} else if (MusicAlbumCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicAlbumCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2006,12 +2303,15 @@ static void _logos_method$Music$MPRouteButton$touchesBegan$withEvent$(_LOGOS_SEL
 
 	int customStrength = [customStrengthMPRouteButtonControl intValue];
 
-	if (MusicAirPlayButtonSwitch && customStrength == 0) {
+	if (MusicAirPlayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicAirPlayButtonSwitch && customStrength != 0) {
+	} else if (MusicAirPlayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicAirPlayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2027,12 +2327,15 @@ static void _logos_method$Music$MPButton$touchesBegan$withEvent$(_LOGOS_SELF_TYP
 
 	int customStrength = [customStrengthMPButtonControl intValue];
 
-	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0) {
+	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0) {
+	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2040,7 +2343,7 @@ static void _logos_method$Music$MPButton$touchesBegan$withEvent$(_LOGOS_SELF_TYP
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_12ecb97e(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_b914866b(int __unused argc, char __unused **argv, char __unused **envp) {
     {Class _logos_class$Music$MusicApplicationPlayButton = objc_getClass("MusicApplication.NowPlayingTransportButton"); MSHookMessageEx(_logos_class$Music$MusicApplicationPlayButton, @selector(init), (IMP)&_logos_method$Music$MusicApplicationPlayButton$init, (IMP*)&_logos_orig$Music$MusicApplicationPlayButton$init);MSHookMessageEx(_logos_class$Music$MusicApplicationPlayButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MusicApplicationPlayButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MusicApplicationPlayButton$touchesBegan$withEvent$);Class _logos_class$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider = objc_getClass("_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider"); MSHookMessageEx(_logos_class$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$_TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider$touchesBegan$withEvent$);Class _logos_class$Music$MusicApplicationContextualActionsButton = objc_getClass("MusicApplication.ContextualActionsButton"); MSHookMessageEx(_logos_class$Music$MusicApplicationContextualActionsButton, @selector(init), (IMP)&_logos_method$Music$MusicApplicationContextualActionsButton$init, (IMP*)&_logos_orig$Music$MusicApplicationContextualActionsButton$init);MSHookMessageEx(_logos_class$Music$MusicApplicationContextualActionsButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MusicApplicationContextualActionsButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MusicApplicationContextualActionsButton$touchesBegan$withEvent$);Class _logos_class$Music$MusicApplicationTimeSlider = objc_getClass("MusicApplication.PlayerTimeControl"); MSHookMessageEx(_logos_class$Music$MusicApplicationTimeSlider, @selector(init), (IMP)&_logos_method$Music$MusicApplicationTimeSlider$init, (IMP*)&_logos_orig$Music$MusicApplicationTimeSlider$init);MSHookMessageEx(_logos_class$Music$MusicApplicationTimeSlider, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MusicApplicationTimeSlider$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MusicApplicationTimeSlider$touchesBegan$withEvent$);Class _logos_class$Music$MusicApplicationSongCell = objc_getClass("MusicApplication.SongCell"); MSHookMessageEx(_logos_class$Music$MusicApplicationSongCell, @selector(init), (IMP)&_logos_method$Music$MusicApplicationSongCell$init, (IMP*)&_logos_orig$Music$MusicApplicationSongCell$init);MSHookMessageEx(_logos_class$Music$MusicApplicationSongCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MusicApplicationSongCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MusicApplicationSongCell$touchesBegan$withEvent$);Class _logos_class$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell = objc_getClass("_TtCC16MusicApplication30LibraryMenuTableViewController4Cell"); MSHookMessageEx(_logos_class$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$_TtCC16MusicApplication30LibraryMenuTableViewController4Cell$touchesBegan$withEvent$);Class _logos_class$Music$MusicApplicationAlbumCell = objc_getClass("MusicApplication.AlbumCell"); MSHookMessageEx(_logos_class$Music$MusicApplicationAlbumCell, @selector(init), (IMP)&_logos_method$Music$MusicApplicationAlbumCell$init, (IMP*)&_logos_orig$Music$MusicApplicationAlbumCell$init);MSHookMessageEx(_logos_class$Music$MusicApplicationAlbumCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MusicApplicationAlbumCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MusicApplicationAlbumCell$touchesBegan$withEvent$);Class _logos_class$Music$MPRouteButton = objc_getClass("MPRouteButton"); MSHookMessageEx(_logos_class$Music$MPRouteButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MPRouteButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MPRouteButton$touchesBegan$withEvent$);Class _logos_class$Music$MPButton = objc_getClass("MPButton"); MSHookMessageEx(_logos_class$Music$MPButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Music$MPButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Music$MPButton$touchesBegan$withEvent$);}
 }
 
@@ -2062,12 +2365,15 @@ static void _logos_method$Calculator$CalculatorApplicationKeyPadButton$touchesBe
 
 	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
 
-	if (CalculatorKeyPadButtonSwitch && customStrength == 0) {
+	if (CalculatorKeyPadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0) {
+	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (CalculatorKeyPadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2075,7 +2381,7 @@ static void _logos_method$Calculator$CalculatorApplicationKeyPadButton$touchesBe
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_c6f8f258(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_72294564(int __unused argc, char __unused **argv, char __unused **envp) {
 	{Class _logos_class$Calculator$CalculatorApplicationKeyPadButton = objc_getClass("Calculator.CalculatorKeypadButton"); MSHookMessageEx(_logos_class$Calculator$CalculatorApplicationKeyPadButton, @selector(init), (IMP)&_logos_method$Calculator$CalculatorApplicationKeyPadButton$init, (IMP*)&_logos_orig$Calculator$CalculatorApplicationKeyPadButton$init);MSHookMessageEx(_logos_class$Calculator$CalculatorApplicationKeyPadButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Calculator$CalculatorApplicationKeyPadButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Calculator$CalculatorApplicationKeyPadButton$touchesBegan$withEvent$);}
 }
 
@@ -2097,12 +2403,15 @@ static void _logos_method$Sileo$SileoSourcesCell$touchesBegan$withEvent$(_LOGOS_
 
 	int customStrength = [customStrengthSileoSourcesCellControl intValue];
 
-	if (SileoSourcesCellSwitch && customStrength == 0) {
+	if (SileoSourcesCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoSourcesCellSwitch && customStrength != 0) {
+	} else if (SileoSourcesCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoSourcesCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2124,12 +2433,15 @@ static void _logos_method$Sileo$SileoPackageCollectionViewCell$touchesBegan$with
 
 	int customStrength = [customStrengthSileoPackageCollectionViewCellControl intValue];
 
-	if (SileoPackageCollectionViewCellSwitch && customStrength == 0) {
+	if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0) {
+	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2151,12 +2463,15 @@ static void _logos_method$Sileo$SileoTableViewCell$touchesBegan$withEvent$(_LOGO
 
 	int customStrength = [customStrengthSileoTableViewCellControl intValue];
 
-	if (SileoTableViewCellSwitch && customStrength == 0) {
+	if (SileoTableViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoTableViewCellSwitch && customStrength != 0) {
+	} else if (SileoTableViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoTableViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2178,12 +2493,15 @@ static void _logos_method$Sileo$SileoFeaturedBannerView$touchesBegan$withEvent$(
 
 	int customStrength = [customStrengthSileoFeaturedBannerViewControl intValue];
 
-	if (SileoFeaturedBannerViewSwitch && customStrength == 0) {
+	if (SileoFeaturedBannerViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0) {
+	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoFeaturedBannerViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2205,12 +2523,15 @@ static void _logos_method$Sileo$SileoConfirmDownloadButton$touchesBegan$withEven
 
 	int customStrength = [customStrengthSileoConfirmDownloadButtonControl intValue];
 
-	if (SileoConfirmDownloadButtonSwitch && customStrength == 0) {
+	if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0) {
+	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
+
+	} else if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
 
 	}
 
@@ -2218,19 +2539,48 @@ static void _logos_method$Sileo$SileoConfirmDownloadButton$touchesBegan$withEven
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_83cc5202(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_5dddc179(int __unused argc, char __unused **argv, char __unused **envp) {
 	{Class _logos_class$Sileo$SileoSourcesCell = objc_getClass("Sileo.SourcesTableViewCell"); MSHookMessageEx(_logos_class$Sileo$SileoSourcesCell, @selector(init), (IMP)&_logos_method$Sileo$SileoSourcesCell$init, (IMP*)&_logos_orig$Sileo$SileoSourcesCell$init);MSHookMessageEx(_logos_class$Sileo$SileoSourcesCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Sileo$SileoSourcesCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Sileo$SileoSourcesCell$touchesBegan$withEvent$);Class _logos_class$Sileo$SileoPackageCollectionViewCell = objc_getClass("Sileo.PackageCollectionViewCell"); MSHookMessageEx(_logos_class$Sileo$SileoPackageCollectionViewCell, @selector(init), (IMP)&_logos_method$Sileo$SileoPackageCollectionViewCell$init, (IMP*)&_logos_orig$Sileo$SileoPackageCollectionViewCell$init);MSHookMessageEx(_logos_class$Sileo$SileoPackageCollectionViewCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Sileo$SileoPackageCollectionViewCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Sileo$SileoPackageCollectionViewCell$touchesBegan$withEvent$);Class _logos_class$Sileo$SileoTableViewCell = objc_getClass("Sileo.SileoTableViewCell"); MSHookMessageEx(_logos_class$Sileo$SileoTableViewCell, @selector(init), (IMP)&_logos_method$Sileo$SileoTableViewCell$init, (IMP*)&_logos_orig$Sileo$SileoTableViewCell$init);MSHookMessageEx(_logos_class$Sileo$SileoTableViewCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Sileo$SileoTableViewCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Sileo$SileoTableViewCell$touchesBegan$withEvent$);Class _logos_class$Sileo$SileoFeaturedBannerView = objc_getClass("Sileo.FeaturedBannerView"); MSHookMessageEx(_logos_class$Sileo$SileoFeaturedBannerView, @selector(init), (IMP)&_logos_method$Sileo$SileoFeaturedBannerView$init, (IMP*)&_logos_orig$Sileo$SileoFeaturedBannerView$init);MSHookMessageEx(_logos_class$Sileo$SileoFeaturedBannerView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Sileo$SileoFeaturedBannerView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Sileo$SileoFeaturedBannerView$touchesBegan$withEvent$);Class _logos_class$Sileo$SileoConfirmDownloadButton = objc_getClass("Sileo.DownloadConfirmButton"); MSHookMessageEx(_logos_class$Sileo$SileoConfirmDownloadButton, @selector(init), (IMP)&_logos_method$Sileo$SileoConfirmDownloadButton$init, (IMP*)&_logos_orig$Sileo$SileoConfirmDownloadButton$init);MSHookMessageEx(_logos_class$Sileo$SileoConfirmDownloadButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Sileo$SileoConfirmDownloadButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Sileo$SileoConfirmDownloadButton$touchesBegan$withEvent$);}
 }
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_94c987f2(int __unused argc, char __unused **argv, char __unused **envp) {
+static void (*_logos_orig$RoseIntegrityFail$SBIconController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$RoseIntegrityFail$SBIconController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); 
+
+
+
+static void _logos_method$RoseIntegrityFail$SBIconController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, BOOL animated) {
+
+    _logos_orig$RoseIntegrityFail$SBIconController$viewDidAppear$(self, _cmd, animated); 
+    if (!dpkgInvalid) return;
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Melody"
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Melody from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
+		preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+
+			UIApplication *application = [UIApplication sharedApplication];
+			[application openURL:[NSURL URLWithString:@"https://repo.litten.sh/"] options:@{} completionHandler:nil];
+
+	}];
+
+		[alertController addAction:cancelAction];
+
+		[self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+
+
+
+
+static __attribute__((constructor)) void _logosLocalCtor_b4af04d6(int __unused argc, char __unused **argv, char __unused **envp) {
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);
 
 }
 	
-static __attribute__((constructor)) void _logosLocalCtor_3edef031(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_1271c906(int __unused argc, char __unused **argv, char __unused **envp) {
 
 	if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -2264,11 +2614,17 @@ static __attribute__((constructor)) void _logosLocalCtor_3edef031(int __unused a
 
     if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.md5sums"];
 
+	if (dpkgInvalid) {
+        {Class _logos_class$RoseIntegrityFail$SBIconController = objc_getClass("SBIconController"); MSHookMessageEx(_logos_class$RoseIntegrityFail$SBIconController, @selector(viewDidAppear:), (IMP)&_logos_method$RoseIntegrityFail$SBIconController$viewDidAppear$, (IMP*)&_logos_orig$RoseIntegrityFail$SBIconController$viewDidAppear$);}
+        return;
+    }
+
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 	
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
-	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
+	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
+	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
     [pfs registerBool:&respringSwitch default:NO forKey:@"ReSpringSwitch"];
     [pfs registerBool:&unlockSwitch default:NO forKey:@"UnlockSwitch"];
     [pfs registerBool:&lockSwitch default:NO forKey:@"LockSwitch"];
@@ -2367,8 +2723,12 @@ static __attribute__((constructor)) void _logosLocalCtor_3edef031(int __unused a
 	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
 	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
 	
-    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
+    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
+	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+	
+	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
+	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 	
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
@@ -2477,7 +2837,7 @@ static __attribute__((constructor)) void _logosLocalCtor_3edef031(int __unused a
         );
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
-            {Class _logos_class$Rose$SpringBoard = objc_getClass("SpringBoard"); MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(applicationDidFinishLaunching:), (IMP)&_logos_method$Rose$SpringBoard$applicationDidFinishLaunching$, (IMP*)&_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$);MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(_ringerChanged:), (IMP)&_logos_method$Rose$SpringBoard$_ringerChanged$, (IMP*)&_logos_orig$Rose$SpringBoard$_ringerChanged$);MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(_handlePhysicalButtonEvent:), (IMP)&_logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$, (IMP*)&_logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$);Class _logos_class$Rose$SBCoverSheetPrimarySlidingViewController = objc_getClass("SBCoverSheetPrimarySlidingViewController"); MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewWillDisappear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$);MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewDidDisappear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$);MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewDidAppear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$);Class _logos_class$Rose$SBSleepWakeHardwareButtonInteraction = objc_getClass("SBSleepWakeHardwareButtonInteraction"); MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(_playLockSound), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound);MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(consumeInitialPressDown), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown);Class _logos_class$Rose$VolumeControl = objc_getClass("VolumeControl"); MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(increaseVolume), (IMP)&_logos_method$Rose$VolumeControl$increaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$increaseVolume);MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$Rose$VolumeControl$decreaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$decreaseVolume);Class _logos_class$Rose$SBVolumeControl = objc_getClass("SBVolumeControl"); MSHookMessageEx(_logos_class$Rose$SBVolumeControl, @selector(increaseVolume), (IMP)&_logos_method$Rose$SBVolumeControl$increaseVolume, (IMP*)&_logos_orig$Rose$SBVolumeControl$increaseVolume);MSHookMessageEx(_logos_class$Rose$SBVolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$Rose$SBVolumeControl$decreaseVolume, (IMP*)&_logos_orig$Rose$SBVolumeControl$decreaseVolume);Class _logos_class$Rose$SBPowerDownController = objc_getClass("SBPowerDownController"); MSHookMessageEx(_logos_class$Rose$SBPowerDownController, @selector(orderFront), (IMP)&_logos_method$Rose$SBPowerDownController$orderFront, (IMP*)&_logos_orig$Rose$SBPowerDownController$orderFront);Class _logos_class$Rose$SBPowerDownViewController = objc_getClass("SBPowerDownViewController"); MSHookMessageEx(_logos_class$Rose$SBPowerDownViewController, @selector(viewWillAppear:), (IMP)&_logos_method$Rose$SBPowerDownViewController$viewWillAppear$, (IMP*)&_logos_orig$Rose$SBPowerDownViewController$viewWillAppear$);Class _logos_class$Rose$SBMainDisplaySceneManager = objc_getClass("SBMainDisplaySceneManager"); MSHookMessageEx(_logos_class$Rose$SBMainDisplaySceneManager, @selector(_appKilledInAppSwitcher:), (IMP)&_logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$, (IMP*)&_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$);Class _logos_class$Rose$SBApplication = objc_getClass("SBApplication"); MSHookMessageEx(_logos_class$Rose$SBApplication, @selector(_didExitWithContext:), (IMP)&_logos_method$Rose$SBApplication$_didExitWithContext$, (IMP*)&_logos_orig$Rose$SBApplication$_didExitWithContext$);Class _logos_class$Rose$SBUIController = objc_getClass("SBUIController"); MSHookMessageEx(_logos_class$Rose$SBUIController, @selector(ACPowerChanged), (IMP)&_logos_method$Rose$SBUIController$ACPowerChanged, (IMP*)&_logos_orig$Rose$SBUIController$ACPowerChanged);MSHookMessageEx(_logos_class$Rose$SBUIController, @selector(handleWillBeginReachabilityAnimation), (IMP)&_logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimation, (IMP*)&_logos_orig$Rose$SBUIController$handleWillBeginReachabilityAnimation);Class _logos_class$Rose$SBAppSwitcherPageView = objc_getClass("SBAppSwitcherPageView"); MSHookMessageEx(_logos_class$Rose$SBAppSwitcherPageView, @selector(setVisible:), (IMP)&_logos_method$Rose$SBAppSwitcherPageView$setVisible$, (IMP*)&_logos_orig$Rose$SBAppSwitcherPageView$setVisible$);Class _logos_class$Rose$SiriUISiriStatusView = objc_getClass("SiriUISiriStatusView"); MSHookMessageEx(_logos_class$Rose$SiriUISiriStatusView, @selector(layoutSubviews), (IMP)&_logos_method$Rose$SiriUISiriStatusView$layoutSubviews, (IMP*)&_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews);Class _logos_class$Rose$CCUILabeledRoundButton = objc_getClass("CCUILabeledRoundButton"); MSHookMessageEx(_logos_class$Rose$CCUILabeledRoundButton, @selector(buttonTapped:), (IMP)&_logos_method$Rose$CCUILabeledRoundButton$buttonTapped$, (IMP*)&_logos_orig$Rose$CCUILabeledRoundButton$buttonTapped$);Class _logos_class$Rose$SBFolderController = objc_getClass("SBFolderController"); MSHookMessageEx(_logos_class$Rose$SBFolderController, @selector(prepareToOpen), (IMP)&_logos_method$Rose$SBFolderController$prepareToOpen, (IMP*)&_logos_orig$Rose$SBFolderController$prepareToOpen);Class _logos_class$Rose$SBIconController = objc_getClass("SBIconController"); MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(viewWillAppear:), (IMP)&_logos_method$Rose$SBIconController$viewWillAppear$, (IMP*)&_logos_orig$Rose$SBIconController$viewWillAppear$);MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(viewDidAppear:), (IMP)&_logos_method$Rose$SBIconController$viewDidAppear$, (IMP*)&_logos_orig$Rose$SBIconController$viewDidAppear$);MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(iconTapped:), (IMP)&_logos_method$Rose$SBIconController$iconTapped$, (IMP*)&_logos_orig$Rose$SBIconController$iconTapped$);Class _logos_class$Rose$SBHIconManager = objc_getClass("SBHIconManager"); MSHookMessageEx(_logos_class$Rose$SBHIconManager, @selector(iconTapped:), (IMP)&_logos_method$Rose$SBHIconManager$iconTapped$, (IMP*)&_logos_orig$Rose$SBHIconManager$iconTapped$);Class _logos_class$Rose$SBFolderView = objc_getClass("SBFolderView"); MSHookMessageEx(_logos_class$Rose$SBFolderView, @selector(scrollViewWillBeginDragging:), (IMP)&_logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$, (IMP*)&_logos_orig$Rose$SBFolderView$scrollViewWillBeginDragging$);Class _logos_class$Rose$SSScreenCapturer = objc_getClass("SSScreenCapturer"); Class _logos_metaclass$Rose$SSScreenCapturer = object_getClass(_logos_class$Rose$SSScreenCapturer); MSHookMessageEx(_logos_metaclass$Rose$SSScreenCapturer, @selector(playScreenshotSound), (IMP)&_logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound, (IMP*)&_logos_meta_orig$Rose$SSScreenCapturer$playScreenshotSound);Class _logos_class$Rose$SBUIPasscodeLockViewBase = objc_getClass("SBUIPasscodeLockViewBase"); MSHookMessageEx(_logos_class$Rose$SBUIPasscodeLockViewBase, @selector(_sendDelegateKeypadKeyDown), (IMP)&_logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown, (IMP*)&_logos_orig$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown);Class _logos_class$Rose$UIKeyboardLayoutStar = objc_getClass("UIKeyboardLayoutStar"); MSHookMessageEx(_logos_class$Rose$UIKeyboardLayoutStar, @selector(playKeyClickSoundOnDownForKey:), (IMP)&_logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$, (IMP*)&_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$);MSHookMessageEx(_logos_class$Rose$UIKeyboardLayoutStar, @selector(setPlayKeyClickSoundOn:), (IMP)&_logos_method$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$, (IMP*)&_logos_orig$Rose$UIKeyboardLayoutStar$setPlayKeyClickSoundOn$);Class _logos_class$Rose$UICalloutBar = objc_getClass("UICalloutBar"); MSHookMessageEx(_logos_class$Rose$UICalloutBar, @selector(buttonPressed:), (IMP)&_logos_method$Rose$UICalloutBar$buttonPressed$, (IMP*)&_logos_orig$Rose$UICalloutBar$buttonPressed$);Class _logos_class$Rose$SBSearchScrollView = objc_getClass("SBSearchScrollView"); MSHookMessageEx(_logos_class$Rose$SBSearchScrollView, @selector(gestureRecognizerShouldBegin:), (IMP)&_logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$, (IMP*)&_logos_orig$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$);Class _logos_class$Rose$ICSApplicationDelegate = objc_getClass("ICSApplicationDelegate"); MSHookMessageEx(_logos_class$Rose$ICSApplicationDelegate, @selector(audioCallStatusChanged:), (IMP)&_logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$, (IMP*)&_logos_orig$Rose$ICSApplicationDelegate$audioCallStatusChanged$);Class _logos_class$Rose$SBDashBoardViewController = objc_getClass("SBDashBoardViewController"); MSHookMessageEx(_logos_class$Rose$SBDashBoardViewController, @selector(setAuthenticated:), (IMP)&_logos_method$Rose$SBDashBoardViewController$setAuthenticated$, (IMP*)&_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$);Class _logos_class$Rose$SBDashBoardMesaUnlockBehavior = objc_getClass("SBDashBoardMesaUnlockBehavior"); MSHookMessageEx(_logos_class$Rose$SBDashBoardMesaUnlockBehavior, @selector(setAuthenticated:), (IMP)&_logos_method$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$, (IMP*)&_logos_orig$Rose$SBDashBoardMesaUnlockBehavior$setAuthenticated$);Class _logos_class$Rose$SBBacklightController = objc_getClass("SBBacklightController"); MSHookMessageEx(_logos_class$Rose$SBBacklightController, @selector(turnOnScreenFullyWithBacklightSource:), (IMP)&_logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$, (IMP*)&_logos_orig$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$);Class _logos_class$Rose$UIWindow = objc_getClass("UIWindow"); MSHookMessageEx(_logos_class$Rose$UIWindow, @selector(_shouldHitTestEntireScreen), (IMP)&_logos_method$Rose$UIWindow$_shouldHitTestEntireScreen, (IMP*)&_logos_orig$Rose$UIWindow$_shouldHitTestEntireScreen);Class _logos_class$Rose$SBControlCenterController = objc_getClass("SBControlCenterController"); MSHookMessageEx(_logos_class$Rose$SBControlCenterController, @selector(_willPresent), (IMP)&_logos_method$Rose$SBControlCenterController$_willPresent, (IMP*)&_logos_orig$Rose$SBControlCenterController$_willPresent);Class _logos_class$Rose$CCUIToggleViewController = objc_getClass("CCUIToggleViewController"); MSHookMessageEx(_logos_class$Rose$CCUIToggleViewController, @selector(buttonTapped:forEvent:), (IMP)&_logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$, (IMP*)&_logos_orig$Rose$CCUIToggleViewController$buttonTapped$forEvent$);Class _logos_class$Rose$UIButton = objc_getClass("UIButton"); MSHookMessageEx(_logos_class$Rose$UIButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIButton$touchesBegan$withEvent$);Class _logos_class$Rose$UIView = objc_getClass("UIView"); MSHookMessageEx(_logos_class$Rose$UIView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIView$touchesBegan$withEvent$);Class _logos_class$Rose$_UIButtonBarButton = objc_getClass("_UIButtonBarButton"); MSHookMessageEx(_logos_class$Rose$_UIButtonBarButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$_UIButtonBarButton$touchesBegan$withEvent$);Class _logos_class$Rose$UIImageView = objc_getClass("UIImageView"); MSHookMessageEx(_logos_class$Rose$UIImageView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIImageView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIImageView$touchesBegan$withEvent$);Class _logos_class$Rose$MTMaterialView = objc_getClass("MTMaterialView"); MSHookMessageEx(_logos_class$Rose$MTMaterialView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$MTMaterialView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$MTMaterialView$touchesBegan$withEvent$);Class _logos_class$Rose$UIStackView = objc_getClass("UIStackView"); MSHookMessageEx(_logos_class$Rose$UIStackView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIStackView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIStackView$touchesBegan$withEvent$);Class _logos_class$Rose$UILabel = objc_getClass("UILabel"); MSHookMessageEx(_logos_class$Rose$UILabel, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UILabel$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UILabel$touchesBegan$withEvent$);Class _logos_class$Rose$UIVisualEffectView = objc_getClass("UIVisualEffectView"); MSHookMessageEx(_logos_class$Rose$UIVisualEffectView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIVisualEffectView$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingPlayButtonV2 = objc_getClass("SPTNowPlayingPlayButtonV2"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingPlayButtonV2, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingPreviousTrackButton = objc_getClass("SPTNowPlayingPreviousTrackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingPreviousTrackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingNextTrackButton = objc_getClass("SPTNowPlayingNextTrackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingNextTrackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingRepeatButton = objc_getClass("SPTNowPlayingRepeatButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingRepeatButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingShuffleButton = objc_getClass("SPTNowPlayingShuffleButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingShuffleButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingQueueButton = objc_getClass("SPTNowPlayingQueueButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingQueueButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingSliderV2 = objc_getClass("SPTNowPlayingSliderV2"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingSliderV2, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingFreeTierFeedbackButton = objc_getClass("SPTNowPlayingFreeTierFeedbackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingFreeTierFeedbackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTGaiaDevicesAvailableViewImplementation = objc_getClass("SPTGaiaDevicesAvailableViewImplementation"); MSHookMessageEx(_logos_class$Rose$SPTGaiaDevicesAvailableViewImplementation, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingMarqueeLabel = objc_getClass("SPTNowPlayingMarqueeLabel"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingMarqueeLabel, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingBarPlayButton = objc_getClass("SPTNowPlayingBarPlayButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingBarPlayButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$);Class _logos_class$Rose$IGUFIButtonBarView = objc_getClass("IGUFIButtonBarView"); MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onLikeButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onLikeButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onLikeButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onCommentButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onCommentButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onCommentButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSaveButtonLongPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSaveButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSaveButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSendButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSendButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSendButtonPressed$);Class _logos_class$Rose$AWEFeedVideoButton = objc_getClass("AWEFeedVideoButton"); MSHookMessageEx(_logos_class$Rose$AWEFeedVideoButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$AWEFeedVideoButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$AWEFeedVideoButton$touchesBegan$withEvent$);Class _logos_class$Rose$TFNCustomTabBar = objc_getClass("TFNCustomTabBar"); MSHookMessageEx(_logos_class$Rose$TFNCustomTabBar, @selector(tap:), (IMP)&_logos_method$Rose$TFNCustomTabBar$tap$, (IMP*)&_logos_orig$Rose$TFNCustomTabBar$tap$);Class _logos_class$Rose$T1StandardStatusView = objc_getClass("T1StandardStatusView"); MSHookMessageEx(_logos_class$Rose$T1StandardStatusView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1StandardStatusView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1StandardStatusView$touchesBegan$withEvent$);Class _logos_class$Rose$T1DirectMessageInboxSummaryView = objc_getClass("T1DirectMessageInboxSummaryView"); MSHookMessageEx(_logos_class$Rose$T1DirectMessageInboxSummaryView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$);Class _logos_class$Rose$T1ActivityCell = objc_getClass("T1ActivityCell"); MSHookMessageEx(_logos_class$Rose$T1ActivityCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1ActivityCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1ActivityCell$touchesBegan$withEvent$);Class _logos_class$Rose$TFNFloatingActionButton = objc_getClass("TFNFloatingActionButton"); MSHookMessageEx(_logos_class$Rose$TFNFloatingActionButton, @selector(_tfn_expandingButtonAction:), (IMP)&_logos_method$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$, (IMP*)&_logos_orig$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$);Class _logos_class$Rose$_SFNavigationBarURLButton = objc_getClass("_SFNavigationBarURLButton"); MSHookMessageEx(_logos_class$Rose$_SFNavigationBarURLButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$);Class _logos_class$Rose$PHHandsetDialerNumberPadButton = objc_getClass("PHHandsetDialerNumberPadButton"); MSHookMessageEx(_logos_class$Rose$PHHandsetDialerNumberPadButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$);Class _logos_class$Rose$CNContactListTableViewCell = objc_getClass("CNContactListTableViewCell"); MSHookMessageEx(_logos_class$Rose$CNContactListTableViewCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$CNContactListTableViewCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$CNContactListTableViewCell$touchesBegan$withEvent$);Class _logos_class$Rose$PHHandsetDialerDeleteButton = objc_getClass("PHHandsetDialerDeleteButton"); MSHookMessageEx(_logos_class$Rose$PHHandsetDialerDeleteButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$);Class _logos_class$Rose$PHBottomBarButton = objc_getClass("PHBottomBarButton"); MSHookMessageEx(_logos_class$Rose$PHBottomBarButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHBottomBarButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHBottomBarButton$touchesBegan$withEvent$);Class _logos_class$Rose$FBTabBar = objc_getClass("FBTabBar"); MSHookMessageEx(_logos_class$Rose$FBTabBar, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$FBTabBar$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$FBTabBar$touchesBegan$withEvent$);Class _logos_class$Rose$FDSTetraPressStateAnnouncingControl = objc_getClass("FDSTetraPressStateAnnouncingControl"); MSHookMessageEx(_logos_class$Rose$FDSTetraPressStateAnnouncingControl, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$);Class _logos_class$Rose$FBNavigationBarButton = objc_getClass("FBNavigationBarButton"); MSHookMessageEx(_logos_class$Rose$FBNavigationBarButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$FBNavigationBarButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$FBNavigationBarButton$touchesBegan$withEvent$);Class _logos_class$Rose$NSProcessInfo = objc_getClass("NSProcessInfo"); MSHookMessageEx(_logos_class$Rose$NSProcessInfo, @selector(isLowPowerModeEnabled), (IMP)&_logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled, (IMP*)&_logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled);}
+            {Class _logos_class$Rose$SpringBoard = objc_getClass("SpringBoard"); MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(applicationDidFinishLaunching:), (IMP)&_logos_method$Rose$SpringBoard$applicationDidFinishLaunching$, (IMP*)&_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$);MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(_ringerChanged:), (IMP)&_logos_method$Rose$SpringBoard$_ringerChanged$, (IMP*)&_logos_orig$Rose$SpringBoard$_ringerChanged$);MSHookMessageEx(_logos_class$Rose$SpringBoard, @selector(_handlePhysicalButtonEvent:), (IMP)&_logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$, (IMP*)&_logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$);Class _logos_class$Rose$SBCoverSheetPrimarySlidingViewController = objc_getClass("SBCoverSheetPrimarySlidingViewController"); MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewWillDisappear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$);MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewDidDisappear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidDisappear$);MSHookMessageEx(_logos_class$Rose$SBCoverSheetPrimarySlidingViewController, @selector(viewDidAppear:), (IMP)&_logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$, (IMP*)&_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$);Class _logos_class$Rose$SBSleepWakeHardwareButtonInteraction = objc_getClass("SBSleepWakeHardwareButtonInteraction"); MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(_playLockSound), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound);MSHookMessageEx(_logos_class$Rose$SBSleepWakeHardwareButtonInteraction, @selector(consumeInitialPressDown), (IMP)&_logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown, (IMP*)&_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown);Class _logos_class$Rose$VolumeControl = objc_getClass("VolumeControl"); MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(increaseVolume), (IMP)&_logos_method$Rose$VolumeControl$increaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$increaseVolume);MSHookMessageEx(_logos_class$Rose$VolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$Rose$VolumeControl$decreaseVolume, (IMP*)&_logos_orig$Rose$VolumeControl$decreaseVolume);Class _logos_class$Rose$SBVolumeControl = objc_getClass("SBVolumeControl"); MSHookMessageEx(_logos_class$Rose$SBVolumeControl, @selector(increaseVolume), (IMP)&_logos_method$Rose$SBVolumeControl$increaseVolume, (IMP*)&_logos_orig$Rose$SBVolumeControl$increaseVolume);MSHookMessageEx(_logos_class$Rose$SBVolumeControl, @selector(decreaseVolume), (IMP)&_logos_method$Rose$SBVolumeControl$decreaseVolume, (IMP*)&_logos_orig$Rose$SBVolumeControl$decreaseVolume);Class _logos_class$Rose$SBPowerDownController = objc_getClass("SBPowerDownController"); MSHookMessageEx(_logos_class$Rose$SBPowerDownController, @selector(orderFront), (IMP)&_logos_method$Rose$SBPowerDownController$orderFront, (IMP*)&_logos_orig$Rose$SBPowerDownController$orderFront);Class _logos_class$Rose$SBPowerDownViewController = objc_getClass("SBPowerDownViewController"); MSHookMessageEx(_logos_class$Rose$SBPowerDownViewController, @selector(viewWillAppear:), (IMP)&_logos_method$Rose$SBPowerDownViewController$viewWillAppear$, (IMP*)&_logos_orig$Rose$SBPowerDownViewController$viewWillAppear$);Class _logos_class$Rose$SBMainDisplaySceneManager = objc_getClass("SBMainDisplaySceneManager"); MSHookMessageEx(_logos_class$Rose$SBMainDisplaySceneManager, @selector(_appKilledInAppSwitcher:), (IMP)&_logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$, (IMP*)&_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$);Class _logos_class$Rose$SBApplication = objc_getClass("SBApplication"); MSHookMessageEx(_logos_class$Rose$SBApplication, @selector(_didExitWithContext:), (IMP)&_logos_method$Rose$SBApplication$_didExitWithContext$, (IMP*)&_logos_orig$Rose$SBApplication$_didExitWithContext$);Class _logos_class$Rose$SBUIIconForceTouchController = objc_getClass("SBUIIconForceTouchController"); MSHookMessageEx(_logos_class$Rose$SBUIIconForceTouchController, @selector(iconForceTouchViewControllerWillDismiss:), (IMP)&_logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$, (IMP*)&_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$);Class _logos_class$Rose$SBUIController = objc_getClass("SBUIController"); MSHookMessageEx(_logos_class$Rose$SBUIController, @selector(ACPowerChanged), (IMP)&_logos_method$Rose$SBUIController$ACPowerChanged, (IMP*)&_logos_orig$Rose$SBUIController$ACPowerChanged);MSHookMessageEx(_logos_class$Rose$SBUIController, @selector(handleWillBeginReachabilityAnimation), (IMP)&_logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimation, (IMP*)&_logos_orig$Rose$SBUIController$handleWillBeginReachabilityAnimation);Class _logos_class$Rose$SBAppSwitcherPageView = objc_getClass("SBAppSwitcherPageView"); MSHookMessageEx(_logos_class$Rose$SBAppSwitcherPageView, @selector(setVisible:), (IMP)&_logos_method$Rose$SBAppSwitcherPageView$setVisible$, (IMP*)&_logos_orig$Rose$SBAppSwitcherPageView$setVisible$);Class _logos_class$Rose$SiriUISiriStatusView = objc_getClass("SiriUISiriStatusView"); MSHookMessageEx(_logos_class$Rose$SiriUISiriStatusView, @selector(layoutSubviews), (IMP)&_logos_method$Rose$SiriUISiriStatusView$layoutSubviews, (IMP*)&_logos_orig$Rose$SiriUISiriStatusView$layoutSubviews);Class _logos_class$Rose$CCUILabeledRoundButton = objc_getClass("CCUILabeledRoundButton"); MSHookMessageEx(_logos_class$Rose$CCUILabeledRoundButton, @selector(buttonTapped:), (IMP)&_logos_method$Rose$CCUILabeledRoundButton$buttonTapped$, (IMP*)&_logos_orig$Rose$CCUILabeledRoundButton$buttonTapped$);Class _logos_class$Rose$SBFolderController = objc_getClass("SBFolderController"); MSHookMessageEx(_logos_class$Rose$SBFolderController, @selector(prepareToOpen), (IMP)&_logos_method$Rose$SBFolderController$prepareToOpen, (IMP*)&_logos_orig$Rose$SBFolderController$prepareToOpen);Class _logos_class$Rose$SBIconController = objc_getClass("SBIconController"); MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(viewWillAppear:), (IMP)&_logos_method$Rose$SBIconController$viewWillAppear$, (IMP*)&_logos_orig$Rose$SBIconController$viewWillAppear$);MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(viewDidAppear:), (IMP)&_logos_method$Rose$SBIconController$viewDidAppear$, (IMP*)&_logos_orig$Rose$SBIconController$viewDidAppear$);MSHookMessageEx(_logos_class$Rose$SBIconController, @selector(iconTapped:), (IMP)&_logos_method$Rose$SBIconController$iconTapped$, (IMP*)&_logos_orig$Rose$SBIconController$iconTapped$);Class _logos_class$Rose$SBHIconManager = objc_getClass("SBHIconManager"); MSHookMessageEx(_logos_class$Rose$SBHIconManager, @selector(iconTapped:), (IMP)&_logos_method$Rose$SBHIconManager$iconTapped$, (IMP*)&_logos_orig$Rose$SBHIconManager$iconTapped$);Class _logos_class$Rose$SBFolderView = objc_getClass("SBFolderView"); MSHookMessageEx(_logos_class$Rose$SBFolderView, @selector(scrollViewWillBeginDragging:), (IMP)&_logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$, (IMP*)&_logos_orig$Rose$SBFolderView$scrollViewWillBeginDragging$);Class _logos_class$Rose$SSScreenCapturer = objc_getClass("SSScreenCapturer"); Class _logos_metaclass$Rose$SSScreenCapturer = object_getClass(_logos_class$Rose$SSScreenCapturer); MSHookMessageEx(_logos_metaclass$Rose$SSScreenCapturer, @selector(playScreenshotSound), (IMP)&_logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound, (IMP*)&_logos_meta_orig$Rose$SSScreenCapturer$playScreenshotSound);Class _logos_class$Rose$SBUIPasscodeLockViewBase = objc_getClass("SBUIPasscodeLockViewBase"); MSHookMessageEx(_logos_class$Rose$SBUIPasscodeLockViewBase, @selector(_sendDelegateKeypadKeyDown), (IMP)&_logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown, (IMP*)&_logos_orig$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown);Class _logos_class$Rose$UIKeyboardLayoutStar = objc_getClass("UIKeyboardLayoutStar"); MSHookMessageEx(_logos_class$Rose$UIKeyboardLayoutStar, @selector(playKeyClickSoundOnDownForKey:), (IMP)&_logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$, (IMP*)&_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$);Class _logos_class$Rose$UICalloutBar = objc_getClass("UICalloutBar"); MSHookMessageEx(_logos_class$Rose$UICalloutBar, @selector(buttonPressed:), (IMP)&_logos_method$Rose$UICalloutBar$buttonPressed$, (IMP*)&_logos_orig$Rose$UICalloutBar$buttonPressed$);Class _logos_class$Rose$SBSearchScrollView = objc_getClass("SBSearchScrollView"); MSHookMessageEx(_logos_class$Rose$SBSearchScrollView, @selector(gestureRecognizerShouldBegin:), (IMP)&_logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$, (IMP*)&_logos_orig$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$);Class _logos_class$Rose$ICSApplicationDelegate = objc_getClass("ICSApplicationDelegate"); MSHookMessageEx(_logos_class$Rose$ICSApplicationDelegate, @selector(audioCallStatusChanged:), (IMP)&_logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$, (IMP*)&_logos_orig$Rose$ICSApplicationDelegate$audioCallStatusChanged$);Class _logos_class$Rose$SBDashBoardViewController = objc_getClass("SBDashBoardViewController"); MSHookMessageEx(_logos_class$Rose$SBDashBoardViewController, @selector(setAuthenticated:), (IMP)&_logos_method$Rose$SBDashBoardViewController$setAuthenticated$, (IMP*)&_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$);Class _logos_class$Rose$SBDashBoardLockScreenEnvironment = objc_getClass("SBDashBoardLockScreenEnvironment"); MSHookMessageEx(_logos_class$Rose$SBDashBoardLockScreenEnvironment, @selector(setAuthenticated:), (IMP)&_logos_method$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$, (IMP*)&_logos_orig$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$);Class _logos_class$Rose$SBBacklightController = objc_getClass("SBBacklightController"); MSHookMessageEx(_logos_class$Rose$SBBacklightController, @selector(turnOnScreenFullyWithBacklightSource:), (IMP)&_logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$, (IMP*)&_logos_orig$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$);Class _logos_class$Rose$UIWindow = objc_getClass("UIWindow"); MSHookMessageEx(_logos_class$Rose$UIWindow, @selector(_shouldHitTestEntireScreen), (IMP)&_logos_method$Rose$UIWindow$_shouldHitTestEntireScreen, (IMP*)&_logos_orig$Rose$UIWindow$_shouldHitTestEntireScreen);Class _logos_class$Rose$SBControlCenterController = objc_getClass("SBControlCenterController"); MSHookMessageEx(_logos_class$Rose$SBControlCenterController, @selector(_willPresent), (IMP)&_logos_method$Rose$SBControlCenterController$_willPresent, (IMP*)&_logos_orig$Rose$SBControlCenterController$_willPresent);Class _logos_class$Rose$CCUIToggleViewController = objc_getClass("CCUIToggleViewController"); MSHookMessageEx(_logos_class$Rose$CCUIToggleViewController, @selector(buttonTapped:forEvent:), (IMP)&_logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$, (IMP*)&_logos_orig$Rose$CCUIToggleViewController$buttonTapped$forEvent$);Class _logos_class$Rose$UIButton = objc_getClass("UIButton"); MSHookMessageEx(_logos_class$Rose$UIButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIButton$touchesBegan$withEvent$);Class _logos_class$Rose$UIView = objc_getClass("UIView"); MSHookMessageEx(_logos_class$Rose$UIView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIView$touchesBegan$withEvent$);Class _logos_class$Rose$_UIButtonBarButton = objc_getClass("_UIButtonBarButton"); MSHookMessageEx(_logos_class$Rose$_UIButtonBarButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$_UIButtonBarButton$touchesBegan$withEvent$);Class _logos_class$Rose$UIImageView = objc_getClass("UIImageView"); MSHookMessageEx(_logos_class$Rose$UIImageView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIImageView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIImageView$touchesBegan$withEvent$);Class _logos_class$Rose$MTMaterialView = objc_getClass("MTMaterialView"); MSHookMessageEx(_logos_class$Rose$MTMaterialView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$MTMaterialView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$MTMaterialView$touchesBegan$withEvent$);Class _logos_class$Rose$UIStackView = objc_getClass("UIStackView"); MSHookMessageEx(_logos_class$Rose$UIStackView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIStackView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIStackView$touchesBegan$withEvent$);Class _logos_class$Rose$UILabel = objc_getClass("UILabel"); MSHookMessageEx(_logos_class$Rose$UILabel, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UILabel$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UILabel$touchesBegan$withEvent$);Class _logos_class$Rose$UIVisualEffectView = objc_getClass("UIVisualEffectView"); MSHookMessageEx(_logos_class$Rose$UIVisualEffectView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$UIVisualEffectView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$UIVisualEffectView$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingPlayButtonV2 = objc_getClass("SPTNowPlayingPlayButtonV2"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingPlayButtonV2, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingPlayButtonV2$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingPreviousTrackButton = objc_getClass("SPTNowPlayingPreviousTrackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingPreviousTrackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingPreviousTrackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingNextTrackButton = objc_getClass("SPTNowPlayingNextTrackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingNextTrackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingNextTrackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingRepeatButton = objc_getClass("SPTNowPlayingRepeatButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingRepeatButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingRepeatButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingShuffleButton = objc_getClass("SPTNowPlayingShuffleButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingShuffleButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingShuffleButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingQueueButton = objc_getClass("SPTNowPlayingQueueButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingQueueButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingQueueButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingSliderV2 = objc_getClass("SPTNowPlayingSliderV2"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingSliderV2, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingSliderV2$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingFreeTierFeedbackButton = objc_getClass("SPTNowPlayingFreeTierFeedbackButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingFreeTierFeedbackButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingFreeTierFeedbackButton$touchesBegan$withEvent$);Class _logos_class$Rose$SPTGaiaDevicesAvailableViewImplementation = objc_getClass("SPTGaiaDevicesAvailableViewImplementation"); MSHookMessageEx(_logos_class$Rose$SPTGaiaDevicesAvailableViewImplementation, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTGaiaDevicesAvailableViewImplementation$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingMarqueeLabel = objc_getClass("SPTNowPlayingMarqueeLabel"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingMarqueeLabel, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingMarqueeLabel$touchesBegan$withEvent$);Class _logos_class$Rose$SPTNowPlayingBarPlayButton = objc_getClass("SPTNowPlayingBarPlayButton"); MSHookMessageEx(_logos_class$Rose$SPTNowPlayingBarPlayButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$SPTNowPlayingBarPlayButton$touchesBegan$withEvent$);Class _logos_class$Rose$IGUFIButtonBarView = objc_getClass("IGUFIButtonBarView"); MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onLikeButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onLikeButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onLikeButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onCommentButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onCommentButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onCommentButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSaveButtonLongPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonLongPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSaveButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSaveButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSaveButtonPressed$);MSHookMessageEx(_logos_class$Rose$IGUFIButtonBarView, @selector(_onSendButtonPressed:), (IMP)&_logos_method$Rose$IGUFIButtonBarView$_onSendButtonPressed$, (IMP*)&_logos_orig$Rose$IGUFIButtonBarView$_onSendButtonPressed$);Class _logos_class$Rose$AWEFeedVideoButton = objc_getClass("AWEFeedVideoButton"); MSHookMessageEx(_logos_class$Rose$AWEFeedVideoButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$AWEFeedVideoButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$AWEFeedVideoButton$touchesBegan$withEvent$);Class _logos_class$Rose$TFNCustomTabBar = objc_getClass("TFNCustomTabBar"); MSHookMessageEx(_logos_class$Rose$TFNCustomTabBar, @selector(tap:), (IMP)&_logos_method$Rose$TFNCustomTabBar$tap$, (IMP*)&_logos_orig$Rose$TFNCustomTabBar$tap$);Class _logos_class$Rose$T1StandardStatusView = objc_getClass("T1StandardStatusView"); MSHookMessageEx(_logos_class$Rose$T1StandardStatusView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1StandardStatusView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1StandardStatusView$touchesBegan$withEvent$);Class _logos_class$Rose$T1DirectMessageInboxSummaryView = objc_getClass("T1DirectMessageInboxSummaryView"); MSHookMessageEx(_logos_class$Rose$T1DirectMessageInboxSummaryView, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1DirectMessageInboxSummaryView$touchesBegan$withEvent$);Class _logos_class$Rose$T1ActivityCell = objc_getClass("T1ActivityCell"); MSHookMessageEx(_logos_class$Rose$T1ActivityCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$T1ActivityCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$T1ActivityCell$touchesBegan$withEvent$);Class _logos_class$Rose$TFNFloatingActionButton = objc_getClass("TFNFloatingActionButton"); MSHookMessageEx(_logos_class$Rose$TFNFloatingActionButton, @selector(_tfn_expandingButtonAction:), (IMP)&_logos_method$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$, (IMP*)&_logos_orig$Rose$TFNFloatingActionButton$_tfn_expandingButtonAction$);Class _logos_class$Rose$_SFNavigationBarURLButton = objc_getClass("_SFNavigationBarURLButton"); MSHookMessageEx(_logos_class$Rose$_SFNavigationBarURLButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$_SFNavigationBarURLButton$touchesBegan$withEvent$);Class _logos_class$Rose$PHHandsetDialerNumberPadButton = objc_getClass("PHHandsetDialerNumberPadButton"); MSHookMessageEx(_logos_class$Rose$PHHandsetDialerNumberPadButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHHandsetDialerNumberPadButton$touchesBegan$withEvent$);Class _logos_class$Rose$CNContactListTableViewCell = objc_getClass("CNContactListTableViewCell"); MSHookMessageEx(_logos_class$Rose$CNContactListTableViewCell, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$CNContactListTableViewCell$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$CNContactListTableViewCell$touchesBegan$withEvent$);Class _logos_class$Rose$PHHandsetDialerDeleteButton = objc_getClass("PHHandsetDialerDeleteButton"); MSHookMessageEx(_logos_class$Rose$PHHandsetDialerDeleteButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHHandsetDialerDeleteButton$touchesBegan$withEvent$);Class _logos_class$Rose$PHBottomBarButton = objc_getClass("PHBottomBarButton"); MSHookMessageEx(_logos_class$Rose$PHBottomBarButton, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$PHBottomBarButton$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$PHBottomBarButton$touchesBegan$withEvent$);Class _logos_class$Rose$FBTabBar = objc_getClass("FBTabBar"); MSHookMessageEx(_logos_class$Rose$FBTabBar, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$FBTabBar$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$FBTabBar$touchesBegan$withEvent$);Class _logos_class$Rose$FDSTetraPressStateAnnouncingControl = objc_getClass("FDSTetraPressStateAnnouncingControl"); MSHookMessageEx(_logos_class$Rose$FDSTetraPressStateAnnouncingControl, @selector(touchesBegan:withEvent:), (IMP)&_logos_method$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$, (IMP*)&_logos_orig$Rose$FDSTetraPressStateAnnouncingControl$touchesBegan$withEvent$);Class _logos_class$Rose$NSProcessInfo = objc_getClass("NSProcessInfo"); MSHookMessageEx(_logos_class$Rose$NSProcessInfo, @selector(isLowPowerModeEnabled), (IMP)&_logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled, (IMP*)&_logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled);}
             return;
         } else {
             dpkgInvalid = YES;

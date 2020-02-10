@@ -12,8 +12,9 @@ BOOL dpkgInvalid = NO;
 
 // Option Switches
 BOOL enabled = YES;
-BOOL enableHapticEngineSwitch = NO;
 BOOL enableTapticEngineSwitch = NO;
+BOOL enableHapticEngineSwitch = NO;
+BOOL enableLegacyEngineSwitch = NO;
 BOOL delaySwitch = NO;
 BOOL respringSwitch = NO;
 BOOL unlockSwitch = NO;
@@ -126,9 +127,12 @@ BOOL SileoConfirmDownloadButtonSwitch = NO;
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch = NO;
 
-// Feedback strength segmented controls and delay slider
-NSString *hapticLevel = @"0";
+// Feedback strength segmented controls, custom legacy settings and delay slider
 NSString *tapticLevel = @"0";
+NSString *hapticLevel = @"0";
+NSString *legacyLevel = @"0";
+NSString *customlegacyDurationLevel = @"0";
+NSString *customlegacyStrengthLevel = @"0";
 NSString *delayLevel = @"0";
 int customFeedbackValue;
 
