@@ -374,8 +374,6 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	%orig;
-
 	int customStrength = [customStrengthLockControl intValue];
 
 	if (lockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
@@ -1172,6 +1170,54 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 		triggerCustomFeedback();
 
 	} else if (ccModuleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook CSQuickActionsButton
+
+- (void)setSelected:(BOOL)arg1 {
+
+	%orig;
+
+	int customStrength = [customStrengthQuickActionsButtonControl intValue];
+
+	if (quickActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (quickActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (quickActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBDashBoardQuickActionsButton
+
+- (void)setSelected:(BOOL)arg1 {
+
+	%orig;
+
+	int customStrength = [customStrengthQuickActionsButtonControl intValue];
+
+	if (quickActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (quickActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (quickActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2616,6 +2662,7 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
 	[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
 	[pfs registerBool:&passcodeSwitch default:NO forKey:@"enterPasscode"];
+	[pfs registerBool:&quickActionsButtonSwitch default:NO forKey:@"quickActionsButton"];
 	[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
 	[pfs registerBool:&ringerSwitch default:NO forKey:@"unmuting"];
 	[pfs registerBool:&reachabilitySwitch default:NO forKey:@"reachability"];
@@ -2729,6 +2776,7 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	[pfs registerObject:&customStrengthPageSwipeControl default:@"0" forKey:@"customStrengthPageSwipe"];
 	[pfs registerObject:&customStrengthScreenshotControl default:@"0" forKey:@"customStrengthScreenshot"];
 	[pfs registerObject:&customStrengthPasscodeControl default:@"0" forKey:@"customStrengthPasscode"];
+	[pfs registerObject:&customStrengthQuickActionsButtonControl default:@"0" forKey:@"customStrengthQuickActionsButton"];
 	[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
 	[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
 	[pfs registerObject:&customStrengthSpotlightControl default:@"0" forKey:@"customStrengthSpotlight"];

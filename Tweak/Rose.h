@@ -2,7 +2,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
 
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 // Utils
 HBPreferences *pfs;
@@ -33,6 +33,7 @@ BOOL iconTapSwitch = NO;
 BOOL pageSwipeSwitch = NO;
 BOOL screenshotSwitch = NO;
 BOOL passcodeSwitch = NO;
+BOOL quickActionsButtonSwitch = NO;
 BOOL keyboardSwitch = NO;
 BOOL ringerSwitch = NO;
 BOOL reachabilitySwitch = NO;
@@ -157,6 +158,7 @@ NSString *customStrengthIconTapControl = @"0";
 NSString *customStrengthPageSwipeControl = @"0";
 NSString *customStrengthScreenshotControl = @"0";
 NSString *customStrengthPasscodeControl = @"0";
+NSString *customStrengthQuickActionsButtonControl = @"0";
 NSString *customStrengthKeyboardControl = @"0";
 NSString *customStrengthTextSelectionControl = @"0";
 NSString *customStrengthSpotlightControl = @"0";
