@@ -1,6 +1,6 @@
 # Rose
 
-Haptic Feedback Tweak for iOS, trough iOS.
+Getting peeped by a Rose doesn't feel that good, it's time to change that
 
 ## Installation
 
