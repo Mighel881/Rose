@@ -8,6 +8,5 @@
 @end
 
 @interface RSESubPrefsListController : HBListController
-
 @property (nonatomic, retain) UILabel *titleLabel;
 @end

@@ -9,7 +9,28 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback When...</string>
+			<string>Enable Calculator Support?</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>calculatorSupport</string>
+			<key>label</key>
+			<string>Calculator Support</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback When..</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -24,6 +45,13 @@
 			<string>Tapping A Keypad Button</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Custom Strength Settings</string>
 		</dict>
 		<dict>
 			<key>cell</key>

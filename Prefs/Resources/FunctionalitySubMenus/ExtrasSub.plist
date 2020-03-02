@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Enable Exceptions Section</string>
+			<string>Enable Extras Section</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -19,7 +19,7 @@
 			<key>defaults</key>
 			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
-			<string>exceptionsSectionSupport</string>
+			<string>extrasSectionSupport</string>
 			<key>label</key>
 			<string>Enable Section</string>
 			<key>PostNotification</key>
@@ -30,7 +30,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Disable Feedback When...</string>
+			<string>Haptic Animations - Taptic Engine And Partly iOS 13 Only</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -40,23 +40,9 @@
 			<key>defaults</key>
 			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
-			<string>lowPowerMode</string>
+			<string>lockAnimation</string>
 			<key>label</key>
-			<string>Low Power Mode Is On</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>isDNDActive</string>
-			<key>label</key>
-			<string>DND Is Active</string>
+			<string>Haptic Lock Animation</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>

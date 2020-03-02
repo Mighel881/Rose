@@ -12,14 +12,20 @@
     UITableView * _table;
 }
 
-@property (nonatomic, retain) UIBarButtonItem *respringButton;
-@property (nonatomic, retain) UIView *headerView;
-@property (nonatomic, retain) UIImageView *headerImageView;
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UIImageView *iconView;
+@property(nonatomic, retain)UISwitch* enableSwitch;
+@property(nonatomic, retain)UIView* headerView;
+@property(nonatomic, retain)UIImageView* headerImageView;
+@property(nonatomic, retain)UILabel* titleLabel;
+@property(nonatomic, retain)UIImageView* iconView;
 
--(void)respring;
--(void)respringUtil;
--(void)showThanksAlert;
+- (void)toggleState;
+- (void)setEnableSwitchState;
+- (void)presentIntroductionViewController;
+- (void)vc2;
+- (void)resetPrompt;
+- (void)resetPreferences;
+- (void)respring;
+- (void)respringWithButton;
+- (void)respringUtil;
 
 @end

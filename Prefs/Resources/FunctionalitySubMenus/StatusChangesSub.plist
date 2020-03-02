@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback When...</string>
+			<string>Enable Status Changes Section</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -19,11 +19,84 @@
 			<key>defaults</key>
 			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
-			<string>UnlockSwitch</string>
+			<string>statusChangesSectionSupport</string>
+			<key>label</key>
+			<string>Enable Section</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback When..</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>unlock</string>
 			<key>label</key>
 			<string>Unlocked/NC</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>lock</string>
+			<key>label</key>
+			<string>Locked</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>authentication</string>
+			<key>label</key>
+			<string>Authenticated With Touch/FaceID</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>call</string>
+			<key>label</key>
+			<string>Call Connects/Disconnects</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Custom Strength Settings</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -68,20 +141,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>LockSwitch</string>
-			<key>label</key>
-			<string>Locked</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -123,20 +182,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>authentication</string>
-			<key>label</key>
-			<string>Authenticated With Touch/FaceID</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -176,20 +221,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>call</string>
-			<key>label</key>
-			<string>Call Connects/Disconnects</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>

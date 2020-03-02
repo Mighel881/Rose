@@ -9,7 +9,28 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback When...</string>
+			<string>Enable Phone Support?</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>phoneSupport</string>
+			<key>label</key>
+			<string>Phone Support</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback When..</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -24,6 +45,58 @@
 			<string>Tapping Dialer Number Pad Button</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>PHContactCell</string>
+			<key>label</key>
+			<string>Tapping A Contact Cell</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>PHDialerDeleteButton</string>
+			<key>label</key>
+			<string>Tapping Dialer Delete Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>PHDialerCallButton</string>
+			<key>label</key>
+			<string>Tapping Dialer Call Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Custom Strength Settings</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -68,20 +141,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>PHContactCell</string>
-			<key>label</key>
-			<string>Tapping A Contact Cell</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -123,20 +182,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>PHDialerDeleteButton</string>
-			<key>label</key>
-			<string>Tapping Dialer Delete Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -176,20 +221,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>PHDialerCallButton</string>
-			<key>label</key>
-			<string>Tapping Dialer Call Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>

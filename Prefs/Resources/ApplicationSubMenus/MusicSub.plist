@@ -9,7 +9,28 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback When...</string>
+			<string>Enable Music Support?</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>musicSupport</string>
+			<key>label</key>
+			<string>Music Support</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback When..</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -24,6 +45,133 @@
 			<string>Tapping Music Control Buttons</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicVolumeSlider</string>
+			<key>label</key>
+			<string>Tapping Volume Slider</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicContextualActionsButton</string>
+			<key>label</key>
+			<string>Tapping More Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicTimeSlider</string>
+			<key>label</key>
+			<string>Tapping Time Slider</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicSongCell</string>
+			<key>label</key>
+			<string>Tapping Song Cell</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicLibraryCell</string>
+			<key>label</key>
+			<string>Tapping Library Cell</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicAlbumCell</string>
+			<key>label</key>
+			<string>Tapping Album Cell</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicAirPlayButton</string>
+			<key>label</key>
+			<string>Tapping AirPlay Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>MusicLiveLyricsQueueButton</string>
+			<key>label</key>
+			<string>Tapping Lyrics/Queue/Play/Skip/Previous Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Custom Strength Settings</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -68,20 +216,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicVolumeSlider</string>
-			<key>label</key>
-			<string>Tapping Volume Slider</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -121,20 +255,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicContextualActionsButton</string>
-			<key>label</key>
-			<string>Tapping More Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
@@ -178,20 +298,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicTimeSlider</string>
-			<key>label</key>
-			<string>Tapping Time Slider</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -231,20 +337,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicSongCell</string>
-			<key>label</key>
-			<string>Tapping Song Cell</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
@@ -288,20 +380,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicLibraryCell</string>
-			<key>label</key>
-			<string>Tapping Library Cell</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -341,20 +419,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicAlbumCell</string>
-			<key>label</key>
-			<string>Tapping Album Cell</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
@@ -398,20 +462,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicAirPlayButton</string>
-			<key>label</key>
-			<string>Tapping AirPlay Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -451,20 +501,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>MusicLiveLyricsQueueButton</string>
-			<key>label</key>
-			<string>Tapping Lyrics/Queue/Play/Skip/Previous Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>

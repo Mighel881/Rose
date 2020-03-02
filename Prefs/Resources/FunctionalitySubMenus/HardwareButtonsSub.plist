@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback When...</string>
+			<string>Enable Hardware Buttons Section</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -19,11 +19,84 @@
 			<key>defaults</key>
 			<string>sh.litten.rosepreferences</string>
 			<key>key</key>
-			<string>VolumeChangedSwitch</string>
+			<string>hardwareButtonsSectionSupport</string>
+			<key>label</key>
+			<string>Enable Section</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Feedback When..</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>volumeChanged</string>
 			<key>label</key>
 			<string>Volume Changed</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>sleepButton</string>
+			<key>label</key>
+			<string>Pressing Only Sleep Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>homeButton</string>
+			<key>label</key>
+			<string>Pressing Home/Sleep Button</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.rosepreferences</string>
+			<key>key</key>
+			<string>ringer</string>
+			<key>label</key>
+			<string>Unmuting</string>
+			<key>PostNotification</key>
+			<string>sh.litten.rosepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Custom Strength Settings</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -68,20 +141,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>sleepButton</string>
-			<key>label</key>
-			<string>Pressing Only Sleep Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -121,20 +180,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>homeButton</string>
-			<key>label</key>
-			<string>Pressing Home/Sleep Button</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
@@ -178,20 +223,6 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.rosepreferences</string>
-			<key>key</key>
-			<string>unmuting</string>
-			<key>label</key>
-			<string>Unmuting</string>
-			<key>PostNotification</key>
-			<string>sh.litten.rosepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -230,7 +261,6 @@
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
-
 
 	</array>
 	<key>title</key>

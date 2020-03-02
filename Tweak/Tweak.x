@@ -1,5 +1,9 @@
-#import "../RoseCommon.h"
 #import "Rose.h"
+
+BOOL enabled = NO;
+BOOL enableTapticEngineSwitch = NO;
+BOOL enableHapticEngineSwitch = NO;
+BOOL enableLegacyEngineSwitch = NO;
 	
 	// Rose wide haptics controller
 void prepareForHaptic() {
@@ -54,18 +58,20 @@ void prepareForHaptic() {
 	// Rose wide haptics trigger
 void triggerFeedback() {
 
-if (LowPowerModeSwitch && LowPowerMode == YES) {}
-	else if (enabled && delaySwitch) {
-		int delay = [delayLevel intValue];
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
+		return;
+
+	} else if (enabled && !(delaySwitch)) {
+		prepareForHaptic();
+
+	} else if (enabled && delaySwitch) {
+		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
 			prepareForHaptic();
 
 		});
-
-	} else if (enabled && !(delaySwitch)) {
-		prepareForHaptic();
 		
 	}
 
@@ -74,43 +80,46 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	// Rose custom haptis controller
 void prepareCustomFeedback() {
 
-	switch(customFeedbackValue) {
-	case 1:
-		AudioServicesPlaySystemSound(1519);
-		break;
-	case 2:
-		AudioServicesPlaySystemSound(1520);
-		break;
-	case 3:
-		AudioServicesPlaySystemSound(1521);
-		break;
-	case 4:
+	if (customFeedbackValue > 0 && customFeedbackValue < 4) {
+		if (customFeedbackValue == 1) {
+			AudioServicesPlaySystemSound(1519);
+
+		}
+
+		else if (customFeedbackValue == 2) {
+			AudioServicesPlaySystemSound(1520);
+
+		}
+
+		else if (customFeedbackValue == 3) {
+			AudioServicesPlaySystemSound(1521);
+
+		}
+		
+	}
+
+	if (customFeedbackValue > 3 && customFeedbackValue < 9) {
 		[gen prepare];
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+
+		if (customFeedbackValue == 4) {
+			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+
+		} else if (customFeedbackValue == 5) {
+			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+
+		} else if (customFeedbackValue == 6) {
+			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
+
+		} else if (customFeedbackValue == 7) {
+			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleSoft];
+
+		} else if (customFeedbackValue == 8) {
+			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
+
+		}
+
 		[gen impactOccurred];
-		break;
-	case 5:
-		[gen prepare];
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-		[gen impactOccurred];
-		break;
-	case 6:
-		[gen prepare];
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-		[gen impactOccurred];
-		break;
-	case 7:
-		[gen prepare];
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleSoft];
-		[gen impactOccurred];
-		break;
-	case 8:
-		[gen prepare];
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
-		[gen impactOccurred];
-		break;
-	default:
-		break;
+
 	}
 
 }
@@ -118,18 +127,20 @@ void prepareCustomFeedback() {
 	// Rose custom haptics trigger
 void triggerCustomFeedback() {
 
-	if (LowPowerModeSwitch && LowPowerMode == YES) {}
-	else if (enabled && delaySwitch) {
-		int delay = [delayLevel intValue];
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
+		return;
+
+	} else if (enabled && !(delaySwitch)) {
+		prepareCustomFeedback();
+
+	} else if (enabled && delaySwitch) {
+		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
 			prepareCustomFeedback();
 
 		});
-
-	} else if (enabled && !(delaySwitch)) {
-		prepareCustomFeedback();
 		
 	}
 
@@ -166,9 +177,20 @@ int selectedLegacyMode = [legacyLevel intValue];
 double customLegacyDuration = [customlegacyDurationLevel doubleValue];
 double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
-if (LowPowerModeSwitch && LowPowerMode == YES) {}
-	else if (enabled && delaySwitch) {
-		int delay = [delayLevel intValue];
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
+		return;
+
+	} else if (enabled && !(delaySwitch)) {
+		if (selectedLegacyMode == 0) {
+				prepareLegacyFeedback(.025, .05, 1);
+
+		} else if (selectedLegacyMode == 1) {
+				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
+
+		}
+
+	} else if (enabled && delaySwitch) {
+		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
@@ -181,15 +203,6 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 			}
 
 		});
-
-	} else if (enabled && !(delaySwitch)) {
-		if (selectedLegacyMode == 0) {
-				prepareLegacyFeedback(.025, .05, 1);
-
-			} else if (selectedLegacyMode == 1) {
-				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
-
-			}
 		
 	}
 
@@ -203,16 +216,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !respringSwitch) return;
 	int customStrength = [customStrengthRespringControl intValue];
 
-	if (respringSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (respringSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (respringSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -223,16 +237,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !ringerSwitch) return;
 	int customStrength = [customStrengthRingerControl intValue];
 
-	if (ringerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ringerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ringerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -247,17 +262,18 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	//int type = arg1.allPresses.allObjects[0].type;
 	int force = arg1.allPresses.allObjects[0].force;
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return %orig;
 	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
-		if (homeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (homeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		} else if (homeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -276,42 +292,23 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !statusChangesSectionSupportSwitch || !unlockSwitch) return;
 	int customStrength = [customStrengthUnlockControl intValue];
 
-	if (unlockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (unlockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (unlockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
 
 }
 
-- (void)viewDidDisappear:(BOOL)arg1 {
-
-    %orig; //  Thanks to Nepeta for the DRM
-    if (!dpkgInvalid) return;
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-			UIApplication *application = [UIApplication sharedApplication];
-			[application openURL:[NSURL URLWithString:@"https://repo.litten.sh/"] options:@{} completionHandler:nil];
-
-	}];
-
-		[alertController addAction:cancelAction];
-
-		[self presentViewController:alertController animated:YES completion:nil];
-
-}
 - (void)viewDidAppear:(BOOL)arg1 {
 
 	fileManager = [NSFileManager defaultManager];
@@ -374,16 +371,27 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !statusChangesSectionSupportSwitch || !lockSwitch) return;
 	int customStrength = [customStrengthLockControl intValue];
 
-	if (lockSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (lockAnimationSwitch && !(LowPowerModeSwitch && LowPowerMode)) {
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
+		[gen impactOccurred];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.065 * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+					
+			[gen impactOccurred];
+
+		});
+
+	} else if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (lockSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (lockSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -392,16 +400,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)consumeInitialPressDown {
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !sleepButtonSwitch) return %orig;
 	int customStrength = [customStrengthSleepButtonControl intValue];
 
-	if (sleepButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (sleepButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (sleepButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -418,16 +427,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -438,16 +448,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -462,16 +473,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -482,16 +494,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
 	int customStrength = [customStrengthVolumeControl intValue];
 
-	if (volumeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (volumeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (volumeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -506,16 +519,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -530,16 +544,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
 	int customStrength = [customStrengthPowerDownControl intValue];
 
-	if (powerSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (powerSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (powerSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -554,16 +569,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !killingSwitch) return;
 	int customStrength = [customStrengthKillingControl intValue];
 
-	if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -578,20 +594,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !killingSwitch) return;
 	if (!(SYSTEM_VERSION_LESS_THAN(@"13.0"))) {
 		int customStrength = [customStrengthKillingControl intValue];
 
-		if (killingSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (killingSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		} else if (killingSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
 
-	}
+		}
 	
 	}
 
@@ -605,16 +622,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !homescreenSectionSupportSwitch || !forceSwitch) return;
 	int customStrength = [customStrengthForceTouchControl intValue];
 
-	if (forceSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (forceSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (forceSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -629,16 +647,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !pluggedSwitch) return;
 	int customStrength = [customStrengthPluggedControl intValue];
 
-	if (pluggedSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pluggedSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (pluggedSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -649,16 +668,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !reachabilitySwitch) return;
 	int customStrength = [customStrengthReachabilityControl intValue];
 
-	if (reachabilitySwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (reachabilitySwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (reachabilitySwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -673,16 +693,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !switcherSwitch) return;
 	int customStrength = [customStrengthSwitcherControl intValue];
 
-	if (switcherSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (switcherSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (switcherSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -693,20 +714,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SiriUISiriStatusView
 
-- (void)layoutSubviews {
+- (void)didMoveToWindow {
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !siriSwitch) return;
 	int customStrength = [customStrengthSiriControl intValue];
 
-	if (siriSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (siriSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (siriSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -721,16 +743,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !controlCenterSectionSupportSwitch || !ccToggleSwitch) return;
 	int customStrength = [customStrengthCCToggleControl intValue];
 
-	if (ccToggleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccToggleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ccToggleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -741,20 +764,42 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SBFolderController
 
-- (void)prepareToOpen {
+-(void)folderControllerWillOpen:(id)arg1 {
 
 	%orig;
 
-	int customStrength = [customStrengthFolderControl intValue];
+	if (!enabled || !homescreenSectionSupportSwitch || !folderOpenSwitch) return;
+	int customStrength = [customStrengthFolderOpenControl intValue];
 
-	if (folderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (folderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (folderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+-(void)folderControllerWillClose:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !homescreenSectionSupportSwitch || !folderCloseSwitch) return;
+	int customStrength = [customStrengthFolderCloseControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -769,36 +814,18 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !homescreenSectionSupportSwitch || !enterBackgroundSwitch) return;
 	int customStrength = [customStrengthEnterBackgroundControl intValue];
 
-	if (enterBackgroundSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (enterBackgroundSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (enterBackgroundSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-
-	%orig;
-
-	if (enabled && touchesSwitch && featureWarningSwitch) {
-		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Please consider to not using the 'feedback on every touch' feature too often, because it could harm your Haptic/Taptic Engine with very long usage. It's not my fault if something happens.\n[This alert can be turned off in Rose's settings]"
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Understood" style:UIAlertActionStyleCancel handler:nil];
-
-		[alert addAction:cancelAction];
-
-		[self presentViewController:alert animated:YES completion:nil];
 
 	}
 
@@ -808,16 +835,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !homescreenSectionSupportSwitch || !iconTapSwitch) return;
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -832,16 +860,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !homescreenSectionSupportSwitch || !iconTapSwitch) return;
 	int customStrength = [customStrengthIconTapControl intValue];
 
-	if (iconTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (iconTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (iconTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -856,16 +885,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !homescreenSectionSupportSwitch || !pageSwipeSwitch) return;
 	int customStrength = [customStrengthPageSwipeControl intValue];
 
-	if (pageSwipeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (pageSwipeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (pageSwipeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -880,16 +910,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !screenshotSwitch) return;
 	int customStrength = [customStrengthScreenshotControl intValue];
 
-	if (screenshotSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (screenshotSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (screenshotSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -904,16 +935,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !lockscreenSectionSupportSwitch || !passcodeSwitch) return;
 	int customStrength = [customStrengthPasscodeControl intValue];
 
-	if (passcodeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (passcodeSwitch &&  customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (passcodeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -928,16 +960,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !keyboardSwitch) return;
 	int customStrength = [customStrengthKeyboardControl intValue];
 
-	if (keyboardSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (keyboardSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (keyboardSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -952,16 +985,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !textSelectionSwitch) return;
 	int customStrength = [customStrengthTextSelectionControl intValue];
 
-	if (textSelectionSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (textSelectionSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (textSelectionSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -974,16 +1008,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)gestureRecognizerShouldBegin:(id)arg1 {
 
+	if (!enabled || !homescreenSectionSupportSwitch || !spotlightSwitch) return %orig;
 	int customStrength = [customStrengthSpotlightControl intValue];
 
-	if (spotlightSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (spotlightSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (spotlightSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1000,16 +1035,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !statusChangesSectionSupportSwitch || !callSwitch) return;
 	int customStrength = [customStrengthCallControl intValue];
 
-	if (callSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (callSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (callSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1024,21 +1060,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
     %orig;
 
+	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
     if (authenticated) {
-
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
 
-	}
+		}
 
 	}
 
@@ -1052,20 +1088,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
 	if (arg1) {
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
-		if (authenticationSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (authenticationSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		} else if (authenticationSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
 
-	}
+		}
 
 	}
 
@@ -1078,23 +1115,26 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 - (void)turnOnScreenFullyWithBacklightSource:(long long)source {
 
 	%orig;
+
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !wakeSwitch) return;
 	// 26 - source of screenshots on newer ios version (afaik); eg this method gets called with source == 26 if u make a screenshot
 	if (source != 26) {
 		int customStrength = [customStrengthWakeControl intValue];
 
-		if (wakeSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
 
-		} else if (wakeSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 			customFeedbackValue = customStrength;
 			triggerCustomFeedback();
 
-		} else if (wakeSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
 
 	}
 
-	}
 }
 
 %end
@@ -1103,20 +1143,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 - (BOOL)_shouldHitTestEntireScreen {
 
+	if (!enabled || !anywhereSectionSupportSwitch || !touchesSwitch) return %orig;
 	int customStrength = [customStrengthTouchesControl intValue];
 
-	if (touchesSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
 		return YES;
 
-	} else if (touchesSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
 		return YES;
 
-	} else if (touchesSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 		return YES;
@@ -1136,16 +1177,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !controlCenterSectionSupportSwitch || !openControlCenterSwitch) return;
 	int customStrength = [customStrengthOpenControlCenterControl intValue];
 
-	if (openControlCenterSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (openControlCenterSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (openControlCenterSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1160,16 +1202,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !controlCenterSectionSupportSwitch || !ccModuleSwitch) return;
 	int customStrength = [customStrengthCCModuleControl intValue];
 
-	if (ccModuleSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ccModuleSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ccModuleSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1184,6 +1227,7 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !anywhereSectionSupportSwitch || !alertDisappearSwitch) return;
 	int customStrength = [customStrengthQuickActionsButtonControl intValue];
 
 	if (quickActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
@@ -1208,16 +1252,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !lockscreenSectionSupportSwitch || !quickActionsButtonSwitch) return;
 	int customStrength = [customStrengthQuickActionsButtonControl intValue];
 
-	if (quickActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (quickActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (quickActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1225,47 +1270,70 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
-// iOS System Wide Hooks
+
+%hook UIAlertController
+
+- (void)viewWillAppear:(BOOL)arg1 {
+
+    %orig;
+	
+	if (!enabled || !anywhereSectionSupportSwitch || !alertAppearSwitch) return;
+	int customStrength = [customStrengthAlertAppearControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+- (void)viewWillDisappear:(BOOL)arg1 {
+
+   %orig;
+	
+	if (!enabled || !anywhereSectionSupportSwitch || !alertDisappearSwitch) return;
+	int customStrength = [customStrengthAlertDisappearControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
 %hook UIButton
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
+	
+	if (!enabled || !systemWideSectionSupportSwitch || !UIButtonSwitch) return;
+	int customStrength = [customStrengthUIButtonControl intValue];
 
-	int customStrength = [customStrengthuiButtonControl intValue];
-
-	if (uiButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (uiButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UIView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	int customStrength = [customStrengthuiViewControl intValue];
-
-	if (uiViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (uiViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (uiViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1279,17 +1347,18 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
+	
+	if (!enabled || !systemWideSectionSupportSwitch || !UIButtonBarButtonSwitch) return;
+	int customStrength = [customStrengthUIButtonBarButtonControl intValue];
 
-	int customStrength = [customStrengthuiButtonBarButtonControl intValue];
-
-	if (UIButtonBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (UIButtonBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (UIButtonBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1298,22 +1367,23 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%hook UIImageView
+%hook UITabBarButton
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
+	
+	if (!enabled || !systemWideSectionSupportSwitch || !UITabBarButtonSwitch) return;
+	int customStrength = [customStrengthUITabBarButtonControl intValue];
 
-	int customStrength = [customStrengthuiImageViewControl intValue];
-
-	if (uiImageViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (uiImageViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (uiImageViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1321,119 +1391,57 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+// Getting The State Of The Low Power Mode And DND
+%hook NSProcessInfo
 
-%hook MTMaterialView
+- (BOOL)isLowPowerModeEnabled {
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+	LowPowerMode = %orig;
 
-	%orig;
+	[pfs setBool: LowPowerMode forKey: @"isLowPowerMode"];
 
-	int customStrength = [customStrengthmtMaterialViewControl intValue];
-
-	if (mtMaterialViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (mtMaterialViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (mtMaterialViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
+	return %orig;
 
 }
 
 %end
 
-%hook UIStackView
+%hook DNDState
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (BOOL)isActive {
 
-	%orig;
+	isDNDActive = %orig;
+    
+	[pfs setBool: isDNDActive forKey:@"isDNDActiveState"];
 
-	int customStrength = [customStrengthuiStackViewControl intValue];
-
-	if (uiStackViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (uiStackViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (uiStackViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
+	return %orig;
 
 }
 
 %end
 
-%hook UILabel
+%end // Rose group
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	int customStrength = [customStrengthuiLabelControl intValue];
-
-	if (uiLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (uiLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (uiLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UIVisualEffectView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	int customStrength = [customStrengthuiVisualEffectViewControl intValue];
-
-	if (uiVisualEffectViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (uiVisualEffectViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (uiVisualEffectViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
 // Spotify
+%group Spotify
+
 %hook SPTNowPlayingPlayButtonV2
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTplayButtonSwitch) return;
 	int customStrength = [customStrengthSPTplayButtonControl intValue];
 
-	if (SPTplayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTplayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1448,16 +1456,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTpreviousTrackButtonSwitch) return;
 	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
 
-	if (SPTpreviousTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTpreviousTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTpreviousTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1472,16 +1481,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTnextTrackButtonSwitch) return;
 	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
 
-	if (SPTnextTrackButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnextTrackButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTnextTrackButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1496,16 +1506,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTrepeatButtonSwitch) return;
 	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
 
-	if (SPTrepeatButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTrepeatButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTrepeatButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1520,16 +1531,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTshuffleButtonSwitch) return;
 	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
 
-	if (SPTshuffleButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTshuffleButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTshuffleButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1544,16 +1556,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTqueueButtonSwitch) return;
 	int customStrength = [customStrengthSPTqueueButtonControl intValue];
 
-	if (SPTqueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTqueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTqueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1568,16 +1581,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTsliderSwitch) return;
 	int customStrength = [customStrengthSPTsliderControl intValue];
 
-	if (SPTsliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTsliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTsliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1592,16 +1606,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTfreeTierButtonSwitch) return;
 	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
 
-	if (SPTfreeTierButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTfreeTierButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTfreeTierButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1616,16 +1631,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTavailableDevicesButtonSwitch) return;
 	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
 
-	if (SPTavailableDevicesButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTavailableDevicesButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTavailableDevicesButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1640,16 +1656,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTnowPlayingLabelSwitch) return;
 	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
 
-	if (SPTnowPlayingLabelSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTnowPlayingLabelSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTnowPlayingLabelSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1664,16 +1681,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !spotifySupportSwitch || !SPTplayBarButtonSwitch) return;
 	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
 
-	if (SPTplayBarButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SPTplayBarButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SPTplayBarButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1681,23 +1699,79 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // Instagram
+%group Instagram
+
+%hook IGFeedPhotoView
+
+- (void)_onDoubleTap:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
+	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook IGFeedItemVideoView
+
+- (void)overlayViewDidDoubleTap:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
+	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
 %hook IGUFIButtonBarView
 
 - (void)_onLikeButtonPressed:(id)arg1 {
 
 	%orig;
 
+	if (!enabled || !instagramSupportSwitch || !ITGlikeButtonSwitch) return;
 	int customStrength = [customStrengthITGlikeButtonControl intValue];
 
-	if (ITGlikeButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGlikeButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ITGlikeButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1708,16 +1782,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !instagramSupportSwitch || !ITGcommentButtonSwitch) return;
 	int customStrength = [customStrengthITGcommentButtonControl intValue];
 
-	if (ITGcommentButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGcommentButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ITGcommentButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1728,16 +1803,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1748,16 +1824,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (ITGsaveButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ITGsaveButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1768,16 +1845,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !instagramSupportSwitch || !ITGsendButtonSwitch) return;
 	int customStrength = [customStrengthITGsendButtonControl intValue];
 
-	if (ITGsendButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (ITGsendButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (ITGsendButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1785,23 +1863,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // TikTok
+%group TikTok
+
 %hook AWEFeedVideoButton
 
 -(void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !tiktokSupportSwitch || !TTlikeCommentShareButtonsSwitch) return;
 	int customStrength = [customStrengthTTlikeCommentShareButtonsControl intValue];
 
-	if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TTlikeCommentShareButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TTlikeCommentShareButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1809,23 +1893,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // Twitter
+%group Twitter
+
 %hook TFNCustomTabBar
 
 - (void)tap:(id)arg1 {
 
 	%orig;
 
+	if (!enabled || !twitterSupportSwitch || !TWTtabBarSwitch) return;
 	int customStrength = [customStrengthTWTtabBarControl intValue];
 
-	if (TWTtabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TWTtabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1840,16 +1930,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !twitterSupportSwitch || !TWTtweetViewSwitch) return;
 	int customStrength = [customStrengthTWTtweetViewControl intValue];
 
-	if (TWTtweetViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1864,16 +1955,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !twitterSupportSwitch || !TWTdirectMessagesTapSwitch) return;
 	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
 
-	if (TWTdirectMessagesTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTdirectMessagesTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TWTdirectMessagesTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1888,16 +1980,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !twitterSupportSwitch || !TWTactivityTapSwitch) return;
 	int customStrength = [customStrengthTWTactivityTapControl intValue];
 
-	if (TWTactivityTapSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTactivityTapSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TWTactivityTapSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1912,16 +2005,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !twitterSupportSwitch || !TWTtweetButtonSwitch) return;
 	int customStrength = [customStrengthTWTtweetButtonControl intValue];
 
-	if (TWTtweetButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (TWTtweetButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (TWTtweetButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1929,23 +2023,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // Safari
+%group Safari
+
 %hook _SFNavigationBarURLButton
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !safariSupportSwitch || !SFUrlSwitch) return;
 	int customStrength = [customStrengthSFUrlControl intValue];
 
-	if (SFUrlSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SFUrlSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SFUrlSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1953,23 +2053,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // Phone
+%group Phone
+
 %hook PHHandsetDialerNumberPadButton
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !phoneSupportSwitch || !PHNumberPadSwitch) return;
 	int customStrength = [customStrengthPHNumberPadControl intValue];
 
-	if (PHNumberPadSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHNumberPadSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (PHNumberPadSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -1984,16 +2090,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !phoneSupportSwitch || !PHContactCellSwitch) return;
 	int customStrength = [customStrengthPHContactCellControl intValue];
 
-	if (PHContactCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHContactCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (PHContactCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2008,16 +2115,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !phoneSupportSwitch || !PHDialerDeleteButtonSwitch) return;
 	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
 
-	if (PHDialerDeleteButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (PHDialerDeleteButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (PHDialerDeleteButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2032,9 +2140,10 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !phoneSupportSwitch || !PHDialerCallButtonSwitch) return;
 	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
 
-	if (PHDialerCallButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
 	} else if (PHDialerCallButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
@@ -2049,23 +2158,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 }
 
 %end
+
+%end
+
 // Facebook
+%group Facebook
+
 %hook FBTabBar
 
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !facebookSupportSwitch || !FBTabBarSwitch) return;
 	int customStrength = [customStrengthFBTabBarControl intValue];
 
-	if (FBTabBarSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBTabBarSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (FBTabBarSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2080,16 +2195,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !facebookSupportSwitch || !FBQuickAccessButtonsSwitch) return;
 	int customStrength = [customStrengthFBQuickAccessButtonsControl intValue];
 
-	if (FBQuickAccessButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (FBQuickAccessButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (FBQuickAccessButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2098,47 +2214,28 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%hook NSProcessInfo
-
--(BOOL)isLowPowerModeEnabled {
-
-	LowPowerMode = %orig;
-
-	return %orig;
-
-}
-
 %end
-
-%end // Rose group
-
-// I put these apps below because they're swift apps and i want to seperate them from objc apps
 
 // Music
 %group Music
 
 %hook MusicApplicationPlayButton // Play/Pause, Skip, Previous Song buttons
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicPlayPauseButtonsSwitch) return;
 	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
 
-	if (MusicPlayPauseButtonsSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicPlayPauseButtonsSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicPlayPauseButtonsSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2153,16 +2250,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicVolumeSliderSwitch) return;
 	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
 
-	if (MusicVolumeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicVolumeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicVolumeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2173,26 +2271,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook MusicApplicationContextualActionsButton // "..." More Actions Button
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicContextualActionsButtonSwitch) return;
 	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
 
-	if (MusicContextualActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicContextualActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicContextualActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2203,26 +2296,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook MusicApplicationTimeSlider // Time Slider
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicTimeSliderSwitch) return;
 	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
 
-	if (MusicTimeSliderSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicTimeSliderSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicTimeSliderSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2233,26 +2321,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook MusicApplicationSongCell // Song Cell
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicSongCellSwitch) return;
 	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
 
-	if (MusicSongCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicSongCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicSongCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2267,16 +2350,17 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicLibraryCellSwitch) return;
 	int customStrength = [customStrengthLibraryCellControl intValue];
 
-	if (MusicLibraryCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicLibraryCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicLibraryCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2287,26 +2371,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook MusicApplicationAlbumCell // Album Cell
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !musicSupportSwitch || !MusicAlbumCellSwitch) return;
 	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
 
-	if (MusicAlbumCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (MusicAlbumCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (MusicAlbumCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2321,17 +2400,23 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	int customStrength = [customStrengthMPRouteButtonControl intValue];
+	if (!enabled || !musicSupportSwitch || !MusicAirPlayButtonSwitch) return;
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
-	if (MusicAirPlayButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
+		int customStrength = [customStrengthMPRouteButtonControl intValue];
 
-	} else if (MusicAirPlayButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
 
-	} else if (MusicAirPlayButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
 
 	}
 
@@ -2345,27 +2430,29 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 	%orig;
 
-	int customStrength = [customStrengthMPButtonControl intValue];
+	if (!enabled || !musicSupportSwitch || !MusicLiveLyricsQueueButtonSwitch) return;
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
-	if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
+		int customStrength = [customStrengthMPButtonControl intValue];
 
-	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
 
-	} else if (MusicLiveLyricsQueueButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
 
 	}
 
 }
 
 %end
-
-%ctor {
-    %init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
-}
 
 %end
 
@@ -2373,26 +2460,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook CalculatorApplicationKeyPadButton // Keypad Button
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !calculatorSupportSwitch || !CalculatorKeyPadButtonSwitch) return;
 	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
 
-	if (CalculatorKeyPadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (CalculatorKeyPadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (CalculatorKeyPadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2401,36 +2483,27 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%ctor {
-	%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
-}
-
 %end
 
 %group Sileo
 
 %hook SileoSourcesCell // Sources Cell
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !sileoSupportSwitch || !SileoSourcesCellSwitch) return;
 	int customStrength = [customStrengthSileoSourcesCellControl intValue];
 
-	if (SileoSourcesCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoSourcesCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SileoSourcesCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2441,26 +2514,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SileoPackageCollectionViewCell // Package Cell
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !sileoSupportSwitch || !SileoPackageCollectionViewCellSwitch) return;
 	int customStrength = [customStrengthSileoPackageCollectionViewCellControl intValue];
 
-	if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoPackageCollectionViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SileoPackageCollectionViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2471,26 +2539,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SileoTableViewCell // Table View Cell
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !sileoSupportSwitch || !SileoTableViewCellSwitch) return;
 	int customStrength = [customStrengthSileoTableViewCellControl intValue];
 
-	if (SileoTableViewCellSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoTableViewCellSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SileoTableViewCellSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2501,26 +2564,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SileoFeaturedBannerView // Featured Banner View
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !sileoSupportSwitch || !SileoFeaturedBannerViewSwitch) return;
 	int customStrength = [customStrengthSileoFeaturedBannerViewControl intValue];
 
-	if (SileoFeaturedBannerViewSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoFeaturedBannerViewSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SileoFeaturedBannerViewSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2531,26 +2589,21 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %hook SileoConfirmDownloadButton // Download Confirm / ReSpring Button
 
--(id)init {
-
-    return %orig;
-
-}
-
 - (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
+	if (!enabled || !sileoSupportSwitch || !SileoConfirmDownloadButtonSwitch) return;
 	int customStrength = [customStrengthSileoConfirmDownloadButtonControl intValue];
 
-	if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
 
-	} else if (SileoConfirmDownloadButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
 		customFeedbackValue = customStrength;
 		triggerCustomFeedback();
 
-	} else if (SileoConfirmDownloadButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
 
 	}
@@ -2559,9 +2612,119 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
 %end
 
-%ctor {
-	%init(Sileo, SileoSourcesCell=objc_getClass("Sileo.SourcesTableViewCell"), SileoPackageCollectionViewCell=objc_getClass("Sileo.PackageCollectionViewCell"), SileoTableViewCell=objc_getClass("Sileo.SileoTableViewCell"), SileoFeaturedBannerView=objc_getClass("Sileo.FeaturedBannerView"), SileoConfirmDownloadButton=objc_getClass("Sileo.DownloadConfirmButton"));
+%end
+
+%group Apollo
+
+%hook JumpBar
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+	
+	if (!enabled || !apolloSupportSwitch || !apolloJumpBarSwitch) return;
+	int customStrength = [customStrengthApolloJumpBarControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
 }
+
+%end
+
+%hook ApolloFloatingActionButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (!enabled || !apolloSupportSwitch || !apolloFloatingActionButtonSwitch) return;
+	int customStrength = [customStrengthApolloFloatingActionButtonControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook _ASDisplayView
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (!enabled || !apolloSupportSwitch || !apolloASDisplayViewSwitch) return;
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+
+	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
+		int customStrength = [customStrengthApolloASDisplayViewControl intValue];
+
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
+
+	}
+
+}
+
+%end
+
+%hook UIButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (!enabled || !apolloSupportSwitch || !apolloUIButtonSwitch) return;
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+
+	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
+		int customStrength = [customStrengthApolloUIButtonControl intValue];
+
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
+
+	}
+
+}
+
+%end
 
 %end
 
@@ -2573,8 +2736,8 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
     %orig; //  Thanks to Nepeta for the DRM
     if (!dpkgInvalid) return;
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Melody"
-		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Melody from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
+		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.litten.sh/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.sh to Cydia or Sileo."
 		preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
@@ -2593,12 +2756,6 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 %end
 
 %end
-
-%ctor {
-
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)triggerFeedback, (CFStringRef)RoseTriggerActivator, NULL, kNilOptions);
-
-}
 	// Thanks to Nepeta for the DRM
 %ctor {
 
@@ -2637,112 +2794,16 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	if (dpkgInvalid) {
         %init(RoseIntegrityFail);
         return;
+
     }
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
-	// Option Switches
-    [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
+	// Enabled Switch
+    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
-    [pfs registerBool:&respringSwitch default:NO forKey:@"ReSpringSwitch"];
-    [pfs registerBool:&unlockSwitch default:NO forKey:@"UnlockSwitch"];
-    [pfs registerBool:&lockSwitch default:NO forKey:@"LockSwitch"];
-    [pfs registerBool:&wakeSwitch default:NO forKey:@"displayWake"];
-    [pfs registerBool:&volumeSwitch default:NO forKey:@"VolumeChangedSwitch"];
-    [pfs registerBool:&powerSwitch default:NO forKey:@"PowerDownViewSwitch"];
-    [pfs registerBool:&killingSwitch default:NO forKey:@"KillingAppSwitch"];
-    [pfs registerBool:&forceSwitch default:NO forKey:@"ForceTouchDismiss"];
-    [pfs registerBool:&pluggedSwitch default:NO forKey:@"ChargerPluggedInOrOut"];
-    [pfs registerBool:&switcherSwitch default:NO forKey:@"AppSwitcherFeedback"];
-    [pfs registerBool:&siriSwitch default:NO forKey:@"SiriUIFeedback"];
-	[pfs registerBool:&ccToggleSwitch default:NO forKey:@"ControlCenterToggleFeedback"];
-	[pfs registerBool:&folderSwitch default:NO forKey:@"FolderFeedback"];
-	[pfs registerBool:&iconTapSwitch default:NO forKey:@"iconTap"];
-	[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
-	[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
-	[pfs registerBool:&passcodeSwitch default:NO forKey:@"enterPasscode"];
-	[pfs registerBool:&quickActionsButtonSwitch default:NO forKey:@"quickActionsButton"];
-	[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
-	[pfs registerBool:&ringerSwitch default:NO forKey:@"unmuting"];
-	[pfs registerBool:&reachabilitySwitch default:NO forKey:@"reachability"];
-	[pfs registerBool:&textSelectionSwitch default:NO forKey:@"textSelection"];
-	[pfs registerBool:&spotlightSwitch default:NO forKey:@"spotlight"];
-	[pfs registerBool:&callSwitch default:NO forKey:@"call"];
-	[pfs registerBool:&authenticationSwitch default:NO forKey:@"authentication"];
-	[pfs registerBool:&sleepButtonSwitch default:NO forKey:@"sleepButton"];
-	[pfs registerBool:&homeButtonSwitch default:NO forKey:@"homeButton"];
-	[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
-	[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
-	[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
-	[pfs registerBool:&enterBackgroundSwitch default:NO forKey:@"enterBackground"];
-	// iOS System Wide Hooks
-	[pfs registerBool:&uiButtonSwitch default:NO forKey:@"uiButton"];
-	[pfs registerBool:&uiViewSwitch default:NO forKey:@"uiView"];
-	[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
-	[pfs registerBool:&uiImageViewSwitch default:NO forKey:@"uiImageView"];
-	[pfs registerBool:&mtMaterialViewSwitch default:NO forKey:@"mtMaterialView"];
-	[pfs registerBool:&uiStackViewSwitch default:NO forKey:@"uiStackView"];
-	[pfs registerBool:&uiLabelSwitch default:NO forKey:@"uiLabel"];
-	[pfs registerBool:&uiVisualEffectViewSwitch default:NO forKey:@"uiVisualEffectView"];
-	// Spotify
-	[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
-	[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
-	[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
-	[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
-	[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
-	[pfs registerBool:&SPTshuffleButtonSwitch default:NO forKey:@"SPTshuffleButton"];
-	[pfs registerBool:&SPTqueueButtonSwitch default:NO forKey:@"SPTqueueButton"];
-	[pfs registerBool:&SPTsliderSwitch default:NO forKey:@"SPTslider"];
-	[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
-	[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
-	[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
-	// Instagram
-	[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
-	[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
-	[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
-	[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
-	// TikTok
-	[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
-	// Twitter
-	[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
-	[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
-	[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
-	[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
-	[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
-	// Safari
-	[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
-	// Phone
-	[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
-	[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
-	[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
-	[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
-	// Facebook
-	[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
-	[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
-	[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
-	// Music
-	[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
-	[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
-	[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
-	[pfs registerBool:&MusicTimeSliderSwitch default:NO forKey:@"MusicTimeSlider"];
-	[pfs registerBool:&MusicSongCellSwitch default:NO forKey:@"MusicSongCell"];
-	[pfs registerBool:&MusicLibraryCellSwitch default:NO forKey:@"MusicLibraryCell"];
-	[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
-	[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
-	[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
-	// Calculator
-	[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
-	// Sileo
-	[pfs registerBool:&SileoSourcesCellSwitch default:NO forKey:@"SileoSourcesCell"];
-	[pfs registerBool:&SileoPackageCollectionViewCellSwitch default:NO forKey:@"SileoPackageCollectionViewCell"];
-	[pfs registerBool:&SileoTableViewCellSwitch default:NO forKey:@"SileoTableViewCell"];
-	[pfs registerBool:&SileoFeaturedBannerViewSwitch default:NO forKey:@"SileoFeaturedBannerView"];
-	[pfs registerBool:&SileoConfirmDownloadButtonSwitch default:NO forKey:@"SileoConfirmDownloadButton"];
-	// Warnings
-	[pfs registerBool:&featureWarningSwitch default:YES forKey:@"featureWarning"];
-	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
-	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
 	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
@@ -2750,107 +2811,377 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
+
+	// Switches To Enable Sections - I Do All Of This To Improve App Launch Time
+	[pfs registerBool:&anywhereSectionSupportSwitch default:NO forKey:@"anywhereSectionSupport"];
+	[pfs registerBool:&controlCenterSectionSupportSwitch default:NO forKey:@"controlCenterSectionSupport"];
+	[pfs registerBool:&hardwareButtonsSectionSupportSwitch default:NO forKey:@"hardwareButtonsSectionSupport"];
+	[pfs registerBool:&homescreenSectionSupportSwitch default:NO forKey:@"homescreenSectionSupport"];
+	[pfs registerBool:&lockscreenSectionSupportSwitch default:NO forKey:@"lockscreenSectionSupport"];
+	[pfs registerBool:&otherHardwareActionsSectionSupportSwitch default:NO forKey:@"otherHardwareActionsSectionSupport"];
+	[pfs registerBool:&statusChangesSectionSupportSwitch default:NO forKey:@"statusChangesSectionSupport"];
+	[pfs registerBool:&systemWideSectionSupportSwitch default:NO forKey:@"systemWideSectionSupport"];
+	[pfs registerBool:&extrasSectionSupportSwitch default:NO forKey:@"extrasSectionSupport"];
+	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
+
+	// Anywhere Section
+	if (anywhereSectionSupportSwitch) {
+		[pfs registerBool:&killingSwitch default:NO forKey:@"killingApp"];
+		[pfs registerBool:&switcherSwitch default:NO forKey:@"appSwitcherFeedback"];
+		[pfs registerBool:&siriSwitch default:NO forKey:@"siriUIFeedback"];
+		[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
+		[pfs registerBool:&reachabilitySwitch default:NO forKey:@"reachability"];
+		[pfs registerBool:&textSelectionSwitch default:NO forKey:@"textSelection"];
+		[pfs registerBool:&powerSwitch default:NO forKey:@"powerDownView"];
+		[pfs registerBool:&respringSwitch default:NO forKey:@"respring"];
+		[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
+		[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
+		[pfs registerBool:&enterBackgroundSwitch default:NO forKey:@"enterBackground"];
+		[pfs registerBool:&alertAppearSwitch default:NO forKey:@"alertAppear"];
+		[pfs registerBool:&alertDisappearSwitch default:NO forKey:@"alertDisappear"];
+
+	}
+	// Control Center Section
+	if (controlCenterSectionSupportSwitch) {
+		[pfs registerBool:&ccToggleSwitch default:NO forKey:@"controlCenterToggleFeedback"];
+		[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
+		[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
+
+	}
+	// Hardware Buttons Section
+	if (hardwareButtonsSectionSupportSwitch) {
+		[pfs registerBool:&volumeSwitch default:NO forKey:@"volumeChanged"];
+		[pfs registerBool:&sleepButtonSwitch default:NO forKey:@"sleepButton"];
+		[pfs registerBool:&homeButtonSwitch default:NO forKey:@"homeButton"];
+		[pfs registerBool:&ringerSwitch default:NO forKey:@"ringer"];
+
+	}
+	// Homescreen Section
+	if (homescreenSectionSupportSwitch) {
+		[pfs registerBool:&forceSwitch default:NO forKey:@"forceTouchDismiss"];
+		[pfs registerBool:&folderOpenSwitch default:NO forKey:@"folderOpen"];
+		[pfs registerBool:&folderCloseSwitch default:NO forKey:@"folderClose"];
+		[pfs registerBool:&iconTapSwitch default:NO forKey:@"iconTap"];
+		[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
+		[pfs registerBool:&spotlightSwitch default:NO forKey:@"spotlight"];
+
+	}
+	// Lockscreen Section
+	if (lockscreenSectionSupportSwitch) {
+		[pfs registerBool:&passcodeSwitch default:NO forKey:@"enterPasscode"];
+		[pfs registerBool:&quickActionsButtonSwitch default:NO forKey:@"quickActionsButton"];
+
+	}
+	// Other Hardware Actions
+	if (otherHardwareActionsSectionSupportSwitch) {
+		[pfs registerBool:&wakeSwitch default:NO forKey:@"displayWake"];
+		[pfs registerBool:&pluggedSwitch default:NO forKey:@"chargerPluggedInOrOut"];
+
+	}
+	// Status Changes Section
+	if (statusChangesSectionSupportSwitch) {
+		[pfs registerBool:&unlockSwitch default:NO forKey:@"unlock"];
+		[pfs registerBool:&lockSwitch default:NO forKey:@"lock"];
+		[pfs registerBool:&authenticationSwitch default:NO forKey:@"authentication"];
+		[pfs registerBool:&callSwitch default:NO forKey:@"call"];
+
+	}
+	// System Wide Section
+	if (systemWideSectionSupportSwitch) {
+		[pfs registerBool:&UIButtonSwitch default:NO forKey:@"UIButton"];
+		[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
+		[pfs registerBool:&UITabBarButtonSwitch default:NO forKey:@"UITabBarButton"];
+
+	}
+	// Extras Section
+	if (extrasSectionSupportSwitch) {
+		[pfs registerBool:&lockAnimationSwitch default:NO forKey:@"lockAnimation"];
+
+	}
+
+	// App Support Switches
+	[pfs registerBool:&apolloSupportSwitch default:NO forKey:@"apolloSupport"];
+	[pfs registerBool:&calculatorSupportSwitch default:NO forKey:@"calculatorSupport"];
+	[pfs registerBool:&facebookSupportSwitch default:NO forKey:@"facebookSupport"];
+	[pfs registerBool:&instagramSupportSwitch default:NO forKey:@"instagramSupport"];
+	[pfs registerBool:&musicSupportSwitch default:NO forKey:@"musicSupport"];
+	[pfs registerBool:&phoneSupportSwitch default:NO forKey:@"phoneSupport"];
+	[pfs registerBool:&safariSupportSwitch default:NO forKey:@"safariSupport"];
+	[pfs registerBool:&sileoSupportSwitch default:NO forKey:@"sileoSupport"];
+	[pfs registerBool:&spotifySupportSwitch default:NO forKey:@"spotifySupport"];
+	[pfs registerBool:&tiktokSupportSwitch default:NO forKey:@"tiktokSupport"];
+	[pfs registerBool:&twitterSupportSwitch default:NO forKey:@"twitterSupport"];
+
+	// Spotify
+	if (spotifySupportSwitch) {
+		[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
+		[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
+		[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
+		[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
+		[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
+		[pfs registerBool:&SPTshuffleButtonSwitch default:NO forKey:@"SPTshuffleButton"];
+		[pfs registerBool:&SPTqueueButtonSwitch default:NO forKey:@"SPTqueueButton"];
+		[pfs registerBool:&SPTsliderSwitch default:NO forKey:@"SPTslider"];
+		[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
+		[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
+		[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
+
+	}
+	// Instagram
+	if (instagramSupportSwitch) {
+		[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
+		[pfs registerBool:&ITGdoubleTapToLikeSwitch default:NO forKey:@"ITGdoubleTapToLike"];
+		[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
+		[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
+		[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
+
+	}
+	// TikTok
+	if (tiktokSupportSwitch) {
+		[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
+
+	}
+	// Twitter
+	if (twitterSupportSwitch) {
+		[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
+		[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
+		[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
+		[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
+		[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
+
+	}
+	// Safari
+	if (safariSupportSwitch) {
+		[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
+
+	}
+	// Phone
+	if (phoneSupportSwitch) {
+		[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
+		[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
+		[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
+		[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
+
+	}
+	// Facebook
+	if (facebookSupportSwitch) {
+		[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
+		[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
+		[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
+
+	}
+	// Music
+	if (musicSupportSwitch) {
+		[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
+		[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
+		[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
+		[pfs registerBool:&MusicTimeSliderSwitch default:NO forKey:@"MusicTimeSlider"];
+		[pfs registerBool:&MusicSongCellSwitch default:NO forKey:@"MusicSongCell"];
+		[pfs registerBool:&MusicLibraryCellSwitch default:NO forKey:@"MusicLibraryCell"];
+		[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
+		[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
+		[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
+
+	}
+	// Calculator
+	if (calculatorSupportSwitch) {
+		[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
+
+	}
+	// Sileo
+	if (sileoSupportSwitch) {
+		[pfs registerBool:&SileoSourcesCellSwitch default:NO forKey:@"SileoSourcesCell"];
+		[pfs registerBool:&SileoPackageCollectionViewCellSwitch default:NO forKey:@"SileoPackageCollectionViewCell"];
+		[pfs registerBool:&SileoTableViewCellSwitch default:NO forKey:@"SileoTableViewCell"];
+		[pfs registerBool:&SileoFeaturedBannerViewSwitch default:NO forKey:@"SileoFeaturedBannerView"];
+		[pfs registerBool:&SileoConfirmDownloadButtonSwitch default:NO forKey:@"SileoConfirmDownloadButton"];
+
+	}
+	// Apollo
+	if (apolloSupportSwitch) {
+		[pfs registerBool:&apolloJumpBarSwitch default:NO forKey:@"apolloJumpBar"];
+		[pfs registerBool:&apolloFloatingActionButtonSwitch default:NO forKey:@"ApolloFloatingActionButton"];
+		[pfs registerBool:&apolloASDisplayViewSwitch default:NO forKey:@"apolloASDisplayView"];
+		[pfs registerBool:&apolloUIButtonSwitch default:NO forKey:@"apolloUIButton"];
+
+	}
+	// Warnings
+	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
+	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
 	// Delay Slider And Switch
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
-	[pfs registerObject:&delayLevel default:@"0" forKey:@"Delay"];
-	// Low Power Mode
-	[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"LowPowerModeSwitch"];
-	// Custom Feedback Link List Controllers
-	[pfs registerObject:&customStrengthRespringControl default:@"0" forKey:@"customStrengthRespring"];
-	[pfs registerObject:&customStrengthRingerControl default:@"0" forKey:@"customStrengthRinger"];
-	[pfs registerObject:&customStrengthHomeButtonControl default:@"0" forKey:@"customStrengthHomeButton"];
-	[pfs registerObject:&customStrengthUnlockControl default:@"0" forKey:@"customStrengthUnlock"];
-	[pfs registerObject:&customStrengthLockControl default:@"0" forKey:@"customStrengthLock"];
-	[pfs registerObject:&customStrengthSleepButtonControl default:@"0" forKey:@"customStrengthSleepButton"];
-	[pfs registerObject:&customStrengthVolumeControl default:@"0" forKey:@"customStrengthVolume"];
-	[pfs registerObject:&customStrengthPowerDownControl default:@"0" forKey:@"customStrengthPowerDown"];
-	[pfs registerObject:&customStrengthKillingControl default:@"0" forKey:@"customStrengthKilling"];
-	[pfs registerObject:&customStrengthForceTouchControl default:@"0" forKey:@"customStrengthForceTouch"];
-	[pfs registerObject:&customStrengthPluggedControl default:@"0" forKey:@"customStrengthPlugged"];
-	[pfs registerObject:&customStrengthReachabilityControl default:@"0" forKey:@"customStrengthReachability"];
-	[pfs registerObject:&customStrengthSwitcherControl default:@"0" forKey:@"customStrengthSwitcher"];
-	[pfs registerObject:&customStrengthSiriControl default:@"0" forKey:@"customStrengthSiri"];
-	[pfs registerObject:&customStrengthCCToggleControl default:@"0" forKey:@"customStrengthCCToggle"];
-	[pfs registerObject:&customStrengthFolderControl default:@"0" forKey:@"customStrengthFolder"];
-	[pfs registerObject:&customStrengthIconTapControl default:@"0" forKey:@"customStrengthIconTap"];
-	[pfs registerObject:&customStrengthPageSwipeControl default:@"0" forKey:@"customStrengthPageSwipe"];
-	[pfs registerObject:&customStrengthScreenshotControl default:@"0" forKey:@"customStrengthScreenshot"];
-	[pfs registerObject:&customStrengthPasscodeControl default:@"0" forKey:@"customStrengthPasscode"];
-	[pfs registerObject:&customStrengthQuickActionsButtonControl default:@"0" forKey:@"customStrengthQuickActionsButton"];
-	[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
-	[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
-	[pfs registerObject:&customStrengthSpotlightControl default:@"0" forKey:@"customStrengthSpotlight"];
-	[pfs registerObject:&customStrengthCallControl default:@"0" forKey:@"customStrengthCall"];
-	[pfs registerObject:&customStrengthAuthenticationControl default:@"0" forKey:@"customStrengthAuthentication"];
-	[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthWake"];
-	[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
-	[pfs registerObject:&customStrengthOpenControlCenterControl default:@"0" forKey:@"customStrengthOpenControlCenter"];
-	[pfs registerObject:&customStrengthCCModuleControl default:@"0" forKey:@"customStrengthCCModule"];
-	[pfs registerObject:&customStrengthEnterBackgroundControl default:@"0" forKey:@"customStrengthEnterBackground"];
+	[pfs registerObject:&delayLevel default:@"0.0" forKey:@"Delay"];
+	// Low Power And DND Mode
+	if (exceptionsSectionSupportSwitch) {
+		[pfs registerBool:&LowPowerMode default:NO forKey:@"isLowPowerMode"];
+		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
+		[pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveState"];
+		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 
-	[pfs registerObject:&customStrengthuiButtonControl default:@"0" forKey:@"customStrengthuiButton"];
-	[pfs registerObject:&customStrengthuiViewControl default:@"0" forKey:@"customStrengthuiView"];
-	[pfs registerObject:&customStrengthuiButtonBarButtonControl default:@"0" forKey:@"customStrengthuiButtonBarButton"];
-	[pfs registerObject:&customStrengthuiImageViewControl default:@"0" forKey:@"customStrengthuiImageView"];
-	[pfs registerObject:&customStrengthmtMaterialViewControl default:@"0" forKey:@"customStrengthmtMaterialView"];
-	[pfs registerObject:&customStrengthuiStackViewControl default:@"0" forKey:@"customStrengthuiStackView"];
-	[pfs registerObject:&customStrengthuiLabelControl default:@"0" forKey:@"customStrengthuiLabel"];
-	[pfs registerObject:&customStrengthuiVisualEffectViewControl default:@"0" forKey:@"customStrengthuiVisualEffectView"];
+	}
 
-	[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
-	[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
-	[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
-	[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
-	[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
-	[pfs registerObject:&customStrengthSPTshuffleButtonControl default:@"0" forKey:@"customStrengthSPTshuffleButton"];
-	[pfs registerObject:&customStrengthSPTqueueButtonControl default:@"0" forKey:@"customStrengthSPTqueueButton"];
-	[pfs registerObject:&customStrengthSPTsliderControl default:@"0" forKey:@"customStrengthSPTslider"];
-	[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
-	[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
-	[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
+	// Anywhere List Controllers
+	if (anywhereSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthKillingControl default:@"0" forKey:@"customStrengthKilling"];
+		[pfs registerObject:&customStrengthSwitcherControl default:@"0" forKey:@"customStrengthSwitcher"];
+		[pfs registerObject:&customStrengthSiriControl default:@"0" forKey:@"customStrengthSiri"];
+		[pfs registerObject:&customStrengthScreenshotControl default:@"0" forKey:@"customStrengthScreenshot"];
+		[pfs registerObject:&customStrengthReachabilityControl default:@"0" forKey:@"customStrengthReachability"];
+		[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
+		[pfs registerObject:&customStrengthPowerDownControl default:@"0" forKey:@"customStrengthPowerDown"];
+		[pfs registerObject:&customStrengthRespringControl default:@"0" forKey:@"customStrengthRespring"];
+		[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
+		[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
+		[pfs registerObject:&customStrengthEnterBackgroundControl default:@"0" forKey:@"customStrengthEnterBackground"];
+		[pfs registerObject:&customStrengthAlertAppearControl default:@"0" forKey:@"customStrengthAlertAppear"];
+		[pfs registerObject:&customStrengthAlertDisappearControl default:@"0" forKey:@"customStrengthAlertDisappear"];
 
-	[pfs registerObject:&customStrengthITGlikeButtonControl default:@"0" forKey:@"customStrengthITGlikeButton"];
-	[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
-	[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
-	[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
+	}
+	// Control Center Section
+	if (controlCenterSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthCCToggleControl default:@"0" forKey:@"customStrengthCCToggle"];
+		[pfs registerObject:&customStrengthOpenControlCenterControl default:@"0" forKey:@"customStrengthOpenControlCenter"];
+		[pfs registerObject:&customStrengthCCModuleControl default:@"0" forKey:@"customStrengthCCModule"];
 
-	[pfs registerObject:&customStrengthTTlikeCommentShareButtonsControl default:@"0" forKey:@"customStrengthTTlikeCommentShareButtons"];
+	}
+	// Hardware Buttons Section
+	if (hardwareButtonsSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthVolumeControl default:@"0" forKey:@"customStrengthVolume"];
+		[pfs registerObject:&customStrengthSleepButtonControl default:@"0" forKey:@"customStrengthSleepButton"];
+		[pfs registerObject:&customStrengthHomeButtonControl default:@"0" forKey:@"customStrengthHomeButton"];
+		[pfs registerObject:&customStrengthRingerControl default:@"0" forKey:@"customStrengthRinger"];
 
-	[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
-	[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
-	[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
-	[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
+	}
+	// Homescreen Section
+	if (homescreenSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthForceTouchControl default:@"0" forKey:@"customStrengthForceTouch"];
+		[pfs registerObject:&customStrengthFolderOpenControl default:@"0" forKey:@"customStrengthFolderOpen"];
+		[pfs registerObject:&customStrengthFolderCloseControl default:@"0" forKey:@"customStrengthFolderClose"];
+		[pfs registerObject:&customStrengthIconTapControl default:@"0" forKey:@"customStrengthIconTap"];
+		[pfs registerObject:&customStrengthPageSwipeControl default:@"0" forKey:@"customStrengthPageSwipe"];
+		[pfs registerObject:&customStrengthSpotlightControl default:@"0" forKey:@"customStrengthSpotlight"];
 
-	[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
+	}
+	// Lockscreen Section
+	if (lockscreenSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthPasscodeControl default:@"0" forKey:@"customStrengthPasscode"];
+		[pfs registerObject:&customStrengthQuickActionsButtonControl default:@"0" forKey:@"customStrengthQuickActionsButton"];
 
-	[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
+	}
+	// Other Hardware Actions Section
+	if (otherHardwareActionsSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthWake"];
+		[pfs registerObject:&customStrengthPluggedControl default:@"0" forKey:@"customStrengthPlugged"];
 
-	[pfs registerObject:&customStrengthPHNumberPadControl default:@"0" forKey:@"customStrengthPHNumberPad"];
-	[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
-	[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
-	[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
+	}
+	// Status Changes Section
+	if (statusChangesSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthUnlockControl default:@"0" forKey:@"customStrengthUnlock"];
+		[pfs registerObject:&customStrengthLockControl default:@"0" forKey:@"customStrengthLock"];
+		[pfs registerObject:&customStrengthAuthenticationControl default:@"0" forKey:@"customStrengthAuthentication"];
+		[pfs registerObject:&customStrengthCallControl default:@"0" forKey:@"customStrengthCall"];
 
-	[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
-	[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
-	[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
+	}
+	// System Wide Section
+	if (systemWideSectionSupportSwitch) {
+		[pfs registerObject:&customStrengthUIButtonControl default:@"0" forKey:@"customStrengthUIButton"];
+		[pfs registerObject:&customStrengthUIButtonBarButtonControl default:@"0" forKey:@"customStrengthUIButtonBarButton"];
+		[pfs registerObject:&customStrengthUITabBarButtonControl default:@"0" forKey:@"customStrengthUITabBarButton"];
 
-	[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
-	[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
-	[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
-	[pfs registerObject:&customStrengthMusicApplicationTimeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationTimeSlider"];
-	[pfs registerObject:&customStrengthMusicApplicationSongCellControl default:@"0" forKey:@"customStrengthMusicApplicationSongCell"];
-	[pfs registerObject:&customStrengthLibraryCellControl default:@"0" forKey:@"customStrengthLibraryCell"];
-	[pfs registerObject:&customStrengthMusicApplicationAlbumCellControl default:@"0" forKey:@"customStrengthMusicApplicationAlbumCell"];
-	[pfs registerObject:&customStrengthMPRouteButtonControl default:@"0" forKey:@"customStrengthMPRouteButton"];
-	[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
+	}
 
-	[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
+	if (spotifySupportSwitch) {
+		[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
+		[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
+		[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
+		[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
+		[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
+		[pfs registerObject:&customStrengthSPTshuffleButtonControl default:@"0" forKey:@"customStrengthSPTshuffleButton"];
+		[pfs registerObject:&customStrengthSPTqueueButtonControl default:@"0" forKey:@"customStrengthSPTqueueButton"];
+		[pfs registerObject:&customStrengthSPTsliderControl default:@"0" forKey:@"customStrengthSPTslider"];
+		[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
+		[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
+		[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
 
-	[pfs registerObject:&customStrengthSileoSourcesCellControl default:@"0" forKey:@"customStrengthSileoSourcesCell"];
-	[pfs registerObject:&customStrengthSileoPackageCollectionViewCellControl default:@"0" forKey:@"customStrengthSileoPackageCollectionViewCell"];
-	[pfs registerObject:&customStrengthSileoTableViewCellControl default:@"0" forKey:@"customStrengthSileoTableViewCell"];
-	[pfs registerObject:&customStrengthSileoFeaturedBannerViewControl default:@"0" forKey:@"customStrengthSileoFeaturedBannerView"];
-	[pfs registerObject:&customStrengthSileoConfirmDownloadButtonControl default:@"0" forKey:@"customStrengthSileoConfirmDownloadButton"];
+	}
+
+	if (instagramSupportSwitch) {
+		[pfs registerObject:&customStrengthITGlikeButtonControl default:@"0" forKey:@"customStrengthITGlikeButton"];
+		[pfs registerObject:&customStrengthITGdoubleTapToLikeControl default:@"0" forKey:@"customStrengthITGdoubleTapToLike"];
+		[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
+		[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
+		[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
+
+	}
+
+	if (tiktokSupportSwitch) {
+		[pfs registerObject:&customStrengthTTlikeCommentShareButtonsControl default:@"0" forKey:@"customStrengthTTlikeCommentShareButtons"];
+
+	}
+
+	if (twitterSupportSwitch) {
+		[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
+		[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
+		[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
+		[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
+		[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
+
+	}
+
+	if (safariSupportSwitch) {
+		[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
+
+	}
+
+	if (phoneSupportSwitch) {
+		[pfs registerObject:&customStrengthPHNumberPadControl default:@"0" forKey:@"customStrengthPHNumberPad"];
+		[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
+		[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
+		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
+
+	}
+
+	if (facebookSupportSwitch) {
+		[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
+		[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
+		[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
+
+	}
+
+	if (musicSupportSwitch) {
+		[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
+		[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
+		[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
+		[pfs registerObject:&customStrengthMusicApplicationTimeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationTimeSlider"];
+		[pfs registerObject:&customStrengthMusicApplicationSongCellControl default:@"0" forKey:@"customStrengthMusicApplicationSongCell"];
+		[pfs registerObject:&customStrengthLibraryCellControl default:@"0" forKey:@"customStrengthLibraryCell"];
+		[pfs registerObject:&customStrengthMusicApplicationAlbumCellControl default:@"0" forKey:@"customStrengthMusicApplicationAlbumCell"];
+		[pfs registerObject:&customStrengthMPRouteButtonControl default:@"0" forKey:@"customStrengthMPRouteButton"];
+		[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
+
+	}
+
+	if (calculatorSupportSwitch) {
+		[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
+
+	}
+
+	if (sileoSupportSwitch) {
+		[pfs registerObject:&customStrengthSileoSourcesCellControl default:@"0" forKey:@"customStrengthSileoSourcesCell"];
+		[pfs registerObject:&customStrengthSileoPackageCollectionViewCellControl default:@"0" forKey:@"customStrengthSileoPackageCollectionViewCell"];
+		[pfs registerObject:&customStrengthSileoTableViewCellControl default:@"0" forKey:@"customStrengthSileoTableViewCell"];
+		[pfs registerObject:&customStrengthSileoFeaturedBannerViewControl default:@"0" forKey:@"customStrengthSileoFeaturedBannerView"];
+		[pfs registerObject:&customStrengthSileoConfirmDownloadButtonControl default:@"0" forKey:@"customStrengthSileoConfirmDownloadButton"];
+
+	}
+
+	if (apolloSupportSwitch) {
+		[pfs registerObject:&customStrengthApolloJumpBarControl default:@"0" forKey:@"customStrengthApolloJumpBar"];
+		[pfs registerObject:&customStrengthApolloFloatingActionButtonControl default:@"0" forKey:@"customStrengthApolloFloatingActionButton"];
+		[pfs registerObject:&customStrengthApolloASDisplayViewControl default:@"0" forKey:@"customStrengthApolloASDisplayView"];
+		[pfs registerObject:&customStrengthApolloUIButtonControl default:@"0" forKey:@"customStrengthApolloUIButton"];
+
+	}
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;
@@ -2860,9 +3191,47 @@ if (LowPowerModeSwitch && LowPowerMode == YES) {}
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
             %init(Rose);
-            return;
+			
+			if (apolloSupportSwitch)
+				%init(Apollo, JumpBar=objc_getClass("Apollo.JumpBar"), ApolloFloatingActionButton=objc_getClass("Apollo.FloatingActionButton"));
+			
+			if (calculatorSupportSwitch)
+				%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
+			
+			if (facebookSupportSwitch)
+				%init(Facebook);
+
+			if (instagramSupportSwitch)
+				%init(Instagram);
+
+			if (musicSupportSwitch)
+				%init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
+            
+			if (phoneSupportSwitch) 
+				%init(Phone);
+
+			if (safariSupportSwitch)
+				%init(Safari);
+
+			if (sileoSupportSwitch)
+				%init(Sileo, SileoSourcesCell=objc_getClass("Sileo.SourcesTableViewCell"), SileoPackageCollectionViewCell=objc_getClass("Sileo.PackageCollectionViewCell"), SileoTableViewCell=objc_getClass("Sileo.SileoTableViewCell"), SileoFeaturedBannerView=objc_getClass("Sileo.FeaturedBannerView"), SileoConfirmDownloadButton=objc_getClass("Sileo.DownloadConfirmButton"));
+
+			if (spotifySupportSwitch)
+				%init(Spotify);
+
+			if (tiktokSupportSwitch)
+				%init(TikTok);
+
+			if (twitterSupportSwitch)
+				%init(Twitter);
+
+			return;
+
         } else {
             dpkgInvalid = YES;
+
         }
+
     }
+
 }

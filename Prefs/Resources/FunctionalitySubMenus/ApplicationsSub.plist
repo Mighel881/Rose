@@ -15,11 +15,81 @@
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
+ 			<string>Apollo</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/ApolloSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Calculator</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/CalculatorSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Facebook</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/FacebookSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Instagram</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/InstagramSub</string>
+ 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
  			<string>Music</string>
  			<key>detail</key>
  			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSEApplicationsSub</key>
  			<string>ApplicationSubMenus/MusicSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Phone</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/PhoneSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Safari</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/SafariSub</string>
+ 		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Sileo</string>
+ 			<key>detail</key>
+ 			<string>RSEApplicationsSubPrefsListController</string>
+ 			<key>RSEApplicationsSub</key>
+ 			<string>ApplicationSubMenus/SileoSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -30,16 +100,6 @@
  			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSEApplicationsSub</key>
  			<string>ApplicationSubMenus/SpotifySub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Instagram</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/InstagramSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
@@ -60,56 +120,6 @@
  			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSEApplicationsSub</key>
  			<string>ApplicationSubMenus/TwitterSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Safari</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/SafariSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Phone</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/PhoneSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Facebook</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/FacebookSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Calculator</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/CalculatorSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Sileo</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>ApplicationSubMenus/SileoSub</string>
  		</dict>
 
 	</array>

@@ -2,6 +2,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
 
+// Used To Detect What iOS Version Is Being Used
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 // Utils
@@ -11,14 +12,28 @@ HBPreferences *pfs;
 BOOL dpkgInvalid = NO;
 
 // Option Switches
-BOOL enabled = YES;
-BOOL enableTapticEngineSwitch = NO;
-BOOL enableHapticEngineSwitch = NO;
-BOOL enableLegacyEngineSwitch = NO;
+extern BOOL enabled;
+extern BOOL enableTapticEngineSwitch;
+extern BOOL enableHapticEngineSwitch;
+extern BOOL enableLegacyEngineSwitch;
+
+// Switches To Enable Sections
+BOOL anywhereSectionSupportSwitch = NO;
+BOOL controlCenterSectionSupportSwitch = NO;
+BOOL hardwareButtonsSectionSupportSwitch = NO;
+BOOL homescreenSectionSupportSwitch = NO;
+BOOL lockscreenSectionSupportSwitch = NO;
+BOOL otherHardwareActionsSectionSupportSwitch = NO;
+BOOL statusChangesSectionSupportSwitch = NO;
+BOOL systemWideSectionSupportSwitch = NO;
+BOOL extrasSectionSupportSwitch = NO;
+BOOL exceptionsSectionSupportSwitch = NO;
+
 BOOL delaySwitch = NO;
 BOOL respringSwitch = NO;
 BOOL unlockSwitch = NO;
 BOOL lockSwitch = NO;
+BOOL lockAnimationSwitch = NO;
 BOOL wakeSwitch = NO;
 BOOL volumeSwitch = NO;
 BOOL powerSwitch = NO;
@@ -28,7 +43,8 @@ BOOL pluggedSwitch = NO;
 BOOL switcherSwitch = NO;
 BOOL siriSwitch = NO;
 BOOL ccToggleSwitch = NO;
-BOOL folderSwitch = NO;
+BOOL folderOpenSwitch = NO;
+BOOL folderCloseSwitch = NO;
 BOOL iconTapSwitch = NO;
 BOOL pageSwipeSwitch = NO;
 BOOL screenshotSwitch = NO;
@@ -47,18 +63,24 @@ BOOL touchesSwitch = NO;
 BOOL openControlCenterSwitch = NO;
 BOOL ccModuleSwitch = NO;
 BOOL enterBackgroundSwitch = NO;
-BOOL shutdownWarningSwitch = YES;
-BOOL featureWarningSwitch = YES;
-
-// iOS System Wide
-BOOL uiButtonSwitch = NO;
-BOOL uiViewSwitch= NO;
+BOOL alertAppearSwitch = NO;
+BOOL alertDisappearSwitch = NO;
+BOOL UIButtonSwitch = NO;
 BOOL UIButtonBarButtonSwitch = NO;
-BOOL uiImageViewSwitch = NO;
-BOOL mtMaterialViewSwitch = NO;
-BOOL uiStackViewSwitch = NO;
-BOOL uiLabelSwitch = NO;
-BOOL uiVisualEffectViewSwitch = NO;
+BOOL UITabBarButtonSwitch = NO;
+
+// Enable App Support Switches
+BOOL apolloSupportSwitch = NO;
+BOOL calculatorSupportSwitch = NO;
+BOOL facebookSupportSwitch = NO;
+BOOL instagramSupportSwitch = NO;
+BOOL musicSupportSwitch = NO;
+BOOL phoneSupportSwitch = NO;
+BOOL safariSupportSwitch = NO;
+BOOL sileoSupportSwitch = NO;
+BOOL spotifySupportSwitch = NO;
+BOOL tiktokSupportSwitch = NO;
+BOOL twitterSupportSwitch = NO;
 
 // Spotify
 BOOL SPTplayButtonSwitch = NO;
@@ -75,6 +97,7 @@ BOOL SPTnowPlayingLabelSwitch = NO;
 
 // Instagram
 BOOL ITGlikeButtonSwitch = NO;
+BOOL ITGdoubleTapToLikeSwitch = NO;
 BOOL ITGcommentButtonSwitch = NO;
 BOOL ITGsaveButtonSwitch = NO;
 BOOL ITGsendButtonSwitch = NO;
@@ -124,60 +147,65 @@ BOOL SileoTableViewCellSwitch = NO;
 BOOL SileoFeaturedBannerViewSwitch = NO;
 BOOL SileoConfirmDownloadButtonSwitch = NO;
 
-// Low Power Mode recognition
+// Apollo
+BOOL apolloJumpBarSwitch = NO;
+BOOL apolloFloatingActionButtonSwitch = NO;
+BOOL apolloASDisplayViewSwitch = NO;
+BOOL apolloUIButtonSwitch = NO;
+
+// Low Power Mode And DND Mode Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch = NO;
+BOOL isDNDActive;
+BOOL isDNDActiveSwitch = NO;
 
-// Feedback strength segmented controls, custom legacy settings and delay slider
-NSString *tapticLevel = @"0";
-NSString *hapticLevel = @"0";
-NSString *legacyLevel = @"0";
-NSString *customlegacyDurationLevel = @"0";
-NSString *customlegacyStrengthLevel = @"0";
-NSString *delayLevel = @"0";
+// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
+NSString* tapticLevel = @"0";
+NSString* hapticLevel = @"0";
+NSString* legacyLevel = @"0";
+NSString* customlegacyDurationLevel = @"0";
+NSString* customlegacyStrengthLevel = @"0";
+NSString* delayLevel = @"0.0";
 int customFeedbackValue;
 
-// Custom strength link list controllers
-NSString *customStrengthRespringControl = @"0";
-NSString *customStrengthRingerControl = @"0";
-NSString *customStrengthHomeButtonControl = @"0";
-NSString *customStrengthUnlockControl = @"0";
-NSString *customStrengthLockControl = @"0";
-NSString *customStrengthSleepButtonControl = @"0";
-NSString *customStrengthVolumeControl = @"0";
-NSString *customStrengthPowerDownControl = @"0";
-NSString *customStrengthKillingControl = @"0";
-NSString *customStrengthForceTouchControl = @"0";
-NSString *customStrengthPluggedControl = @"0";
-NSString *customStrengthReachabilityControl = @"0";
-NSString *customStrengthSwitcherControl = @"0";
-NSString *customStrengthSiriControl = @"0";
-NSString *customStrengthCCToggleControl = @"0";
-NSString *customStrengthFolderControl = @"0";
-NSString *customStrengthIconTapControl = @"0";
-NSString *customStrengthPageSwipeControl = @"0";
-NSString *customStrengthScreenshotControl = @"0";
-NSString *customStrengthPasscodeControl = @"0";
-NSString *customStrengthQuickActionsButtonControl = @"0";
-NSString *customStrengthKeyboardControl = @"0";
-NSString *customStrengthTextSelectionControl = @"0";
-NSString *customStrengthSpotlightControl = @"0";
-NSString *customStrengthCallControl = @"0";
-NSString *customStrengthAuthenticationControl = @"0";
-NSString *customStrengthWakeControl = @"0";
-NSString *customStrengthTouchesControl = @"0";
-NSString *customStrengthOpenControlCenterControl = @"0";
-NSString *customStrengthCCModuleControl = @"0";
-NSString *customStrengthEnterBackgroundControl = @"0";
-
-NSString *customStrengthuiButtonControl = @"0";
-NSString *customStrengthuiViewControl = @"0";
-NSString *customStrengthuiButtonBarButtonControl = @"0";
-NSString *customStrengthuiImageViewControl = @"0";
-NSString *customStrengthmtMaterialViewControl = @"0";
-NSString *customStrengthuiStackViewControl = @"0";
-NSString *customStrengthuiLabelControl = @"0";
-NSString *customStrengthuiVisualEffectViewControl = @"0";
+// Custom Strength List controllers
+NSString* customStrengthRespringControl = @"0";
+NSString* customStrengthRingerControl = @"0";
+NSString* customStrengthHomeButtonControl = @"0";
+NSString* customStrengthUnlockControl = @"0";
+NSString* customStrengthLockControl = @"0";
+NSString* customStrengthSleepButtonControl = @"0";
+NSString* customStrengthVolumeControl = @"0";
+NSString* customStrengthPowerDownControl = @"0";
+NSString* customStrengthKillingControl = @"0";
+NSString* customStrengthForceTouchControl = @"0";
+NSString* customStrengthPluggedControl = @"0";
+NSString* customStrengthReachabilityControl = @"0";
+NSString* customStrengthSwitcherControl = @"0";
+NSString* customStrengthSiriControl = @"0";
+NSString* customStrengthCCToggleControl = @"0";
+NSString* customStrengthFolderOpenControl = @"0";
+NSString* customStrengthFolderCloseControl = @"0";
+NSString* customStrengthIconTapControl = @"0";
+NSString* customStrengthPageSwipeControl = @"0";
+NSString* customStrengthScreenshotControl = @"0";
+NSString* customStrengthPasscodeControl = @"0";
+NSString* customStrengthQuickActionsButtonControl = @"0";
+NSString* customStrengthKeyboardControl = @"0";
+NSString* customStrengthTextSelectionControl = @"0";
+NSString* customStrengthSpotlightControl = @"0";
+NSString* customStrengthCallControl = @"0";
+NSString* customStrengthAuthenticationControl = @"0";
+NSString* customStrengthWakeControl = @"0";
+NSString* customStrengthTouchesControl = @"0";
+NSString* customStrengthOpenControlCenterControl = @"0";
+NSString* customStrengthCCModuleControl = @"0";
+NSString* customStrengthEnterBackgroundControl = @"0";
+NSString* customStrengthAlertAppearControl = @"0";
+NSString* customStrengthAlertDisappearControl = @"0";
+NSString* customStrengthUIButtonControl = @"0";
+NSString* customStrengthUIButtonBarButtonControl = @"0";
+NSString* customStrengthUITabBarButtonControl = @"0";
 
 NSString *customStrengthSPTplayButtonControl = @"0";
 NSString *customStrengthSPTplayBarButtonControl = @"0";
@@ -192,6 +220,7 @@ NSString *customStrengthSPTavailableDevicesButtonControl = @"0";
 NSString *customStrengthSPTnowPlayingLabelControl = @"0";
 
 NSString *customStrengthITGlikeButtonControl = @"0";
+NSString *customStrengthITGdoubleTapToLikeControl = @"0";
 NSString *customStrengthITGcommentButtonControl = @"0";
 NSString *customStrengthITGsaveButtonControl = @"0";
 NSString *customStrengthITGsendButtonControl = @"0";
@@ -233,49 +262,35 @@ NSString *customStrengthSileoTableViewCellControl = @"0";
 NSString *customStrengthSileoFeaturedBannerViewControl = @"0";
 NSString *customStrengthSileoConfirmDownloadButtonControl = @"0";
 
+NSString *customStrengthApolloJumpBarControl = @"0";
+NSString *customStrengthApolloFloatingActionButtonControl = @"0";
+NSString *customStrengthApolloASDisplayViewControl = @"0";
+NSString *customStrengthApolloUIButtonControl = @"0";
+
 // Taptic Engine Feedback generator
 UIImpactFeedbackGenerator *gen;
 
-// File manager and UIApplication
+// File manager For Later
 NSFileManager *fileManager;
-UIApplication *application;
 
-// Paths for recognition of needed Apps
-NSString *pathForiCleaner = @"/Applications/iCleaner.app";
-NSString *pathForCydia = @"/Applications/Cydia.app";
-NSString *pathForSileo = @"/Applications/Sileo.app";
-
-// Compatibility warning
+// Compatibility Warning
 BOOL hasSeenCompatibilityAlert = NO;
 NSString *pathForHapticPasscode = @"/Library/MobileSubstrate/DynamicLibraries/HapticPasscode.dylib";
 NSString *pathForHapticKeys = @"/Library/MobileSubstrate/DynamicLibraries/HapticKeys.dylib";
 NSString *pathForHapticVolume = @"/Library/MobileSubstrate/DynamicLibraries/HapticVolume.dylib";
 NSString *pathForHapticker = @"/Library/MobileSubstrate/DynamicLibraries/Hapticker.dylib";
 NSString *pathForHapticLock = @"/Library/MobileSubstrate/DynamicLibraries/HapticLock.dylib";
-// Path for the Rose preferences plist
-NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/me.shymemoriees.rosepreferences.plist";
-// iOS 12 warning to not use Soft or Rigid mode
+// Path For The Rose Preferences plist
+NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist";
+// iOS 12 Warning To Not Use Soft Or Rigid Mode
 BOOL hasSeeniOSAlert = NO;
 
 // Needed Interfaces
 @interface UIKBTree : NSObject
-@property (nonatomic, strong, readwrite) NSString * name;
-+ (id)sharedInstance;
-+ (id)key;
 @end
 
-@interface UIKeyboardLayoutStar : UIView
-@property (nonatomic, copy) NSString * localizedInputKey;
-- (void)setPlayKeyClickSoundOn:(int)arg1;
-@end
-
-@interface SBPowerDownController : UIViewController
-- (void)cancel;
-@end
-
-@interface SBPowerDownViewController : UIViewController
-- (void)cancel;
-- (void)viewWillAppear:(BOOL)arg1;
+@interface DNDState : NSObject
+- (BOOL)isActive;
 @end
 
 @interface SBIconController : UIViewController

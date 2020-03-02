@@ -41,4 +41,5 @@
 - (bool)shouldReloadSpecifiersOnResume {
     return false;
 }
+
 @end
