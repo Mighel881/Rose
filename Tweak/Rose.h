@@ -17,6 +17,9 @@ extern BOOL enableTapticEngineSwitch;
 extern BOOL enableHapticEngineSwitch;
 extern BOOL enableLegacyEngineSwitch;
 
+// Taptic Engine Feedback generator
+UIImpactFeedbackGenerator *gen;
+
 // Switches To Enable Sections
 BOOL anywhereSectionSupportSwitch = NO;
 BOOL controlCenterSectionSupportSwitch = NO;
@@ -266,9 +269,6 @@ NSString *customStrengthApolloJumpBarControl = @"0";
 NSString *customStrengthApolloFloatingActionButtonControl = @"0";
 NSString *customStrengthApolloASDisplayViewControl = @"0";
 NSString *customStrengthApolloUIButtonControl = @"0";
-
-// Taptic Engine Feedback generator
-UIImpactFeedbackGenerator *gen;
 
 // File manager For Later
 NSFileManager *fileManager;

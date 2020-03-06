@@ -59,13 +59,11 @@ void prepareForHaptic() {
 	
 void triggerFeedback() {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if (!delaySwitch) {
 		prepareForHaptic();
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -128,13 +126,11 @@ void prepareCustomFeedback() {
 	
 void triggerCustomFeedback() {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if (!delaySwitch) {
 		prepareCustomFeedback();
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -174,14 +170,12 @@ void prepareLegacyFeedback(float durationInSeconds, float intensivity, long coun
 	
 void triggerLegacyFeedback() {
 
-int selectedLegacyMode = [legacyLevel intValue];
-double customLegacyDuration = [customlegacyDurationLevel doubleValue];
-double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	int selectedLegacyMode = [legacyLevel intValue];
+	double customLegacyDuration = [customlegacyDurationLevel doubleValue];
+	double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if (!delaySwitch) {
 		if (selectedLegacyMode == 0) {
 				prepareLegacyFeedback(.025, .05, 1);
 
@@ -190,7 +184,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 		}
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -230,10 +224,10 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SPTNowPlayingFreeTierFeedbackButton; @class TFNCustomTabBar; @class SileoFeaturedBannerView; @class T1StandardStatusView; @class SBCoverSheetPrimarySlidingViewController; @class SileoPackageCollectionViewCell; @class SPTNowPlayingSliderV2; @class FBTabBar; @class AWEFeedVideoButton; @class _UIButtonBarButton; @class TFNFloatingActionButton; @class SPTNowPlayingPlayButtonV2; @class UIButton; @class MusicApplicationAlbumCell; @class CCUILabeledRoundButton; @class DNDState; @class SBDashBoardLockScreenEnvironment; @class UITabBarButton; @class CalculatorApplicationKeyPadButton; @class SBAppSwitcherPageView; @class PHBottomBarButton; @class SBUIIconForceTouchController; @class SBFolderController; @class SBUIController; @class MusicApplicationContextualActionsButton; @class SPTNowPlayingRepeatButton; @class SBMainDisplaySceneManager; @class SBSleepWakeHardwareButtonInteraction; @class ICSApplicationDelegate; @class MusicApplicationPlayButton; @class IGFeedItemVideoView; @class SPTGaiaDevicesAvailableViewImplementation; @class UIWindow; @class ApolloFloatingActionButton; @class MPRouteButton; @class NSProcessInfo; @class MusicApplicationTimeSlider; @class SBControlCenterController; @class T1DirectMessageInboxSummaryView; @class SBApplication; @class SBPowerDownViewController; @class SBFolderView; @class SPTNowPlayingQueueButton; @class SBSearchScrollView; @class PHHandsetDialerDeleteButton; @class _TtCC16MusicApplication30LibraryMenuTableViewController4Cell; @class CNContactListTableViewCell; @class SSScreenCapturer; @class SPTNowPlayingShuffleButton; @class SBIconController; @class SPTNowPlayingBarPlayButton; @class SBUIPasscodeLockViewBase; @class PHHandsetDialerNumberPadButton; @class MPButton; @class T1ActivityCell; @class SileoTableViewCell; @class SPTNowPlayingNextTrackButton; @class VolumeControl; @class SBPowerDownController; @class UICalloutBar; @class IGUFIButtonBarView; @class _SFNavigationBarURLButton; @class SPTNowPlayingPreviousTrackButton; @class UIAlertController; @class MusicApplicationSongCell; @class SpringBoard; @class CSQuickActionsButton; @class FDSTetraPressStateAnnouncingControl; @class CCUIToggleViewController; @class SileoConfirmDownloadButton; @class JumpBar; @class SileoSourcesCell; @class SPTNowPlayingMarqueeLabel; @class SBHIconManager; @class _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider; @class SiriUISiriStatusView; @class UIKeyboardLayoutStar; @class SBBacklightController; @class IGFeedPhotoView; @class SBVolumeControl; @class SBDashBoardQuickActionsButton; @class _ASDisplayView; @class SBDashBoardViewController; 
+@class MPRouteButton; @class SBDashBoardLockScreenEnvironment; @class SBUIController; @class SPTNowPlayingNextTrackButton; @class MPButton; @class PHHandsetDialerDeleteButton; @class T1ActivityCell; @class VolumeControl; @class UIKeyboardLayoutStar; @class SPTGaiaDevicesAvailableViewImplementation; @class CalculatorApplicationKeyPadButton; @class SBMainDisplaySceneManager; @class SBVolumeControl; @class MusicApplicationTimeSlider; @class PHBottomBarButton; @class DNDState; @class IGUFIButtonBarView; @class SPTNowPlayingSliderV2; @class SBApplication; @class _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider; @class ICSApplicationDelegate; @class CNContactListTableViewCell; @class SiriUISiriStatusView; @class SBCoverSheetPrimarySlidingViewController; @class NSProcessInfo; @class SSScreenCapturer; @class PHHandsetDialerNumberPadButton; @class MusicApplicationPlayButton; @class UIWindow; @class SPTNowPlayingRepeatButton; @class UIAlertController; @class SBBacklightController; @class SBSearchScrollView; @class FBTabBar; @class CCUIToggleViewController; @class SileoConfirmDownloadButton; @class UITabBarButton; @class _SFNavigationBarURLButton; @class SBControlCenterController; @class SPTNowPlayingBarPlayButton; @class SBDashBoardViewController; @class MusicApplicationAlbumCell; @class SBIconController; @class MusicApplicationSongCell; @class ApolloFloatingActionButton; @class AWEFeedVideoButton; @class UICalloutBar; @class SPTNowPlayingFreeTierFeedbackButton; @class SBPowerDownViewController; @class SBFolderController; @class SBUIPasscodeLockViewBase; @class UIButton; @class MusicApplicationContextualActionsButton; @class TFNCustomTabBar; @class _ASDisplayView; @class T1StandardStatusView; @class SileoFeaturedBannerView; @class SpringBoard; @class SileoPackageCollectionViewCell; @class JumpBar; @class _UIButtonBarButton; @class FDSTetraPressStateAnnouncingControl; @class SPTNowPlayingQueueButton; @class SBFolderView; @class IGFeedPhotoView; @class T1DirectMessageInboxSummaryView; @class SBAppSwitcherPageView; @class SBUIIconForceTouchController; @class SPTNowPlayingMarqueeLabel; @class IGFeedItemVideoView; @class SileoSourcesCell; @class SPTNowPlayingPreviousTrackButton; @class TFNFloatingActionButton; @class SBSleepWakeHardwareButtonInteraction; @class SBHIconManager; @class SPTNowPlayingShuffleButton; @class SBPowerDownController; @class CSQuickActionsButton; @class SBDashBoardQuickActionsButton; @class CCUILabeledRoundButton; @class _TtCC16MusicApplication30LibraryMenuTableViewController4Cell; @class SPTNowPlayingPlayButtonV2; @class SileoTableViewCell; 
 
 
-#line 211 "Tweak.x"
+#line 205 "Tweak.x"
 static void (*_logos_orig$Rose$SpringBoard$applicationDidFinishLaunching$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$applicationDidFinishLaunching$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SpringBoard$_ringerChanged$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SpringBoard$_ringerChanged$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$)(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static BOOL _logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$(_LOGOS_SELF_TYPE_NORMAL SpringBoard* _LOGOS_SELF_CONST, SEL, UIPressesEvent *); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBCoverSheetPrimarySlidingViewController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBCoverSheetPrimarySlidingViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$_playLockSound(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown)(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$SBSleepWakeHardwareButtonInteraction$consumeInitialPressDown(_LOGOS_SELF_TYPE_NORMAL SBSleepWakeHardwareButtonInteraction* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$VolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$VolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL VolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$increaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$increaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBVolumeControl$decreaseVolume)(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBVolumeControl$decreaseVolume(_LOGOS_SELF_TYPE_NORMAL SBVolumeControl* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownController$orderFront)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBPowerDownController$orderFront(_LOGOS_SELF_TYPE_NORMAL SBPowerDownController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBPowerDownViewController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBPowerDownViewController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBPowerDownViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$)(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBMainDisplaySceneManager$_appKilledInAppSwitcher$(_LOGOS_SELF_TYPE_NORMAL SBMainDisplaySceneManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBApplication$_didExitWithContext$)(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBApplication$_didExitWithContext$(_LOGOS_SELF_TYPE_NORMAL SBApplication* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$)(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBUIIconForceTouchController$iconForceTouchViewControllerWillDismiss$(_LOGOS_SELF_TYPE_NORMAL SBUIIconForceTouchController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBUIController$ACPowerChanged)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$ACPowerChanged(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIController$handleWillBeginReachabilityAnimation)(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIController$handleWillBeginReachabilityAnimation(_LOGOS_SELF_TYPE_NORMAL SBUIController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBAppSwitcherPageView$setVisible$)(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBAppSwitcherPageView$setVisible$(_LOGOS_SELF_TYPE_NORMAL SBAppSwitcherPageView* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SiriUISiriStatusView$didMoveToWindow)(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SiriUISiriStatusView$didMoveToWindow(_LOGOS_SELF_TYPE_NORMAL SiriUISiriStatusView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUILabeledRoundButton$buttonTapped$)(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$CCUILabeledRoundButton$buttonTapped$(_LOGOS_SELF_TYPE_NORMAL CCUILabeledRoundButton* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderController$folderControllerWillOpen$)(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBFolderController$folderControllerWillOpen$(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderController$folderControllerWillClose$)(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBFolderController$folderControllerWillClose$(_LOGOS_SELF_TYPE_NORMAL SBFolderController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBIconController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBIconController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBIconController$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBIconController$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBHIconManager$iconTapped$)(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBHIconManager$iconTapped$(_LOGOS_SELF_TYPE_NORMAL SBHIconManager* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBFolderView$scrollViewWillBeginDragging$)(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$SBFolderView$scrollViewWillBeginDragging$(_LOGOS_SELF_TYPE_NORMAL SBFolderView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_meta_orig$Rose$SSScreenCapturer$playScreenshotSound)(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void _logos_meta_method$Rose$SSScreenCapturer$playScreenshotSound(_LOGOS_SELF_TYPE_NORMAL Class _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown)(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBUIPasscodeLockViewBase$_sendDelegateKeypadKeyDown(_LOGOS_SELF_TYPE_NORMAL SBUIPasscodeLockViewBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$)(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void _logos_method$Rose$UIKeyboardLayoutStar$playKeyClickSoundOnDownForKey$(_LOGOS_SELF_TYPE_NORMAL UIKeyboardLayoutStar* _LOGOS_SELF_CONST, SEL, UIKBTree *); static void (*_logos_orig$Rose$UICalloutBar$buttonPressed$)(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$UICalloutBar$buttonPressed$(_LOGOS_SELF_TYPE_NORMAL UICalloutBar* _LOGOS_SELF_CONST, SEL, id); static BOOL (*_logos_orig$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$)(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static BOOL _logos_method$Rose$SBSearchScrollView$gestureRecognizerShouldBegin$(_LOGOS_SELF_TYPE_NORMAL SBSearchScrollView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$ICSApplicationDelegate$audioCallStatusChanged$)(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Rose$ICSApplicationDelegate$audioCallStatusChanged$(_LOGOS_SELF_TYPE_NORMAL ICSApplicationDelegate* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Rose$SBDashBoardViewController$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardViewController$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardViewController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardLockScreenEnvironment* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardLockScreenEnvironment$setAuthenticated$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardLockScreenEnvironment* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$)(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static void _logos_method$Rose$SBBacklightController$turnOnScreenFullyWithBacklightSource$(_LOGOS_SELF_TYPE_NORMAL SBBacklightController* _LOGOS_SELF_CONST, SEL, long long); static BOOL (*_logos_orig$Rose$UIWindow$_shouldHitTestEntireScreen)(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$UIWindow$_shouldHitTestEntireScreen(_LOGOS_SELF_TYPE_NORMAL UIWindow* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$SBControlCenterController$_willPresent)(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void _logos_method$Rose$SBControlCenterController$_willPresent(_LOGOS_SELF_TYPE_NORMAL SBControlCenterController* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Rose$CCUIToggleViewController$buttonTapped$forEvent$)(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$CCUIToggleViewController$buttonTapped$forEvent$(_LOGOS_SELF_TYPE_NORMAL CCUIToggleViewController* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$CSQuickActionsButton$setSelected$)(_LOGOS_SELF_TYPE_NORMAL CSQuickActionsButton* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$CSQuickActionsButton$setSelected$(_LOGOS_SELF_TYPE_NORMAL CSQuickActionsButton* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$SBDashBoardQuickActionsButton$setSelected$)(_LOGOS_SELF_TYPE_NORMAL SBDashBoardQuickActionsButton* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$SBDashBoardQuickActionsButton$setSelected$(_LOGOS_SELF_TYPE_NORMAL SBDashBoardQuickActionsButton* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$UIAlertController$viewWillAppear$)(_LOGOS_SELF_TYPE_NORMAL UIAlertController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$UIAlertController$viewWillAppear$(_LOGOS_SELF_TYPE_NORMAL UIAlertController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$UIAlertController$viewWillDisappear$)(_LOGOS_SELF_TYPE_NORMAL UIAlertController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$Rose$UIAlertController$viewWillDisappear$(_LOGOS_SELF_TYPE_NORMAL UIAlertController* _LOGOS_SELF_CONST, SEL, BOOL); static void (*_logos_orig$Rose$UIButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UIButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UIButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$_UIButtonBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$_UIButtonBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL _UIButtonBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$Rose$UITabBarButton$touchesBegan$withEvent$)(_LOGOS_SELF_TYPE_NORMAL UITabBarButton* _LOGOS_SELF_CONST, SEL, id, id); static void _logos_method$Rose$UITabBarButton$touchesBegan$withEvent$(_LOGOS_SELF_TYPE_NORMAL UITabBarButton* _LOGOS_SELF_CONST, SEL, id, id); static BOOL (*_logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled)(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_TYPE_NORMAL NSProcessInfo* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Rose$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Rose$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); 
 
 
@@ -287,8 +281,8 @@ static BOOL _logos_method$Rose$SpringBoard$_handlePhysicalButtonEvent$(_LOGOS_SE
 	
 
 	
-	int force = arg1.allPresses.allObjects[0].force;
 	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return _logos_orig$Rose$SpringBoard$_handlePhysicalButtonEvent$(self, _cmd, arg1);
+	int force = arg1.allPresses.allObjects[0].force;
 	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
@@ -1424,8 +1418,6 @@ static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_T
 
 	LowPowerMode = _logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled(self, _cmd);
 
-	[pfs setBool: LowPowerMode forKey: @"isLowPowerMode"];
-
 	return _logos_orig$Rose$NSProcessInfo$isLowPowerModeEnabled(self, _cmd);
 
 }
@@ -1437,8 +1429,6 @@ static BOOL _logos_method$Rose$NSProcessInfo$isLowPowerModeEnabled(_LOGOS_SELF_T
 static BOOL _logos_method$Rose$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
 	isDNDActive = _logos_orig$Rose$DNDState$isActive(self, _cmd);
-    
-	[pfs setBool: isDNDActive forKey:@"isDNDActiveState"];
 
 	return _logos_orig$Rose$DNDState$isActive(self, _cmd);
 
@@ -2783,7 +2773,7 @@ static void _logos_method$RoseIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 	
-static __attribute__((constructor)) void _logosLocalCtor_e8d3cdb6(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_397e789e(int __unused argc, char __unused **argv, char __unused **envp) {
 
 	if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -2825,389 +2815,6 @@ static __attribute__((constructor)) void _logosLocalCtor_e8d3cdb6(int __unused a
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 	
-    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
-	
-	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
-	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
-	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
-	
-	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
-    [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
-	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
-	
-	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
-	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
-
-	
-	[pfs registerBool:&anywhereSectionSupportSwitch default:NO forKey:@"anywhereSectionSupport"];
-	[pfs registerBool:&controlCenterSectionSupportSwitch default:NO forKey:@"controlCenterSectionSupport"];
-	[pfs registerBool:&hardwareButtonsSectionSupportSwitch default:NO forKey:@"hardwareButtonsSectionSupport"];
-	[pfs registerBool:&homescreenSectionSupportSwitch default:NO forKey:@"homescreenSectionSupport"];
-	[pfs registerBool:&lockscreenSectionSupportSwitch default:NO forKey:@"lockscreenSectionSupport"];
-	[pfs registerBool:&otherHardwareActionsSectionSupportSwitch default:NO forKey:@"otherHardwareActionsSectionSupport"];
-	[pfs registerBool:&statusChangesSectionSupportSwitch default:NO forKey:@"statusChangesSectionSupport"];
-	[pfs registerBool:&systemWideSectionSupportSwitch default:NO forKey:@"systemWideSectionSupport"];
-	[pfs registerBool:&extrasSectionSupportSwitch default:NO forKey:@"extrasSectionSupport"];
-	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-
-	
-	if (anywhereSectionSupportSwitch) {
-		[pfs registerBool:&killingSwitch default:NO forKey:@"killingApp"];
-		[pfs registerBool:&switcherSwitch default:NO forKey:@"appSwitcherFeedback"];
-		[pfs registerBool:&siriSwitch default:NO forKey:@"siriUIFeedback"];
-		[pfs registerBool:&screenshotSwitch default:NO forKey:@"takeScreenshot"];
-		[pfs registerBool:&reachabilitySwitch default:NO forKey:@"reachability"];
-		[pfs registerBool:&textSelectionSwitch default:NO forKey:@"textSelection"];
-		[pfs registerBool:&powerSwitch default:NO forKey:@"powerDownView"];
-		[pfs registerBool:&respringSwitch default:NO forKey:@"respring"];
-		[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
-		[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
-		[pfs registerBool:&enterBackgroundSwitch default:NO forKey:@"enterBackground"];
-		[pfs registerBool:&alertAppearSwitch default:NO forKey:@"alertAppear"];
-		[pfs registerBool:&alertDisappearSwitch default:NO forKey:@"alertDisappear"];
-
-	}
-	
-	if (controlCenterSectionSupportSwitch) {
-		[pfs registerBool:&ccToggleSwitch default:NO forKey:@"controlCenterToggleFeedback"];
-		[pfs registerBool:&openControlCenterSwitch default:NO forKey:@"openControlCenter"];
-		[pfs registerBool:&ccModuleSwitch default:NO forKey:@"ccModule"];
-
-	}
-	
-	if (hardwareButtonsSectionSupportSwitch) {
-		[pfs registerBool:&volumeSwitch default:NO forKey:@"volumeChanged"];
-		[pfs registerBool:&sleepButtonSwitch default:NO forKey:@"sleepButton"];
-		[pfs registerBool:&homeButtonSwitch default:NO forKey:@"homeButton"];
-		[pfs registerBool:&ringerSwitch default:NO forKey:@"ringer"];
-
-	}
-	
-	if (homescreenSectionSupportSwitch) {
-		[pfs registerBool:&forceSwitch default:NO forKey:@"forceTouchDismiss"];
-		[pfs registerBool:&folderOpenSwitch default:NO forKey:@"folderOpen"];
-		[pfs registerBool:&folderCloseSwitch default:NO forKey:@"folderClose"];
-		[pfs registerBool:&iconTapSwitch default:NO forKey:@"iconTap"];
-		[pfs registerBool:&pageSwipeSwitch default:NO forKey:@"pageSwipe"];
-		[pfs registerBool:&spotlightSwitch default:NO forKey:@"spotlight"];
-
-	}
-	
-	if (lockscreenSectionSupportSwitch) {
-		[pfs registerBool:&passcodeSwitch default:NO forKey:@"enterPasscode"];
-		[pfs registerBool:&quickActionsButtonSwitch default:NO forKey:@"quickActionsButton"];
-
-	}
-	
-	if (otherHardwareActionsSectionSupportSwitch) {
-		[pfs registerBool:&wakeSwitch default:NO forKey:@"displayWake"];
-		[pfs registerBool:&pluggedSwitch default:NO forKey:@"chargerPluggedInOrOut"];
-
-	}
-	
-	if (statusChangesSectionSupportSwitch) {
-		[pfs registerBool:&unlockSwitch default:NO forKey:@"unlock"];
-		[pfs registerBool:&lockSwitch default:NO forKey:@"lock"];
-		[pfs registerBool:&authenticationSwitch default:NO forKey:@"authentication"];
-		[pfs registerBool:&callSwitch default:NO forKey:@"call"];
-
-	}
-	
-	if (systemWideSectionSupportSwitch) {
-		[pfs registerBool:&UIButtonSwitch default:NO forKey:@"UIButton"];
-		[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
-		[pfs registerBool:&UITabBarButtonSwitch default:NO forKey:@"UITabBarButton"];
-
-	}
-	
-	if (extrasSectionSupportSwitch) {
-		[pfs registerBool:&lockAnimationSwitch default:NO forKey:@"lockAnimation"];
-
-	}
-
-	
-	[pfs registerBool:&apolloSupportSwitch default:NO forKey:@"apolloSupport"];
-	[pfs registerBool:&calculatorSupportSwitch default:NO forKey:@"calculatorSupport"];
-	[pfs registerBool:&facebookSupportSwitch default:NO forKey:@"facebookSupport"];
-	[pfs registerBool:&instagramSupportSwitch default:NO forKey:@"instagramSupport"];
-	[pfs registerBool:&musicSupportSwitch default:NO forKey:@"musicSupport"];
-	[pfs registerBool:&phoneSupportSwitch default:NO forKey:@"phoneSupport"];
-	[pfs registerBool:&safariSupportSwitch default:NO forKey:@"safariSupport"];
-	[pfs registerBool:&sileoSupportSwitch default:NO forKey:@"sileoSupport"];
-	[pfs registerBool:&spotifySupportSwitch default:NO forKey:@"spotifySupport"];
-	[pfs registerBool:&tiktokSupportSwitch default:NO forKey:@"tiktokSupport"];
-	[pfs registerBool:&twitterSupportSwitch default:NO forKey:@"twitterSupport"];
-
-	
-	if (spotifySupportSwitch) {
-		[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
-		[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
-		[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
-		[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
-		[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
-		[pfs registerBool:&SPTshuffleButtonSwitch default:NO forKey:@"SPTshuffleButton"];
-		[pfs registerBool:&SPTqueueButtonSwitch default:NO forKey:@"SPTqueueButton"];
-		[pfs registerBool:&SPTsliderSwitch default:NO forKey:@"SPTslider"];
-		[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
-		[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
-		[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
-
-	}
-	
-	if (instagramSupportSwitch) {
-		[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
-		[pfs registerBool:&ITGdoubleTapToLikeSwitch default:NO forKey:@"ITGdoubleTapToLike"];
-		[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
-		[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
-		[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
-
-	}
-	
-	if (tiktokSupportSwitch) {
-		[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
-
-	}
-	
-	if (twitterSupportSwitch) {
-		[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
-		[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
-		[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
-		[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
-		[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
-
-	}
-	
-	if (safariSupportSwitch) {
-		[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
-
-	}
-	
-	if (phoneSupportSwitch) {
-		[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
-		[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
-		[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
-		[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
-
-	}
-	
-	if (facebookSupportSwitch) {
-		[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
-		[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
-		[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
-
-	}
-	
-	if (musicSupportSwitch) {
-		[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
-		[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
-		[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
-		[pfs registerBool:&MusicTimeSliderSwitch default:NO forKey:@"MusicTimeSlider"];
-		[pfs registerBool:&MusicSongCellSwitch default:NO forKey:@"MusicSongCell"];
-		[pfs registerBool:&MusicLibraryCellSwitch default:NO forKey:@"MusicLibraryCell"];
-		[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
-		[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
-		[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
-
-	}
-	
-	if (calculatorSupportSwitch) {
-		[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
-
-	}
-	
-	if (sileoSupportSwitch) {
-		[pfs registerBool:&SileoSourcesCellSwitch default:NO forKey:@"SileoSourcesCell"];
-		[pfs registerBool:&SileoPackageCollectionViewCellSwitch default:NO forKey:@"SileoPackageCollectionViewCell"];
-		[pfs registerBool:&SileoTableViewCellSwitch default:NO forKey:@"SileoTableViewCell"];
-		[pfs registerBool:&SileoFeaturedBannerViewSwitch default:NO forKey:@"SileoFeaturedBannerView"];
-		[pfs registerBool:&SileoConfirmDownloadButtonSwitch default:NO forKey:@"SileoConfirmDownloadButton"];
-
-	}
-	
-	if (apolloSupportSwitch) {
-		[pfs registerBool:&apolloJumpBarSwitch default:NO forKey:@"apolloJumpBar"];
-		[pfs registerBool:&apolloFloatingActionButtonSwitch default:NO forKey:@"ApolloFloatingActionButton"];
-		[pfs registerBool:&apolloASDisplayViewSwitch default:NO forKey:@"apolloASDisplayView"];
-		[pfs registerBool:&apolloUIButtonSwitch default:NO forKey:@"apolloUIButton"];
-
-	}
-	
-	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
-	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
-	
-	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
-	[pfs registerObject:&delayLevel default:@"0.0" forKey:@"Delay"];
-	
-	if (exceptionsSectionSupportSwitch) {
-		[pfs registerBool:&LowPowerMode default:NO forKey:@"isLowPowerMode"];
-		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
-		[pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveState"];
-		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
-
-	}
-
-	
-	if (anywhereSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthKillingControl default:@"0" forKey:@"customStrengthKilling"];
-		[pfs registerObject:&customStrengthSwitcherControl default:@"0" forKey:@"customStrengthSwitcher"];
-		[pfs registerObject:&customStrengthSiriControl default:@"0" forKey:@"customStrengthSiri"];
-		[pfs registerObject:&customStrengthScreenshotControl default:@"0" forKey:@"customStrengthScreenshot"];
-		[pfs registerObject:&customStrengthReachabilityControl default:@"0" forKey:@"customStrengthReachability"];
-		[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
-		[pfs registerObject:&customStrengthPowerDownControl default:@"0" forKey:@"customStrengthPowerDown"];
-		[pfs registerObject:&customStrengthRespringControl default:@"0" forKey:@"customStrengthRespring"];
-		[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
-		[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
-		[pfs registerObject:&customStrengthEnterBackgroundControl default:@"0" forKey:@"customStrengthEnterBackground"];
-		[pfs registerObject:&customStrengthAlertAppearControl default:@"0" forKey:@"customStrengthAlertAppear"];
-		[pfs registerObject:&customStrengthAlertDisappearControl default:@"0" forKey:@"customStrengthAlertDisappear"];
-
-	}
-	
-	if (controlCenterSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthCCToggleControl default:@"0" forKey:@"customStrengthCCToggle"];
-		[pfs registerObject:&customStrengthOpenControlCenterControl default:@"0" forKey:@"customStrengthOpenControlCenter"];
-		[pfs registerObject:&customStrengthCCModuleControl default:@"0" forKey:@"customStrengthCCModule"];
-
-	}
-	
-	if (hardwareButtonsSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthVolumeControl default:@"0" forKey:@"customStrengthVolume"];
-		[pfs registerObject:&customStrengthSleepButtonControl default:@"0" forKey:@"customStrengthSleepButton"];
-		[pfs registerObject:&customStrengthHomeButtonControl default:@"0" forKey:@"customStrengthHomeButton"];
-		[pfs registerObject:&customStrengthRingerControl default:@"0" forKey:@"customStrengthRinger"];
-
-	}
-	
-	if (homescreenSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthForceTouchControl default:@"0" forKey:@"customStrengthForceTouch"];
-		[pfs registerObject:&customStrengthFolderOpenControl default:@"0" forKey:@"customStrengthFolderOpen"];
-		[pfs registerObject:&customStrengthFolderCloseControl default:@"0" forKey:@"customStrengthFolderClose"];
-		[pfs registerObject:&customStrengthIconTapControl default:@"0" forKey:@"customStrengthIconTap"];
-		[pfs registerObject:&customStrengthPageSwipeControl default:@"0" forKey:@"customStrengthPageSwipe"];
-		[pfs registerObject:&customStrengthSpotlightControl default:@"0" forKey:@"customStrengthSpotlight"];
-
-	}
-	
-	if (lockscreenSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthPasscodeControl default:@"0" forKey:@"customStrengthPasscode"];
-		[pfs registerObject:&customStrengthQuickActionsButtonControl default:@"0" forKey:@"customStrengthQuickActionsButton"];
-
-	}
-	
-	if (otherHardwareActionsSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthWake"];
-		[pfs registerObject:&customStrengthPluggedControl default:@"0" forKey:@"customStrengthPlugged"];
-
-	}
-	
-	if (statusChangesSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthUnlockControl default:@"0" forKey:@"customStrengthUnlock"];
-		[pfs registerObject:&customStrengthLockControl default:@"0" forKey:@"customStrengthLock"];
-		[pfs registerObject:&customStrengthAuthenticationControl default:@"0" forKey:@"customStrengthAuthentication"];
-		[pfs registerObject:&customStrengthCallControl default:@"0" forKey:@"customStrengthCall"];
-
-	}
-	
-	if (systemWideSectionSupportSwitch) {
-		[pfs registerObject:&customStrengthUIButtonControl default:@"0" forKey:@"customStrengthUIButton"];
-		[pfs registerObject:&customStrengthUIButtonBarButtonControl default:@"0" forKey:@"customStrengthUIButtonBarButton"];
-		[pfs registerObject:&customStrengthUITabBarButtonControl default:@"0" forKey:@"customStrengthUITabBarButton"];
-
-	}
-
-	if (spotifySupportSwitch) {
-		[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
-		[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
-		[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
-		[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
-		[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
-		[pfs registerObject:&customStrengthSPTshuffleButtonControl default:@"0" forKey:@"customStrengthSPTshuffleButton"];
-		[pfs registerObject:&customStrengthSPTqueueButtonControl default:@"0" forKey:@"customStrengthSPTqueueButton"];
-		[pfs registerObject:&customStrengthSPTsliderControl default:@"0" forKey:@"customStrengthSPTslider"];
-		[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
-		[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
-		[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
-
-	}
-
-	if (instagramSupportSwitch) {
-		[pfs registerObject:&customStrengthITGlikeButtonControl default:@"0" forKey:@"customStrengthITGlikeButton"];
-		[pfs registerObject:&customStrengthITGdoubleTapToLikeControl default:@"0" forKey:@"customStrengthITGdoubleTapToLike"];
-		[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
-		[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
-		[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
-
-	}
-
-	if (tiktokSupportSwitch) {
-		[pfs registerObject:&customStrengthTTlikeCommentShareButtonsControl default:@"0" forKey:@"customStrengthTTlikeCommentShareButtons"];
-
-	}
-
-	if (twitterSupportSwitch) {
-		[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
-		[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
-		[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
-		[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
-		[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
-
-	}
-
-	if (safariSupportSwitch) {
-		[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
-
-	}
-
-	if (phoneSupportSwitch) {
-		[pfs registerObject:&customStrengthPHNumberPadControl default:@"0" forKey:@"customStrengthPHNumberPad"];
-		[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
-		[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
-		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
-
-	}
-
-	if (facebookSupportSwitch) {
-		[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
-		[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
-		[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
-
-	}
-
-	if (musicSupportSwitch) {
-		[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
-		[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
-		[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
-		[pfs registerObject:&customStrengthMusicApplicationTimeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationTimeSlider"];
-		[pfs registerObject:&customStrengthMusicApplicationSongCellControl default:@"0" forKey:@"customStrengthMusicApplicationSongCell"];
-		[pfs registerObject:&customStrengthLibraryCellControl default:@"0" forKey:@"customStrengthLibraryCell"];
-		[pfs registerObject:&customStrengthMusicApplicationAlbumCellControl default:@"0" forKey:@"customStrengthMusicApplicationAlbumCell"];
-		[pfs registerObject:&customStrengthMPRouteButtonControl default:@"0" forKey:@"customStrengthMPRouteButton"];
-		[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
-
-	}
-
-	if (calculatorSupportSwitch) {
-		[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
-
-	}
-
-	if (sileoSupportSwitch) {
-		[pfs registerObject:&customStrengthSileoSourcesCellControl default:@"0" forKey:@"customStrengthSileoSourcesCell"];
-		[pfs registerObject:&customStrengthSileoPackageCollectionViewCellControl default:@"0" forKey:@"customStrengthSileoPackageCollectionViewCell"];
-		[pfs registerObject:&customStrengthSileoTableViewCellControl default:@"0" forKey:@"customStrengthSileoTableViewCell"];
-		[pfs registerObject:&customStrengthSileoFeaturedBannerViewControl default:@"0" forKey:@"customStrengthSileoFeaturedBannerView"];
-		[pfs registerObject:&customStrengthSileoConfirmDownloadButtonControl default:@"0" forKey:@"customStrengthSileoConfirmDownloadButton"];
-
-	}
-
-	if (apolloSupportSwitch) {
-		[pfs registerObject:&customStrengthApolloJumpBarControl default:@"0" forKey:@"customStrengthApolloJumpBar"];
-		[pfs registerObject:&customStrengthApolloFloatingActionButtonControl default:@"0" forKey:@"customStrengthApolloFloatingActionButton"];
-		[pfs registerObject:&customStrengthApolloASDisplayViewControl default:@"0" forKey:@"customStrengthApolloASDisplayView"];
-		[pfs registerObject:&customStrengthApolloUIButtonControl default:@"0" forKey:@"customStrengthApolloUIButton"];
-
-	}
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

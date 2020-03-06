@@ -58,13 +58,11 @@ void prepareForHaptic() {
 	// Rose wide haptics trigger
 void triggerFeedback() {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if (!delaySwitch) {
 		prepareForHaptic();
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -127,13 +125,11 @@ void prepareCustomFeedback() {
 	// Rose custom haptics trigger
 void triggerCustomFeedback() {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if (!delaySwitch) {
 		prepareCustomFeedback();
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -173,14 +169,12 @@ void prepareLegacyFeedback(float durationInSeconds, float intensivity, long coun
 	// Rose legacy haptics trigger
 void triggerLegacyFeedback() {
 
-int selectedLegacyMode = [legacyLevel intValue];
-double customLegacyDuration = [customlegacyDurationLevel doubleValue];
-double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	int selectedLegacyMode = [legacyLevel intValue];
+	double customLegacyDuration = [customlegacyDurationLevel doubleValue];
+	double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive)) {
-		return;
-
-	} else if (enabled && !(delaySwitch)) {
+	if (!delaySwitch) {
 		if (selectedLegacyMode == 0) {
 				prepareLegacyFeedback(.025, .05, 1);
 
@@ -189,7 +183,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 		}
 
-	} else if (enabled && delaySwitch) {
+	} else if (delaySwitch) {
 		double delay = [delayLevel intValue];
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -261,8 +255,8 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 	// force = 1 -> button pressed
 
 	//int type = arg1.allPresses.allObjects[0].type;
-	int force = arg1.allPresses.allObjects[0].force;
 	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return %orig;
+	int force = arg1.allPresses.allObjects[0].force;
 	int customStrength = [customStrengthHomeButtonControl intValue];
 
 	if (force == 1) {
@@ -764,7 +758,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 %hook SBFolderController
 
--(void)folderControllerWillOpen:(id)arg1 {
+- (void)folderControllerWillOpen:(id)arg1 {
 
 	%orig;
 
@@ -785,7 +779,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 }
 
--(void)folderControllerWillClose:(id)arg1 {
+- (void)folderControllerWillClose:(id)arg1 {
 
 	%orig;
 
@@ -1084,7 +1078,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 %hook SBDashBoardLockScreenEnvironment // iOS 13
 
--(void)setAuthenticated:(BOOL)arg1 {
+- (void)setAuthenticated:(BOOL)arg1 {
 
 	%orig;
 
@@ -1398,8 +1392,6 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 	LowPowerMode = %orig;
 
-	[pfs setBool: LowPowerMode forKey: @"isLowPowerMode"];
-
 	return %orig;
 
 }
@@ -1411,8 +1403,6 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 - (BOOL)isActive {
 
 	isDNDActive = %orig;
-    
-	[pfs setBool: isDNDActive forKey:@"isDNDActiveState"];
 
 	return %orig;
 
@@ -1871,7 +1861,7 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 
 %hook AWEFeedVideoButton
 
--(void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 
@@ -2811,7 +2801,6 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
-
 	// Switches To Enable Sections - I Do All Of This To Improve App Launch Time
 	[pfs registerBool:&anywhereSectionSupportSwitch default:NO forKey:@"anywhereSectionSupport"];
 	[pfs registerBool:&controlCenterSectionSupportSwitch default:NO forKey:@"controlCenterSectionSupport"];
@@ -2823,7 +2812,6 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 	[pfs registerBool:&systemWideSectionSupportSwitch default:NO forKey:@"systemWideSectionSupport"];
 	[pfs registerBool:&extrasSectionSupportSwitch default:NO forKey:@"extrasSectionSupport"];
 	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-
 	// Anywhere Section
 	if (anywhereSectionSupportSwitch) {
 		[pfs registerBool:&killingSwitch default:NO forKey:@"killingApp"];
@@ -3013,13 +3001,10 @@ double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 	[pfs registerObject:&delayLevel default:@"0.0" forKey:@"Delay"];
 	// Low Power And DND Mode
 	if (exceptionsSectionSupportSwitch) {
-		[pfs registerBool:&LowPowerMode default:NO forKey:@"isLowPowerMode"];
 		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
-		[pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveState"];
 		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 
 	}
-
 	// Anywhere List Controllers
 	if (anywhereSectionSupportSwitch) {
 		[pfs registerObject:&customStrengthKillingControl default:@"0" forKey:@"customStrengthKilling"];
