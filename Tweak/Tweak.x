@@ -1,11 +1,12 @@
 #import "Rose.h"
 
+// Enabled And Engine Switches
 BOOL enabled = NO;
 BOOL enableTapticEngineSwitch = NO;
 BOOL enableHapticEngineSwitch = NO;
 BOOL enableLegacyEngineSwitch = NO;
-	
-	// Rose wide haptics controller
+
+// Rose wide haptics controller
 void prepareForHaptic() {
 
     int hapticStrength = [hapticLevel intValue];
@@ -1023,9 +1024,9 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook ICSApplicationDelegate
+%hook TUCall
 
-- (void)audioCallStatusChanged:(id)arg1 {
+- (void)_handleStatusChange {
 
 	%orig;
 
@@ -1369,6 +1370,31 @@ void triggerLegacyFeedback() {
 	
 	if (!enabled || !systemWideSectionSupportSwitch || !UITabBarButtonSwitch) return;
 	int customStrength = [customStrengthUITabBarButtonControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook BluetoothDevice
+
+- (void)connect {
+
+	%orig;
+	
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !connectBluetoothDeviceSwitch) return;
+	int customStrength = [customStrengthConnectBluetoothDeviceControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -2753,7 +2779,7 @@ void triggerLegacyFeedback() {
     NSString *processName = [NSProcessInfo processInfo].processName;
     bool isSpringboard = [@"SpringBoard" isEqualToString:processName];
 
-    // Someone smarter than Nepeta invented this.
+    // Someone smarter than Nepeta invented this. ~~ Her Words
     // https://www.reddit.com/r/jailbreak/comments/4yz5v5/questionremote_messages_not_enabling/d6rlh88/
     bool shouldLoad = NO;
     NSArray *args = [[NSClassFromString(@"NSProcessInfo") processInfo] arguments];
@@ -2860,10 +2886,11 @@ void triggerLegacyFeedback() {
 		[pfs registerBool:&quickActionsButtonSwitch default:NO forKey:@"quickActionsButton"];
 
 	}
-	// Other Hardware Actions
+	// Other Hardware Actions Section
 	if (otherHardwareActionsSectionSupportSwitch) {
 		[pfs registerBool:&wakeSwitch default:NO forKey:@"displayWake"];
 		[pfs registerBool:&pluggedSwitch default:NO forKey:@"chargerPluggedInOrOut"];
+		[pfs registerBool:&connectBluetoothDeviceSwitch default:NO forKey:@"connectBluetoothDevice"];
 
 	}
 	// Status Changes Section
@@ -2881,7 +2908,7 @@ void triggerLegacyFeedback() {
 		[pfs registerBool:&UITabBarButtonSwitch default:NO forKey:@"UITabBarButton"];
 
 	}
-	// Extras Section
+	// Additionals Section
 	if (extrasSectionSupportSwitch) {
 		[pfs registerBool:&lockAnimationSwitch default:NO forKey:@"lockAnimation"];
 
@@ -3057,6 +3084,7 @@ void triggerLegacyFeedback() {
 	if (otherHardwareActionsSectionSupportSwitch) {
 		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthWake"];
 		[pfs registerObject:&customStrengthPluggedControl default:@"0" forKey:@"customStrengthPlugged"];
+		[pfs registerObject:&customStrengthConnectBluetoothDeviceControl default:@"0" forKey:@"customStrengthConnectBluetoothDevice"];
 
 	}
 	// Status Changes Section

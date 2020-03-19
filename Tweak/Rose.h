@@ -17,6 +17,14 @@ extern BOOL enableTapticEngineSwitch;
 extern BOOL enableHapticEngineSwitch;
 extern BOOL enableLegacyEngineSwitch;
 
+// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
+NSString* tapticLevel = @"0";
+NSString* hapticLevel = @"0";
+NSString* legacyLevel = @"0";
+NSString* customlegacyDurationLevel = @"0";
+NSString* customlegacyStrengthLevel = @"0";
+int customFeedbackValue;
+
 // Taptic Engine Feedback generator
 UIImpactFeedbackGenerator *gen;
 
@@ -32,45 +40,62 @@ BOOL systemWideSectionSupportSwitch = NO;
 BOOL extrasSectionSupportSwitch = NO;
 BOOL exceptionsSectionSupportSwitch = NO;
 
-BOOL delaySwitch = NO;
-BOOL respringSwitch = NO;
-BOOL unlockSwitch = NO;
-BOOL lockSwitch = NO;
-BOOL lockAnimationSwitch = NO;
-BOOL wakeSwitch = NO;
-BOOL volumeSwitch = NO;
-BOOL powerSwitch = NO;
+// Anywhere Section
 BOOL killingSwitch = NO;
-BOOL forceSwitch = NO;
-BOOL pluggedSwitch = NO;
 BOOL switcherSwitch = NO;
 BOOL siriSwitch = NO;
+BOOL screenshotSwitch = NO;
+BOOL reachabilitySwitch = NO;
+BOOL textSelectionSwitch = NO;
+BOOL powerSwitch = NO;
+BOOL respringSwitch = NO;
+BOOL touchesSwitch = NO;
+BOOL keyboardSwitch = NO;
+BOOL enterBackgroundSwitch = NO;
+BOOL alertAppearSwitch = NO;
+BOOL alertDisappearSwitch = NO;
+
+// Control Center Section
 BOOL ccToggleSwitch = NO;
+BOOL openControlCenterSwitch = NO;
+BOOL ccModuleSwitch = NO;
+
+// Hardware Buttons
+BOOL volumeSwitch = NO;
+BOOL sleepButtonSwitch = NO;
+BOOL homeButtonSwitch = NO;
+BOOL ringerSwitch = NO;
+
+// Homescreen Section
+BOOL forceSwitch = NO;
 BOOL folderOpenSwitch = NO;
 BOOL folderCloseSwitch = NO;
 BOOL iconTapSwitch = NO;
 BOOL pageSwipeSwitch = NO;
-BOOL screenshotSwitch = NO;
+BOOL spotlightSwitch = NO;
+
+// Lockscreen Section
 BOOL passcodeSwitch = NO;
 BOOL quickActionsButtonSwitch = NO;
-BOOL keyboardSwitch = NO;
-BOOL ringerSwitch = NO;
-BOOL reachabilitySwitch = NO;
-BOOL textSelectionSwitch = NO;
-BOOL spotlightSwitch = NO;
-BOOL callSwitch = NO;
+
+// Other Hardware Actions Section
+BOOL wakeSwitch = NO;
+BOOL pluggedSwitch = NO;
+BOOL connectBluetoothDeviceSwitch = NO;
+
+// Status Changes Section
+BOOL unlockSwitch = NO;
+BOOL lockSwitch = NO;
 BOOL authenticationSwitch = NO;
-BOOL sleepButtonSwitch = NO;
-BOOL homeButtonSwitch = NO;
-BOOL touchesSwitch = NO;
-BOOL openControlCenterSwitch = NO;
-BOOL ccModuleSwitch = NO;
-BOOL enterBackgroundSwitch = NO;
-BOOL alertAppearSwitch = NO;
-BOOL alertDisappearSwitch = NO;
+BOOL callSwitch = NO;
+
+// System Wide Section
 BOOL UIButtonSwitch = NO;
 BOOL UIButtonBarButtonSwitch = NO;
 BOOL UITabBarButtonSwitch = NO;
+
+// Additionals Section
+BOOL lockAnimationSwitch = NO;
 
 // Enable App Support Switches
 BOOL apolloSupportSwitch = NO;
@@ -145,7 +170,7 @@ BOOL CalculatorKeyPadButtonSwitch = NO;
 
 // Sileo
 BOOL SileoSourcesCellSwitch = NO;
-BOOL SileoPackageCollectionViewCellSwitch = NO;
+BOOL SileoPackageCollectionViewCellSwitch;
 BOOL SileoTableViewCellSwitch = NO;
 BOOL SileoFeaturedBannerViewSwitch = NO;
 BOOL SileoConfirmDownloadButtonSwitch = NO;
@@ -156,56 +181,66 @@ BOOL apolloFloatingActionButtonSwitch = NO;
 BOOL apolloASDisplayViewSwitch = NO;
 BOOL apolloUIButtonSwitch = NO;
 
+// Delay
+BOOL delaySwitch = NO;
+NSString* delayLevel = @"0.0";
+
 // Low Power Mode And DND Mode Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch = NO;
 BOOL isDNDActive;
 BOOL isDNDActiveSwitch = NO;
 
-// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
-NSString* tapticLevel = @"0";
-NSString* hapticLevel = @"0";
-NSString* legacyLevel = @"0";
-NSString* customlegacyDurationLevel = @"0";
-NSString* customlegacyStrengthLevel = @"0";
-NSString* delayLevel = @"0.0";
-int customFeedbackValue;
-
-// Custom Strength List controllers
-NSString* customStrengthRespringControl = @"0";
-NSString* customStrengthRingerControl = @"0";
-NSString* customStrengthHomeButtonControl = @"0";
-NSString* customStrengthUnlockControl = @"0";
-NSString* customStrengthLockControl = @"0";
-NSString* customStrengthSleepButtonControl = @"0";
-NSString* customStrengthVolumeControl = @"0";
-NSString* customStrengthPowerDownControl = @"0";
+// Anywhere Section (Custom)
 NSString* customStrengthKillingControl = @"0";
-NSString* customStrengthForceTouchControl = @"0";
-NSString* customStrengthPluggedControl = @"0";
-NSString* customStrengthReachabilityControl = @"0";
 NSString* customStrengthSwitcherControl = @"0";
 NSString* customStrengthSiriControl = @"0";
+NSString* customStrengthScreenshotControl = @"0";
+NSString* customStrengthReachabilityControl = @"0";
+NSString* customStrengthTextSelectionControl = @"0";
+NSString* customStrengthPowerDownControl = @"0";
+NSString* customStrengthRespringControl = @"0";
+NSString* customStrengthTouchesControl = @"0";
+NSString* customStrengthKeyboardControl = @"0";
+NSString* customStrengthEnterBackgroundControl = @"0";
+NSString* customStrengthAlertAppearControl = @"0";
+NSString* customStrengthAlertDisappearControl = @"0";
+
+// Control Center Section (Custom)
 NSString* customStrengthCCToggleControl = @"0";
+NSString* customStrengthOpenControlCenterControl = @"0";
+NSString* customStrengthCCModuleControl = @"0";
+
+// Hardware Buttons Section (Custom)
+NSString* customStrengthVolumeControl = @"0";
+NSString* customStrengthSleepButtonControl = @"0";
+NSString* customStrengthHomeButtonControl = @"0";
+NSString* customStrengthRingerControl = @"0";
+
+// Homescreen Section (Custom)
+NSString* customStrengthForceTouchControl = @"0";
 NSString* customStrengthFolderOpenControl = @"0";
 NSString* customStrengthFolderCloseControl = @"0";
 NSString* customStrengthIconTapControl = @"0";
 NSString* customStrengthPageSwipeControl = @"0";
-NSString* customStrengthScreenshotControl = @"0";
+NSString* customStrengthSpotlightControl = @"0";
+
+// Lockscreen Section (Custom)
 NSString* customStrengthPasscodeControl = @"0";
 NSString* customStrengthQuickActionsButtonControl = @"0";
-NSString* customStrengthKeyboardControl = @"0";
-NSString* customStrengthTextSelectionControl = @"0";
-NSString* customStrengthSpotlightControl = @"0";
-NSString* customStrengthCallControl = @"0";
-NSString* customStrengthAuthenticationControl = @"0";
+
+// Other Hardware Action Section (Custom)
 NSString* customStrengthWakeControl = @"0";
-NSString* customStrengthTouchesControl = @"0";
-NSString* customStrengthOpenControlCenterControl = @"0";
-NSString* customStrengthCCModuleControl = @"0";
-NSString* customStrengthEnterBackgroundControl = @"0";
-NSString* customStrengthAlertAppearControl = @"0";
-NSString* customStrengthAlertDisappearControl = @"0";
+NSString* customStrengthPluggedControl = @"0";
+NSString* customStrengthConnectBluetoothDeviceControl = @"0";
+
+// Status Changes Section (Custom)
+NSString* customStrengthUnlockControl = @"0";
+NSString* customStrengthLockControl = @"0";
+NSString* customStrengthAuthenticationControl = @"0";
+NSString* customStrengthCallControl = @"0";
+
+// System Wide Section (Custom)
 NSString* customStrengthUIButtonControl = @"0";
 NSString* customStrengthUIButtonBarButtonControl = @"0";
 NSString* customStrengthUITabBarButtonControl = @"0";

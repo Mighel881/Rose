@@ -6,24 +6,30 @@
 	<array>
 
 		<dict>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@Litteeen</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>Litten</string>
-            <key>user</key>
-            <string>Litteeen</string>
-        </dict>
+			<key>cellClass</key>
+			<string>DuoTwitterCell</string>
+			<key>firstLabel</key>
+			<string>Litten</string>
+			<key>firstAccount</key>
+			<string>Litteeen</string>
+			<key>secondLabel</key>
+			<string>taki</string>
+			<key>secondAccount</key>
+			<string>74k1_</string>
+			<key>height</key>
+			<real>57</real>
+		</dict>
 		
 				<!-- Taptic Engine Strength -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Taptic Engine Strength - iPhone 7/7+ and up</string>
+			<string>Taptic Engine Strength</string>
+			<key>footerText</key>
+			<string>iPhone 7/7+ And Up</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -75,7 +81,11 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Engine Strength - iPhone 6s/6s+</string>
+			<string>Haptic Engine Strength</string>
+			<key>footerText</key>
+			<string>iPhone 6s/6s+</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -123,7 +133,11 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Legacy Support - iPhone SE/6..</string>
+			<string>Legacy Support</string>
+			<key>footerText</key>
+			<string>iPhone SE/6..</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -186,6 +200,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Homescreen</string>
+			<key>icon</key>
+			<string>hscng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -196,6 +212,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Lockscreen</string>
+			<key>icon</key>
+			<string>lscng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -206,6 +224,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Anywhere</string>
+			<key>icon</key>
+			<string>aywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -216,6 +236,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Hardware Buttons</string>
+			<key>icon</key>
+			<string>hwbtg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -226,6 +248,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Control Center</string>
+			<key>icon</key>
+			<string>ccg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -236,6 +260,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Status Changes</string>
+			<key>icon</key>
+			<string>scng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -246,6 +272,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Other Hardware Actions</string>
+			<key>icon</key>
+			<string>ohag.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -256,6 +284,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>System Wide</string>
+			<key>icon</key>
+			<string>sywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -266,6 +296,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Applications</string>
+			<key>icon</key>
+			<string>apng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -276,6 +308,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Exceptions</string>
+			<key>icon</key>
+			<string>ecng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -286,6 +320,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>Additionals</string>
+			<key>icon</key>
+			<string>atlng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -368,91 +404,79 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Icon Design</string>
+			<string>Sending Love To</string>
+			<key>footerText</key>
+			<string>Thanks Kritanta For The Pretty Twitter Cells</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
-            <key>action</key>
-            <string>twittertaki</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@74k1_</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>taki</string>
-            <key>user</key>
-            <string>74k1_</string>
-        </dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
 			<key>label</key>
-			<string>Special Thanks</string>
+			<string>Esquilli</string>
+			<key>accountName</key>
+			<string>EsquilliDev</string>
 		</dict>
 		<dict>
-            <key>action</key>
-            <string>twitterEsq</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@EsquilliDev</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>EsquilliDev</string>
-            <key>user</key>
-            <string>EsquilliDev</string>
-        </dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>iKilledAppl3</string>
+			<key>accountName</key>
+			<string>iKilledAppl3</string>
+		</dict>
 		<dict>
-            <key>action</key>
-            <string>twitteriKilled</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@iKilledAppl3</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>iKilledAppl3</string>
-            <key>user</key>
-            <string>iKilledAppl3</string>
-        </dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>ArtikusHG</string>
+			<key>accountName</key>
+			<string>artikushg</string>
+		</dict>
 		<dict>
-            <key>action</key>
-            <string>twitterartikus</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@artikushg</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>ArtikusHG</string>
-            <key>user</key>
-            <string>artikushg</string>
-        </dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>Mirac</string>
+			<key>accountName</key>
+			<string>thatmirac</string>
+		</dict>
 		<dict>
-            <key>action</key>
-            <string>twittertaki</string>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@thatmirac</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>Mirac</string>
-            <key>user</key>
-            <string>thatmirac</string>
-        </dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>Kritanta</string>
+			<key>accountName</key>
+			<string>_kritanta</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>Tom T.</string>
+			<key>accountName</key>
+			<string>tomt000</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>MTAC</string>
+			<key>accountName</key>
+			<string>MTAC8</string>
+		</dict>
 
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Support Me</string>
+			<key>footerText</key>
+			<string>Rose By Litten
+Artworks By taki</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -460,7 +484,7 @@
 			<key>label</key>
 			<string>Little Donation 🌺</string>
 			<key>subtitle</key>
-			<string>Helps Me To Pay For My Server</string>
+			<string>Appreciated 💘</string>
 			<key>url</key>
 			<string>https://paypal.me/Litteeen</string>
 		</dict>
@@ -480,7 +504,7 @@
 			<key>label</key>
 			<string>Source Code 🌙</string>
 			<key>subtitle</key>
-			<string>Github</string>
+			<string>It's On My Github</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Rose</string>
 		</dict>
@@ -497,11 +521,13 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSGroupCell</string>
+			<key>PSGroupCell</key>
 			<key>footerText</key>
-			<string>Rose By Litten, Made With ❤️</string>
+			<string>Made With 💙</string>
 			<key>isStaticText</key>
 			<true/>
+			<key>footerAlignment</key>
+			<real>1</real>
 		</dict>
 
 	</array>

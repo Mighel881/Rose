@@ -1,6 +1,8 @@
 #include "RSERootListController.h"
+#include <Cephei/HBRespringController.h>
 #import "../Tweak/Rose.h"
 #import <sys/utsname.h>
+#import <spawn.h>
 
 BOOL enabled = NO;
 BOOL enableTapticEngineSwitch;
@@ -32,7 +34,7 @@ UIImpactFeedbackGenerator* gen;
         RSEAppearanceSettings *appearanceSettings = [[RSEAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
         self.enableSwitch = [[UISwitch alloc] init];
-        self.enableSwitch.onTintColor = [UIColor colorWithRed:1.00 green:0.96 blue:0.64 alpha:1.0];
+        self.enableSwitch.onTintColor = [UIColor colorWithRed:0.11 green:0.22 blue:0.44 alpha:1.00];
         [self.enableSwitch addTarget:self action:@selector(toggleState) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem* switchy = [[UIBarButtonItem alloc] initWithCustomView: self.enableSwitch];
         self.navigationItem.rightBarButtonItem = switchy;
@@ -41,7 +43,7 @@ UIImpactFeedbackGenerator* gen;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"5.0";
+        self.titleLabel.text = @"5.1";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -116,7 +118,7 @@ UIImpactFeedbackGenerator* gen;
     CGRect frame = self.table.bounds;
     frame.origin.y = -frame.size.height;
 
-    self.navigationController.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.64 green:0.67 blue:1.00 alpha:1.0];
+    self.navigationController.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.56 green:0.66 blue:0.79 alpha:1.00];
     [self.navigationController.navigationController.navigationBar setShadowImage: [UIImage new]];
     self.navigationController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationController.navigationBar.translucent = NO;
@@ -223,11 +225,20 @@ UIImpactFeedbackGenerator* gen;
     
     controller.view.backgroundColor = [UIColor whiteColor];
 
+    CAGradientLayer* gradient = [[CAGradientLayer alloc] init];
+    [gradient setFrame: [[controller view] bounds]];
+    [gradient setStartPoint:CGPointMake(0.0, -0.5)];
+    [gradient setEndPoint:CGPointMake(1.0, 1.0)];
+    [gradient setColors:@[(id)[[UIColor colorWithRed:0.76 green:0.12 blue:0.34 alpha:1.0] CGColor], (id)[[UIColor whiteColor] CGColor]]];
+    [gradient setLocations:@[@0,@1]];
+
+    [[[controller view] layer] insertSublayer:gradient atIndex:0];
+
     UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, controller.view.center.x, controller.view.center.y)];
     CGPoint center = controller.view.center;
     center.y = controller.view.frame.size.height / 3;
     [headerLabel setCenter:center];
-    headerLabel.textColor = [UIColor blackColor];
+    headerLabel.textColor = [UIColor whiteColor];
     headerLabel.text = @"Welcome\nTo Rose";
     headerLabel.numberOfLines = 2;
     headerLabel.clipsToBounds = YES;
@@ -238,7 +249,7 @@ UIImpactFeedbackGenerator* gen;
 
     UILabel* introductionText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, controller.view.center.x, controller.view.center.y)];
     [introductionText setCenter:controller.view.center];
-    introductionText.textColor = [UIColor blackColor];
+    introductionText.textColor = [UIColor whiteColor];
     introductionText.text = @"Rose Will Automatically Set Everything Up For You So Just Lean Back";
     introductionText.numberOfLines = 4;
     introductionText.clipsToBounds = YES;
@@ -288,6 +299,15 @@ UIImpactFeedbackGenerator* gen;
         controller2 = [[UIViewController alloc] init];
         controller2.view.backgroundColor = [UIColor whiteColor];
 
+        CAGradientLayer* gradient = [[CAGradientLayer alloc] init];
+        [gradient setFrame: [[controller2 view] bounds]];
+        [gradient setStartPoint:CGPointMake(0.0, -0.5)];
+        [gradient setEndPoint:CGPointMake(1.0, 1.0)];
+        [gradient setColors:@[(id)[[UIColor colorWithRed:0.76 green:0.12 blue:0.34 alpha:1.0] CGColor], (id)[[UIColor whiteColor] CGColor]]];
+        [gradient setLocations:@[@0,@1]];
+
+        [[[controller2 view] layer] insertSublayer:gradient atIndex:0];
+
         UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, controller2.view.frame.size.height, controller2.view.frame.size.width)];
         CGPoint center = controller2.view.center;
         center.y = controller2.view.frame.size.height / 4.5;
@@ -303,7 +323,7 @@ UIImpactFeedbackGenerator* gen;
         textView.text = @"";
         textView.selectable = NO;
         textView.editable = NO;
-        textView.textColor = [UIColor blackColor];
+        textView.textColor = [UIColor whiteColor];
         textView.backgroundColor = [UIColor clearColor];
         [textView setFont: [UIFont fontWithName: @"HelveticaNeue-Medium" size:18]];
 
@@ -483,6 +503,15 @@ UIImpactFeedbackGenerator* gen;
         controller2 = [[UIViewController alloc] init];
         controller2.view.backgroundColor = [UIColor whiteColor];
 
+        CAGradientLayer* gradient = [[CAGradientLayer alloc] init];
+        [gradient setFrame: [[controller2 view] bounds]];
+        [gradient setStartPoint:CGPointMake(0.0, -0.5)];
+        [gradient setEndPoint:CGPointMake(1.0, 1.0)];
+        [gradient setColors:@[(id)[[UIColor colorWithRed:0.76 green:0.12 blue:0.34 alpha:1.0] CGColor], (id)[[UIColor whiteColor] CGColor]]];
+        [gradient setLocations:@[@0,@1]];
+
+        [[[controller2 view] layer] insertSublayer:gradient atIndex:0];
+
         UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, controller2.view.frame.size.height, controller2.view.frame.size.width)];
         CGPoint center = controller2.view.center;
         center.y = controller2.view.frame.size.height / 4.5;
@@ -498,7 +527,7 @@ UIImpactFeedbackGenerator* gen;
         textView.text = @"";
         textView.selectable = NO;
         textView.editable = NO;
-        textView.textColor = [UIColor blackColor];
+        textView.textColor = [UIColor whiteColor];
         textView.backgroundColor = [UIColor clearColor];
         [textView setFont: [UIFont fontWithName: @"HelveticaNeue-Medium" size:18]];
 
@@ -549,10 +578,11 @@ UIImpactFeedbackGenerator* gen;
 
 - (void)respringUtil {
 
-	NSTask *t = [[NSTask alloc] init];
-    [t setLaunchPath:@"/usr/bin/killall"];
-    [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-    [t launch];
+    [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Rose"]];
+    // Doing This As Well As The Respring From Cephei Is Broken So We Have To Force ReSpring
+    pid_t pid;
+    const char *args[] = {"killall", "backboardd", NULL};
+    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);
 
 }
 
