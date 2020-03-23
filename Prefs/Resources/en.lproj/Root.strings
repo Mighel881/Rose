@@ -1,0 +1,77 @@
+{
+
+  "ROSE" = "Rose";
+
+  "LIGHT" = "Light";
+  "MEDIUM" = "Medium";
+  "HEAVY" = "Heavy";
+  "SOFT" = "Soft";
+  "RIGID" = "Rigid";
+  "STRONG" = "Strong";
+  "DEFAULT" = "Default";
+  "CUSTOM" = "Custom";
+
+  "TAPTIC_ENGINE_STRENGTH" = "Taptic Engine Strength";
+  "IPHONE_7_OR_7PLUS_AND_UP" = "iPhone 7/7+ And Up";
+  "USE_TAPTIC_ENGINE" = "Use Taptic Engine";
+
+  "HAPTIC_ENGINE_STRENGTH" = "Haptic Engine Strength";
+  "IPHONE_6S_OR_6SPLUS" = "iPhone 6s/6s+";
+  "USE_HAPTIC_ENGINE" = "Use Haptic Engine";
+
+  "LEGACY_SUPPORT" = "Legacy Support";
+  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone SE/6..";
+  "USE_LEGACY_ENGINE" = "Use Legacy Engine";
+  "CUSTOM_LEGACY_SETTINGS" = "Custom Legacy Settings";
+  
+  "HAPTIC_FEEDBACK_OPTIONS" = "Haptic Feedback Options";
+  
+  "HOMESCREEN" = "Homescreen";
+  "LOCKSCREEN" = "Lockscreen";
+  "ANYWHERE" = "Anywhere";
+  "HARDWARE_BUTTONS" = "Hardware Buttons";
+  "CONTROL_CENTER" = "Control Center";
+  "STATUS_CHANGES" = "Status Changes";
+  "OTHER_HARDWARE_ACTIONS" = "Other Hardware Actions";
+  "SYSTEM_WIDE" = "System Wide";
+  "APPLICATIONS" = "Applications";
+  "EXCEPTIONS" = "Exceptions";
+  "ADDITIONALS" = "Additionals";
+
+  "HAPTIC_DELAY_IN_SECONDS" = "Haptic Delay - Seconds";
+  "ENABLE_DELAY" = "Enable Delay";
+
+  "OTHER_OPTIONS" = "Other Options";
+  "RESPRING" = "Respring";
+  "RESET_PREFERENCES" = "Reset Preferences";
+  "SHOW_SETUP_AGAIN" = "Show Setup Again";
+  
+  "SENDING_LOVE_TO" = "Sending Love To";
+  "THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS" = "Thanks kritanta For The Pretty Twitter Cells";
+
+  "CONTRIBUTORS_CREDITS" = "Testing And Translating";
+  "CONTRIBUTORS" = "Contributors";
+  "HELP_TRANSLATING_ROSE" = "Help Translating Rose";
+
+  "GIVE_THESE_A_LOOK" = "Give These A Look";
+  "LUNE_DESCRIPTION" = "Let A Moon Icon Appear While In DND";
+  "AESTEA_DESCRIPTION" = "Miss Cream? Try Aestea";
+  "BUTTERFLY_DESCRIPTION" = "Text Selection, But Colorful";
+  
+  "SUPPORT_ME" = "Support Me";
+  "ROSE_BY_LITTEN_
+ARTWORKS_BY_TAKI" = "Rose By Litten
+Artworks By taki";
+
+  "LITTLE_DONATION_🌺" = "Little Donation 🌺";
+  "APPRECIATED_💘" = "Appreciated 💘";
+  "FEATURE_REQUEST?_✨" = "Feature Request? ✨";
+  "SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST" = "Send Me An Email With Your Request";
+  "SOURCE_CODE_🌙" = "Source Code 🌙";
+  "ITS_ON_MY_GITHUB" = "It's On My Github";
+  "FOUND_A_BUG?_🌧" = "Found A Bug? 🌧";
+  "LEAVE_A_BUG_REPORT_HERE" = "Leave A Bug Report Here";
+  
+  "MADE_WITH_💙" = "Made With 💙";
+
+}

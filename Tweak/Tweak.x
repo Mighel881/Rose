@@ -6,6 +6,156 @@ BOOL enableTapticEngineSwitch = NO;
 BOOL enableHapticEngineSwitch = NO;
 BOOL enableLegacyEngineSwitch = NO;
 
+// Switches To Enable Sections
+BOOL anywhereSectionSupportSwitch = NO;
+BOOL controlCenterSectionSupportSwitch = NO;
+BOOL hardwareButtonsSectionSupportSwitch = NO;
+BOOL homescreenSectionSupportSwitch = NO;
+BOOL lockscreenSectionSupportSwitch = NO;
+BOOL otherHardwareActionsSectionSupportSwitch = NO;
+BOOL statusChangesSectionSupportSwitch = NO;
+BOOL systemWideSectionSupportSwitch = NO;
+BOOL extrasSectionSupportSwitch = NO;
+BOOL exceptionsSectionSupportSwitch = NO;
+
+// Anywhere Section
+BOOL killingSwitch = NO;
+BOOL switcherSwitch = NO;
+BOOL siriSwitch = NO;
+BOOL screenshotSwitch = NO;
+BOOL reachabilitySwitch = NO;
+BOOL textSelectionSwitch = NO;
+BOOL powerSwitch = NO;
+BOOL respringSwitch = NO;
+BOOL keyboardSwitch = NO;
+BOOL enterBackgroundSwitch = NO;
+BOOL alertAppearSwitch = NO;
+BOOL alertDisappearSwitch = NO;
+
+// Control Center Section
+BOOL ccToggleSwitch = NO;
+BOOL openControlCenterSwitch = NO;
+BOOL ccModuleSwitch = NO;
+
+// Hardware Buttons
+BOOL volumeSwitch = NO;
+BOOL sleepButtonSwitch = NO;
+BOOL homeButtonSwitch = NO;
+BOOL ringerSwitch = NO;
+
+// Homescreen Section
+BOOL forceSwitch = NO;
+BOOL folderOpenSwitch = NO;
+BOOL folderCloseSwitch = NO;
+BOOL iconTapSwitch = NO;
+BOOL pageSwipeSwitch = NO;
+BOOL spotlightSwitch = NO;
+
+// Lockscreen Section
+BOOL passcodeSwitch = NO;
+BOOL quickActionsButtonSwitch = NO;
+
+// Other Hardware Actions Section
+BOOL wakeSwitch = NO;
+BOOL pluggedSwitch = NO;
+BOOL connectBluetoothDeviceSwitch = NO;
+
+// Status Changes Section
+BOOL unlockSwitch = NO;
+BOOL lockSwitch = NO;
+BOOL authenticationSwitch = NO;
+BOOL callSwitch = NO;
+
+// System Wide Section
+BOOL UIButtonSwitch = NO;
+BOOL UIButtonBarButtonSwitch = NO;
+BOOL UITabBarButtonSwitch = NO;
+BOOL UIImageViewSwitch = NO;
+BOOL UIViewSwitch = NO;
+BOOL UIWindowSwitch = NO;
+
+// Additionals Section
+BOOL lockAnimationSwitch = NO;
+
+// Enable App Support Switches
+BOOL apolloSupportSwitch = NO;
+BOOL calculatorSupportSwitch = NO;
+BOOL facebookSupportSwitch = NO;
+BOOL instagramSupportSwitch = NO;
+BOOL musicSupportSwitch = NO;
+BOOL phoneSupportSwitch = NO;
+BOOL safariSupportSwitch = NO;
+BOOL sileoSupportSwitch = NO;
+BOOL spotifySupportSwitch = NO;
+BOOL tiktokSupportSwitch = NO;
+BOOL twitterSupportSwitch = NO;
+
+// Delay
+BOOL delaySwitch = NO;
+NSString* delayLevel = @"0.0";
+
+// Low Power Mode And DND Mode Recognition
+BOOL LowPowerMode = NO;
+BOOL LowPowerModeSwitch = NO;
+BOOL isDNDActive = NO;
+BOOL isDNDActiveSwitch = NO;
+
+// Anywhere Section (Custom)
+NSString* customStrengthKillingControl = @"0";
+NSString* customStrengthSwitcherControl = @"0";
+NSString* customStrengthSiriControl = @"0";
+NSString* customStrengthScreenshotControl = @"0";
+NSString* customStrengthReachabilityControl = @"0";
+NSString* customStrengthTextSelectionControl = @"0";
+NSString* customStrengthPowerDownControl = @"0";
+NSString* customStrengthRespringControl = @"0";
+NSString* customStrengthKeyboardControl = @"0";
+NSString* customStrengthEnterBackgroundControl = @"0";
+NSString* customStrengthAlertAppearControl = @"0";
+NSString* customStrengthAlertDisappearControl = @"0";
+
+// Control Center Section (Custom)
+NSString* customStrengthCCToggleControl = @"0";
+NSString* customStrengthOpenControlCenterControl = @"0";
+NSString* customStrengthCCModuleControl = @"0";
+
+// Hardware Buttons Section (Custom)
+NSString* customStrengthVolumeControl = @"0";
+NSString* customStrengthSleepButtonControl = @"0";
+NSString* customStrengthHomeButtonControl = @"0";
+NSString* customStrengthRingerControl = @"0";
+
+// Homescreen Section (Custom)
+NSString* customStrengthForceTouchControl = @"0";
+NSString* customStrengthFolderOpenControl = @"0";
+NSString* customStrengthFolderCloseControl = @"0";
+NSString* customStrengthIconTapControl = @"0";
+NSString* customStrengthPageSwipeControl = @"0";
+NSString* customStrengthSpotlightControl = @"0";
+
+// Lockscreen Section (Custom)
+NSString* customStrengthPasscodeControl = @"0";
+NSString* customStrengthQuickActionsButtonControl = @"0";
+
+// Other Hardware Action Section (Custom)
+NSString* customStrengthWakeControl = @"0";
+NSString* customStrengthPluggedControl = @"0";
+NSString* customStrengthConnectBluetoothDeviceControl = @"0";
+
+// Status Changes Section (Custom)
+NSString* customStrengthUnlockControl = @"0";
+NSString* customStrengthLockControl = @"0";
+NSString* customStrengthAuthenticationControl = @"0";
+NSString* customStrengthCallControl = @"0";
+
+// System Wide Section (Custom)
+NSString* customStrengthUIButtonControl = @"0";
+NSString* customStrengthUIButtonBarButtonControl = @"0";
+NSString* customStrengthUITabBarButtonControl = @"0";
+NSString* customStrengthUIImageViewControl = @"0";
+NSString* customStrengthUIViewControl = @"0";
+NSString* customStrengthUIWindowControl = @"0";
+
 // Rose wide haptics controller
 void prepareForHaptic() {
 
@@ -203,413 +353,7 @@ void triggerLegacyFeedback() {
 
 }
 
-%group Rose
-
-%hook SpringBoard
-
-- (void)applicationDidFinishLaunching:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !respringSwitch) return;
-	int customStrength = [customStrengthRespringControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)_ringerChanged:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !ringerSwitch) return;
-	int customStrength = [customStrengthRingerControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (BOOL)_handlePhysicalButtonEvent:(UIPressesEvent *)arg1 {
-
-	// type = 101 -> Home button
-	// force = 0 -> button released
-	// force = 1 -> button pressed
-
-	//int type = arg1.allPresses.allObjects[0].type;
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return %orig;
-	int force = arg1.allPresses.allObjects[0].force;
-	int customStrength = [customStrengthHomeButtonControl intValue];
-
-	if (force == 1) {
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-	}
-
-	return %orig;
-
-}
-
-%end
-
-%hook SBCoverSheetPrimarySlidingViewController
-
-- (void)viewWillDisappear:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !statusChangesSectionSupportSwitch || !unlockSwitch) return;
-	int customStrength = [customStrengthUnlockControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)viewDidAppear:(BOOL)arg1 {
-
-	fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:pathForHapticPasscode] || [fileManager fileExistsAtPath:pathForHapticKeys] || [fileManager fileExistsAtPath:pathForHapticVolume] || [fileManager fileExistsAtPath:pathForHapticker] || [fileManager fileExistsAtPath:pathForHapticLock]) {
-        if (!hasSeenCompatibilityAlert) {
-			if ([fileManager fileExistsAtPath:pathForRosePlist]) {
-				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose"
-				message:@"Rose has detected that you have another haptic feedback tweak installed,\nRose will probably also have those features so you can uninstall the other tweak but still,\nfeel free to not uninstall the other tweak and to just ignore this alert\n\n[This Alert can be turned on or off manually in Rose's Preferences]"
-				preferredStyle:UIAlertControllerStyleAlert];
-
-				UIAlertAction *dontShowAgainAction = [UIAlertAction actionWithTitle:@"Don't Show Again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-					hasSeenCompatibilityAlert = YES;
-					[pfs setBool:hasSeenCompatibilityAlert forKey:@"CompatibilityAlert"];
-
-				}];
-				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:nil];
-				[alert addAction:dontShowAgainAction];
-				[alert addAction:cancelAction];
-				[self presentViewController:alert animated:YES completion:nil];
-
-			}
-
-        }
-
-    }
-
-    if (SYSTEM_VERSION_LESS_THAN(@"13.0")) {
-        if ([fileManager fileExistsAtPath:pathForRosePlist]) {
-			if (!hasSeeniOSAlert) {
-				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rose - Notice!"
-				message:@"Rose has detected that you're on iOS 12.x means Soft and Rigid Mode for your haptic strength are NOT available as it's only availble on iOS 13! Please use one of the other options, enjoy 💖"
-				preferredStyle:UIAlertControllerStyleAlert];
-
-				UIAlertAction *dontShowAgainAction = [UIAlertAction actionWithTitle:@"Don't Show Again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-					hasSeeniOSAlert = YES;
-					[pfs setBool:hasSeeniOSAlert forKey:@"iOSAlert"];
-
-				}];
-
-				UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleCancel handler:nil];
-				[alert addAction:dontShowAgainAction];
-				[alert addAction:cancelAction];
-				[self presentViewController:alert animated:YES completion:nil];
-
-			}
-
-        }
-
-    }
-
-}
-
-%end
-
-%hook SBSleepWakeHardwareButtonInteraction
-
-- (void)_playLockSound {
-
-	%orig;
-
-	if (!enabled || !statusChangesSectionSupportSwitch || !lockSwitch) return;
-	int customStrength = [customStrengthLockControl intValue];
-
-	if (lockAnimationSwitch && !(LowPowerModeSwitch && LowPowerMode)) {
-		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
-		[gen impactOccurred];
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.065 * NSEC_PER_SEC);
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-					
-			[gen impactOccurred];
-
-		});
-
-	} else if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (BOOL)consumeInitialPressDown {
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !sleepButtonSwitch) return %orig;
-	int customStrength = [customStrengthSleepButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-	return %orig;
-
-}
-
-%end
-
-%hook VolumeControl
-
-- (void)increaseVolume {
-
-	%orig;
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)decreaseVolume {
-
-	%orig;
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBVolumeControl
-
-- (void)increaseVolume {
-
-	%orig;
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)decreaseVolume {
-
-	%orig;
-
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBPowerDownController
-
-- (void)orderFront {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
-	int customStrength = [customStrengthPowerDownControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBPowerDownViewController
-
-- (void)viewWillAppear:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
-	int customStrength = [customStrengthPowerDownControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBMainDisplaySceneManager
-
-- (void)_appKilledInAppSwitcher:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !killingSwitch) return;
-	int customStrength = [customStrengthKillingControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBApplication
-
-- (void)_didExitWithContext:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !killingSwitch) return;
-	if (!(SYSTEM_VERSION_LESS_THAN(@"13.0"))) {
-		int customStrength = [customStrengthKillingControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-	
-	}
-
-}
-
-%end
+%group Homescreen
 
 %hook SBUIIconForceTouchController
 
@@ -619,127 +363,6 @@ void triggerLegacyFeedback() {
 
 	if (!enabled || !homescreenSectionSupportSwitch || !forceSwitch) return;
 	int customStrength = [customStrengthForceTouchControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBUIController
-
-- (void)ACPowerChanged {
-
-	%orig;
-
-	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !pluggedSwitch) return;
-	int customStrength = [customStrengthPluggedControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)handleWillBeginReachabilityAnimation {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !reachabilitySwitch) return;
-	int customStrength = [customStrengthReachabilityControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBAppSwitcherPageView
-
-- (void)setVisible:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !switcherSwitch) return;
-	int customStrength = [customStrengthSwitcherControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SiriUISiriStatusView
-
-- (void)didMoveToWindow {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !siriSwitch) return;
-	int customStrength = [customStrengthSiriControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook CCUILabeledRoundButton
-
-- (void)buttonTapped:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !controlCenterSectionSupportSwitch || !ccToggleSwitch) return;
-	int customStrength = [customStrengthCCToggleControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -786,52 +409,6 @@ void triggerLegacyFeedback() {
 
 	if (!enabled || !homescreenSectionSupportSwitch || !folderCloseSwitch) return;
 	int customStrength = [customStrengthFolderCloseControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBIconController
-
-- (void)viewWillAppear:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !homescreenSectionSupportSwitch || !enterBackgroundSwitch) return;
-	int customStrength = [customStrengthEnterBackgroundControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)iconTapped:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !homescreenSectionSupportSwitch || !iconTapSwitch) return;
-	int customStrength = [customStrengthIconTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -899,106 +476,6 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook SSScreenCapturer
-
-+ (void)playScreenshotSound {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !screenshotSwitch) return;
-	int customStrength = [customStrengthScreenshotControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBUIPasscodeLockViewBase 
-
-- (void)_sendDelegateKeypadKeyDown {
-
-	%orig;
-
-	if (!enabled || !lockscreenSectionSupportSwitch || !passcodeSwitch) return;
-	int customStrength = [customStrengthPasscodeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end	
-
-%hook UIKeyboardLayoutStar
-
-- (void)playKeyClickSoundOnDownForKey:(UIKBTree *)key {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !keyboardSwitch) return;
-	int customStrength = [customStrengthKeyboardControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook UICalloutBar
-
-- (void)buttonPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !anywhereSectionSupportSwitch || !textSelectionSwitch) return;
-	int customStrength = [customStrengthTextSelectionControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
 %hook SBSearchScrollView
 
 - (BOOL)gestureRecognizerShouldBegin:(id)arg1 {
@@ -1024,181 +501,18 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook TUCall
+%end
 
-- (void)_handleStatusChange {
+%group Lockscreen
+
+%hook SBUIPasscodeLockViewBase 
+
+- (void)_sendDelegateKeypadKeyDown {
 
 	%orig;
 
-	if (!enabled || !statusChangesSectionSupportSwitch || !callSwitch) return;
-	int customStrength = [customStrengthCallControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SBDashBoardViewController
-
-- (void)setAuthenticated:(BOOL)authenticated {
-
-    %orig;
-
-	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
-    if (authenticated) {
-		int customStrength = [customStrengthAuthenticationControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-
-	}
-
-}
-
-%end
-
-%hook SBDashBoardLockScreenEnvironment // iOS 13
-
-- (void)setAuthenticated:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
-	if (arg1) {
-		int customStrength = [customStrengthAuthenticationControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-
-	}
-
-}
-
-%end
-
-%hook SBBacklightController
-
-- (void)turnOnScreenFullyWithBacklightSource:(long long)source {
-
-	%orig;
-
-	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !wakeSwitch) return;
-	// 26 - source of screenshots on newer ios version (afaik); eg this method gets called with source == 26 if u make a screenshot
-	if (source != 26) {
-		int customStrength = [customStrengthWakeControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-
-	}
-
-}
-
-%end
-
-%hook UIWindow
-
-- (BOOL)_shouldHitTestEntireScreen {
-
-	if (!enabled || !anywhereSectionSupportSwitch || !touchesSwitch) return %orig;
-	int customStrength = [customStrengthTouchesControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-		return YES;
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-		return YES;
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-		return YES;
-
-	} else {
-		return %orig;
-
-	}
-
-}
-
-%end
-
-%hook SBControlCenterController
-
-- (void)_willPresent {
-
-	%orig;
-
-	if (!enabled || !controlCenterSectionSupportSwitch || !openControlCenterSwitch) return;
-	int customStrength = [customStrengthOpenControlCenterControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook CCUIToggleViewController
-
-- (void)buttonTapped:(id)arg1 forEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !controlCenterSectionSupportSwitch || !ccModuleSwitch) return;
-	int customStrength = [customStrengthCCModuleControl intValue];
+	if (!enabled || !lockscreenSectionSupportSwitch || !passcodeSwitch) return;
+	int customStrength = [customStrengthPasscodeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1241,14 +555,243 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook SBDashBoardQuickActionsButton
+%end
 
-- (void)setSelected:(BOOL)arg1 {
+%group Anywhere
+
+%hook SBApplication
+
+- (void)_didExitWithContext:(id)arg1 {
 
 	%orig;
 
-	if (!enabled || !lockscreenSectionSupportSwitch || !quickActionsButtonSwitch) return;
-	int customStrength = [customStrengthQuickActionsButtonControl intValue];
+	if (!enabled || !anywhereSectionSupportSwitch || !killingSwitch) return;
+	int customStrength = [customStrengthKillingControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBAppSwitcherPageView
+
+- (void)setVisible:(BOOL)arg1 {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !switcherSwitch) return;
+	int customStrength = [customStrengthSwitcherControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SiriUISiriStatusView
+
+- (void)didMoveToWindow {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !siriSwitch) return;
+	int customStrength = [customStrengthSiriControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SSScreenCapturer
+
++ (void)playScreenshotSound {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !screenshotSwitch) return;
+	int customStrength = [customStrengthScreenshotControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBUIController
+
+- (void)handleWillBeginReachabilityAnimation {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !reachabilitySwitch) return;
+	int customStrength = [customStrengthReachabilityControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UICalloutBar
+
+- (void)buttonPressed:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !textSelectionSwitch) return;
+	int customStrength = [customStrengthTextSelectionControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBPowerDownViewController
+
+- (void)viewWillAppear:(BOOL)arg1 {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
+	int customStrength = [customStrengthPowerDownControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SpringBoard
+
+- (void)applicationDidFinishLaunching:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !respringSwitch) return;
+	int customStrength = [customStrengthRespringControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIKeyboardLayoutStar
+
+- (void)playKeyClickSoundOnDownForKey:(UIKBTree *)key {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !keyboardSwitch) return;
+	int customStrength = [customStrengthKeyboardControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBIconController
+
+- (void)viewWillAppear:(BOOL)arg1 {
+
+	%orig;
+
+	if (!enabled || !anywhereSectionSupportSwitch || !enterBackgroundSwitch) return;
+	int customStrength = [customStrengthEnterBackgroundControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1311,6 +854,419 @@ void triggerLegacyFeedback() {
 }
 
 %end
+
+%end
+
+%group HardwareButtons
+
+%hook SBVolumeControl
+
+- (void)increaseVolume {
+
+	%orig;
+
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+- (void)decreaseVolume {
+
+	%orig;
+
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBSleepWakeHardwareButtonInteraction
+
+- (BOOL)consumeInitialPressDown {
+
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !sleepButtonSwitch) return %orig;
+	int customStrength = [customStrengthSleepButtonControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+	return %orig;
+
+}
+
+%end
+
+%hook SpringBoard
+
+- (BOOL)_handlePhysicalButtonEvent:(UIPressesEvent *)arg1 {
+
+	// type = 101 -> Home button
+	// force = 0 -> button released
+	// force = 1 -> button pressed
+
+	//int type = arg1.allPresses.allObjects[0].type;
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return %orig;
+	int force = arg1.allPresses.allObjects[0].force;
+	int customStrength = [customStrengthHomeButtonControl intValue];
+
+	if (force == 1) {
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+		}
+
+	}
+
+	return %orig;
+
+}
+
+- (void)_ringerChanged:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !ringerSwitch) return;
+	int customStrength = [customStrengthRingerControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%end
+
+%group ControlCenter
+
+%hook CCUILabeledRoundButton
+
+- (void)buttonTapped:(id)arg1 {
+
+	%orig;
+
+	if (!enabled || !controlCenterSectionSupportSwitch || !ccToggleSwitch) return;
+	int customStrength = [customStrengthCCToggleControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBControlCenterController
+
+- (void)_willPresent {
+
+	%orig;
+
+	if (!enabled || !controlCenterSectionSupportSwitch || !openControlCenterSwitch) return;
+	int customStrength = [customStrengthOpenControlCenterControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook CCUIToggleViewController
+
+- (void)buttonTapped:(id)arg1 forEvent:(id)arg2 {
+
+	%orig;
+
+	if (!enabled || !controlCenterSectionSupportSwitch || !ccModuleSwitch) return;
+	int customStrength = [customStrengthCCModuleControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%end
+
+%group StatusChanges
+
+%hook SBCoverSheetPrimarySlidingViewController
+
+- (void)viewWillDisappear:(BOOL)arg1 {
+
+	%orig;
+
+	if (!enabled || !statusChangesSectionSupportSwitch || !unlockSwitch) return;
+	int customStrength = [customStrengthUnlockControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBSleepWakeHardwareButtonInteraction
+
+- (void)_playLockSound {
+
+	%orig;
+
+	if (!enabled || !statusChangesSectionSupportSwitch || !lockSwitch) return;
+	int customStrength = [customStrengthLockControl intValue];
+
+	if (lockAnimationSwitch && !(LowPowerModeSwitch && LowPowerMode)) {
+		gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
+		[gen impactOccurred];
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.065 * NSEC_PER_SEC);
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+					
+			[gen impactOccurred];
+
+		});
+
+	} else if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook SBDashBoardLockScreenEnvironment
+
+- (void)setAuthenticated:(BOOL)arg1 {
+
+	%orig;
+
+	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
+	if (arg1) {
+		int customStrength = [customStrengthAuthenticationControl intValue];
+
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
+
+	}
+
+}
+
+%end
+
+%hook TUCall
+
+- (void)_handleStatusChange {
+
+	%orig;
+
+	if (!enabled || !statusChangesSectionSupportSwitch || !callSwitch) return;
+	int customStrength = [customStrengthCallControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook BluetoothDevice
+
+- (void)connect {
+
+	%orig;
+	
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !connectBluetoothDeviceSwitch) return;
+	int customStrength = [customStrengthConnectBluetoothDeviceControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%end
+
+%group OtherHardwareActions
+
+%hook SBBacklightController
+
+- (void)turnOnScreenFullyWithBacklightSource:(long long)source {
+
+	%orig;
+
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !wakeSwitch) return;
+	// 26 - source of screenshots on newer ios version (afaik); eg this method gets called with source == 26 if u make a screenshot
+	if (source != 26) {
+		int customStrength = [customStrengthWakeControl intValue];
+
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			triggerFeedback();
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			customFeedbackValue = customStrength;
+			triggerCustomFeedback();
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			triggerLegacyFeedback();
+
+		}
+
+	}
+
+}
+
+%end
+
+%hook SBUIController
+
+- (void)ACPowerChanged {
+
+	%orig;
+
+	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !pluggedSwitch) return;
+	int customStrength = [customStrengthPluggedControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%end
+
+%group SystemWide
 
 %hook UIButton
 
@@ -1387,14 +1343,14 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook BluetoothDevice
+%hook UIImageView
 
-- (void)connect {
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
 
 	%orig;
 	
-	if (!enabled || !otherHardwareActionsSectionSupportSwitch || !connectBluetoothDeviceSwitch) return;
-	int customStrength = [customStrengthConnectBluetoothDeviceControl intValue];
+	if (!enabled || !systemWideSectionSupportSwitch || !UIImageViewSwitch) return;
+	int customStrength = [customStrengthUIImageViewControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1411,6 +1367,59 @@ void triggerLegacyFeedback() {
 }
 
 %end
+
+%hook UIView 
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+	
+	if (!enabled || !systemWideSectionSupportSwitch || !UIViewSwitch) return;
+	int customStrength = [customStrengthUIViewControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%hook UIWindow
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+	
+	if (!enabled || !systemWideSectionSupportSwitch || !UIWindowSwitch) return;
+	int customStrength = [customStrengthUIWindowControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+%end
+
+%end
+
 // Getting The State Of The Low Power Mode And DND
 %hook NSProcessInfo
 
@@ -1436,19 +1445,37 @@ void triggerLegacyFeedback() {
 
 %end
 
-%end // Rose group
+%group iOS12
 
-// Spotify
-%group Spotify
+%hook VolumeControl
 
-%hook SPTNowPlayingPlayButtonV2
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)increaseVolume {
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTplayButtonSwitch) return;
-	int customStrength = [customStrengthSPTplayButtonControl intValue];
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
+	int customStrength = [customStrengthVolumeControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+		triggerFeedback();
+
+	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+		customFeedbackValue = customStrength;
+		triggerCustomFeedback();
+
+	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+		triggerLegacyFeedback();
+
+	}
+
+}
+
+- (void)decreaseVolume {
+
+	%orig;
+
+	if (!enabled || !hardwareButtonsSectionSupportSwitch || !volumeSwitch) return;
+	int customStrength = [customStrengthVolumeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1466,14 +1493,14 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook SPTNowPlayingPreviousTrackButton
+%hook SBPowerDownController
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)orderFront {
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTpreviousTrackButtonSwitch) return;
-	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
+	if (!enabled || !anywhereSectionSupportSwitch || !powerSwitch) return;
+	int customStrength = [customStrengthPowerDownControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1491,14 +1518,14 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook SPTNowPlayingNextTrackButton
+%hook SBIconController
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)iconTapped:(id)arg1 {
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTnextTrackButtonSwitch) return;
-	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
+	if (!enabled || !homescreenSectionSupportSwitch || !iconTapSwitch) return;
+	int customStrength = [customStrengthIconTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -1516,911 +1543,15 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook SPTNowPlayingRepeatButton
+%hook SBDashBoardViewController
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)setAuthenticated:(BOOL)authenticated {
 
-	%orig;
+    %orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTrepeatButtonSwitch) return;
-	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingShuffleButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTshuffleButtonSwitch) return;
-	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingQueueButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTqueueButtonSwitch) return;
-	int customStrength = [customStrengthSPTqueueButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingSliderV2
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTsliderSwitch) return;
-	int customStrength = [customStrengthSPTsliderControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingFreeTierFeedbackButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTfreeTierButtonSwitch) return;
-	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTGaiaDevicesAvailableViewImplementation
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTavailableDevicesButtonSwitch) return;
-	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingMarqueeLabel
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTnowPlayingLabelSwitch) return;
-	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SPTNowPlayingBarPlayButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !spotifySupportSwitch || !SPTplayBarButtonSwitch) return;
-	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Instagram
-%group Instagram
-
-%hook IGFeedPhotoView
-
-- (void)_onDoubleTap:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
-	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook IGFeedItemVideoView
-
-- (void)overlayViewDidDoubleTap:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
-	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook IGUFIButtonBarView
-
-- (void)_onLikeButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGlikeButtonSwitch) return;
-	int customStrength = [customStrengthITGlikeButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)_onCommentButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGcommentButtonSwitch) return;
-	int customStrength = [customStrengthITGcommentButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)_onSaveButtonLongPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
-	int customStrength = [customStrengthITGsaveButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)_onSaveButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
-	int customStrength = [customStrengthITGsaveButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-- (void)_onSendButtonPressed:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !instagramSupportSwitch || !ITGsendButtonSwitch) return;
-	int customStrength = [customStrengthITGsendButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-	
-}
-
-%end
-
-%end
-
-// TikTok
-%group TikTok
-
-%hook AWEFeedVideoButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !tiktokSupportSwitch || !TTlikeCommentShareButtonsSwitch) return;
-	int customStrength = [customStrengthTTlikeCommentShareButtonsControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Twitter
-%group Twitter
-
-%hook TFNCustomTabBar
-
-- (void)tap:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !twitterSupportSwitch || !TWTtabBarSwitch) return;
-	int customStrength = [customStrengthTWTtabBarControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook T1StandardStatusView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !twitterSupportSwitch || !TWTtweetViewSwitch) return;
-	int customStrength = [customStrengthTWTtweetViewControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook T1DirectMessageInboxSummaryView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !twitterSupportSwitch || !TWTdirectMessagesTapSwitch) return;
-	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook T1ActivityCell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !twitterSupportSwitch || !TWTactivityTapSwitch) return;
-	int customStrength = [customStrengthTWTactivityTapControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook TFNFloatingActionButton
-
-- (void)_tfn_expandingButtonAction:(id)arg1 {
-
-	%orig;
-
-	if (!enabled || !twitterSupportSwitch || !TWTtweetButtonSwitch) return;
-	int customStrength = [customStrengthTWTtweetButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Safari
-%group Safari
-
-%hook _SFNavigationBarURLButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !safariSupportSwitch || !SFUrlSwitch) return;
-	int customStrength = [customStrengthSFUrlControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Phone
-%group Phone
-
-%hook PHHandsetDialerNumberPadButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !phoneSupportSwitch || !PHNumberPadSwitch) return;
-	int customStrength = [customStrengthPHNumberPadControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook CNContactListTableViewCell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !phoneSupportSwitch || !PHContactCellSwitch) return;
-	int customStrength = [customStrengthPHContactCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook PHHandsetDialerDeleteButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !phoneSupportSwitch || !PHDialerDeleteButtonSwitch) return;
-	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook PHBottomBarButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !phoneSupportSwitch || !PHDialerCallButtonSwitch) return;
-	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (PHDialerCallButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (PHDialerCallButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Facebook
-%group Facebook
-
-%hook FBTabBar
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !facebookSupportSwitch || !FBTabBarSwitch) return;
-	int customStrength = [customStrengthFBTabBarControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook FDSTetraPressStateAnnouncingControl
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !facebookSupportSwitch || !FBQuickAccessButtonsSwitch) return;
-	int customStrength = [customStrengthFBQuickAccessButtonsControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-// Music
-%group Music
-
-%hook MusicApplicationPlayButton // Play/Pause, Skip, Previous Song buttons
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicPlayPauseButtonsSwitch) return;
-	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook _TtCC16MusicApplication32NowPlayingControlsViewController12VolumeSlider // This is not a ObjC method, just badly converted to ObjC , Volume Slider
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicVolumeSliderSwitch) return;
-	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MusicApplicationContextualActionsButton // "..." More Actions Button
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicContextualActionsButtonSwitch) return;
-	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MusicApplicationTimeSlider // Time Slider
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicTimeSliderSwitch) return;
-	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MusicApplicationSongCell // Song Cell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicSongCellSwitch) return;
-	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook  _TtCC16MusicApplication30LibraryMenuTableViewController4Cell // Same here, badly converted to ObjC , Library selections like "Songs" or "Albums"
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicLibraryCellSwitch) return;
-	int customStrength = [customStrengthLibraryCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MusicApplicationAlbumCell // Album Cell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicAlbumCellSwitch) return;
-	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook MPRouteButton // Airplay Button
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicAirPlayButtonSwitch) return;
-	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
-	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
-		int customStrength = [customStrengthMPRouteButtonControl intValue];
+	if (!enabled || !statusChangesSectionSupportSwitch || !authenticationSwitch) return;
+    if (authenticated) {
+		int customStrength = [customStrengthAuthenticationControl intValue];
 
 		if (customStrength == 0 && !enableLegacyEngineSwitch) {
 			triggerFeedback();
@@ -2440,48 +1571,14 @@ void triggerLegacyFeedback() {
 
 %end
 
-%hook MPButton // Live Lyrics, Queue Button
+%hook SBDashBoardQuickActionsButton
 
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !musicSupportSwitch || !MusicLiveLyricsQueueButtonSwitch) return;
-	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
-	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
-		int customStrength = [customStrengthMPButtonControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-
-	}
-
-}
-
-%end
-
-%end
-
-%group Calculator
-
-%hook CalculatorApplicationKeyPadButton // Keypad Button
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+- (void)setSelected:(BOOL)arg1 {
 
 	%orig;
 
-	if (!enabled || !calculatorSupportSwitch || !CalculatorKeyPadButtonSwitch) return;
-	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
+	if (!enabled || !lockscreenSectionSupportSwitch || !quickActionsButtonSwitch) return;
+	int customStrength = [customStrengthQuickActionsButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
 		triggerFeedback();
@@ -2492,249 +1589,6 @@ void triggerLegacyFeedback() {
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
 		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-%group Sileo
-
-%hook SileoSourcesCell // Sources Cell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !sileoSupportSwitch || !SileoSourcesCellSwitch) return;
-	int customStrength = [customStrengthSileoSourcesCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SileoPackageCollectionViewCell // Package Cell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !sileoSupportSwitch || !SileoPackageCollectionViewCellSwitch) return;
-	int customStrength = [customStrengthSileoPackageCollectionViewCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SileoTableViewCell // Table View Cell
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !sileoSupportSwitch || !SileoTableViewCellSwitch) return;
-	int customStrength = [customStrengthSileoTableViewCellControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SileoFeaturedBannerView // Featured Banner View
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !sileoSupportSwitch || !SileoFeaturedBannerViewSwitch) return;
-	int customStrength = [customStrengthSileoFeaturedBannerViewControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook SileoConfirmDownloadButton // Download Confirm / ReSpring Button
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !sileoSupportSwitch || !SileoConfirmDownloadButtonSwitch) return;
-	int customStrength = [customStrengthSileoConfirmDownloadButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%end
-
-%group Apollo
-
-%hook JumpBar
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-	
-	if (!enabled || !apolloSupportSwitch || !apolloJumpBarSwitch) return;
-	int customStrength = [customStrengthApolloJumpBarControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook ApolloFloatingActionButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !apolloSupportSwitch || !apolloFloatingActionButtonSwitch) return;
-	int customStrength = [customStrengthApolloFloatingActionButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-	}
-
-}
-
-%end
-
-%hook _ASDisplayView
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !apolloSupportSwitch || !apolloASDisplayViewSwitch) return;
-	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
-	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
-		int customStrength = [customStrengthApolloASDisplayViewControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
-
-	}
-
-}
-
-%end
-
-%hook UIButton
-
-- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
-
-	%orig;
-
-	if (!enabled || !apolloSupportSwitch || !apolloUIButtonSwitch) return;
-	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
-	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
-		int customStrength = [customStrengthApolloUIButtonControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
-
-		}
 
 	}
 
@@ -2779,7 +1633,6 @@ void triggerLegacyFeedback() {
     NSString *processName = [NSProcessInfo processInfo].processName;
     bool isSpringboard = [@"SpringBoard" isEqualToString:processName];
 
-    // Someone smarter than Nepeta invented this. ~~ Her Words
     // https://www.reddit.com/r/jailbreak/comments/4yz5v5/questionremote_messages_not_enabling/d6rlh88/
     bool shouldLoad = NO;
     NSArray *args = [[NSClassFromString(@"NSProcessInfo") processInfo] arguments];
@@ -2827,7 +1680,7 @@ void triggerLegacyFeedback() {
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
-	// Switches To Enable Sections - I Do All Of This To Improve App Launch Time
+	// Switches To Enable Sections
 	[pfs registerBool:&anywhereSectionSupportSwitch default:NO forKey:@"anywhereSectionSupport"];
 	[pfs registerBool:&controlCenterSectionSupportSwitch default:NO forKey:@"controlCenterSectionSupport"];
 	[pfs registerBool:&hardwareButtonsSectionSupportSwitch default:NO forKey:@"hardwareButtonsSectionSupport"];
@@ -2848,7 +1701,6 @@ void triggerLegacyFeedback() {
 		[pfs registerBool:&textSelectionSwitch default:NO forKey:@"textSelection"];
 		[pfs registerBool:&powerSwitch default:NO forKey:@"powerDownView"];
 		[pfs registerBool:&respringSwitch default:NO forKey:@"respring"];
-		[pfs registerBool:&touchesSwitch default:NO forKey:@"touches"];
 		[pfs registerBool:&keyboardSwitch default:NO forKey:@"usingKeyboard"];
 		[pfs registerBool:&enterBackgroundSwitch default:NO forKey:@"enterBackground"];
 		[pfs registerBool:&alertAppearSwitch default:NO forKey:@"alertAppear"];
@@ -2906,6 +1758,9 @@ void triggerLegacyFeedback() {
 		[pfs registerBool:&UIButtonSwitch default:NO forKey:@"UIButton"];
 		[pfs registerBool:&UIButtonBarButtonSwitch default:NO forKey:@"UIButtonBarButton"];
 		[pfs registerBool:&UITabBarButtonSwitch default:NO forKey:@"UITabBarButton"];
+		[pfs registerBool:&UIImageViewSwitch default:NO forKey:@"UIImageView"];
+		[pfs registerBool:&UIViewSwitch default:NO forKey:@"UIView"];
+		[pfs registerBool:&UIWindowSwitch default:NO forKey:@"UIWindow"];
 
 	}
 	// Additionals Section
@@ -2927,102 +1782,6 @@ void triggerLegacyFeedback() {
 	[pfs registerBool:&tiktokSupportSwitch default:NO forKey:@"tiktokSupport"];
 	[pfs registerBool:&twitterSupportSwitch default:NO forKey:@"twitterSupport"];
 
-	// Spotify
-	if (spotifySupportSwitch) {
-		[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
-		[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
-		[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
-		[pfs registerBool:&SPTnextTrackButtonSwitch default:NO forKey:@"SPTnextTrackButton"];
-		[pfs registerBool:&SPTrepeatButtonSwitch default:NO forKey:@"SPTrepeatButton"];
-		[pfs registerBool:&SPTshuffleButtonSwitch default:NO forKey:@"SPTshuffleButton"];
-		[pfs registerBool:&SPTqueueButtonSwitch default:NO forKey:@"SPTqueueButton"];
-		[pfs registerBool:&SPTsliderSwitch default:NO forKey:@"SPTslider"];
-		[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
-		[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
-		[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
-
-	}
-	// Instagram
-	if (instagramSupportSwitch) {
-		[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
-		[pfs registerBool:&ITGdoubleTapToLikeSwitch default:NO forKey:@"ITGdoubleTapToLike"];
-		[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
-		[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
-		[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
-
-	}
-	// TikTok
-	if (tiktokSupportSwitch) {
-		[pfs registerBool:&TTlikeCommentShareButtonsSwitch default:NO forKey:@"TTlikeCommentShareButtons"];
-
-	}
-	// Twitter
-	if (twitterSupportSwitch) {
-		[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
-		[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
-		[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
-		[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
-		[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
-
-	}
-	// Safari
-	if (safariSupportSwitch) {
-		[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
-
-	}
-	// Phone
-	if (phoneSupportSwitch) {
-		[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
-		[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
-		[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
-		[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
-
-	}
-	// Facebook
-	if (facebookSupportSwitch) {
-		[pfs registerBool:&FBTabBarSwitch default:NO forKey:@"FBTabBar"];
-		[pfs registerBool:&FBQuickAccessButtonsSwitch default:NO forKey:@"QuickAccessButtons"];
-		[pfs registerBool:&FBNavigationBarButtonSwitch default:NO forKey:@"FBNavigationBarButton"];
-
-	}
-	// Music
-	if (musicSupportSwitch) {
-		[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
-		[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
-		[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
-		[pfs registerBool:&MusicTimeSliderSwitch default:NO forKey:@"MusicTimeSlider"];
-		[pfs registerBool:&MusicSongCellSwitch default:NO forKey:@"MusicSongCell"];
-		[pfs registerBool:&MusicLibraryCellSwitch default:NO forKey:@"MusicLibraryCell"];
-		[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
-		[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
-		[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
-
-	}
-	// Calculator
-	if (calculatorSupportSwitch) {
-		[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
-
-	}
-	// Sileo
-	if (sileoSupportSwitch) {
-		[pfs registerBool:&SileoSourcesCellSwitch default:NO forKey:@"SileoSourcesCell"];
-		[pfs registerBool:&SileoPackageCollectionViewCellSwitch default:NO forKey:@"SileoPackageCollectionViewCell"];
-		[pfs registerBool:&SileoTableViewCellSwitch default:NO forKey:@"SileoTableViewCell"];
-		[pfs registerBool:&SileoFeaturedBannerViewSwitch default:NO forKey:@"SileoFeaturedBannerView"];
-		[pfs registerBool:&SileoConfirmDownloadButtonSwitch default:NO forKey:@"SileoConfirmDownloadButton"];
-
-	}
-	// Apollo
-	if (apolloSupportSwitch) {
-		[pfs registerBool:&apolloJumpBarSwitch default:NO forKey:@"apolloJumpBar"];
-		[pfs registerBool:&apolloFloatingActionButtonSwitch default:NO forKey:@"ApolloFloatingActionButton"];
-		[pfs registerBool:&apolloASDisplayViewSwitch default:NO forKey:@"apolloASDisplayView"];
-		[pfs registerBool:&apolloUIButtonSwitch default:NO forKey:@"apolloUIButton"];
-
-	}
-	// Warnings
-	[pfs registerBool:&hasSeenCompatibilityAlert default:NO forKey:@"CompatibilityAlert"];
-	[pfs registerBool:&hasSeeniOSAlert default:NO forKey:@"iOSAlert"];
 	// Delay Slider And Switch
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0.0" forKey:@"Delay"];
@@ -3042,7 +1801,6 @@ void triggerLegacyFeedback() {
 		[pfs registerObject:&customStrengthTextSelectionControl default:@"0" forKey:@"customStrengthTextSelection"];
 		[pfs registerObject:&customStrengthPowerDownControl default:@"0" forKey:@"customStrengthPowerDown"];
 		[pfs registerObject:&customStrengthRespringControl default:@"0" forKey:@"customStrengthRespring"];
-		[pfs registerObject:&customStrengthTouchesControl default:@"0" forKey:@"customStrengthTouches"];
 		[pfs registerObject:&customStrengthKeyboardControl default:@"0" forKey:@"customStrengthKeyboard"];
 		[pfs registerObject:&customStrengthEnterBackgroundControl default:@"0" forKey:@"customStrengthEnterBackground"];
 		[pfs registerObject:&customStrengthAlertAppearControl default:@"0" forKey:@"customStrengthAlertAppear"];
@@ -3100,99 +1858,9 @@ void triggerLegacyFeedback() {
 		[pfs registerObject:&customStrengthUIButtonControl default:@"0" forKey:@"customStrengthUIButton"];
 		[pfs registerObject:&customStrengthUIButtonBarButtonControl default:@"0" forKey:@"customStrengthUIButtonBarButton"];
 		[pfs registerObject:&customStrengthUITabBarButtonControl default:@"0" forKey:@"customStrengthUITabBarButton"];
-
-	}
-
-	if (spotifySupportSwitch) {
-		[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
-		[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
-		[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
-		[pfs registerObject:&customStrengthSPTnextTrackButtonControl default:@"0" forKey:@"customStrengthSPTnextTrackButton"];
-		[pfs registerObject:&customStrengthSPTrepeatButtonControl default:@"0" forKey:@"customStrengthSPTrepeatButton"];
-		[pfs registerObject:&customStrengthSPTshuffleButtonControl default:@"0" forKey:@"customStrengthSPTshuffleButton"];
-		[pfs registerObject:&customStrengthSPTqueueButtonControl default:@"0" forKey:@"customStrengthSPTqueueButton"];
-		[pfs registerObject:&customStrengthSPTsliderControl default:@"0" forKey:@"customStrengthSPTslider"];
-		[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
-		[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
-		[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
-
-	}
-
-	if (instagramSupportSwitch) {
-		[pfs registerObject:&customStrengthITGlikeButtonControl default:@"0" forKey:@"customStrengthITGlikeButton"];
-		[pfs registerObject:&customStrengthITGdoubleTapToLikeControl default:@"0" forKey:@"customStrengthITGdoubleTapToLike"];
-		[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
-		[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
-		[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
-
-	}
-
-	if (tiktokSupportSwitch) {
-		[pfs registerObject:&customStrengthTTlikeCommentShareButtonsControl default:@"0" forKey:@"customStrengthTTlikeCommentShareButtons"];
-
-	}
-
-	if (twitterSupportSwitch) {
-		[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
-		[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
-		[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
-		[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
-		[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
-
-	}
-
-	if (safariSupportSwitch) {
-		[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
-
-	}
-
-	if (phoneSupportSwitch) {
-		[pfs registerObject:&customStrengthPHNumberPadControl default:@"0" forKey:@"customStrengthPHNumberPad"];
-		[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
-		[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
-		[pfs registerObject:&customStrengthWakeControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
-
-	}
-
-	if (facebookSupportSwitch) {
-		[pfs registerObject:&customStrengthFBTabBarControl default:@"0" forKey:@"customStrengthFBTabBar"];
-		[pfs registerObject:&customStrengthFBQuickAccessButtonsControl default:@"0" forKey:@"customStrengthQuickAccessButtons"];
-		[pfs registerObject:&customStrengthFBNavigationBarButtonControl default:@"0" forKey:@"customStrengthFBNavigationBarButton"];
-
-	}
-
-	if (musicSupportSwitch) {
-		[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
-		[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
-		[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
-		[pfs registerObject:&customStrengthMusicApplicationTimeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationTimeSlider"];
-		[pfs registerObject:&customStrengthMusicApplicationSongCellControl default:@"0" forKey:@"customStrengthMusicApplicationSongCell"];
-		[pfs registerObject:&customStrengthLibraryCellControl default:@"0" forKey:@"customStrengthLibraryCell"];
-		[pfs registerObject:&customStrengthMusicApplicationAlbumCellControl default:@"0" forKey:@"customStrengthMusicApplicationAlbumCell"];
-		[pfs registerObject:&customStrengthMPRouteButtonControl default:@"0" forKey:@"customStrengthMPRouteButton"];
-		[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
-
-	}
-
-	if (calculatorSupportSwitch) {
-		[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
-
-	}
-
-	if (sileoSupportSwitch) {
-		[pfs registerObject:&customStrengthSileoSourcesCellControl default:@"0" forKey:@"customStrengthSileoSourcesCell"];
-		[pfs registerObject:&customStrengthSileoPackageCollectionViewCellControl default:@"0" forKey:@"customStrengthSileoPackageCollectionViewCell"];
-		[pfs registerObject:&customStrengthSileoTableViewCellControl default:@"0" forKey:@"customStrengthSileoTableViewCell"];
-		[pfs registerObject:&customStrengthSileoFeaturedBannerViewControl default:@"0" forKey:@"customStrengthSileoFeaturedBannerView"];
-		[pfs registerObject:&customStrengthSileoConfirmDownloadButtonControl default:@"0" forKey:@"customStrengthSileoConfirmDownloadButton"];
-
-	}
-
-	if (apolloSupportSwitch) {
-		[pfs registerObject:&customStrengthApolloJumpBarControl default:@"0" forKey:@"customStrengthApolloJumpBar"];
-		[pfs registerObject:&customStrengthApolloFloatingActionButtonControl default:@"0" forKey:@"customStrengthApolloFloatingActionButton"];
-		[pfs registerObject:&customStrengthApolloASDisplayViewControl default:@"0" forKey:@"customStrengthApolloASDisplayView"];
-		[pfs registerObject:&customStrengthApolloUIButtonControl default:@"0" forKey:@"customStrengthApolloUIButton"];
+		[pfs registerObject:&customStrengthUIImageViewControl default:@"0" forKey:@"customStrengthUIImageView"];
+		[pfs registerObject:&customStrengthUIViewControl default:@"0" forKey:@"customStrengthUIView"];
+		[pfs registerObject:&customStrengthUIWindowControl default:@"0" forKey:@"customStrengthUIWindow"];
 
 	}
 
@@ -3203,40 +1871,16 @@ void triggerLegacyFeedback() {
         );
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
-            %init(Rose);
-			
-			if (apolloSupportSwitch)
-				%init(Apollo, JumpBar=objc_getClass("Apollo.JumpBar"), ApolloFloatingActionButton=objc_getClass("Apollo.FloatingActionButton"));
-			
-			if (calculatorSupportSwitch)
-				%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
-			
-			if (facebookSupportSwitch)
-				%init(Facebook);
-
-			if (instagramSupportSwitch)
-				%init(Instagram);
-
-			if (musicSupportSwitch)
-				%init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
-            
-			if (phoneSupportSwitch) 
-				%init(Phone);
-
-			if (safariSupportSwitch)
-				%init(Safari);
-
-			if (sileoSupportSwitch)
-				%init(Sileo, SileoSourcesCell=objc_getClass("Sileo.SourcesTableViewCell"), SileoPackageCollectionViewCell=objc_getClass("Sileo.PackageCollectionViewCell"), SileoTableViewCell=objc_getClass("Sileo.SileoTableViewCell"), SileoFeaturedBannerView=objc_getClass("Sileo.FeaturedBannerView"), SileoConfirmDownloadButton=objc_getClass("Sileo.DownloadConfirmButton"));
-
-			if (spotifySupportSwitch)
-				%init(Spotify);
-
-			if (tiktokSupportSwitch)
-				%init(TikTok);
-
-			if (twitterSupportSwitch)
-				%init(Twitter);
+			if (homescreenSectionSupportSwitch) %init(Homescreen);
+			if (lockscreenSectionSupportSwitch) %init(Lockscreen);
+			if (anywhereSectionSupportSwitch) %init(Anywhere);
+			if (hardwareButtonsSectionSupportSwitch) %init(HardwareButtons);
+			if (controlCenterSectionSupportSwitch) %init(ControlCenter);
+			if (statusChangesSectionSupportSwitch) %init(StatusChanges);
+			if (otherHardwareActionsSectionSupportSwitch) %init(OtherHardwareActions);
+			if (systemWideSectionSupportSwitch)	 %init(SystemWide);
+			%init(_ungrouped); // Initialise Everything Outside Any Group
+			if (@available(iOS 12.0, *)) %init(iOS12);
 
 			return;
 

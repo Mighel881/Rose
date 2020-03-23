@@ -1,0 +1,28 @@
+{
+
+  "ENABLE_FACEBOOK_SUPPORT" = "Aktiviere Facebook Unterstützung";
+  "FACEBOOK_SUPPORT" = "Facebook Unterstützung";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
+
+  "USING_THE_TABBAR" = "die Tabbar verwendet wird";
+  "TAPPING_QUICK_ACCESS_BUTTONS" = "Schnellzugriffknöpfe getippt werden";
+  "TAPPING_NAVIGATION_BAR_BUTTONS" = "Navigationsleistenknöpfe getippt werden";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
+
+  "CUSTOM_TABBAR_STRENGTH" = "Eigene Tabbarstärke";
+  "CUSTOM_QUICK_ACCESS_BUTTONS_STRENGTH" = "Eigene Schnellzugriffknöpfe Stärke";
+  "CUSTOM_NAVIGATION_BAR_BUTTONS_STRENGTH" = "Eigene Navigationsleistenknöpfe Stärke";
+
+  "NONE" = "Nichts";
+  "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Medium: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Leicht: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Medium: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Stark: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Sanft: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Starr: Taptic Engine";
+
+}

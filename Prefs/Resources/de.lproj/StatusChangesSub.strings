@@ -1,0 +1,30 @@
+{
+
+  "ENABLE_STATUS_CHANGES_SECTION" = "Aktiviere Statusänderung Abschnitt";
+  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
+
+  "UNLOCKED_OR_NC" = "Entsperrt/NC";
+  "LOCKED" = "Gesperrt";
+  "AUTHENTICATED_WITH_TOUCH_OR_FACEID" = "Mit Touch/FaceID authentifiziert wird";
+  "CALLL_CONNECTS_OR_DISCONNECTS" = "Anruf verbunden/unterbrochen wird";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
+
+  "CUSTOM_UNLOCK_STRENGTH" = "Eigene Entsperren Stärke";
+  "CUSTOM_LOCK_STRENGTH" = "Eigene Sperren Stärke";
+  "CUSTOM_AUTHETICATION_STRENGTH" = "Eigene Authentifizierung Stärke";
+  "CUSTOM_CALL_STRENGTH" = "Eigene Anruf Stärke";
+
+  "NONE" = "Nichts";
+  "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Medium: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Leicht: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Medium: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Stark: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Sanft: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Starr: Taptic Engine";
+
+}

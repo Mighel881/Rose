@@ -25,9 +25,9 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Taptic Engine Strength</string>
+			<string>TAPTIC_ENGINE_STRENGTH</string>
 			<key>footerText</key>
-			<string>iPhone 7/7+ And Up</string>
+			<string>IPHONE_7_OR_7PLUS_AND_UP</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -41,7 +41,7 @@
 			<key>key</key>
 			<string>enableTapticEngine</string>
 			<key>label</key>
-			<string>Use Taptic Engine</string>
+			<string>USE_TAPTIC_ENGINE</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -64,11 +64,11 @@
 			</array>
 			<key>validTitles</key>
 			<array>
-				<string>Light</string>
-				<string>Medium</string>
-				<string>Heavy</string>
-				<string>Soft</string>
-				<string>Rigid</string>
+				<string>LIGHT</string>
+				<string>MEDIUM</string>
+				<string>HEAVY</string>
+				<string>SOFT</string>
+				<string>RIGID</string>
 			</array>
 			<key>alignment</key>
 			<string>5</string>
@@ -81,9 +81,9 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Engine Strength</string>
+			<string>HAPTIC_ENGINE_STRENGTH</string>
 			<key>footerText</key>
-			<string>iPhone 6s/6s+</string>
+			<string>IPHONE_6S_OR_6SPLUS</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -97,7 +97,7 @@
 			<key>key</key>
 			<string>enableHapticEngine</string>
 			<key>label</key>
-			<string>Use Haptic Engine</string>
+			<string>USE_HAPTIC_ENGINE</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -118,9 +118,9 @@
 			</array>
 			<key>validTitles</key>
 			<array>
-				<string>Light</string>
-				<string>Medium</string>
-				<string>Strong</string>
+				<string>LIGHT</string>
+				<string>MEDIUM</string>
+				<string>STRONG</string>
 			</array>
 			<key>alignment</key>
 			<string>3</string>
@@ -133,9 +133,9 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Legacy Support</string>
+			<string>LEGACY_SUPPORT</string>
 			<key>footerText</key>
-			<string>iPhone SE/6..</string>
+			<string>IPHONE_SE_OR_6_AND_SO_FAR</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -149,7 +149,7 @@
 			<key>key</key>
 			<string>enableLegacyEngine</string>
 			<key>label</key>
-			<string>Use Legacy Engine</string>
+			<string>USE_LEGACY_ENGINE</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -169,8 +169,8 @@
 			</array>
 			<key>validTitles</key>
 			<array>
-				<string>Default</string>
-				<string>Custom</string>
+				<string>DEFAULT</string>
+				<string>CUSTOM</string>
 			</array>
 			<key>alignment</key>
 			<string>2</string>
@@ -181,7 +181,7 @@
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Custom Legacy Settings</string>
+ 			<string>CUSTOM_LEGACY_SETTINGS</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -193,146 +193,146 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Feedback Options</string>
+			<string>HAPTIC_FEEDBACK_OPTIONS</string>
 		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Homescreen</string>
+ 			<string>HOMESCREEN</string>
 			<key>icon</key>
 			<string>hscng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/HomescreenSub</string>
+ 			<string>HomescreenSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Lockscreen</string>
+ 			<string>LOCKSCREEN</string>
 			<key>icon</key>
 			<string>lscng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/LockscreenSub</string>
+ 			<string>LockscreenSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Anywhere</string>
+ 			<string>ANYWHERE</string>
 			<key>icon</key>
 			<string>aywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/AnywhereSub</string>
+ 			<string>AnywhereSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Hardware Buttons</string>
+ 			<string>HARDWARE_BUTTONS</string>
 			<key>icon</key>
 			<string>hwbtg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/HardwareButtonsSub</string>
+ 			<string>HardwareButtonsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Control Center</string>
+ 			<string>CONTROL_CENTER</string>
 			<key>icon</key>
 			<string>ccg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/ControlCenterSub</string>
+ 			<string>ControlCenterSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Status Changes</string>
+ 			<string>STATUS_CHANGES</string>
 			<key>icon</key>
 			<string>scng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/StatusChangesSub</string>
+ 			<string>StatusChangesSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Other Hardware Actions</string>
+ 			<string>OTHER_HARDWARE_ACTIONS</string>
 			<key>icon</key>
 			<string>ohag.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/OtherHardwareActionsSub</string>
+ 			<string>OtherHardwareActionsSub</string>
  		</dict>
 		 <dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>System Wide</string>
+ 			<string>SYSTEM_WIDE</string>
 			<key>icon</key>
 			<string>sywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/SystemWideSub</string>
+ 			<string>SystemWideSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Applications</string>
+ 			<string>APPLICATIONS</string>
 			<key>icon</key>
 			<string>apng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/ApplicationsSub</string>
+ 			<string>ApplicationsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Exceptions</string>
+ 			<string>EXCEPTIONS</string>
 			<key>icon</key>
 			<string>ecng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/ExceptionsSub</string>
+ 			<string>ExceptionsSub</string>
  		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
- 			<string>Additionals</string>
+ 			<string>ADDITIONALS</string>
 			<key>icon</key>
 			<string>atlng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
- 			<string>FunctionalitySubMenus/ExtrasSub</string>
+ 			<string>AdditionalsSub</string>
  		</dict>
 
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Haptic Delay - Seconds</string>
+			<string>HAPTIC_DELAY_IN_SECONDS</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -344,7 +344,7 @@
 			<key>key</key>
 			<string>enableHapticDelay</string>
 			<key>label</key>
-			<string>Enable Delay</string>
+			<string>ENABLE_DELAY</string>
 			<key>PostNotification</key>
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
@@ -373,13 +373,13 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Other Options</string>
+			<string>OTHER_OPTIONS</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Respring</string>
+			<string>RESPRING</string>
 			<key>action</key>
 			<string>respringWithButton</string>
 		</dict>
@@ -387,7 +387,7 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Reset Preferences</string>
+			<string>RESET_PREFERENCES</string>
 			<key>action</key>
 			<string>resetPrompt</string>
 		</dict>
@@ -395,7 +395,7 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Show Setup Again</string>
+			<string>SHOW_SETUP_AGAIN</string>
 			<key>action</key>
 			<string>presentIntroductionViewController</string>
 		</dict>
@@ -404,9 +404,9 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Sending Love To</string>
+			<string>SENDING_LOVE_TO</string>
 			<key>footerText</key>
-			<string>Thanks Kritanta For The Pretty Twitter Cells</string>
+			<string>THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -471,10 +471,78 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Support Me</string>
+			<string>CONTRIBUTORS_CREDITS</string>
+		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>CONTRIBUTORS</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>contributorsSub</string>
+ 		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>HELP_TRANSLATING_ROSE</string>
+			<key>url</key>
+			<string>https://github.com/Litteeen/RoseLocalizations</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>GIVE_THESE_A_LOOK</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Lune</string>
+			<key>subtitle</key>
+			<string>LUNE_DESCRIPTION</string>
+			<key>icon</key>
+			<string>Lune.png</string>
+			<key>url</key>
+			<string>https://repo.litten.sh/depictions/lne/</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Aestea</string>
+			<key>subtitle</key>
+			<string>AESTEA_DESCRIPTION</string>
+			<key>icon</key>
+			<string>Aestea.png</string>
+			<key>url</key>
+			<string>https://repo.litten.sh/depictions/aes/</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Butterfly</string>
+			<key>subtitle</key>
+			<string>BUTTERFLY_DESCRIPTION</string>
+			<key>icon</key>
+			<string>Butterfly.png</string>
+			<key>url</key>
+			<string>https://repo.litten.sh/depictions/bty/</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>SUPPORT_ME</string>
 			<key>footerText</key>
-			<string>Rose By Litten
-Artworks By taki</string>
+			<string>ROSE_BY_LITTEN_
+ARTWORKS_BY_TAKI</string>
 			<key>isStaticText</key>
 			<true/>
 		</dict>
@@ -482,9 +550,9 @@ Artworks By taki</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Little Donation 🌺</string>
+			<string>LITTLE_DONATION_🌺</string>
 			<key>subtitle</key>
-			<string>Appreciated 💘</string>
+			<string>APPRECIATED_💘</string>
 			<key>url</key>
 			<string>https://paypal.me/Litteeen</string>
 		</dict>
@@ -492,9 +560,9 @@ Artworks By taki</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Feature Request? ✨</string>
+			<string>FEATURE_REQUEST?_✨</string>
 			<key>subtitle</key>
-			<string>Send Me An Email With Your Request</string>
+			<string>SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST</string>
 			<key>url</key>
 			<string>mailto:hello@litten.sh?subject=Rose%20Feature%20Request</string>
 		</dict>
@@ -502,9 +570,9 @@ Artworks By taki</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Source Code 🌙</string>
+			<string>SOURCE_CODE_🌙</string>
 			<key>subtitle</key>
-			<string>It's On My Github</string>
+			<string>ITS_ON_MY_GITHUB</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Rose</string>
 		</dict>
@@ -512,9 +580,9 @@ Artworks By taki</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Found A Bug? 🌧</string>
+			<string>FOUND_A_BUG?_🌧</string>
 			<key>subtitle</key>
-			<string>Leave A Bug Report Here</string>
+			<string>LEAVE_A_BUG_REPORT_HERE</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Rose/issues/new</string>
 		</dict>
@@ -523,7 +591,7 @@ Artworks By taki</string>
 			<key>cell</key>
 			<key>PSGroupCell</key>
 			<key>footerText</key>
-			<string>Made With 💙</string>
+			<string>MADE_WITH_💙</string>
 			<key>isStaticText</key>
 			<true/>
 			<key>footerAlignment</key>
@@ -532,6 +600,6 @@ Artworks By taki</string>
 
 	</array>
 	<key>title</key>
-	<string>Rose</string>
+	<string>ROSE</string>
 </dict>
 </plist>

@@ -9,7 +9,7 @@
 HBPreferences *pfs;
 
 // Thanks to Nepeta for the DRM
-BOOL dpkgInvalid = NO;
+BOOL dpkgInvalid;
 
 // Option Switches
 extern BOOL enabled;
@@ -18,307 +18,287 @@ extern BOOL enableHapticEngineSwitch;
 extern BOOL enableLegacyEngineSwitch;
 
 // Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
-NSString* tapticLevel = @"0";
-NSString* hapticLevel = @"0";
-NSString* legacyLevel = @"0";
-NSString* customlegacyDurationLevel = @"0";
-NSString* customlegacyStrengthLevel = @"0";
+NSString* tapticLevel;
+NSString* hapticLevel;
+NSString* legacyLevel;
+NSString* customlegacyDurationLevel;
+NSString* customlegacyStrengthLevel;
 int customFeedbackValue;
 
 // Taptic Engine Feedback generator
 UIImpactFeedbackGenerator *gen;
 
 // Switches To Enable Sections
-BOOL anywhereSectionSupportSwitch = NO;
-BOOL controlCenterSectionSupportSwitch = NO;
-BOOL hardwareButtonsSectionSupportSwitch = NO;
-BOOL homescreenSectionSupportSwitch = NO;
-BOOL lockscreenSectionSupportSwitch = NO;
-BOOL otherHardwareActionsSectionSupportSwitch = NO;
-BOOL statusChangesSectionSupportSwitch = NO;
-BOOL systemWideSectionSupportSwitch = NO;
-BOOL extrasSectionSupportSwitch = NO;
-BOOL exceptionsSectionSupportSwitch = NO;
+extern BOOL anywhereSectionSupportSwitch;
+extern BOOL controlCenterSectionSupportSwitch;
+extern BOOL hardwareButtonsSectionSupportSwitch;
+extern BOOL homescreenSectionSupportSwitch;
+extern BOOL lockscreenSectionSupportSwitch;
+extern BOOL otherHardwareActionsSectionSupportSwitch;
+extern BOOL statusChangesSectionSupportSwitch;
+extern BOOL systemWideSectionSupportSwitch;
+extern BOOL extrasSectionSupportSwitch;
+extern BOOL exceptionsSectionSupportSwitch;
 
 // Anywhere Section
-BOOL killingSwitch = NO;
-BOOL switcherSwitch = NO;
-BOOL siriSwitch = NO;
-BOOL screenshotSwitch = NO;
-BOOL reachabilitySwitch = NO;
-BOOL textSelectionSwitch = NO;
-BOOL powerSwitch = NO;
-BOOL respringSwitch = NO;
-BOOL touchesSwitch = NO;
-BOOL keyboardSwitch = NO;
-BOOL enterBackgroundSwitch = NO;
-BOOL alertAppearSwitch = NO;
-BOOL alertDisappearSwitch = NO;
+extern BOOL killingSwitch;
+extern BOOL switcherSwitch;
+extern BOOL siriSwitch;
+extern BOOL screenshotSwitch;
+extern BOOL reachabilitySwitch;
+extern BOOL textSelectionSwitch;
+extern BOOL powerSwitch;
+extern BOOL respringSwitch;
+extern BOOL keyboardSwitch;
+extern BOOL enterBackgroundSwitch;
+extern BOOL alertAppearSwitch;
+extern BOOL alertDisappearSwitch;
 
 // Control Center Section
-BOOL ccToggleSwitch = NO;
-BOOL openControlCenterSwitch = NO;
-BOOL ccModuleSwitch = NO;
+extern BOOL ccToggleSwitch;
+extern BOOL openControlCenterSwitch;
+extern BOOL ccModuleSwitch;
 
 // Hardware Buttons
-BOOL volumeSwitch = NO;
-BOOL sleepButtonSwitch = NO;
-BOOL homeButtonSwitch = NO;
-BOOL ringerSwitch = NO;
+extern BOOL volumeSwitch;
+extern BOOL sleepButtonSwitch;
+extern BOOL homeButtonSwitch;
+extern BOOL ringerSwitch;
 
 // Homescreen Section
-BOOL forceSwitch = NO;
-BOOL folderOpenSwitch = NO;
-BOOL folderCloseSwitch = NO;
-BOOL iconTapSwitch = NO;
-BOOL pageSwipeSwitch = NO;
-BOOL spotlightSwitch = NO;
+extern BOOL forceSwitch;
+extern BOOL folderOpenSwitch;
+extern BOOL folderCloseSwitch;
+extern BOOL iconTapSwitch;
+extern BOOL pageSwipeSwitch;
+extern BOOL spotlightSwitch;
 
 // Lockscreen Section
-BOOL passcodeSwitch = NO;
-BOOL quickActionsButtonSwitch = NO;
+extern BOOL passcodeSwitch;
+extern BOOL quickActionsButtonSwitch;
 
 // Other Hardware Actions Section
-BOOL wakeSwitch = NO;
-BOOL pluggedSwitch = NO;
-BOOL connectBluetoothDeviceSwitch = NO;
+extern BOOL wakeSwitch;
+extern BOOL pluggedSwitch;
+extern BOOL connectBluetoothDeviceSwitch;
 
 // Status Changes Section
-BOOL unlockSwitch = NO;
-BOOL lockSwitch = NO;
-BOOL authenticationSwitch = NO;
-BOOL callSwitch = NO;
+extern BOOL unlockSwitch;
+extern BOOL lockSwitch;
+extern BOOL authenticationSwitch;
+extern BOOL callSwitch;
 
 // System Wide Section
-BOOL UIButtonSwitch = NO;
-BOOL UIButtonBarButtonSwitch = NO;
-BOOL UITabBarButtonSwitch = NO;
+extern BOOL UIButtonSwitch;
+extern BOOL UIButtonBarButtonSwitch;
+extern BOOL UITabBarButtonSwitch;
+extern BOOL UIImageViewSwitch;
+extern BOOL UIViewSwitch;
+extern BOOL UIWindowSwitch;
 
 // Additionals Section
-BOOL lockAnimationSwitch = NO;
+extern BOOL lockAnimationSwitch;
 
 // Enable App Support Switches
-BOOL apolloSupportSwitch = NO;
-BOOL calculatorSupportSwitch = NO;
-BOOL facebookSupportSwitch = NO;
-BOOL instagramSupportSwitch = NO;
-BOOL musicSupportSwitch = NO;
-BOOL phoneSupportSwitch = NO;
-BOOL safariSupportSwitch = NO;
-BOOL sileoSupportSwitch = NO;
-BOOL spotifySupportSwitch = NO;
-BOOL tiktokSupportSwitch = NO;
-BOOL twitterSupportSwitch = NO;
+extern BOOL apolloSupportSwitch;
+extern BOOL calculatorSupportSwitch;
+extern BOOL facebookSupportSwitch;
+extern BOOL instagramSupportSwitch;
+extern BOOL musicSupportSwitch;
+extern BOOL phoneSupportSwitch;
+extern BOOL safariSupportSwitch;
+extern BOOL sileoSupportSwitch;
+extern BOOL spotifySupportSwitch;
+extern BOOL tiktokSupportSwitch;
+extern BOOL twitterSupportSwitch;
 
 // Spotify
-BOOL SPTplayButtonSwitch = NO;
-BOOL SPTplayBarButtonSwitch = NO;
-BOOL SPTpreviousTrackButtonSwitch = NO;
-BOOL SPTnextTrackButtonSwitch = NO;
-BOOL SPTrepeatButtonSwitch = NO;
-BOOL SPTshuffleButtonSwitch = NO;
-BOOL SPTqueueButtonSwitch = NO;
-BOOL SPTsliderSwitch = NO;
-BOOL SPTfreeTierButtonSwitch = NO;
-BOOL SPTavailableDevicesButtonSwitch = NO;
-BOOL SPTnowPlayingLabelSwitch = NO;
+extern BOOL SPTplayButtonSwitch;
+extern BOOL SPTplayBarButtonSwitch;
+extern BOOL SPTpreviousTrackButtonSwitch;
+extern BOOL SPTnextTrackButtonSwitch;
+extern BOOL SPTrepeatButtonSwitch;
+extern BOOL SPTshuffleButtonSwitch;
+extern BOOL SPTqueueButtonSwitch;
+extern BOOL SPTsliderSwitch;
+extern BOOL SPTfreeTierButtonSwitch;
+extern BOOL SPTavailableDevicesButtonSwitch;
+extern BOOL SPTnowPlayingLabelSwitch;
 
 // Instagram
-BOOL ITGlikeButtonSwitch = NO;
-BOOL ITGdoubleTapToLikeSwitch = NO;
-BOOL ITGcommentButtonSwitch = NO;
-BOOL ITGsaveButtonSwitch = NO;
-BOOL ITGsendButtonSwitch = NO;
+extern BOOL ITGlikeButtonSwitch;
+extern BOOL ITGdoubleTapToLikeSwitch;
+extern BOOL ITGcommentButtonSwitch;
+extern BOOL ITGsaveButtonSwitch;
+extern BOOL ITGsendButtonSwitch;
 
 // TikTok
-BOOL TTlikeCommentShareButtonsSwitch = NO;
+extern BOOL TTlikeCommentShareButtonsSwitch;
 
 // Twitter
-BOOL TWTtabBarSwitch = NO;
-BOOL TWTtweetViewSwitch = NO;
-BOOL TWTdirectMessagesTapSwitch = NO;
-BOOL TWTactivityTapSwitch = NO;
-BOOL TWTtweetButtonSwitch = NO;
+extern BOOL TWTtabBarSwitch;
+extern BOOL TWTtweetViewSwitch;
+extern BOOL TWTdirectMessagesTapSwitch;
+extern BOOL TWTactivityTapSwitch;
+extern BOOL TWTtweetButtonSwitch;
 
 // Safari
-BOOL SFUrlSwitch = NO;
+extern BOOL SFUrlSwitch;
 
 // Phone
-BOOL PHNumberPadSwitch = NO;
-BOOL PHContactCellSwitch = NO;
-BOOL PHDialerDeleteButtonSwitch = NO;
-BOOL PHDialerCallButtonSwitch = NO;
+extern BOOL PHNumberPadSwitch;
+extern BOOL PHContactCellSwitch;
+extern BOOL PHDialerDeleteButtonSwitch;
+extern BOOL PHDialerCallButtonSwitch;
 
 // Facebook
-BOOL FBTabBarSwitch = NO;
-BOOL FBQuickAccessButtonsSwitch = NO;
-BOOL FBNavigationBarButtonSwitch = NO;
-
-// Music
-BOOL MusicPlayPauseButtonsSwitch = NO;
-BOOL MusicVolumeSliderSwitch = NO;
-BOOL MusicContextualActionsButtonSwitch = NO;
-BOOL MusicTimeSliderSwitch = NO;
-BOOL MusicSongCellSwitch = NO;
-BOOL MusicLibraryCellSwitch = NO;
-BOOL MusicAlbumCellSwitch = NO;
-BOOL MusicAirPlayButtonSwitch = NO;
-BOOL MusicLiveLyricsQueueButtonSwitch = NO;
+extern BOOL FBTabBarSwitch;
+extern BOOL FBQuickAccessButtonsSwitch;
+extern BOOL FBNavigationBarButtonSwitch;
 
 // Calculator
-BOOL CalculatorKeyPadButtonSwitch = NO;
+extern BOOL CalculatorKeyPadButtonSwitch;
 
 // Sileo
-BOOL SileoSourcesCellSwitch = NO;
-BOOL SileoPackageCollectionViewCellSwitch;
-BOOL SileoTableViewCellSwitch = NO;
-BOOL SileoFeaturedBannerViewSwitch = NO;
-BOOL SileoConfirmDownloadButtonSwitch = NO;
+extern BOOL SileoSourcesCellSwitch;
+extern BOOL SileoPackageCollectionViewCellSwitch;
+extern BOOL SileoTableViewCellSwitch;
+extern BOOL SileoFeaturedBannerViewSwitch;
+extern BOOL SileoConfirmDownloadButtonSwitch;
+extern BOOL SileoGetButtonSwitch;
 
 // Apollo
-BOOL apolloJumpBarSwitch = NO;
-BOOL apolloFloatingActionButtonSwitch = NO;
-BOOL apolloASDisplayViewSwitch = NO;
-BOOL apolloUIButtonSwitch = NO;
+extern BOOL apolloJumpBarSwitch;
+extern BOOL apolloFloatingActionButtonSwitch;
+extern BOOL apolloASDisplayViewSwitch;
+extern BOOL apolloUIButtonSwitch;
 
 // Delay
-BOOL delaySwitch = NO;
-NSString* delayLevel = @"0.0";
+extern BOOL delaySwitch;
+extern NSString* delayLevel;
 
 // Low Power Mode And DND Mode Recognition
-BOOL LowPowerMode;
-BOOL LowPowerModeSwitch = NO;
-BOOL isDNDActive;
-BOOL isDNDActiveSwitch = NO;
+extern BOOL LowPowerMode;
+extern BOOL LowPowerModeSwitch;
+extern BOOL isDNDActive;
+extern BOOL isDNDActiveSwitch;
 
 // Anywhere Section (Custom)
-NSString* customStrengthKillingControl = @"0";
-NSString* customStrengthSwitcherControl = @"0";
-NSString* customStrengthSiriControl = @"0";
-NSString* customStrengthScreenshotControl = @"0";
-NSString* customStrengthReachabilityControl = @"0";
-NSString* customStrengthTextSelectionControl = @"0";
-NSString* customStrengthPowerDownControl = @"0";
-NSString* customStrengthRespringControl = @"0";
-NSString* customStrengthTouchesControl = @"0";
-NSString* customStrengthKeyboardControl = @"0";
-NSString* customStrengthEnterBackgroundControl = @"0";
-NSString* customStrengthAlertAppearControl = @"0";
-NSString* customStrengthAlertDisappearControl = @"0";
+extern NSString* customStrengthKillingControl;
+extern NSString* customStrengthSwitcherControl;
+extern NSString* customStrengthSiriControl;
+extern NSString* customStrengthScreenshotControl;
+extern NSString* customStrengthReachabilityControl;
+extern NSString* customStrengthTextSelectionControl;
+extern NSString* customStrengthPowerDownControl;
+extern NSString* customStrengthRespringControl;
+extern NSString* customStrengthKeyboardControl;
+extern NSString* customStrengthEnterBackgroundControl;
+extern NSString* customStrengthAlertAppearControl;
+extern NSString* customStrengthAlertDisappearControl;
 
 // Control Center Section (Custom)
-NSString* customStrengthCCToggleControl = @"0";
-NSString* customStrengthOpenControlCenterControl = @"0";
-NSString* customStrengthCCModuleControl = @"0";
+extern NSString* customStrengthCCToggleControl;
+extern NSString* customStrengthOpenControlCenterControl;
+extern NSString* customStrengthCCModuleControl;
 
 // Hardware Buttons Section (Custom)
-NSString* customStrengthVolumeControl = @"0";
-NSString* customStrengthSleepButtonControl = @"0";
-NSString* customStrengthHomeButtonControl = @"0";
-NSString* customStrengthRingerControl = @"0";
+extern NSString* customStrengthVolumeControl;
+extern NSString* customStrengthSleepButtonControl;
+extern NSString* customStrengthHomeButtonControl;
+extern NSString* customStrengthRingerControl;
 
 // Homescreen Section (Custom)
-NSString* customStrengthForceTouchControl = @"0";
-NSString* customStrengthFolderOpenControl = @"0";
-NSString* customStrengthFolderCloseControl = @"0";
-NSString* customStrengthIconTapControl = @"0";
-NSString* customStrengthPageSwipeControl = @"0";
-NSString* customStrengthSpotlightControl = @"0";
+extern NSString* customStrengthForceTouchControl;
+extern NSString* customStrengthFolderOpenControl;
+extern NSString* customStrengthFolderCloseControl;
+extern NSString* customStrengthIconTapControl;
+extern NSString* customStrengthPageSwipeControl;
+extern NSString* customStrengthSpotlightControl;
 
 // Lockscreen Section (Custom)
-NSString* customStrengthPasscodeControl = @"0";
-NSString* customStrengthQuickActionsButtonControl = @"0";
+extern NSString* customStrengthPasscodeControl;
+extern NSString* customStrengthQuickActionsButtonControl;
 
 // Other Hardware Action Section (Custom)
-NSString* customStrengthWakeControl = @"0";
-NSString* customStrengthPluggedControl = @"0";
-NSString* customStrengthConnectBluetoothDeviceControl = @"0";
+extern NSString* customStrengthWakeControl;
+extern NSString* customStrengthPluggedControl;
+extern NSString* customStrengthConnectBluetoothDeviceControl;
 
 // Status Changes Section (Custom)
-NSString* customStrengthUnlockControl = @"0";
-NSString* customStrengthLockControl = @"0";
-NSString* customStrengthAuthenticationControl = @"0";
-NSString* customStrengthCallControl = @"0";
+extern NSString* customStrengthUnlockControl;
+extern NSString* customStrengthLockControl;
+extern NSString* customStrengthAuthenticationControl;
+extern NSString* customStrengthCallControl;
 
 // System Wide Section (Custom)
-NSString* customStrengthUIButtonControl = @"0";
-NSString* customStrengthUIButtonBarButtonControl = @"0";
-NSString* customStrengthUITabBarButtonControl = @"0";
+extern NSString* customStrengthUIButtonControl;
+extern NSString* customStrengthUIButtonBarButtonControl;
+extern NSString* customStrengthUITabBarButtonControl;
+extern NSString* customStrengthUIImageViewControl;
+extern NSString* customStrengthUIViewControl;
+extern NSString* customStrengthUIWindowControl;
 
-NSString *customStrengthSPTplayButtonControl = @"0";
-NSString *customStrengthSPTplayBarButtonControl = @"0";
-NSString *customStrengthSPTpreviousTrackButtonControl = @"0";
-NSString *customStrengthSPTnextTrackButtonControl = @"0";
-NSString *customStrengthSPTrepeatButtonControl = @"0";
-NSString *customStrengthSPTshuffleButtonControl = @"0";
-NSString *customStrengthSPTqueueButtonControl = @"0";
-NSString *customStrengthSPTsliderControl = @"0";
-NSString *customStrengthSPTfreeTierButtonControl = @"0";
-NSString *customStrengthSPTavailableDevicesButtonControl = @"0";
-NSString *customStrengthSPTnowPlayingLabelControl = @"0";
+// Spotify (Custom)
+extern NSString* customStrengthSPTplayButtonControl;
+extern NSString* customStrengthSPTplayBarButtonControl;
+extern NSString* customStrengthSPTpreviousTrackButtonControl;
+extern NSString* customStrengthSPTnextTrackButtonControl;
+extern NSString* customStrengthSPTrepeatButtonControl;
+extern NSString* customStrengthSPTshuffleButtonControl;
+extern NSString* customStrengthSPTqueueButtonControl;
+extern NSString* customStrengthSPTsliderControl;
+extern NSString* customStrengthSPTfreeTierButtonControl;
+extern NSString* customStrengthSPTavailableDevicesButtonControl;
+extern NSString* customStrengthSPTnowPlayingLabelControl;
 
-NSString *customStrengthITGlikeButtonControl = @"0";
-NSString *customStrengthITGdoubleTapToLikeControl = @"0";
-NSString *customStrengthITGcommentButtonControl = @"0";
-NSString *customStrengthITGsaveButtonControl = @"0";
-NSString *customStrengthITGsendButtonControl = @"0";
+// Instagram (Custom)
+extern NSString* customStrengthITGlikeButtonControl;
+extern NSString* customStrengthITGdoubleTapToLikeControl;
+extern NSString* customStrengthITGcommentButtonControl;
+extern NSString* customStrengthITGsaveButtonControl;
+extern NSString* customStrengthITGsendButtonControl;
 
-NSString *customStrengthTTlikeCommentShareButtonsControl = @"0";
+// TikTok (Custom)
+extern NSString* customStrengthTTlikeCommentShareButtonsControl;
 
-NSString *customStrengthTWTtabBarControl = @"0";
-NSString *customStrengthTWTtweetViewControl = @"0";
-NSString *customStrengthTWTdirectMessagesTapControl = @"0";
-NSString *customStrengthTWTactivityTapControl = @"0";
-NSString *customStrengthTWTtweetButtonControl = @"0";
+// Twitter (Custom)
+extern NSString* customStrengthTWTtabBarControl;
+extern NSString* customStrengthTWTtweetViewControl;
+extern NSString* customStrengthTWTdirectMessagesTapControl;
+extern NSString* customStrengthTWTactivityTapControl;
+extern NSString* customStrengthTWTtweetButtonControl;
 
-NSString *customStrengthSFUrlControl = @"0";
+// Safari (Custom)
+extern NSString* customStrengthSFUrlControl;
 
-NSString *customStrengthPHNumberPadControl = @"0";
-NSString *customStrengthPHContactCellControl = @"0";
-NSString *customStrengthPHDialerDeleteButtonControl = @"0";
-NSString *customStrengthPHDialerCallButtonControl = @"0";
+// Phone (Custom)
+extern NSString* customStrengthPHNumberPadControl;
+extern NSString* customStrengthPHContactCellControl;
+extern NSString* customStrengthPHDialerDeleteButtonControl;
+extern NSString* customStrengthPHDialerCallButtonControl;
 
-NSString *customStrengthFBTabBarControl = @"0";
-NSString *customStrengthFBQuickAccessButtonsControl = @"0";
-NSString *customStrengthFBNavigationBarButtonControl = @"0";
+// Facebook (Custom)
+extern NSString* customStrengthFBTabBarControl;
+extern NSString* customStrengthFBQuickAccessButtonsControl;
+extern NSString* customStrengthFBNavigationBarButtonControl;
 
-NSString *customStrengthMusicApplicationPlayButtonControl = @"0";
-NSString *customStrengthMusicApplicationVolumeSliderControl = @"0";
-NSString *customStrengthMusicApplicationContextualActionsButtonControl = @"0";
-NSString *customStrengthMusicApplicationTimeSliderControl = @"0";
-NSString *customStrengthMusicApplicationSongCellControl = @"0";
-NSString *customStrengthLibraryCellControl = @"0";
-NSString *customStrengthMusicApplicationAlbumCellControl = @"0";
-NSString *customStrengthMPRouteButtonControl = @"0";
-NSString *customStrengthMPButtonControl = @"0";
+// Calculator (Custom)
+extern NSString* customStrengthCalculatorApplicationKeyPadButtonControl;
 
-NSString *customStrengthCalculatorApplicationKeyPadButtonControl = @"0";
+// Sileo (Custom)
+extern NSString* customStrengthSileoSourcesCellControl;
+extern NSString* customStrengthSileoPackageCollectionViewCellControl;
+extern NSString* customStrengthSileoTableViewCellControl;
+extern NSString* customStrengthSileoFeaturedBannerViewControl;
+extern NSString* customStrengthSileoConfirmDownloadButtonControl;
+extern NSString* customStrengthSileoGetButtonControl;
 
-NSString *customStrengthSileoSourcesCellControl = @"0";
-NSString *customStrengthSileoPackageCollectionViewCellControl = @"0";
-NSString *customStrengthSileoTableViewCellControl = @"0";
-NSString *customStrengthSileoFeaturedBannerViewControl = @"0";
-NSString *customStrengthSileoConfirmDownloadButtonControl = @"0";
-
-NSString *customStrengthApolloJumpBarControl = @"0";
-NSString *customStrengthApolloFloatingActionButtonControl = @"0";
-NSString *customStrengthApolloASDisplayViewControl = @"0";
-NSString *customStrengthApolloUIButtonControl = @"0";
-
-// File manager For Later
-NSFileManager *fileManager;
-
-// Compatibility Warning
-BOOL hasSeenCompatibilityAlert = NO;
-NSString *pathForHapticPasscode = @"/Library/MobileSubstrate/DynamicLibraries/HapticPasscode.dylib";
-NSString *pathForHapticKeys = @"/Library/MobileSubstrate/DynamicLibraries/HapticKeys.dylib";
-NSString *pathForHapticVolume = @"/Library/MobileSubstrate/DynamicLibraries/HapticVolume.dylib";
-NSString *pathForHapticker = @"/Library/MobileSubstrate/DynamicLibraries/Hapticker.dylib";
-NSString *pathForHapticLock = @"/Library/MobileSubstrate/DynamicLibraries/HapticLock.dylib";
-// Path For The Rose Preferences plist
-NSString *pathForRosePlist = @"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist";
-// iOS 12 Warning To Not Use Soft Or Rigid Mode
-BOOL hasSeeniOSAlert = NO;
+// Apollo (Custom)
+extern NSString* customStrengthApolloJumpBarControl;
+extern NSString* customStrengthApolloFloatingActionButtonControl;
+extern NSString* customStrengthApolloASDisplayViewControl;
+extern NSString* customStrengthApolloUIButtonControl;
 
 // Needed Interfaces
 @interface UIKBTree : NSObject

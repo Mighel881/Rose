@@ -9,7 +9,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Choose Your Custom Duration</string>
+			<string>CHOOSE_YOUR_CUSTOM_DURATION</string>
 		</dict>
     	<dict>
 			<key>cell</key>
@@ -36,7 +36,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Choose Your Custom Strength</string>
+			<string>CHOOSE_YOUR_CUSTOM_STRENGTH</string>
 		</dict>
 		<dict>
 			<key>cell</key>
