@@ -1,0 +1,10 @@
+{
+
+  "ENABLE_ADDITIONALS_SECTION" = "Kiegészítők Részleg";
+  "ENABLE_SECTION" = "Részleg Bekapcsolása";
+
+  "HAPTIC_ANIMATIONS" = "Haptic Animációk - Követelmények: Taptic Engine és iOS 13";
+
+  "HAPTIC_LOCK_ANIMATION" = "Haptic Zárolás Animációja";
+
+}

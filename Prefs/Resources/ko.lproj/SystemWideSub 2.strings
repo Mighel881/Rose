@@ -1,0 +1,34 @@
+{
+
+  "ENABLE_SYSTEM_WIDE_SECTION" = "시스템 전체 섹션";
+  "ENABLE_SECTION" = "섹션 사용";
+
+  "HAPTIC_FEEDBACK_WHEN" = "진동 피드백 작동 조건";
+
+  "TAPPING_UIBUTTON" = "UIButton 터치";
+  "TAPPING_UIBUTTONBARBUTTON" = "UIButtonBarButton 터치";
+  "TAPPING_UITABBARBUTTON" = "UITabBarButton 터치";
+  "TAPPING_UIIMAGEVIEW" = "UIImageView 터치";
+  "TAPPING_UIVIEW" = "UIView 터치";
+  "TAPPING_UIWINDOW" = "UIWindow 터치";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "맞춤 강도 설정";
+
+  "CUSTOM_UIBUTTON_STRENGTH" = "UIButton 강도";
+  "CUSTOM_UIBUTTONBARBUTTON_STRENGTH" = "UIButtonBarButton 강도";
+  "CUSTOM_UITABBARBUTTON_STRENGTH" = "UITabBarButton 강도";
+  "CUSTOM_UIIMAGEVIEW_STRENGTH" = "UIImageView 강도";
+  "CUSTOM_UIVIEW_STRENGTH" = "UIView 강도";
+  "CUSTOM_UIWINDOW_STRENGTH" = "UIWindow 강도";
+
+  "NONE" = "없음";
+  "LIGHT_HAPTIC_ENGINE" = "가벼운: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "중간: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "무거운: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "가벼운: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "중간: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "무거운: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "약한: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "단단한: Taptic Engine";
+
+}

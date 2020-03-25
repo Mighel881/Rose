@@ -51,6 +51,12 @@
 			<string>TRANSLATORS</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>German</string>
+		</dict>
+		<dict>
 			<key>cellClass</key>
 			<string>KRTwitterCell</string>
 			<key>label</key>
@@ -59,12 +65,102 @@
 			<string>AdrianBaumgart</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Chinese - Simplified</string>
+		</dict>
+		<dict>
 			<key>cellClass</key>
 			<string>KRTwitterCell</string>
 			<key>label</key>
 			<string>Cameron.Ho</string>
 			<key>accountName</key>
 			<string>StayReal_Cam</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Hungarian</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>roland0807</string>
+			<key>accountName</key>
+			<string>roland0807_</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Spanish</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>PONCE54958</string>
+			<key>accountName</key>
+			<string>PONCE54958</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Japanese</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>はく</string>
+			<key>accountName</key>
+			<string>Xq_HAKU_pX</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Korean</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>VQN2ZAst</string>
+			<key>accountName</key>
+			<string>VQN2ZAst</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Vietnamese</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>Trieu Vy</string>
+			<key>accountName</key>
+			<string>nhocvy1429</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Arabic</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>حروف التقنية</string>
+			<key>accountName</key>
+			<string>HuroufTech</string>
 		</dict>
 
 	</array>

@@ -1,0 +1,24 @@
+{
+
+  "ENABLE_CALCULATOR_SUPPORT" = "Számológép Támogatás";
+  "CALCULATOR_SUPPORT" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "TAPPING_A_KEYPAD_BUTTON" = "Gomb Megnyomásakor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősség Beállítása";
+
+  "CUSTOM_KEYPAD_BUTTON_STRENGTH" = "Gomb Megnyomásakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

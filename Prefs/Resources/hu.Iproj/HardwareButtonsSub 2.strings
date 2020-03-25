@@ -1,0 +1,30 @@
+{
+
+  "ENABLE_HARDWARE_BUTTONS_SECTION" = "Hardware Gombok Részleg";
+  "ENABLE_SECTION" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "VOLUME_CHANGED" = "Hangerő Változtatásakor";
+  "PRESSING_ONLY_SLEEP_BUTTON" = "Csak Az Alvás Gomb Megnyomásakor";
+  "PRESSING_HOME_OR_SLEEP_BUTTON" = "Home Gomb/Alvás Gomb Megnyomásakor";
+  "UNMUTING" = "Némításkor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősségek Beállítása";
+
+  "CUSTOM_VOLUME_STRENGTH" = "Hangerő Változtatásakor";
+  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Alvás Gomb Megnyomásakor";
+  "CUSTOM_HOME_BUTTON_STRENGTH" = "Home Gomb Megnyomásakor";
+  "CUSTOM_RINGER_STRENGTH" = "Némításkor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

@@ -1,0 +1,28 @@
+{
+
+  "ENABLE_CONTROL_CENTER_SECTION" = "Vezérlőközpont Részleg";
+  "ENABLE_SECTION" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "TOGGLING_CONNECTIVITY_TOGGLE" = "Connectivity Megnyomásakor";
+  "OPENING_CONTROL_CENTER" = "Vezérlőközpont Megnyitásakor";
+  "TOGGLING_CC_MODULE" = "Vezérlőközpont Modul Ki/Bekapcsolásakor (Tesztelés Alatt)";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősségek Beállítása";
+
+  "CUSTOM_CC_TOGGLE_STRENGTH" = "Connectivity Megnyomásakor";
+  "CUSTOM_OPEN_CONTROL_CENTER_STRENGTH" = "Vezérlőközpont Megnyitásakor";
+  "CUSTOM_CC_MODULE_STRENGTH" = "Vezérlőközpont Modul Ki/Bekapcsolásakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Nehéz: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

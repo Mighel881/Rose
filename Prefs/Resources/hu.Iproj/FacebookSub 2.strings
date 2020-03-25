@@ -1,0 +1,28 @@
+{
+
+  "ENABLE_FACEBOOK_SUPPORT" = "Facebook Támogatás";
+  "FACEBOOK_SUPPORT" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "USING_THE_TABBAR" = "Tabbar Használatakor";
+  "TAPPING_QUICK_ACCESS_BUTTONS" = "Gyors Hozzáférés Gombok Megnyomásakor";
+  "TAPPING_NAVIGATION_BAR_BUTTONS" = "Navigációs Sáv Gombjainak Megnyomásakor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősség Beállítása";
+
+  "CUSTOM_TABBAR_STRENGTH" = "Tabbar Használatakor";
+  "CUSTOM_QUICK_ACCESS_BUTTONS_STRENGTH" = "Gyors Hozzáférés Gombok Megnyomásakor";
+  "CUSTOM_NAVIGATION_BAR_BUTTONS_STRENGTH" = "Navigációs Sáv Gombjainak Megnyomásakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

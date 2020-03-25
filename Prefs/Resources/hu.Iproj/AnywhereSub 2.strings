@@ -1,0 +1,48 @@
+{
+
+  "ENABLE_ANYWHERE_SECTION" = "Bárhol Részleg";
+  "ENABLE_SECTION" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "KILLING_APP" = "Alkalmazás Bezárásakor";
+  "APP_SWITCHER_IS_USED" = "Alkalmazás Váltó Használatakor";
+  "CALLING_SIRI" = "Siri Használatakor";
+  "TAKING_SCREENSHOT" = "Képernyőkép Készítésekor";
+  "BEGIN_OR_END_REACHABILITY" = "Elérhetőség (Reachability) Használatakor";
+  "USING_TEXT_SELECTION" = "Szöveg Kiválasztásakor";
+  "ENTERING_POWER_DOWN_VIEW" = "Kikapcsolásba Való Lépéskor";
+  "RESPRINING" = "Respringing";
+  "TOUCHING_THE_SCREEN" = "Képernyőhöz Való Hozzáéréskor";
+  "TYPING" = "Íráskor";
+  "ENTERING_HOMESCREEN" = "Főképernyőbe Való Lépéskor";
+  "ALERT_APPEARS" = "Megjelenik Egy Riasztás";
+  "ALERT_DISAPPEARS" = "Eltűnik Egy Riasztás";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősségek Beállítása";
+
+  "CUSTOM_KILLING_STRENGTH" = "Alkalmazás Bezárásakor";
+  "CUSTOM_SWITCHER_STRENGTH" = "Alkalmazás Váltó Használatakor";
+  "CUSTOM_SIRI_STRENGTH" = "Siri Használatakor";
+  "CUSTOM_SCREENSHOT_STRENGTH" = "Képernyőkép Készítésekor";
+  "CUSTOM_REACHABILITY_STRENGTH" = "Elérhetőség (Reachability) Használatakor";
+  "CUSTOM_TEXT_SELECTION_STRENGTH" = "Szöveg Kiválasztásakor";
+  "CUSTOM_POWER_DOWN_VIEW_STRENGTH" = "Kikapcsolásba Való Lépéskor";
+  "CUSTOM_RESPRING_STRENGTH" = "Respringing";
+  "CUSTOM_TOUCHES_STRENGTH" = "Képernyőhöz Való Hozzáéréskor";
+  "CUSTOM_TYPING_STRENGTH" = "Íráskor";
+  "CUSTOM_ENTERING_HOMESCREEN_STRENGTH" = "Főképernyőbe Való Lépéskor";
+  "CUSTOM_ALERT_APPEARING_STRENGTH" = "Megjelenik Egy Riasztás";
+  "CUSTOM_ALERT_DISAPPEARING_STRENGTH" = "Eltűnik Egy Riasztás";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

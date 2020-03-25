@@ -1,0 +1,10 @@
+{
+
+  "ENABLE_ADDITIONALS_SECTION" = "启用额外适用功能";
+  "ENABLE_SECTION" = "启用功能";
+
+  "HAPTIC_ANIMATIONS" = "触感反馈模拟 - 仅支持具备Taptic Engine引擎且处于iOS13的设备";
+
+  "HAPTIC_LOCK_ANIMATION" = "锁定反馈模拟";
+
+}

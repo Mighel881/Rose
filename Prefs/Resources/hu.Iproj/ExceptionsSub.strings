@@ -1,0 +1,11 @@
+{
+
+  "ENABLE_EXCEPTIONS_SECTION" = "Kivételek Részleg";
+  "ENABLE_SECTION" = "Részleg Bekapcsolása";
+
+  "DISABLE_FEEDBACK_WHEN" = "Visszajelzés Kikapcsolása..";
+
+  "LOW_POWER_MODE_IS_ON" = "Alacsony Töltöttségű Mód Bekapcsolásakor";
+  "DND_IS_ACTIVE" = "DND Bekapcsolásakor";
+
+}

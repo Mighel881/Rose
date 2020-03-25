@@ -18,15 +18,11 @@ extern BOOL enableHapticEngineSwitch;
 extern BOOL enableLegacyEngineSwitch;
 
 // Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
-NSString* tapticLevel;
-NSString* hapticLevel;
-NSString* legacyLevel;
-NSString* customlegacyDurationLevel;
-NSString* customlegacyStrengthLevel;
-int customFeedbackValue;
-
-// Taptic Engine Feedback generator
-UIImpactFeedbackGenerator *gen;
+extern NSString* tapticLevel;
+extern NSString* hapticLevel;
+extern NSString* legacyLevel;
+extern NSString* customlegacyDurationLevel;
+extern NSString* customlegacyStrengthLevel;
 
 // Switches To Enable Sections
 extern BOOL anywhereSectionSupportSwitch;
@@ -62,7 +58,6 @@ extern BOOL ccModuleSwitch;
 // Hardware Buttons
 extern BOOL volumeSwitch;
 extern BOOL sleepButtonSwitch;
-extern BOOL homeButtonSwitch;
 extern BOOL ringerSwitch;
 
 // Homescreen Section
@@ -131,6 +126,17 @@ extern BOOL ITGdoubleTapToLikeSwitch;
 extern BOOL ITGcommentButtonSwitch;
 extern BOOL ITGsaveButtonSwitch;
 extern BOOL ITGsendButtonSwitch;
+
+// Music (Custom)
+extern BOOL MusicPlayPauseButtonsSwitch;
+extern BOOL MusicVolumeSliderSwitch;
+extern BOOL MusicContextualActionsButtonSwitch;
+extern BOOL MusicTimeSliderSwitch;
+extern BOOL MusicSongCellSwitch;
+extern BOOL MusicLibraryCellSwitch;
+extern BOOL MusicAlbumCellSwitch;
+extern BOOL MusicAirPlayButtonSwitch;
+extern BOOL MusicLiveLyricsQueueButtonSwitch;
 
 // TikTok
 extern BOOL TTlikeCommentShareButtonsSwitch;
@@ -205,7 +211,6 @@ extern NSString* customStrengthCCModuleControl;
 // Hardware Buttons Section (Custom)
 extern NSString* customStrengthVolumeControl;
 extern NSString* customStrengthSleepButtonControl;
-extern NSString* customStrengthHomeButtonControl;
 extern NSString* customStrengthRingerControl;
 
 // Homescreen Section (Custom)
@@ -258,6 +263,17 @@ extern NSString* customStrengthITGdoubleTapToLikeControl;
 extern NSString* customStrengthITGcommentButtonControl;
 extern NSString* customStrengthITGsaveButtonControl;
 extern NSString* customStrengthITGsendButtonControl;
+
+// Music (Custom)
+extern NSString *customStrengthMusicApplicationPlayButtonControl;
+extern NSString *customStrengthMusicApplicationVolumeSliderControl;
+extern NSString *customStrengthMusicApplicationContextualActionsButtonControl;
+extern NSString *customStrengthMusicApplicationTimeSliderControl;
+extern NSString *customStrengthMusicApplicationSongCellControl;
+extern NSString *customStrengthLibraryCellControl;
+extern NSString *customStrengthMusicApplicationAlbumCellControl;
+extern NSString *customStrengthMPRouteButtonControl;
+extern NSString *customStrengthMPButtonControl;
 
 // TikTok (Custom)
 extern NSString* customStrengthTTlikeCommentShareButtonsControl;

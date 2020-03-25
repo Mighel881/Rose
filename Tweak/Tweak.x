@@ -1,357 +1,178 @@
 #import "Rose.h"
+#import <Rose/librose.h>
 
-// Enabled And Engine Switches
-BOOL enabled = NO;
-BOOL enableTapticEngineSwitch = NO;
-BOOL enableHapticEngineSwitch = NO;
-BOOL enableLegacyEngineSwitch = NO;
+roseCall* haptics;
+
+// Taptic Engine Feedback generator
+UIImpactFeedbackGenerator *gen;
+
+// Option Switches
+BOOL enabled;
+BOOL enableTapticEngineSwitch;
+BOOL enableHapticEngineSwitch;
+BOOL enableLegacyEngineSwitch;
+
+// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
+NSString* tapticLevel;
+NSString* hapticLevel;
+NSString* legacyLevel;
+NSString* customlegacyDurationLevel;
+NSString* customlegacyStrengthLevel;
+
+int tapticLVL;
+int hapticLVL;
+double delayLVL;
+int selectedLegacyMode;
+double customLegacyDuration;
+double customLegacyStrength;
 
 // Switches To Enable Sections
-BOOL anywhereSectionSupportSwitch = NO;
-BOOL controlCenterSectionSupportSwitch = NO;
-BOOL hardwareButtonsSectionSupportSwitch = NO;
-BOOL homescreenSectionSupportSwitch = NO;
-BOOL lockscreenSectionSupportSwitch = NO;
-BOOL otherHardwareActionsSectionSupportSwitch = NO;
-BOOL statusChangesSectionSupportSwitch = NO;
-BOOL systemWideSectionSupportSwitch = NO;
-BOOL extrasSectionSupportSwitch = NO;
-BOOL exceptionsSectionSupportSwitch = NO;
+BOOL anywhereSectionSupportSwitch;
+BOOL controlCenterSectionSupportSwitch;
+BOOL hardwareButtonsSectionSupportSwitch;
+BOOL homescreenSectionSupportSwitch;
+BOOL lockscreenSectionSupportSwitch;
+BOOL otherHardwareActionsSectionSupportSwitch;
+BOOL statusChangesSectionSupportSwitch;
+BOOL systemWideSectionSupportSwitch;
+BOOL extrasSectionSupportSwitch;
+BOOL exceptionsSectionSupportSwitch;
 
 // Anywhere Section
-BOOL killingSwitch = NO;
-BOOL switcherSwitch = NO;
-BOOL siriSwitch = NO;
-BOOL screenshotSwitch = NO;
-BOOL reachabilitySwitch = NO;
-BOOL textSelectionSwitch = NO;
-BOOL powerSwitch = NO;
-BOOL respringSwitch = NO;
-BOOL keyboardSwitch = NO;
-BOOL enterBackgroundSwitch = NO;
-BOOL alertAppearSwitch = NO;
-BOOL alertDisappearSwitch = NO;
+BOOL killingSwitch;
+BOOL switcherSwitch;
+BOOL siriSwitch;
+BOOL screenshotSwitch;
+BOOL reachabilitySwitch;
+BOOL textSelectionSwitch;
+BOOL powerSwitch;
+BOOL respringSwitch;
+BOOL keyboardSwitch;
+BOOL enterBackgroundSwitch;
+BOOL alertAppearSwitch;
+BOOL alertDisappearSwitch;
 
 // Control Center Section
-BOOL ccToggleSwitch = NO;
-BOOL openControlCenterSwitch = NO;
-BOOL ccModuleSwitch = NO;
+BOOL ccToggleSwitch;
+BOOL openControlCenterSwitch;
+BOOL ccModuleSwitch;
 
 // Hardware Buttons
-BOOL volumeSwitch = NO;
-BOOL sleepButtonSwitch = NO;
-BOOL homeButtonSwitch = NO;
-BOOL ringerSwitch = NO;
+BOOL volumeSwitch;
+BOOL sleepButtonSwitch;
+BOOL ringerSwitch;
 
 // Homescreen Section
-BOOL forceSwitch = NO;
-BOOL folderOpenSwitch = NO;
-BOOL folderCloseSwitch = NO;
-BOOL iconTapSwitch = NO;
-BOOL pageSwipeSwitch = NO;
-BOOL spotlightSwitch = NO;
+BOOL forceSwitch;
+BOOL folderOpenSwitch;
+BOOL folderCloseSwitch;
+BOOL iconTapSwitch;
+BOOL pageSwipeSwitch;
+BOOL spotlightSwitch;
 
 // Lockscreen Section
-BOOL passcodeSwitch = NO;
-BOOL quickActionsButtonSwitch = NO;
+BOOL passcodeSwitch;
+BOOL quickActionsButtonSwitch;
 
 // Other Hardware Actions Section
-BOOL wakeSwitch = NO;
-BOOL pluggedSwitch = NO;
-BOOL connectBluetoothDeviceSwitch = NO;
+BOOL wakeSwitch;
+BOOL pluggedSwitch;
+BOOL connectBluetoothDeviceSwitch;
 
 // Status Changes Section
-BOOL unlockSwitch = NO;
-BOOL lockSwitch = NO;
-BOOL authenticationSwitch = NO;
-BOOL callSwitch = NO;
+BOOL unlockSwitch;
+BOOL lockSwitch;
+BOOL authenticationSwitch;
+BOOL callSwitch;
 
 // System Wide Section
-BOOL UIButtonSwitch = NO;
-BOOL UIButtonBarButtonSwitch = NO;
-BOOL UITabBarButtonSwitch = NO;
-BOOL UIImageViewSwitch = NO;
-BOOL UIViewSwitch = NO;
-BOOL UIWindowSwitch = NO;
+BOOL UIButtonSwitch;
+BOOL UIButtonBarButtonSwitch;
+BOOL UITabBarButtonSwitch;
+BOOL UIImageViewSwitch;
+BOOL UIViewSwitch;
+BOOL UIWindowSwitch;
 
 // Additionals Section
-BOOL lockAnimationSwitch = NO;
+BOOL lockAnimationSwitch;
 
 // Enable App Support Switches
-BOOL apolloSupportSwitch = NO;
-BOOL calculatorSupportSwitch = NO;
-BOOL facebookSupportSwitch = NO;
-BOOL instagramSupportSwitch = NO;
-BOOL musicSupportSwitch = NO;
-BOOL phoneSupportSwitch = NO;
-BOOL safariSupportSwitch = NO;
-BOOL sileoSupportSwitch = NO;
-BOOL spotifySupportSwitch = NO;
-BOOL tiktokSupportSwitch = NO;
-BOOL twitterSupportSwitch = NO;
+BOOL apolloSupportSwitch;
+BOOL calculatorSupportSwitch;
+BOOL facebookSupportSwitch;
+BOOL instagramSupportSwitch;
+BOOL musicSupportSwitch;
+BOOL phoneSupportSwitch;
+BOOL safariSupportSwitch;
+BOOL sileoSupportSwitch;
+BOOL spotifySupportSwitch;
+BOOL tiktokSupportSwitch;
+BOOL twitterSupportSwitch;
 
 // Delay
-BOOL delaySwitch = NO;
-NSString* delayLevel = @"0.0";
+BOOL delaySwitch;
+NSString* delayLevel;
 
 // Low Power Mode And DND Mode Recognition
-BOOL LowPowerMode = NO;
-BOOL LowPowerModeSwitch = NO;
-BOOL isDNDActive = NO;
-BOOL isDNDActiveSwitch = NO;
+BOOL LowPowerMode;
+BOOL LowPowerModeSwitch;
+BOOL isDNDActive;
+BOOL isDNDActiveSwitch;
 
 // Anywhere Section (Custom)
-NSString* customStrengthKillingControl = @"0";
-NSString* customStrengthSwitcherControl = @"0";
-NSString* customStrengthSiriControl = @"0";
-NSString* customStrengthScreenshotControl = @"0";
-NSString* customStrengthReachabilityControl = @"0";
-NSString* customStrengthTextSelectionControl = @"0";
-NSString* customStrengthPowerDownControl = @"0";
-NSString* customStrengthRespringControl = @"0";
-NSString* customStrengthKeyboardControl = @"0";
-NSString* customStrengthEnterBackgroundControl = @"0";
-NSString* customStrengthAlertAppearControl = @"0";
-NSString* customStrengthAlertDisappearControl = @"0";
+NSString* customStrengthKillingControl;
+NSString* customStrengthSwitcherControl;
+NSString* customStrengthSiriControl;
+NSString* customStrengthScreenshotControl;
+NSString* customStrengthReachabilityControl;
+NSString* customStrengthTextSelectionControl;
+NSString* customStrengthPowerDownControl;
+NSString* customStrengthRespringControl;
+NSString* customStrengthKeyboardControl;
+NSString* customStrengthEnterBackgroundControl;
+NSString* customStrengthAlertAppearControl;
+NSString* customStrengthAlertDisappearControl;
 
 // Control Center Section (Custom)
-NSString* customStrengthCCToggleControl = @"0";
-NSString* customStrengthOpenControlCenterControl = @"0";
-NSString* customStrengthCCModuleControl = @"0";
+NSString* customStrengthCCToggleControl;
+NSString* customStrengthOpenControlCenterControl;
+NSString* customStrengthCCModuleControl;
 
 // Hardware Buttons Section (Custom)
-NSString* customStrengthVolumeControl = @"0";
-NSString* customStrengthSleepButtonControl = @"0";
-NSString* customStrengthHomeButtonControl = @"0";
-NSString* customStrengthRingerControl = @"0";
+NSString* customStrengthVolumeControl;
+NSString* customStrengthSleepButtonControl;
+NSString* customStrengthRingerControl;
 
 // Homescreen Section (Custom)
-NSString* customStrengthForceTouchControl = @"0";
-NSString* customStrengthFolderOpenControl = @"0";
-NSString* customStrengthFolderCloseControl = @"0";
-NSString* customStrengthIconTapControl = @"0";
-NSString* customStrengthPageSwipeControl = @"0";
-NSString* customStrengthSpotlightControl = @"0";
+NSString* customStrengthForceTouchControl;
+NSString* customStrengthFolderOpenControl;
+NSString* customStrengthFolderCloseControl;
+NSString* customStrengthIconTapControl;
+NSString* customStrengthPageSwipeControl;
+NSString* customStrengthSpotlightControl;
 
 // Lockscreen Section (Custom)
-NSString* customStrengthPasscodeControl = @"0";
-NSString* customStrengthQuickActionsButtonControl = @"0";
+NSString* customStrengthPasscodeControl;
+NSString* customStrengthQuickActionsButtonControl;
 
 // Other Hardware Action Section (Custom)
-NSString* customStrengthWakeControl = @"0";
-NSString* customStrengthPluggedControl = @"0";
-NSString* customStrengthConnectBluetoothDeviceControl = @"0";
+NSString* customStrengthWakeControl;
+NSString* customStrengthPluggedControl;
+NSString* customStrengthConnectBluetoothDeviceControl;
 
 // Status Changes Section (Custom)
-NSString* customStrengthUnlockControl = @"0";
-NSString* customStrengthLockControl = @"0";
-NSString* customStrengthAuthenticationControl = @"0";
-NSString* customStrengthCallControl = @"0";
+NSString* customStrengthUnlockControl;
+NSString* customStrengthLockControl;
+NSString* customStrengthAuthenticationControl;
+NSString* customStrengthCallControl;
 
 // System Wide Section (Custom)
-NSString* customStrengthUIButtonControl = @"0";
-NSString* customStrengthUIButtonBarButtonControl = @"0";
-NSString* customStrengthUITabBarButtonControl = @"0";
-NSString* customStrengthUIImageViewControl = @"0";
-NSString* customStrengthUIViewControl = @"0";
-NSString* customStrengthUIWindowControl = @"0";
-
-// Rose wide haptics controller
-void prepareForHaptic() {
-
-    int hapticStrength = [hapticLevel intValue];
-	int tapticStrength = [tapticLevel intValue];
-
-	if (enableHapticEngineSwitch) {
-		if (hapticStrength == 0) {
-			AudioServicesPlaySystemSound(1519);
-
-		}
-
-		else if (hapticStrength == 1) {
-			AudioServicesPlaySystemSound(1520);
-
-		}
-
-		else if (hapticStrength == 2) {
-			AudioServicesPlaySystemSound(1521);
-
-		}
-		
-	}
-
-	if (enableTapticEngineSwitch) {
-		[gen prepare];
-
-		if (tapticStrength == 0) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-
-		} else if (tapticStrength == 1) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-
-		} else if (tapticStrength == 2) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-
-		} else if (tapticStrength == 3) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleSoft];
-
-		} else if (tapticStrength == 4) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
-
-		}
-
-		[gen impactOccurred];
-
-	}
-
-}
-
-	// Rose wide haptics trigger
-void triggerFeedback() {
-
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
-	if (!delaySwitch) {
-		prepareForHaptic();
-
-	} else if (delaySwitch) {
-		double delay = [delayLevel intValue];
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-			prepareForHaptic();
-
-		});
-		
-	}
-
-}
-
-	// Rose custom haptis controller
-void prepareCustomFeedback() {
-
-	if (customFeedbackValue > 0 && customFeedbackValue < 4) {
-		if (customFeedbackValue == 1) {
-			AudioServicesPlaySystemSound(1519);
-
-		}
-
-		else if (customFeedbackValue == 2) {
-			AudioServicesPlaySystemSound(1520);
-
-		}
-
-		else if (customFeedbackValue == 3) {
-			AudioServicesPlaySystemSound(1521);
-
-		}
-		
-	}
-
-	if (customFeedbackValue > 3 && customFeedbackValue < 9) {
-		[gen prepare];
-
-		if (customFeedbackValue == 4) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-
-		} else if (customFeedbackValue == 5) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-
-		} else if (customFeedbackValue == 6) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-
-		} else if (customFeedbackValue == 7) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleSoft];
-
-		} else if (customFeedbackValue == 8) {
-			gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleRigid];
-
-		}
-
-		[gen impactOccurred];
-
-	}
-
-}
-
-	// Rose custom haptics trigger
-void triggerCustomFeedback() {
-
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
-	if (!delaySwitch) {
-		prepareCustomFeedback();
-
-	} else if (delaySwitch) {
-		double delay = [delayLevel intValue];
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-			prepareCustomFeedback();
-
-		});
-		
-	}
-
-}
-
-// https://stackoverflow.com/a/43816242
-void AudioServicesPlaySystemSoundWithVibration(UInt32 inSystemSoundID, id arg, NSDictionary* vibratePattern);
-
-void prepareLegacyFeedback(float durationInSeconds, float intensivity, long count)  {
-
-    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-    NSMutableArray* arr = [NSMutableArray array];
-
-    for (long i = count; i--;) {
-		[arr addObject:[NSNumber numberWithBool:YES]];
-        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
-
-        [arr addObject:[NSNumber numberWithBool:NO]];
-        [arr addObject:[NSNumber numberWithInt:durationInSeconds*1000]];
-
-    }
-
-    [dict setObject:arr forKey:@"VibePattern"];
-    [dict setObject:[NSNumber numberWithFloat:intensivity] forKey:@"Intensity"];
-
-    AudioServicesPlaySystemSoundWithVibration(4095,nil,dict);
-
-}
-
-	// Rose legacy haptics trigger
-void triggerLegacyFeedback() {
-
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
-	int selectedLegacyMode = [legacyLevel intValue];
-	double customLegacyDuration = [customlegacyDurationLevel doubleValue];
-	double customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-
-	if (!delaySwitch) {
-		if (selectedLegacyMode == 0) {
-				prepareLegacyFeedback(.025, .05, 1);
-
-		} else if (selectedLegacyMode == 1) {
-				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
-
-		}
-
-	} else if (delaySwitch) {
-		double delay = [delayLevel intValue];
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-
-			if (selectedLegacyMode == 0) {
-				prepareLegacyFeedback(.025, .05, 1);
-
-			} else if (selectedLegacyMode == 1) {
-				prepareLegacyFeedback(customLegacyDuration, customLegacyStrength, 1);
-
-			}
-
-		});
-		
-	}
-
-}
+NSString* customStrengthUIButtonControl;
+NSString* customStrengthUIButtonBarButtonControl;
+NSString* customStrengthUITabBarButtonControl;
+NSString* customStrengthUIImageViewControl;
+NSString* customStrengthUIViewControl;
+NSString* customStrengthUIWindowControl;
 
 %group Homescreen
 
@@ -365,14 +186,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthForceTouchControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -390,14 +210,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthFolderOpenControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -411,14 +230,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthFolderCloseControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -436,14 +254,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthIconTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -461,14 +278,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthPageSwipeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -484,14 +300,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthSpotlightControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -515,14 +330,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthPasscodeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -540,14 +354,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthQuickActionsButtonControl intValue];
 
 	if (quickActionsButtonSwitch && customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (quickActionsButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (quickActionsButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -569,14 +382,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthKillingControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -594,14 +406,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthSwitcherControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -619,14 +430,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthSiriControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -644,14 +454,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthScreenshotControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -669,14 +478,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthReachabilityControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -694,14 +502,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthTextSelectionControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -719,14 +526,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthPowerDownControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -744,14 +550,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthRespringControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -769,14 +574,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthKeyboardControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -794,14 +598,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthEnterBackgroundControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -819,14 +622,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthAlertAppearControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -840,14 +642,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthAlertDisappearControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -869,14 +670,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthVolumeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -890,14 +690,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthVolumeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -913,14 +712,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthSleepButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -932,36 +730,6 @@ void triggerLegacyFeedback() {
 
 %hook SpringBoard
 
-- (BOOL)_handlePhysicalButtonEvent:(UIPressesEvent *)arg1 {
-
-	// type = 101 -> Home button
-	// force = 0 -> button released
-	// force = 1 -> button pressed
-
-	//int type = arg1.allPresses.allObjects[0].type;
-	if (!enabled || !hardwareButtonsSectionSupportSwitch || !homeButtonSwitch) return %orig;
-	int force = arg1.allPresses.allObjects[0].force;
-	int customStrength = [customStrengthHomeButtonControl intValue];
-
-	if (force == 1) {
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
-
-		}
-
-	}
-
-	return %orig;
-
-}
-
 - (void)_ringerChanged:(id)arg1 {
 
 	%orig;
@@ -970,14 +738,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthRingerControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -999,14 +766,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthCCToggleControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1024,14 +790,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthOpenControlCenterControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1049,14 +814,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthCCModuleControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1078,14 +842,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUnlockControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1113,14 +876,13 @@ void triggerLegacyFeedback() {
 		});
 
 	} else if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1139,14 +901,13 @@ void triggerLegacyFeedback() {
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
 		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
+			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
+			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
+			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 		}
 
@@ -1166,14 +927,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthCallControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1191,14 +951,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthConnectBluetoothDeviceControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1222,14 +981,13 @@ void triggerLegacyFeedback() {
 		int customStrength = [customStrengthWakeControl intValue];
 
 		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
+			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
+			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
+			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 		}
 
@@ -1249,14 +1007,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthPluggedControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1278,14 +1035,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUIButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1303,14 +1059,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUIButtonBarButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1328,14 +1083,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUITabBarButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1353,14 +1107,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUIImageViewControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1378,14 +1131,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUIViewControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1403,14 +1155,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthUIWindowControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1457,14 +1208,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthVolumeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1478,14 +1228,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthVolumeControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1503,14 +1252,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthPowerDownControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1528,14 +1276,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthIconTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1554,14 +1301,13 @@ void triggerLegacyFeedback() {
 		int customStrength = [customStrengthAuthenticationControl intValue];
 
 		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			triggerFeedback();
+			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			customFeedbackValue = customStrength;
-			triggerCustomFeedback();
+			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			triggerLegacyFeedback();
+			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 		}
 
@@ -1581,14 +1327,13 @@ void triggerLegacyFeedback() {
 	int customStrength = [customStrengthQuickActionsButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch) {
-		triggerFeedback();
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
 
 	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-		customFeedbackValue = customStrength;
-		triggerCustomFeedback();
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
 
 	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-		triggerLegacyFeedback();
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 
 	}
 
@@ -1718,7 +1463,6 @@ void triggerLegacyFeedback() {
 	if (hardwareButtonsSectionSupportSwitch) {
 		[pfs registerBool:&volumeSwitch default:NO forKey:@"volumeChanged"];
 		[pfs registerBool:&sleepButtonSwitch default:NO forKey:@"sleepButton"];
-		[pfs registerBool:&homeButtonSwitch default:NO forKey:@"homeButton"];
 		[pfs registerBool:&ringerSwitch default:NO forKey:@"ringer"];
 
 	}
@@ -1818,7 +1562,6 @@ void triggerLegacyFeedback() {
 	if (hardwareButtonsSectionSupportSwitch) {
 		[pfs registerObject:&customStrengthVolumeControl default:@"0" forKey:@"customStrengthVolume"];
 		[pfs registerObject:&customStrengthSleepButtonControl default:@"0" forKey:@"customStrengthSleepButton"];
-		[pfs registerObject:&customStrengthHomeButtonControl default:@"0" forKey:@"customStrengthHomeButton"];
 		[pfs registerObject:&customStrengthRingerControl default:@"0" forKey:@"customStrengthRinger"];
 
 	}
@@ -1871,6 +1614,13 @@ void triggerLegacyFeedback() {
         );
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
+			haptics = [[roseCall alloc] init];
+			tapticLVL = [tapticLevel intValue];
+			hapticLVL = [hapticLevel intValue];
+			delayLVL = [delayLevel doubleValue];
+			selectedLegacyMode = [legacyLevel intValue];
+			customLegacyDuration = [customlegacyDurationLevel doubleValue];
+			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 			if (homescreenSectionSupportSwitch) %init(Homescreen);
 			if (lockscreenSectionSupportSwitch) %init(Lockscreen);
 			if (anywhereSectionSupportSwitch) %init(Anywhere);

@@ -1,0 +1,32 @@
+{
+
+  "ENABLE_TWITTER_SUPPORT" = "Twitter Támogatás";
+  "TWITTER_SUPPORT" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszalyelzés..";
+
+  "USING_TABBAR" = "Tabbar Használatakor";
+  "TAPPING_ON_A_TWEET" = "Tweet-re Való Koppintáskor";
+  "TAPPING_A_DM_CHAT" = "DM Chat-re Való Koppintáskor";
+  "TAPPING_ON_A_NOTIFICATION" = "Értesítésre Való Koppintáskor";
+  "USING_THE_FLOATING_TWEET_BUTTON" = "Floating Tweet Gomb Használatakor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősség Beállítása";
+
+  "CUSTOM_TABBAR_STRENGTH" = "Tabbar Használatakor";
+  "CUSTOM_TWEET_STRENGTH" = "Tweet-re Való Koppintáskor";
+  "CUSTOM_DM_STRENGTH" = "DM Chat-re Való Koppintáskor";
+  "CUSTOM_NOTIFICATION_STRENGTH" = "Értesítésre Való Koppintáskor";
+  "CUSTOM_FLOATING_TWEET_BUTTON_STRENGTH" = "Floating Tweet Gomb Használatakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

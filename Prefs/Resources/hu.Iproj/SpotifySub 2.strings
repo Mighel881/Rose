@@ -1,0 +1,44 @@
+{
+
+  "ENABLE_SPOTIFY_SUPPORT" = "Spotify Támogatás";
+  "SPOTIFY_SUPPORT" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "RESUMING_OR_PAUSING_SONG" = "Zene Folytatásakor/Leállításakor";
+  "MINI_PLAYER_RESUMING_OR_PAUSING_SONG" = "Zene Folytatásakor/Leállításakor a Mini-Lejátszóban";
+  "GOING_TO_PREVIOUS_SONG" = "Előző Zene";
+  "SKIPPING_SONG" = "Zene Átlépése";
+  "TAPPING_REPEAT_BUTTON" = "Ismétlés Gomb Megnyomásakor";
+  "TAPPING_SHUFFLE_BUTTON" = "Shuffle Gomb Megnyomásakor";
+  "TAPPING_QUEUE_BUTTON" = "Queue Gomb Megnyomásakor";
+  "USING_TIME_SLIDER" = "Idő Csúszka Használatakor";
+  "TAPPING_LIKE_BUTTON" = "Like Gomb Megnyomásakor";
+  "TAPPING_DEVICES_BUTTON" = "Eszközök Gomb Megnyomásakor";
+  "TAPPING_SONG_LABEL" = "Zene Címének Megnyomásakor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősség Beállítása";
+
+  "CUSTOM_PLAY_BUTTON_STRENGTH" = "Zene Folytatásakor/Leállításakor";
+  "CUSTOM_MINI_PLAYER_PLAY_BUTTON_STRENGTH" = "Zene Folytatásakor/Leállításakor a Mini-Lejátszóban";
+  "CUSTOM_PREVIOUS_TRACK_BUTTON_STRENGTH" = "Elöző Zene";
+  "CUSTOM_SKIP_BUTTON_STRENGTH" = "Zene Átlépése";
+  "CUSTOM_REPEAT_BUTTON_STRENGTH" = "Ismétlés Gomb Megnyomásakor";
+  "CUSTOM_SHUFFLE_BUTTON_STRENGTH" = "Shuffle Gomb Megnyomásakor";
+  "CUSTOM_QUEUE_BUTTON_STRENGTH" = "Queue Gomb Megnyomásakor";
+  "CUSTOM_TIME_SLIDER_STRENGTH" = "Idő Csúszka Használatakor";
+  "CUSTOM_LIKE_BUTTON_STRENGTH" = "Like Gomb Megnyomásakor";
+  "CUSTOM_DEVICES_BUTTON_STRENGTH" = "Eszközök Gomb Megnyomásakor";
+  "CUSTOM_LABEL_STRENGTH" = "Zene Címének Megnyomásakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

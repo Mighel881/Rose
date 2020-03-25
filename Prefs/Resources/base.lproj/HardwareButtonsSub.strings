@@ -14,7 +14,6 @@
 
   "CUSTOM_VOLUME_STRENGTH" = "Custom Volume Strength";
   "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Custom Sleep Button Strength";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "Custom Home Button Strength";
   "CUSTOM_RINGER_STRENGTH" = "Custom Ringer Strength";
 
   "NONE" = "None";

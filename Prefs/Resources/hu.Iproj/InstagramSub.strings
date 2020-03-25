@@ -1,0 +1,32 @@
+{
+
+  "ENABLE_INSTAGRAM_SUPPORT" = "Instagram Támogatás";
+  "INSTAGRAM_SUPPORT" = "Részleg Bekapcsolása";
+
+  "HAPTIC_FEEDBACK_WHEN" = "Haptic Visszajelzés..";
+
+  "TAPPING_LIKE_BUTTON" = "Like Gomb Megnyomásakor";
+  "DOUBLE_TAPPING_TO_LIKE" = "Dupla Koppintás a Like Gombon";
+  "TAPPING_COMMENT_BUTTON" = "Komment Gomb Megnyomásakor";
+  "TAPPING_SAVE_BUTTON" = "Mentés Gomb Megnyomásakor";
+  "TAPPING_SEND_BUTTON" = "Küldés Gomb Megnyomásakor";
+
+  "CUSTOM_STRENGTH_SETTINGS" = "Erősség Beállítása";
+
+  "CUSTOM_LIKE_BUTTON_STRENGTH" = "Like Gomb Megnyomásakor";
+  "CUSTOM_DOUBLE_TAP_TO_LIKE_STRENGTH" = "Dupla Koppintás a Like Gombon";
+  "CUSTOM_COMMENT_BUTTON_STRENGTH" = "Komment Gomb Megnyomásakor";
+  "CUSTOM_SAVE_BUTTON_STRENGTH" = "Mentés Gomb Megnyomásakor";
+  "CUSTOM_SEND_BUTTON_STRENGTH" = "Küldés Gomb Megnyomásakor";
+
+  "NONE" = "Egyik Sem";
+  "LIGHT_HAPTIC_ENGINE" = "Könnyű: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Közepes: Haptic Engine";
+  "HEAVY_HAPTIC_ENGINE" = "Nehéz: Haptic Engine";
+  "LIGHT_TAPTIC_ENGINE" = "Könnyű: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Közepes: Taptic Engine";
+  "STRONG_TAPTIC_ENGINE" = "Erős: Taptic Engine";
+  "SOFT_TAPTIC_ENGINE" = "Lágy: Taptic Engine";
+  "RIGID_TAPTIC_ENGINE" = "Szigorú: Taptic Engine";
+
+}

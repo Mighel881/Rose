@@ -126,7 +126,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Custom Strength Settings</string>
+			<string>CUSTOM_STRENGTH_SETTINGS</string>
 		</dict>
 		<dict>
 			<key>cell</key>

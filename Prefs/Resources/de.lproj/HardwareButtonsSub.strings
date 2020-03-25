@@ -13,16 +13,15 @@
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
   "CUSTOM_VOLUME_STRENGTH" = "Eigene Lautstärke Stärke";
-  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Eigene Ausschaltknopf Stärke";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "Eigene Home Button Stärke";
-  "CUSTOM_RINGER_STRENGTH" = "Eigene Klingelton Stärke";
+  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Eigene Ausschaltknopfstärke";
+  "CUSTOM_RINGER_STRENGTH" = "Eigene Klingeltonstärke";
 
   "NONE" = "Nichts";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
-  "MEDIUM_HAPTIC_ENGINE" = "Medium: Haptic Engine";
+  "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";
   "LIGHT_TAPTIC_ENGINE" = "Leicht: Taptic Engine";
-  "MEDIUM_TAPTIC_ENGINE" = "Medium: Taptic Engine";
+  "MEDIUM_TAPTIC_ENGINE" = "Mittel: Taptic Engine";
   "STRONG_TAPTIC_ENGINE" = "Stark: Taptic Engine";
   "SOFT_TAPTIC_ENGINE" = "Sanft: Taptic Engine";
   "RIGID_TAPTIC_ENGINE" = "Starr: Taptic Engine";

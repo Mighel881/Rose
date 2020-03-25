@@ -1,5 +1,5 @@
 include $(THEOS)/makefiles/common.mk
 
-SUBPROJECTS += Music Spotify Twitter Calculator Safari Phone TikTok Sileo Instagram Apollo Facebook
+SUBPROJECTS += Apollo Calculator Facebook Instagram Phone Safari Spotify TikTok Twitter Music
 
 include $(THEOS_MAKE_PATH)/aggregate.mk
