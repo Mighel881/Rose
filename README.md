@@ -13,7 +13,7 @@ No Dependencies Required, Only The iOS 13 SDK (Including PrivateFrameworks If Yo
 
 If It Won't Compile Because Of libRose Just cd Into libRose And 'make package' Or 'make clean package' To Install It To Your theos Libraries
 
-libRose Is ONLY for Rose, I Mean, Sure Feel Free To Take It And Modify It But It's Not Made For Public Usage Out Of The Box
+libRose Is ONLY for Rose, I Mean, Sure Feel Free To Take It And Modify It But It's Not Made For Public Usage Out Of The Box As You're Going To See
 
 ## Bugs
 
