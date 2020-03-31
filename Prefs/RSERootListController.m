@@ -43,7 +43,7 @@ UIImpactFeedbackGenerator* gen;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"5.3";
+        self.titleLabel.text = @"5.3.1";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -578,8 +578,6 @@ UIImpactFeedbackGenerator* gen;
 
 - (void)respringUtil {
 
-    [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Rose"]];
-    // Doing This As Well As The Respring From Cephei Is Broken So We Have To Force ReSpring
     pid_t pid;
     const char *args[] = {"killall", "backboardd", NULL};
     posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);

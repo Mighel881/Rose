@@ -4,7 +4,7 @@ Getting peeped by a Rose doesn't feel that good, it's time to change that
 
 ## Installation
 
-1. Add this repository to your Package Manager: https://repo.litten.sh
+1. Add this repository to your Package Manager: https://repo.litten.love
 2. Install Rose.
 
 ## Building

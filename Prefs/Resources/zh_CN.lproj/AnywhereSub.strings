@@ -1,6 +1,6 @@
 {
 
-  "ENABLE_ANYWHERE_SECTION" = "启用全局适用功能";
+  "ENABLE_ANYWHERE_SECTION" = "启用全局控制适用功能";
   "ENABLE_SECTION" = "启用功能";
 
   "HAPTIC_FEEDBACK_WHEN" = "触觉反馈启用条件..";
@@ -41,6 +41,6 @@
   "MEDIUM_TAPTIC_ENGINE" = "Taptic Engine: 中等";
   "STRONG_TAPTIC_ENGINE" = "Taptic Engine: 强烈";
   "SOFT_TAPTIC_ENGINE" = "Taptic Engine: 轻柔";
-  "RIGID_TAPTIC_ENGINE" = "Taptic Engine: 刚硬";
+  "RIGID_TAPTIC_ENGINE" = "Taptic Engine: 短促";
 
 }

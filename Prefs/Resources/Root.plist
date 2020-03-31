@@ -508,7 +508,7 @@
 			<key>icon</key>
 			<string>Lune.png</string>
 			<key>url</key>
-			<string>https://repo.litten.sh/depictions/lne/</string>
+			<string>https://repo.litten.love/depictions/lne/</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -520,7 +520,7 @@
 			<key>icon</key>
 			<string>Aestea.png</string>
 			<key>url</key>
-			<string>https://repo.litten.sh/depictions/aes/</string>
+			<string>https://repo.litten.love/depictions/aes/</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -532,7 +532,7 @@
 			<key>icon</key>
 			<string>Butterfly.png</string>
 			<key>url</key>
-			<string>https://repo.litten.sh/depictions/bty/</string>
+			<string>https://repo.litten.love/depictions/bty/</string>
 		</dict>
 
 		<dict>
@@ -564,7 +564,7 @@ ARTWORKS_BY_TAKI</string>
 			<key>subtitle</key>
 			<string>SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST</string>
 			<key>url</key>
-			<string>mailto:hello@litten.sh?subject=Rose%20Feature%20Request</string>
+			<string>mailto:hiya@litten.love?subject=Rose%20Feature%20Request</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
