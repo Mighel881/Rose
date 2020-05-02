@@ -21,7 +21,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>ApolloSub</string>
  		</dict>
-		 <dict>
+		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -31,7 +31,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>CalculatorSub</string>
  		</dict>
-		 <dict>
+		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -41,7 +41,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>FacebookSub</string>
  		</dict>
-		 <dict>
+		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -61,7 +61,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>MusicSub</string>
  		</dict>
-		 <dict>
+		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -71,7 +71,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>PhoneSub</string>
  		</dict>
-		 <dict>
+		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -81,7 +81,7 @@
  			<key>RSEApplicationsSub</key>
  			<string>SafariSub</string>
  		</dict>
-		 <dict>
+		<!-- <dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
@@ -90,7 +90,7 @@
  			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSEApplicationsSub</key>
  			<string>SileoSub</string>
- 		</dict>
+ 		</dict> -->
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>

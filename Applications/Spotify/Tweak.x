@@ -39,6 +39,7 @@ BOOL SPTsliderSwitch;
 BOOL SPTfreeTierButtonSwitch;
 BOOL SPTavailableDevicesButtonSwitch;
 BOOL SPTnowPlayingLabelSwitch;
+BOOL SPTplaylistButtonsSwitch;
 
 // Spotify (Custom)
 NSString* customStrengthSPTplayButtonControl;
@@ -52,6 +53,7 @@ NSString* customStrengthSPTsliderControl;
 NSString* customStrengthSPTfreeTierButtonControl;
 NSString* customStrengthSPTavailableDevicesButtonControl;
 NSString* customStrengthSPTnowPlayingLabelControl;
+NSString* customStrengthSPTplaylistButtonsControl;
 
 // Delay
 BOOL delaySwitch;
@@ -62,6 +64,10 @@ BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
 BOOL isDNDActiveSwitch;
+
+@interface UIButton (Spotify)
+- (id)_viewControllerForAncestor;
+@end
 
 %group Spotify
 
@@ -329,6 +335,35 @@ BOOL isDNDActiveSwitch;
 
 %end
 
+%hook UIButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (!enabled || !spotifySupportSwitch || !SPTplaylistButtonsSwitch) return;
+	UIViewController* ancestor = [self _viewControllerForAncestor];
+
+	if ([ancestor isKindOfClass: %c(SPTFreeTierPlaylistVISREFHeaderViewController)]) {
+		int customStrength = [customStrengthSPTplaylistButtonsControl intValue];
+
+		if (customStrength == 0 && !enableLegacyEngineSwitch) {
+			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
+
+		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
+
+		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
+
+		}
+
+	}
+
+}
+
+%end
+
 %end
 
 %ctor {
@@ -363,6 +398,7 @@ BOOL isDNDActiveSwitch;
 		[pfs registerBool:&SPTfreeTierButtonSwitch default:NO forKey:@"SPTfreeTierButton"];
 		[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
 		[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
+		[pfs registerBool:&SPTplaylistButtonsSwitch default:NO forKey:@"SPTplaylistButtons"];
 
 	}
 
@@ -378,6 +414,7 @@ BOOL isDNDActiveSwitch;
 		[pfs registerObject:&customStrengthSPTfreeTierButtonControl default:@"0" forKey:@"customStrengthSPTfreeTierButton"];
 		[pfs registerObject:&customStrengthSPTavailableDevicesButtonControl default:@"0" forKey:@"customStrengthSPTavailableDevicesButton"];
 		[pfs registerObject:&customStrengthSPTnowPlayingLabelControl default:@"0" forKey:@"customStrengthSPTnowPlayingLabel"];
+		[pfs registerObject:&customStrengthSPTplaylistButtonsControl default:@"0" forKey:@"customStrengthSPTplaylistButtons"];
 
 	}
 

@@ -16,6 +16,7 @@
   "TAPPING_LIKE_BUTTON" = "Tapping Like Button";
   "TAPPING_DEVICES_BUTTON" = "Tapping Devices Button";
   "TAPPING_SONG_LABEL" = "Tapping Song Label";
+  "TAPPING_PLAYLIST_BUTTONS" = "Tapping Playlist Buttons";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Custom Strength Settings";
 
@@ -30,6 +31,7 @@
   "CUSTOM_LIKE_BUTTON_STRENGTH" = "Custom Like Button Strength";
   "CUSTOM_DEVICES_BUTTON_STRENGTH" = "Custom Devices Button Strength";
   "CUSTOM_LABEL_STRENGTH" = "Custom Label Strength";
+  "CUSTOM_PLAYLIST_BUTTONS_STRENGTH" = "Custom Playlist Buttons Strength";
 
   "NONE" = "None";
   "LIGHT_HAPTIC_ENGINE" = "Light: Haptic Engine";

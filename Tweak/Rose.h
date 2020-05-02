@@ -119,6 +119,7 @@ extern BOOL SPTsliderSwitch;
 extern BOOL SPTfreeTierButtonSwitch;
 extern BOOL SPTavailableDevicesButtonSwitch;
 extern BOOL SPTnowPlayingLabelSwitch;
+extern BOOL SPTplaylistButtonsSwitch;
 
 // Instagram
 extern BOOL ITGlikeButtonSwitch;
@@ -256,6 +257,7 @@ extern NSString* customStrengthSPTsliderControl;
 extern NSString* customStrengthSPTfreeTierButtonControl;
 extern NSString* customStrengthSPTavailableDevicesButtonControl;
 extern NSString* customStrengthSPTnowPlayingLabelControl;
+extern NSString* customStrengthSPTplaylistButtonsControl;
 
 // Instagram (Custom)
 extern NSString* customStrengthITGlikeButtonControl;

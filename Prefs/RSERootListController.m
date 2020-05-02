@@ -43,7 +43,7 @@ UIImpactFeedbackGenerator* gen;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"5.3.1";
+        self.titleLabel.text = @"5.4.1";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -580,6 +580,9 @@ UIImpactFeedbackGenerator* gen;
 
     pid_t pid;
     const char *args[] = {"killall", "backboardd", NULL};
+
+    [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Rose"]];
+
     posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);
 
 }
