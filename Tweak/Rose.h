@@ -94,6 +94,9 @@ extern BOOL UIWindowSwitch;
 // Additionals Section
 extern BOOL lockAnimationSwitch;
 
+// Preferences Section
+extern BOOL showBlurViewSwitch;
+
 // Enable App Support Switches
 extern BOOL apolloSupportSwitch;
 extern BOOL calculatorSupportSwitch;
@@ -189,6 +192,8 @@ extern BOOL LowPowerMode;
 extern BOOL LowPowerModeSwitch;
 extern BOOL isDNDActive;
 extern BOOL isDNDActiveSwitch;
+extern BOOL isRingerSilent;
+extern BOOL isRingerSilentSwitch;
 
 // Anywhere Section (Custom)
 extern NSString* customStrengthKillingControl;
@@ -320,17 +325,9 @@ extern NSString* customStrengthApolloUIButtonControl;
 
 // Needed Interfaces
 @interface UIKBTree : NSObject
-@end
-
-@interface DNDState : NSObject
-- (BOOL)isActive;
++(id)key;
 @end
 
 @interface SBIconController : UIViewController
 - (void)viewDidAppear:(BOOL)animated;
-@end
-
-@interface SBCoverSheetPrimarySlidingViewController : UIViewController
-- (void)viewDidDisappear:(BOOL)arg1;
-- (void)viewDidAppear:(BOOL)arg1;
 @end

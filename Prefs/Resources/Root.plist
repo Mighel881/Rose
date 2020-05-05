@@ -327,6 +327,18 @@
  			<key>RSESub</key>
  			<string>AdditionalsSub</string>
  		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Preferences</string>
+			<key>icon</key>
+			<string>atlng.png</string>
+ 			<key>detail</key>
+ 			<string>RSESubPrefsListController</string>
+ 			<key>RSESub</key>
+ 			<string>PreferencesSub</string>
+ 		</dict>
 
 		<dict>
 			<key>cell</key>
@@ -397,7 +409,15 @@
 			<key>label</key>
 			<string>SHOW_SETUP_AGAIN</string>
 			<key>action</key>
-			<string>presentIntroductionViewController</string>
+			<string>showIntroduction</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>SHOW_QUICK_TIPS</string>
+			<key>action</key>
+			<string>showQuickTipsController</string>
 		</dict>
 
 		<dict>

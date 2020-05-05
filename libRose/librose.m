@@ -49,9 +49,9 @@
 
 }
 
-- (void)triggerFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(int)tapticStrength :(int)hapticStrength {
+- (void)triggerFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)isRingerSilentSwitch :(BOOL)isRingerSilent :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(int)tapticStrength :(int)hapticStrength {
 
-if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || (isRingerSilentSwitch && isRingerSilent) || !enabled) return;
 	if (!delaySwitch) {
 		[self prepareForHaptic:tapticEngine :hapticEngine :legacyEngine :tapticStrength :hapticStrength];
 
@@ -114,9 +114,9 @@ if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) |
 
 }
 
-- (void)triggerCustomFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(int)strength {
+- (void)triggerCustomFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)isRingerSilentSwitch :(BOOL)isRingerSilent :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(int)strength {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || (isRingerSilentSwitch && isRingerSilent) || !enabled) return;
 	if (!delaySwitch) {
 		[self prepareCustomFeedback:strength];
 
@@ -156,9 +156,9 @@ void AudioServicesPlaySystemSoundWithVibration(UInt32 inSystemSoundID, id arg, N
 
 }
 
-- (void)triggerLegacyFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(double)customLegacyDuration :(double)customLegacyStrength :(int)selectedLegacyMode {
+- (void)triggerLegacyFeedback:(BOOL)LowPowerModeSwitch :(BOOL)LowPowerMode :(BOOL)isDNDActiveSwitch :(BOOL)isDNDActive :(BOOL)isRingerSilentSwitch :(BOOL)isRingerSilent :(BOOL)delaySwitch :(double)delay :(BOOL)enabled :(BOOL)tapticEngine :(BOOL)hapticEngine :(BOOL)legacyEngine :(double)customLegacyDuration :(double)customLegacyStrength :(int)selectedLegacyMode {
 
-	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || !enabled) return;
+	if ((LowPowerModeSwitch && LowPowerMode) || (isDNDActiveSwitch && isDNDActive) || (isRingerSilentSwitch && isRingerSilent) || !enabled) return;
 
 	if (!delaySwitch && !tapticEngine && !hapticEngine) {
 		if (selectedLegacyMode == 0) {

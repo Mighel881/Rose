@@ -8,7 +8,9 @@
 @end
 
 @interface RSERootListController : HBRootListController {
+
     UITableView * _table;
+    
 }
 
 @property(nonatomic, retain)UISwitch* enableSwitch;
@@ -20,7 +22,12 @@
 - (void)toggleState;
 - (void)setEnableSwitchState;
 - (void)presentIntroductionViewController;
-- (void)vc2;
+- (void)showController2;
+- (void)showQuickTipsController;
+- (void)showHelpController;
+- (void)sendMail;
+- (void)showIntroduction;
+- (void)beginSetup;
 - (void)resetPrompt;
 - (void)resetPreferences;
 - (void)respring;
