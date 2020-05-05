@@ -1,21 +1,19 @@
 {
 
-  "ENABLE_HARDWARE_BUTTONS_SECTION" = "하드웨어 버튼 섹션 사용";
-  "ENABLE_SECTION" = "섹션 사용";
+  "ENABLE_FACEBOOK_SUPPORT" = "Facebook 지원 사용";
+  "FACEBOOK_SUPPORT" = "Facebook 지원";
 
   "HAPTIC_FEEDBACK_WHEN" = "진동 피드백 작동 조건";
 
-  "VOLUME_CHANGED" = "음량 조절";
-  "PRESSING_ONLY_SLEEP_BUTTON" = "잠자기 버튼만 누르기";
-  "PRESSING_HOME_OR_SLEEP_BUTTON" = "홈/잠자기 버튼 누르기";
-  "UNMUTING" = "음소거 해제";
+  "USING_THE_TABBAR" = "Tab Bar 사용";
+  "TAPPING_QUICK_ACCESS_BUTTONS" = "Quick Access 버튼 터치";
+  "TAPPING_NAVIGATION_BAR_BUTTONS" = "Navigation Bar 버튼 터치";
 
   "CUSTOM_STRENGTH_SETTINGS" = "맞춤 강도 설정";
 
-  "CUSTOM_VOLUME_STRENGTH" = "음량 강도";
-  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "잠자기 버튼 강도";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "홈버튼 강도";
-  "CUSTOM_RINGER_STRENGTH" = "음소거 강도";
+  "CUSTOM_TABBAR_STRENGTH" = "Tab Bar 강도";
+  "CUSTOM_QUICK_ACCESS_BUTTONS_STRENGTH" = "Quick Access 버튼 강도";
+  "CUSTOM_NAVIGATION_BAR_BUTTONS_STRENGTH" = "Navigation Bar 버튼 강도";
 
   "NONE" = "없음";
   "LIGHT_HAPTIC_ENGINE" = "가벼운: Haptic Engine";
@@ -26,4 +24,5 @@
   "STRONG_TAPTIC_ENGINE" = "무거운: Taptic Engine";
   "SOFT_TAPTIC_ENGINE" = "약한: Taptic Engine";
   "RIGID_TAPTIC_ENGINE" = "단단한: Taptic Engine";
+
 }

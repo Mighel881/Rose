@@ -14,7 +14,6 @@
 
   "CUSTOM_VOLUME_STRENGTH" = "Hangerő Változtatásakor";
   "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Alvás Gomb Megnyomásakor";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "Home Gomb Megnyomásakor";
   "CUSTOM_RINGER_STRENGTH" = "Némításkor";
 
   "NONE" = "Egyik Sem";

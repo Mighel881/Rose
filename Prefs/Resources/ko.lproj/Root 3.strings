@@ -20,7 +20,7 @@
   "USE_HAPTIC_ENGINE" = "Haptic Engine 사용";
 
   "LEGACY_SUPPORT" = "Legacy 지원";
-  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone SE/6..";
+  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone 6s/6s+ 이전 모델 + iPhone SE (일반 진동 모터 탑재 모델)";
   "USE_LEGACY_ENGINE" = "Legacy Engine 사용";
   "CUSTOM_LEGACY_SETTINGS" = "맞춤 Legacy 설정";
   
@@ -44,7 +44,7 @@
   "OTHER_OPTIONS" = "다른 옵션";
   "RESPRING" = "리스프링";
   "RESET_PREFERENCES" = "설정 리셋";
-  "SHOW_SETUP_AGAIN" = "Rose 설정 다시 진입";
+  "SHOW_SETUP_AGAIN" = "Rose 설정 재진입";
   
   "SENDING_LOVE_TO" = "Sending Love To";
   "THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS" = "Thanks kritanta For The Pretty Twitter Cells";
@@ -53,10 +53,10 @@
   "CONTRIBUTORS" = "기여자";
   "HELP_TRANSLATING_ROSE" = "Rose를 번역하는 것을 도와주세요";
 
-  "GIVE_THESE_A_LOOK" = "이것들은 어떤가요?";
+  "GIVE_THESE_A_LOOK" = "이건 어떠세요?";
   "LUNE_DESCRIPTION" = "방해금지모드에서 달 아이콘이 나타나게 합니다";
   "AESTEA_DESCRIPTION" = "Cream이 그리우신가요? Aestea를 사용해보세요";
-  "BUTTERFLY_DESCRIPTION" = "화려한 텍스트 선택";
+  "BUTTERFLY_DESCRIPTION" = "텍스트 선택을 화려하게 합니다";
   
   "SUPPORT_ME" = "지원해주세요";
   "ROSE_BY_LITTEN_
@@ -64,8 +64,8 @@ ARTWORKS_BY_TAKI" = "Rose By Litten
 Artworks By taki";
 
   "LITTLE_DONATION_🌺" = "작은 기부 🌺";
-  "APPRECIATED_💘" = "고맙겠습니다 💘";
-  "FEATURE_REQUEST?_✨" = "새로운 기능 요청? ✨";
+  "APPRECIATED_💘" = "감사하겠습니다 💘";
+  "FEATURE_REQUEST?_✨" = "새로운 기능 요청은? ✨";
   "SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST" = "요청사항과 함께 이메일로 보내주세요(영어로)";
   "SOURCE_CODE_🌙" = "소스코드 🌙";
   "ITS_ON_MY_GITHUB" = "제 Github에 있습니다";

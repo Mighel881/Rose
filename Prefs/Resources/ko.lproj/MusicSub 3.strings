@@ -8,7 +8,7 @@
   "TAPPING_MUSIC_CONTROL_BUTTONS" = "음악 제어 버튼 터치";
   "TAPPING_VOLUME_SLIDER" = "음량 슬라이더 터치";
   "TAPPING_MORE_BUTTON" = "더보기 버튼 터치";
-  "TAPPING_TIME_SLIDER" = "재생시간 슬라이더 터치";
+  "TAPPING_TIME_SLIDER" = "재생시간 슬라이더 사용";
   "TAPPING_SONG_CELL" = "노래 터치";
   "TAPPING_LIBRARY_CELL" = "보관함 터치";
   "TAPPING_ALBUM_CELL" = "앨범 터치";

@@ -5,7 +5,7 @@
 
   "HAPTIC_FEEDBACK_WHEN" = "진동 피드백 작동 조건";
 
-  "USING_TABBAR" = "TabBar 사용";
+  "USING_TABBAR" = "Tab Bar 사용";
   "TAPPING_ON_A_TWEET" = "트윗 터치";
   "TAPPING_A_DM_CHAT" = "DM Chat 터치";
   "TAPPING_ON_A_NOTIFICATION" = "알림 터치";
@@ -13,7 +13,7 @@
 
   "CUSTOM_STRENGTH_SETTINGS" = "맞춤 강도 설정";
 
-  "CUSTOM_TABBAR_STRENGTH" = "TabBar 강도";
+  "CUSTOM_TABBAR_STRENGTH" = "Tab Bar 강도";
   "CUSTOM_TWEET_STRENGTH" = "Tweet 강도";
   "CUSTOM_DM_STRENGTH" = "DM 강도";
   "CUSTOM_NOTIFICATION_STRENGTH" = "알림 강도";

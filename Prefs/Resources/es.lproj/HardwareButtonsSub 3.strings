@@ -14,7 +14,6 @@
 
   "CUSTOM_VOLUME_STRENGTH" = "Cambiar Volumen";
   "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Presionar Solamente Botón de Dormir";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "Presionar Botón Home/Dormir";
   "CUSTOM_RINGER_STRENGTH" = "No Silenciar";
 
   "NONE" = "Ninguno";

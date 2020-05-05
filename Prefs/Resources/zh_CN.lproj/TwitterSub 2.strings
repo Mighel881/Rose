@@ -27,6 +27,6 @@
   "MEDIUM_TAPTIC_ENGINE" = "Taptic Engine: 中等";
   "STRONG_TAPTIC_ENGINE" = "Taptic Engine: 强烈";
   "SOFT_TAPTIC_ENGINE" = "Taptic Engine: 轻柔";
-  "RIGID_TAPTIC_ENGINE" = "Taptic Engine: 刚硬";
+  "RIGID_TAPTIC_ENGINE" = "Taptic Engine: 短促";
 
 }

@@ -7,12 +7,12 @@
 
   "RESUMING_OR_PAUSING_SONG" = "음악 재생/일시정지";
   "MINI_PLAYER_RESUMING_OR_PAUSING_SONG" = "Mini-Player 음악 재생/일시정지";
-  "GOING_TO_PREVIOUS_SONG" = "이전 곡 재생";
-  "SKIPPING_SONG" = "다음 곡 재생";
+  "GOING_TO_PREVIOUS_SONG" = "이전 곡 터치";
+  "SKIPPING_SONG" = "다음 곡 터치";
   "TAPPING_REPEAT_BUTTON" = "반복재생 터치";
   "TAPPING_SHUFFLE_BUTTON" = "셔플재생 터치";
   "TAPPING_QUEUE_BUTTON" = "Queue 터치";
-  "USING_TIME_SLIDER" = "Time Slider 사용";
+  "USING_TIME_SLIDER" = "재생시간 슬라이더 사용";
   "TAPPING_LIKE_BUTTON" = "좋아요 터치";
   "TAPPING_DEVICES_BUTTON" = "Devices 터치";
   "TAPPING_SONG_LABEL" = "음악 레이블 터치";
@@ -26,7 +26,7 @@
   "CUSTOM_REPEAT_BUTTON_STRENGTH" = "반복 강도";
   "CUSTOM_SHUFFLE_BUTTON_STRENGTH" = "셔플 강도";
   "CUSTOM_QUEUE_BUTTON_STRENGTH" = "Queue 강도";
-  "CUSTOM_TIME_SLIDER_STRENGTH" = "Time Slider 강도";
+  "CUSTOM_TIME_SLIDER_STRENGTH" = "재생시간 슬라이더 강도";
   "CUSTOM_LIKE_BUTTON_STRENGTH" = "좋아요 강도";
   "CUSTOM_DEVICES_BUTTON_STRENGTH" = "Devices 강도";
   "CUSTOM_LABEL_STRENGTH" = "레이블 강도";

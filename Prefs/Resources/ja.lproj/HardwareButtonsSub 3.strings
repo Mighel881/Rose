@@ -14,7 +14,6 @@
 
   "CUSTOM_VOLUME_STRENGTH" = "音量を変えた時の強さ";
   "CUSTOM_SLEEP_BUTTON_STRENGTH" = "ロックボタンのみを押した時の強さ";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "ロックボタン/ホームボタンを押した時の強さ";
   "CUSTOM_RINGER_STRENGTH" = "ミュートを解除した時の強さ";
 
   "NONE" = "無し";

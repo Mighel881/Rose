@@ -14,7 +14,6 @@
 
   "CUSTOM_VOLUME_STRENGTH" = "Khi thay đổi âm lượng";
   "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Khi chỉ nhấn vào nút nguồn";
-  "CUSTOM_HOME_BUTTON_STRENGTH" = "Khi nhấn vào cả nút Home và nút nguồn";
   "CUSTOM_RINGER_STRENGTH" = "Khi tắt tiếng";
 
   "NONE" = "Không";
