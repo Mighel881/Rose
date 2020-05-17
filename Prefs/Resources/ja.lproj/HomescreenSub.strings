@@ -1,9 +1,9 @@
 {
 
-  "ENABLE_HOMESCREEN_SECTION" = "ホームスクリーンの設定を有効化";
+  "ENABLE_HOMESCREEN_SECTION" = "ホーム画面の設定を有効化";
   "ENABLE_SECTION" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "3DTOUCH_ACTION_OR_DISMISSES" = "3DTouch アクション/選択をした時";
   "OPENING_FOLDER" = "フォルダーを開いた時";

@@ -3,7 +3,7 @@
   "ENABLE_SAFARI_SUPPORT" = "Safariの設定を有効化";
   "SAFARI_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "TAPPING_THE_URL_BAR" = "URLバーをタップした時";
 

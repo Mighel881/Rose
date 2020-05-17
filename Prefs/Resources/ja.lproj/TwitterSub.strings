@@ -3,7 +3,7 @@
   "ENABLE_TWITTER_SUPPORT" = "Twitterの設定を有効化";
   "TWITTER_SUPPORT" = "Twitterの設定";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "USING_TABBAR" = "タブバーを使用した時";
   "TAPPING_ON_A_TWEET" = "ツイートをタップした時";

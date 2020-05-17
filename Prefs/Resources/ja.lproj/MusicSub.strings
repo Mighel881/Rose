@@ -3,11 +3,11 @@
   "ENABLE_MUSIC_SUPPORT" = "ミュージックの設定を有効化";
   "MUSIC_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "TAPPING_MUSIC_CONTROL_BUTTONS" = "音楽操作ボタンを押した時";
   "TAPPING_VOLUME_SLIDER" = "音量スライダーをタップした時";
-  "TAPPING_MORE_BUTTON" = "他のボタンを押した時";
+  "TAPPING_MORE_BUTTON" = "三点リーダーを押した時";
   "TAPPING_TIME_SLIDER" = "プログレスバーをタップした時";
   "TAPPING_SONG_CELL" = "曲をタップした時";
   "TAPPING_LIBRARY_CELL" = "ライブラリの項目をタップした時";
@@ -19,7 +19,7 @@
 
   "CUSTOM_MUSIC_CONTROLS_STRENGTH" = "音楽操作ボタンを押した時の強さ";
   "CUSTOM_VOLUME_SLIDER_STRENGTH" = "音量スライダーをタップした時の強さ";
-  "CUSTOM_MORE_BUTTON_STRENGTH" = "他のボタンを押した時の強さ";
+  "CUSTOM_MORE_BUTTON_STRENGTH" = "三点リーダーを押した時の強さ";
   "CUSTOM_TIME_SLIDER_STRENGTH" = "プログレスバーをタップした時の強さ";
   "CUSTOM_SONG_CELL_STRENGTH" = "曲をタップした時の強さ";
   "CUSTOM_LIBRARY_CELL_STRENGTH" = "ライブラリの項目をタップした時の強さ";

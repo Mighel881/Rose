@@ -2,9 +2,6 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
 
-// Used To Detect What iOS Version Is Being Used
-#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
 // Utils
 HBPreferences *pfs;
 

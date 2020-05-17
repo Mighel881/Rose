@@ -1,13 +1,13 @@
 {
 
-  "ENABLE_CONTROL_CENTER_SECTION" = "コントロールセンターセクションを有効化";
+  "ENABLE_CONTROL_CENTER_SECTION" = "コントロールセンターの設定を有効化";
   "ENABLE_SECTION" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "TOGGLING_CONNECTIVITY_TOGGLE" = "接続関係を押した時";
   "OPENING_CONTROL_CENTER" = "コントロールセンターを開いた時";
-  "TOGGLING_CC_MODULE" = "CCモジュールを押したとき (実験的)";
+  "TOGGLING_CC_MODULE" = "CCモジュールを押した時";
 
   "CUSTOM_STRENGTH_SETTINGS" = "強さのカスタム設定";
 

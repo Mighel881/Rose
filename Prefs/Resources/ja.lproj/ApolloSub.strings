@@ -3,7 +3,7 @@
   "ENABLE_APOLLO_SUPPORT" = "Apolloの設定を有効化";
   "APOLLO_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
+  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
 
   "TAPPING_THE_JUMP_BAR" = "下部のバーをタップした時";
   "TAPPING_THE_FLOATING_BUTTON" = "浮遊ボタンを押した時";
