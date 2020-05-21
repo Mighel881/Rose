@@ -333,7 +333,7 @@
  			<key>label</key>
  			<string>Preferences</string>
 			<key>icon</key>
-			<string>atlng.png</string>
+			<string>pfs.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
