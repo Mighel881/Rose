@@ -580,31 +580,11 @@ ARTWORKS_BY_TAKI</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>FEATURE_REQUEST?_✨</string>
-			<key>subtitle</key>
-			<string>SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST</string>
-			<key>url</key>
-			<string>https://litten.love/report.html</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
 			<string>SOURCE_CODE_🌙</string>
 			<key>subtitle</key>
 			<string>ITS_ON_MY_GITHUB</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Rose</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
-			<string>FOUND_A_BUG?_🌧</string>
-			<key>subtitle</key>
-			<string>LEAVE_A_BUG_REPORT_HERE</string>
-			<key>url</key>
-			<string>https://litten.love/report.html</string>
 		</dict>
 
 		<dict>
