@@ -15,8 +15,6 @@ If It Won't Compile Because Of libRose Just cd Into libRose And 'make package' O
 
 libRose Is ONLY for Rose, I Mean, Sure Feel Free To Take It And Modify It But It's Not Made For Public Usage Out Of The Box As You're Going To See
 
-## If You Look At My RSERootListController.m Please Don't Complain That It's A Mess, I Know It Is But I'll Clean It Up
-
 ## Bugs
 
 Found a bug? [open a new issue](https://github.com/Litteeen/Rose/issues/new).

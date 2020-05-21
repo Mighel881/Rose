@@ -67,7 +67,7 @@ UIImpactFeedbackGenerator* gen;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"6.0.1";
+        self.titleLabel.text = @"6.0.2";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -345,7 +345,7 @@ UIImpactFeedbackGenerator* gen;
             
     } completion:nil];
         
-    centerTitle.y = self.view.frame.size.height / 2;
+    centerTitle.y = self.view.frame.size.height / 1.95;
         
     [UIView animateWithDuration:.5 delay:.95 options:UIViewAnimationOptionCurveEaseOut animations:^{
             
@@ -354,7 +354,7 @@ UIImpactFeedbackGenerator* gen;
             
     } completion:nil];
         
-    centerTitle2.y = self.view.frame.size.height / 1.825;
+    centerTitle2.y = self.view.frame.size.height / 1.775;
         
     [UIView animateWithDuration:.5 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
             
@@ -399,7 +399,7 @@ UIImpactFeedbackGenerator* gen;
         
         roseGlyphView.alpha = 1;
         [roseGlyphView setCenter:centerGlyph];
-        roseGlyphView.frame = CGRectMake(self.view.center.x -50, self.view.center.y -200, 110, 110);
+        roseGlyphView.frame = CGRectMake(self.view.center.x -50, self.view.center.y -230, 110, 110);
         
     } completion:nil];
     
@@ -412,7 +412,7 @@ UIImpactFeedbackGenerator* gen;
     [UIView animateWithDuration:.25 delay:.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         roseGlyphView.alpha = 0;
-        roseGlyphView.frame = CGRectMake(self.view.center.x -800, self.view.center.y -1050, 1500, 1500);
+        roseGlyphView.frame = CGRectMake(self.view.center.x -800, self.view.center.y -1150, 1500, 1500);
         darkBackground.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:1];
         darkBackground.alpha = 0;
         
@@ -629,20 +629,9 @@ UIImpactFeedbackGenerator* gen;
         continueBtn.hidden = NO;
         continueBtn.alpha = 0;
 
-        UIButton* continueBtn2 = [[UIButton alloc] initWithFrame:CGRectMake(controller.view.center.x - 125, 610, 250.0f, 50.0f)];
-        [continueBtn2 addTarget:self action:@selector(showQuickTipsController) forControlEvents:UIControlEventTouchUpInside];
-        [continueBtn2 setTitle:@"Show Quick Tips" forState:UIControlStateNormal];
-        continueBtn2.backgroundColor = [UIColor colorWithRed:0.79 green:0.73 blue:0.87 alpha:1.0];
-        continueBtn2.titleLabel.font = [UIFont systemFontOfSize: 17];
-        continueBtn2.layer.cornerRadius = 10;
-        [continueBtn2 setTintColor: [UIColor blackColor]];
-        continueBtn2.hidden = NO;
-        continueBtn2.alpha = 0;
-
         [[controller2 view] addSubview:headerLabel];
         [[controller2 view] addSubview:textView];
         [[controller2 view] addSubview:continueBtn];
-        [[controller2 view] addSubview:continueBtn2];
 
         gen = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleLight];
         [gen impactOccurred];
@@ -665,7 +654,7 @@ UIImpactFeedbackGenerator* gen;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.7 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 textView.text = [NSString stringWithFormat:@"rose$  Enabling Tweak..\nrose$  Gathering Device Information..\nrose$"];
 
-                NSArray* tapticEngineDevices = [NSArray arrayWithObjects: @"iPhone9,1", @"iPhone9,3", @"iPhone9,2", @"iPhone9,4", @"iPhone10,1", @"iPhone10,4", @"iPhone10,2", @"iPhone10,5", @"iPhone10,3", @"iPhone10,6", @"iPhone11,2", @"iPhone11,4", @"iPhone11,6", @"iPhone11,8", @"iPhone12,1"@"iPhone12,3", @"iPhone12,5", @"iPhone12,8", nil];
+                NSArray* tapticEngineDevices = [NSArray arrayWithObjects: @"iPhone9,1", @"iPhone9,3", @"iPhone9,2", @"iPhone9,4", @"iPhone10,1", @"iPhone10,4", @"iPhone10,2", @"iPhone10,5", @"iPhone10,3", @"iPhone10,6", @"iPhone11,2", @"iPhone11,4", @"iPhone11,6", @"iPhone11,8", @"iPhone12,1", @"iPhone12,3", @"iPhone12,5", @"iPhone12,8", nil];
                 NSArray* hapticEngineDevices = [NSArray arrayWithObjects: @"iPhone8,1", @"iPhone8,2", nil];
                 NSArray* oldEngineDevices = [NSArray arrayWithObjects: @"iPhone6,1", @"iPhone6,2", @"iPhone7,1", @"iPhone7,2", @"iPhone8,4", nil];
 
@@ -754,8 +743,8 @@ UIImpactFeedbackGenerator* gen;
 
                         } else {
                             currentAction = 4;
-                            [continueBtn addTarget:self action:@selector(respring) forControlEvents:UIControlEventTouchUpInside];
-                            [continueBtn setTitle:@"Finish Up" forState:UIControlStateNormal];
+                            [continueBtn addTarget:self action:@selector(showQuickTipsController) forControlEvents:UIControlEventTouchUpInside];
+                            [continueBtn setTitle:@"Continue" forState:UIControlStateNormal];
                             textView.text = [NSString stringWithFormat:@"rose$  Enabling Tweak..\nrose$  Gathering Device Information..\nrose$  Configuring Engine Settings..\nrose$  Success\nrose$"];
 
                         }
@@ -763,7 +752,6 @@ UIImpactFeedbackGenerator* gen;
                         [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
 
                             continueBtn.alpha = 1;
-                            continueBtn2.alpha = 1;
         
                         } completion:nil];
 
@@ -825,12 +813,26 @@ UIImpactFeedbackGenerator* gen;
     tips.adjustsFontSizeToFitWidth = YES;
     tips.minimumScaleFactor = 0.5;
 
+    UIButton* continueBtn = [[UIButton alloc] initWithFrame:CGRectMake(controller3.view.center.x - 125, 550, 250.0f, 50.0f)];
+    [continueBtn addTarget:self action:@selector(respring) forControlEvents:UIControlEventTouchUpInside];
+    [continueBtn setTitle:@"Finish Up" forState:UIControlStateNormal];
+    continueBtn.backgroundColor = [UIColor colorWithRed:0.79 green:0.73 blue:0.87 alpha:1.0];
+    continueBtn.titleLabel.font = [UIFont systemFontOfSize: 17];
+    continueBtn.layer.cornerRadius = 10;
+    [continueBtn setTintColor: [UIColor blackColor]];
+    continueBtn.hidden = NO;
+    continueBtn.alpha = 1;
+
     [[controller3 view] addSubview:headerLabel];
     [[controller3 view] addSubview:tips];
+    [[controller3 view] addSubview:continueBtn];
 
     [controller2 presentViewController:controller3 animated:YES completion:nil];
-    if (!controller3.isBeingPresented)
+    if (!controller3.isBeingPresented) {
         [self presentViewController:controller3 animated:YES completion:nil];
+        continueBtn.hidden = YES;
+
+    }
     
 }
 
