@@ -9,7 +9,7 @@
 			<key>cellClass</key>
 			<string>DuoTwitterCell</string>
 			<key>firstLabel</key>
-			<string>Litten</string>
+			<string>🌸 Litten</string>
 			<key>firstAccount</key>
 			<string>Litteeen</string>
 			<key>secondLabel</key>
@@ -20,7 +20,6 @@
 			<real>57</real>
 		</dict>
 		
-				<!-- Taptic Engine Strength -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -76,7 +75,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-						<!-- Haptic Engine Strength -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -128,7 +126,6 @@
 			<string>sh.litten.rosepreferences/ReloadPrefs</string>
 		</dict>
 
-						<!-- Legacy Support -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -188,7 +185,6 @@
  			<string>LegacyCustomSettings</string>
  		</dict>
 
-				<!-- Sub Menus -->
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -200,10 +196,8 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>HOMESCREEN</string>
-			<key>icon</key>
-			<string>hscng.png</string>
  			<key>detail</key>
- 			<string>RSEHomescreenSubPrefsListController</string>
+ 			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
  			<string>HomescreenSub</string>
  		</dict>
@@ -212,8 +206,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>LOCKSCREEN</string>
-			<key>icon</key>
-			<string>lscng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -224,8 +216,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>ANYWHERE</string>
-			<key>icon</key>
-			<string>aywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -236,8 +226,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>HARDWARE_BUTTONS</string>
-			<key>icon</key>
-			<string>hwbtg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -248,8 +236,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>CONTROL_CENTER</string>
-			<key>icon</key>
-			<string>ccg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -260,8 +246,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>STATUS_CHANGES</string>
-			<key>icon</key>
-			<string>scng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -272,20 +256,16 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>OTHER_HARDWARE_ACTIONS</string>
-			<key>icon</key>
-			<string>ohag.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
  			<string>OtherHardwareActionsSub</string>
  		</dict>
-		<dict>
+		 <dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>SYSTEM_WIDE</string>
-			<key>icon</key>
-			<string>sywg.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -296,8 +276,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>APPLICATIONS</string>
-			<key>icon</key>
-			<string>apng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -308,8 +286,6 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>EXCEPTIONS</string>
-			<key>icon</key>
-			<string>ecng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
@@ -320,24 +296,10 @@
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>ADDITIONALS</string>
-			<key>icon</key>
-			<string>atlng.png</string>
  			<key>detail</key>
  			<string>RSESubPrefsListController</string>
  			<key>RSESub</key>
  			<string>AdditionalsSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>Preferences</string>
-			<key>icon</key>
-			<string>pfs.png</string>
- 			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
- 			<key>RSESub</key>
- 			<string>PreferencesSub</string>
  		</dict>
 
 		<dict>
@@ -386,6 +348,10 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>OTHER_OPTIONS</string>
+			<key>footerText</key>
+			<string>SHAKE_TO_TEST_HAPTICS</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -393,7 +359,7 @@
 			<key>label</key>
 			<string>RESPRING</string>
 			<key>action</key>
-			<string>respringWithButton</string>
+			<string>respringUtil</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -409,90 +375,7 @@
 			<key>label</key>
 			<string>SHOW_SETUP_AGAIN</string>
 			<key>action</key>
-			<string>showIntroduction</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>SHOW_QUICK_TIPS</string>
-			<key>action</key>
-			<string>showQuickTipsController</string>
-		</dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>SENDING_LOVE_TO</string>
-			<key>footerText</key>
-			<string>THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS</string>
-			<key>isStaticText</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>Esquilli</string>
-			<key>accountName</key>
-			<string>EsquilliDev</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>iKilledAppl3</string>
-			<key>accountName</key>
-			<string>iKilledAppl3</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>ArtikusHG</string>
-			<key>accountName</key>
-			<string>artikushg</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>Mirac</string>
-			<key>accountName</key>
-			<string>thatmirac</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>kritanta</string>
-			<key>accountName</key>
-			<string>_kritanta</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>Tom T.</string>
-			<key>accountName</key>
-			<string>tomt000</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>MTAC</string>
-			<key>accountName</key>
-			<string>MTAC8</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>KRTwitterCell</string>
-			<key>label</key>
-			<string>Mr. Rager</string>
-			<key>accountName</key>
-			<string>AnthoPak</string>
+			<string>presentIntroductionViewController</string>
 		</dict>
 
 		<dict>
@@ -524,7 +407,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>GIVE_THESE_A_LOOK</string>
+			<string>YOU_MIGHT_LIKE</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -566,8 +449,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>SUPPORT_ME</string>
 			<key>footerText</key>
 			<string>ROSE_BY_LITTEN_
 ARTWORKS_BY_TAKI</string>
@@ -578,9 +459,9 @@ ARTWORKS_BY_TAKI</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>LITTLE_DONATION_🌺</string>
+			<string>DONATE_TO_LITTEN</string>
 			<key>subtitle</key>
-			<string>APPRECIATED_💘</string>
+			<string>APPRECIATED</string>
 			<key>url</key>
 			<string>https://paypal.me/Litteeen</string>
 		</dict>
@@ -588,9 +469,9 @@ ARTWORKS_BY_TAKI</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>SOURCE_CODE_🌙</string>
+			<string>SOURCE_CODE</string>
 			<key>subtitle</key>
-			<string>ITS_ON_MY_GITHUB</string>
+			<string>GITHUB</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Rose</string>
 		</dict>
@@ -599,7 +480,7 @@ ARTWORKS_BY_TAKI</string>
 			<key>cell</key>
 			<key>PSGroupCell</key>
 			<key>footerText</key>
-			<string>MADE_WITH_💜</string>
+			<string>MADE_WITH</string>
 			<key>isStaticText</key>
 			<true/>
 			<key>footerAlignment</key>

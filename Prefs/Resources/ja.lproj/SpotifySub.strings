@@ -3,7 +3,7 @@
   "ENABLE_SPOTIFY_SUPPORT" = "Spotifyの設定を有効化";
   "SPOTIFY_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
+  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
 
   "RESUMING_OR_PAUSING_SONG" = "曲を再生/一時停止した時";
   "MINI_PLAYER_RESUMING_OR_PAUSING_SONG" = "ミニプレイヤーで曲を再生/一時停止した時";

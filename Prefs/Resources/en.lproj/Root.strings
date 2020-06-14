@@ -20,7 +20,7 @@
   "USE_HAPTIC_ENGINE" = "Use Haptic Engine";
 
   "LEGACY_SUPPORT" = "Legacy Support";
-  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone SE/6..";
+  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone 5s/SE/6/6+";
   "USE_LEGACY_ENGINE" = "Use Legacy Engine";
   "CUSTOM_LEGACY_SETTINGS" = "Custom Legacy Settings";
   
@@ -42,37 +42,29 @@
   "ENABLE_DELAY" = "Enable Delay";
 
   "OTHER_OPTIONS" = "Other Options";
+  "SHAKE_TO_TEST_HAPTICS" = "Shake To Test Haptics";
   "RESPRING" = "Respring";
   "RESET_PREFERENCES" = "Reset Preferences";
   "SHOW_SETUP_AGAIN" = "Show Setup Again";
-  "SHOW_QUICK_TIPS" = "Show Quick Tips";
-  
-  "SENDING_LOVE_TO" = "Sending Love To";
-  "THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS" = "Thanks kritanta For The Pretty Twitter Cells";
 
-  "CONTRIBUTORS_CREDITS" = "Testing And Translating";
+  "CONTRIBUTORS_CREDITS" = "Contributions";
   "CONTRIBUTORS" = "Contributors";
   "HELP_TRANSLATING_ROSE" = "Help Translating Rose";
 
-  "GIVE_THESE_A_LOOK" = "Give These A Look";
+  "YOU_MIGHT_LIKE" = "You Might Like:";
   "LUNE_DESCRIPTION" = "Let A Moon Icon Appear While In DND";
   "AESTEA_DESCRIPTION" = "Miss Cream? Try Aestea";
   "BUTTERFLY_DESCRIPTION" = "Text Selection, But Colorful";
   
-  "SUPPORT_ME" = "Support Me";
   "ROSE_BY_LITTEN_
 ARTWORKS_BY_TAKI" = "Rose By Litten
 Artworks By taki";
 
-  "LITTLE_DONATION_🌺" = "Little Donation 🌺";
-  "APPRECIATED_💘" = "Appreciated 💘";
-  "FEATURE_REQUEST?_✨" = "Feature Request? ✨";
-  "SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST" = "Send Me An Email With Your Request";
-  "SOURCE_CODE_🌙" = "Source Code 🌙";
-  "ITS_ON_MY_GITHUB" = "It's On My Github";
-  "FOUND_A_BUG?_🌧" = "Found A Bug? 🌧";
-  "LEAVE_A_BUG_REPORT_HERE" = "Leave A Bug Report Here";
+  "DONATE_TO_LITTEN" = "Donate To Litten";
+  "APPRECIATED" = "Appreciated 💝";
+  "SOURCE_CODE" = "Source Code";
+  "GITHUB" = "GitHub 🌹";
   
-  "MADE_WITH_💙" = "Made With 💙";
+  "MADE_WITH" = "Made With 💜";
 
 }

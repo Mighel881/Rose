@@ -3,7 +3,7 @@
   "ENABLE_FACEBOOK_SUPPORT" = "Facebookの設定を有効化";
   "FACEBOOK_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
+  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
 
   "USING_THE_TABBAR" = "タブバーを使用した時";
   "TAPPING_QUICK_ACCESS_BUTTONS" = "クイックアクセスボタンを押した時";

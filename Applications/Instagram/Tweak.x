@@ -45,7 +45,7 @@ NSString* customStrengthITGsendButtonControl;
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode And DND Mode Recognition
+// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -64,16 +64,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
 	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -88,16 +84,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGdoubleTapToLikeSwitch) return;
 	int customStrength = [customStrengthITGdoubleTapToLikeControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -112,16 +104,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGlikeButtonSwitch) return;
 	int customStrength = [customStrengthITGlikeButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -132,16 +120,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGcommentButtonSwitch) return;
 	int customStrength = [customStrengthITGcommentButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -152,16 +136,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -172,16 +152,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGsaveButtonSwitch) return;
 	int customStrength = [customStrengthITGsaveButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -192,16 +168,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !instagramSupportSwitch || !ITGsendButtonSwitch) return;
 	int customStrength = [customStrengthITGsendButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 	
 }
 
@@ -214,14 +186,17 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	
 	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
+
 	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
@@ -229,13 +204,19 @@ BOOL isRingerSilentSwitch;
 	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
 	[pfs registerBool:&instagramSupportSwitch default:NO forKey:@"instagramSupport"];
 
+	// Low Power, DND Mode And Ringer Detection
+	if (exceptionsSectionSupportSwitch) {
+		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
+		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
+		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
+	}
+
 	if (instagramSupportSwitch) {
 		[pfs registerBool:&ITGlikeButtonSwitch default:NO forKey:@"ITGlikeButton"];
 		[pfs registerBool:&ITGdoubleTapToLikeSwitch default:NO forKey:@"ITGdoubleTapToLike"];
 		[pfs registerBool:&ITGcommentButtonSwitch default:NO forKey:@"ITGcommentButton"];
 		[pfs registerBool:&ITGsaveButtonSwitch default:NO forKey:@"ITGsaveButton"];
 		[pfs registerBool:&ITGsendButtonSwitch default:NO forKey:@"ITGsendButton"];
-
 	}
 
 	if (instagramSupportSwitch) {
@@ -244,7 +225,6 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthITGcommentButtonControl default:@"0" forKey:@"customStrengthITGcommentButton"];
 		[pfs registerObject:&customStrengthITGsaveButtonControl default:@"0" forKey:@"customStrengthITGsaveButton"];
 		[pfs registerObject:&customStrengthITGsendButtonControl default:@"0" forKey:@"customStrengthITGsendButton"];
-
 	}
 
     if (!dpkgInvalid && enabled) {
@@ -257,11 +237,9 @@ BOOL isRingerSilentSwitch;
 			customLegacyDuration = [customlegacyDurationLevel doubleValue];
 			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 			%init(Instagram);
-
 		}
 
 		return;
-
     }
 
 }

@@ -2,6 +2,9 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cephei/HBPreferences.h>
 
+// Used To Detect What iOS Version Is Being Used
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 // Utils
 HBPreferences *pfs;
 
@@ -90,9 +93,6 @@ extern BOOL UIWindowSwitch;
 
 // Additionals Section
 extern BOOL lockAnimationSwitch;
-
-// Preferences Section
-extern BOOL showBlurViewSwitch;
 
 // Enable App Support Switches
 extern BOOL apolloSupportSwitch;
@@ -322,9 +322,21 @@ extern NSString* customStrengthApolloUIButtonControl;
 
 // Needed Interfaces
 @interface UIKBTree : NSObject
-+(id)key;
+@end
+
+@interface DNDState : NSObject
+- (BOOL)isActive;
+@end
+
+@interface SBRingerControl : NSObject
+- (BOOL)isRingerMuted;
 @end
 
 @interface SBIconController : UIViewController
 - (void)viewDidAppear:(BOOL)animated;
+@end
+
+@interface SBCoverSheetPrimarySlidingViewController : UIViewController
+- (void)viewDidDisappear:(BOOL)arg1;
+- (void)viewDidAppear:(BOOL)arg1;
 @end

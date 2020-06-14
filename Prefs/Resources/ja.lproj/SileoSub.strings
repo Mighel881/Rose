@@ -3,7 +3,7 @@
   "ENABLE_SILEO_SUPPORT" = "Sileoの設定を有効化";
   "SILEO_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
+  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
 
   "TAPPING_SOURCE_CELL" = "リポジトリの項目をタップした時";
   "TAPPING_PACKAGE_CELL" = "パッケージの項目をタップした時";

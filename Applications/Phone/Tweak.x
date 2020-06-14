@@ -43,7 +43,7 @@ NSString* customStrengthPHDialerCallButtonControl;
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode And DND Mode Recognition
+// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -62,16 +62,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !phoneSupportSwitch || !PHNumberPadSwitch) return;
 	int customStrength = [customStrengthPHNumberPadControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -86,16 +82,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !phoneSupportSwitch || !PHContactCellSwitch) return;
 	int customStrength = [customStrengthPHContactCellControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -110,16 +102,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !phoneSupportSwitch || !PHDialerDeleteButtonSwitch) return;
 	int customStrength = [customStrengthPHDialerDeleteButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -134,16 +122,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !phoneSupportSwitch || !PHDialerCallButtonSwitch) return;
 	int customStrength = [customStrengthPHDialerCallButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (PHDialerCallButtonSwitch && customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (PHDialerCallButtonSwitch && customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -156,14 +140,17 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+
 	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
+
 	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
@@ -171,12 +158,18 @@ BOOL isRingerSilentSwitch;
 	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
 	[pfs registerBool:&phoneSupportSwitch default:NO forKey:@"phoneSupport"];
 
+	// Low Power, DND Mode And Ringer Detection
+	if (exceptionsSectionSupportSwitch) {
+		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
+		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
+		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
+	}
+
 	if (phoneSupportSwitch) {
 		[pfs registerBool:&PHNumberPadSwitch default:NO forKey:@"PHNumberPad"];
 		[pfs registerBool:&PHContactCellSwitch default:NO forKey:@"PHContactCell"];
 		[pfs registerBool:&PHDialerDeleteButtonSwitch default:NO forKey:@"PHDialerDeleteButton"];
 		[pfs registerBool:&PHDialerCallButtonSwitch default:NO forKey:@"PHDialerCallButton"];
-
 	}
 
 	if (phoneSupportSwitch) {
@@ -184,7 +177,6 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthPHContactCellControl default:@"0" forKey:@"customStrengthPHContactCell"];
 		[pfs registerObject:&customStrengthPHDialerDeleteButtonControl default:@"0" forKey:@"customStrengthPHDialerDeleteButton"];
 		[pfs registerObject:&customStrengthPHDialerCallButtonControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
-
 	}
 
     if (!dpkgInvalid && enabled) {
@@ -197,11 +189,9 @@ BOOL isRingerSilentSwitch;
 			customLegacyDuration = [customlegacyDurationLevel doubleValue];
 			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 			%init(Phone);
-
 		}
 
 		return;
-
     }
 
 }

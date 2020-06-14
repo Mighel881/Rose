@@ -3,7 +3,7 @@
   "ENABLE_PHONE_SUPPORT" = "電話の設定を有効化";
   "PHONE_SUPPORT" = "有効化";
 
-  "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
+  "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
 
   "TAPPING_DIALER_NUMBER_PAD_BUTTON" = "ダイヤルナンバーボタンを押した時";
   "TAPPING_CONTACTS_CELL" = "連絡先の項目をタップした時";

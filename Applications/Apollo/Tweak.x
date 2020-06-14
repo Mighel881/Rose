@@ -43,7 +43,7 @@ NSString* customStrengthApolloUIButtonControl;
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode And DND Mode Recognition
+// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -62,16 +62,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !apolloSupportSwitch || !apolloJumpBarSwitch) return;
 	int customStrength = [customStrengthApolloJumpBarControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -86,16 +82,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !apolloSupportSwitch || !apolloFloatingActionButtonSwitch) return;
 	int customStrength = [customStrengthApolloFloatingActionButtonControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -113,17 +105,12 @@ BOOL isRingerSilentSwitch;
 	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
 		int customStrength = [customStrengthApolloASDisplayViewControl intValue];
 
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-		}
-
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 	}
 
 }
@@ -142,17 +129,12 @@ BOOL isRingerSilentSwitch;
 	if ([bundleIdentifier isEqualToString:@"com.christianselig.Apollo"]) {
 		int customStrength = [customStrengthApolloUIButtonControl intValue];
 
-		if (customStrength == 0 && !enableLegacyEngineSwitch) {
-			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-		} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
-			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-		} else if (customStrength == 0 && enableLegacyEngineSwitch) {
-			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-		}
-
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
 	}
 
 }
@@ -164,16 +146,20 @@ BOOL isRingerSilentSwitch;
 %ctor {
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
+
 	// Enabled Switch
     [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+
 	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
+
 	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
@@ -181,12 +167,18 @@ BOOL isRingerSilentSwitch;
 	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
 	[pfs registerBool:&apolloSupportSwitch default:NO forKey:@"apolloSupport"];
 
+	// Low Power, DND Mode And Ringer Detection
+	if (exceptionsSectionSupportSwitch) {
+		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
+		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
+		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
+	}
+
 	if (apolloSupportSwitch) {
 		[pfs registerBool:&apolloJumpBarSwitch default:NO forKey:@"apolloJumpBar"];
 		[pfs registerBool:&apolloFloatingActionButtonSwitch default:NO forKey:@"ApolloFloatingActionButton"];
 		[pfs registerBool:&apolloASDisplayViewSwitch default:NO forKey:@"apolloASDisplayView"];
 		[pfs registerBool:&apolloUIButtonSwitch default:NO forKey:@"apolloUIButton"];
-
 	}
 
 	if (apolloSupportSwitch) {
@@ -194,7 +186,6 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthApolloFloatingActionButtonControl default:@"0" forKey:@"customStrengthApolloFloatingActionButton"];
 		[pfs registerObject:&customStrengthApolloASDisplayViewControl default:@"0" forKey:@"customStrengthApolloASDisplayView"];
 		[pfs registerObject:&customStrengthApolloUIButtonControl default:@"0" forKey:@"customStrengthApolloUIButton"];
-
 	}
 
     if (!dpkgInvalid && enabled) {
@@ -207,11 +198,9 @@ BOOL isRingerSilentSwitch;
 			customLegacyDuration = [customlegacyDurationLevel doubleValue];
 			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 			%init(Apollo, JumpBar=objc_getClass("Apollo.JumpBar"), ApolloFloatingActionButton=objc_getClass("Apollo.FloatingActionButton"));
-
-		}	
+		}
 
 		return;
-
     }
 
 }

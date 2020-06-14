@@ -9,10 +9,7 @@
 @interface RSEAppearanceSettings : HBAppearanceSettings
 @end
 
-@interface RSEHomescreenSubPrefsListController : HBListController
-
+@interface RSEExceptionsSubPrefsListController : HBListController
 @property (nonatomic, retain) UILabel *titleLabel;
-
 - (void)setCellForRowAtIndexPath:(NSIndexPath *)indexPath enabled:(BOOL)enabled;
-
 @end

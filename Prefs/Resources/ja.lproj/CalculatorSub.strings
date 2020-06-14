@@ -3,7 +3,7 @@
   "ENABLE_CALCULATOR_SUPPORT" = "計算機の設定を有効化";
   "CALCULATOR_SUPPORT" = "有効化";
 
- "HAPTIC_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックします！";
+ "HAPTIC_FEEDBACK_WHEN" = "この時Haptic触感を起こします！";
 
   "TAPPING_A_KEYPAD_BUTTON" = "キーパッドをタップした時";
 

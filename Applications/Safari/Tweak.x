@@ -37,7 +37,7 @@ NSString* customStrengthSFUrlControl;
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode And DND Mode Recognition
+// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -56,16 +56,12 @@ BOOL isRingerSilentSwitch;
 	if (!enabled || !safariSupportSwitch || !SFUrlSwitch) return;
 	int customStrength = [customStrengthSFUrlControl intValue];
 
-	if (customStrength == 0 && !enableLegacyEngineSwitch) {
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
 		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-
-	} else if (customStrength != 0 && !enableLegacyEngineSwitch) {
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
 		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-
-	} else if (customStrength == 0 && enableLegacyEngineSwitch) {
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
 		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
 
 }
 
@@ -78,14 +74,17 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	
 	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
+
 	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
+
 	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
@@ -93,14 +92,19 @@ BOOL isRingerSilentSwitch;
 	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
 	[pfs registerBool:&safariSupportSwitch default:NO forKey:@"safariSupport"];
 
+	// Low Power, DND Mode And Ringer Detection
+	if (exceptionsSectionSupportSwitch) {
+		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
+		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
+		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
+	}
+
 	if (safariSupportSwitch) {
 		[pfs registerBool:&SFUrlSwitch default:NO forKey:@"SFUrl"];
-
 	}
 
 	if (safariSupportSwitch) {
 		[pfs registerObject:&customStrengthSFUrlControl default:@"0" forKey:@"customStrengthSFUrl"];
-
 	}
 
     if (!dpkgInvalid && enabled) {
@@ -113,11 +117,9 @@ BOOL isRingerSilentSwitch;
 			customLegacyDuration = [customlegacyDurationLevel doubleValue];
 			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
 			%init(Safari);
-
 		}
 
 		return;
-
     }
 
 }

@@ -3,12 +3,9 @@
   "ENABLE_EXCEPTIONS_SECTION" = "例外の設定を有効化";
   "ENABLE_SECTION" = "有効化";
 
-  "DISABLE_FEEDBACK_WHEN" = "Hapticを以下の時にフィードバックしなくします！";
+  "DISABLE_FEEDBACK_WHEN" = "この時触感を返さなくします！";
 
   "LOW_POWER_MODE_IS_ON" = "低電力モードを使用している時";
   "DND_IS_ACTIVE" = "おやすみモードを使用している時";
-　"LOW_POWER_MODE_IS_ON" = "低電力モードが有効の時";
-  "DND_IS_ACTIVE" = "おやすみモードが有効の時";
-  "RINGER_IS_SILENT" = "マナーモードの時";
-  "EXCEPTIONS_MAY_NOT_WORK_WITH_KEYBOARD_FEEDBACK" = "これらの設定はキーボードのフィードバックに対しては適用されないことがあります";
+
 }
