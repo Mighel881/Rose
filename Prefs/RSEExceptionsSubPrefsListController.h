@@ -3,13 +3,21 @@
 #import <Preferences/PSSpecifier.h>
 #import <CepheiPrefs/HBListController.h>
 #import <CepheiPrefs/HBAppearanceSettings.h>
-
-#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#import <Cephei/HBPreferences.h>
+#import <Preferences/PSControlTableCell.h>
+#import <Preferences/PSEditableTableCell.h>
 
 @interface RSEAppearanceSettings : HBAppearanceSettings
 @end
 
 @interface RSEExceptionsSubPrefsListController : HBListController
-@property (nonatomic, retain) UILabel *titleLabel;
+@property(nonatomic, retain)UISwitch* enableSwitch;
+@property(nonatomic, retain)UILabel* titleLabel;
+- (void)toggleState;
+- (void)setEnableSwitchState;
 - (void)setCellForRowAtIndexPath:(NSIndexPath *)indexPath enabled:(BOOL)enabled;
+@end
+
+@interface PSEditableTableCell (Interface)
+- (id)textField;
 @end

@@ -197,7 +197,7 @@
  			<key>label</key>
  			<string>HOMESCREEN</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEHomescreenSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>HomescreenSub</string>
  		</dict>
@@ -207,7 +207,7 @@
  			<key>label</key>
  			<string>LOCKSCREEN</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSELockscreenSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>LockscreenSub</string>
  		</dict>
@@ -217,7 +217,7 @@
  			<key>label</key>
  			<string>ANYWHERE</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEAnywhereSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>AnywhereSub</string>
  		</dict>
@@ -227,7 +227,7 @@
  			<key>label</key>
  			<string>HARDWARE_BUTTONS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEHardwareButtonsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>HardwareButtonsSub</string>
  		</dict>
@@ -237,7 +237,7 @@
  			<key>label</key>
  			<string>CONTROL_CENTER</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEControlCenterSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>ControlCenterSub</string>
  		</dict>
@@ -247,7 +247,7 @@
  			<key>label</key>
  			<string>STATUS_CHANGES</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEStatusChangesSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>StatusChangesSub</string>
  		</dict>
@@ -257,7 +257,7 @@
  			<key>label</key>
  			<string>OTHER_HARDWARE_ACTIONS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEOtherHardwareActionsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>OtherHardwareActionsSub</string>
  		</dict>
@@ -267,7 +267,7 @@
  			<key>label</key>
  			<string>SYSTEM_WIDE</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSESystemWideSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>SystemWideSub</string>
  		</dict>
@@ -277,7 +277,7 @@
  			<key>label</key>
  			<string>APPLICATIONS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEApplicationsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>ApplicationsSub</string>
  		</dict>
@@ -287,19 +287,9 @@
  			<key>label</key>
  			<string>EXCEPTIONS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEExceptionsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>ExceptionsSub</string>
- 		</dict>
-		<dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>ADDITIONALS</string>
- 			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
- 			<key>RSESub</key>
- 			<string>AdditionalsSub</string>
  		</dict>
 
 		<dict>
@@ -390,7 +380,7 @@
  			<key>label</key>
  			<string>CONTRIBUTORS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSEContributorsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>contributorsSub</string>
  		</dict>

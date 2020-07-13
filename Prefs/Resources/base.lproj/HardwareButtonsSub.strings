@@ -7,7 +7,7 @@
 
   "VOLUME_CHANGED" = "Volume Changed";
   "PRESSING_ONLY_SLEEP_BUTTON" = "Pressing Only Sleep Button";
-  "PRESSING_HOME_OR_SLEEP_BUTTON" = "Pressing Home/Sleep Button";
+  "HAPTIC_LOCK_ANIMATION" = "Haptic Lock Animation";
   "UNMUTING" = "Unmuting";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Custom Strength Settings";

@@ -3,13 +3,11 @@
 
 roseCall* haptics;
 
-// Option Switches
 BOOL enabled;
 BOOL enableTapticEngineSwitch;
 BOOL enableHapticEngineSwitch;
 BOOL enableLegacyEngineSwitch;
 
-// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
 NSString* tapticLevel;
 NSString* hapticLevel;
 NSString* legacyLevel;
@@ -23,29 +21,24 @@ int selectedLegacyMode;
 double customLegacyDuration;
 double customLegacyStrength;
 
-BOOL exceptionsSectionSupportSwitch;
+BOOL enableExceptionsSection;
 
-BOOL twitterSupportSwitch;
+BOOL enableTwitterSection;
 
-// Twitter
 BOOL TWTtabBarSwitch;
 BOOL TWTtweetViewSwitch;
 BOOL TWTdirectMessagesTapSwitch;
 BOOL TWTactivityTapSwitch;
 BOOL TWTtweetButtonSwitch;
-
-// Twitter (Custom)
 NSString* customStrengthTWTtabBarControl;
 NSString* customStrengthTWTtweetViewControl;
 NSString* customStrengthTWTdirectMessagesTapControl;
 NSString* customStrengthTWTactivityTapControl;
 NSString* customStrengthTWTtweetButtonControl;
 
-// Delay
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -61,7 +54,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !twitterSupportSwitch || !TWTtabBarSwitch) return;
+	if (!TWTtabBarSwitch) return;
 	int customStrength = [customStrengthTWTtabBarControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -81,7 +74,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !twitterSupportSwitch || !TWTtweetViewSwitch) return;
+	if (!TWTtweetViewSwitch) return;
 	int customStrength = [customStrengthTWTtweetViewControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -101,7 +94,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !twitterSupportSwitch || !TWTdirectMessagesTapSwitch) return;
+	if (!TWTdirectMessagesTapSwitch) return;
 	int customStrength = [customStrengthTWTdirectMessagesTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -121,7 +114,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !twitterSupportSwitch || !TWTactivityTapSwitch) return;
+	if (!TWTactivityTapSwitch) return;
 	int customStrength = [customStrengthTWTactivityTapControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -141,7 +134,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !twitterSupportSwitch || !TWTtweetButtonSwitch) return;
+	if (!TWTtweetButtonSwitch) return;
 	int customStrength = [customStrengthTWTtweetButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -162,41 +155,32 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	[pfs registerBool:&enableExceptionsSection default:nil forKey:@"EnableExceptionsSection"];
+	[pfs registerBool:&enableTwitterSection default:nil forKey:@"EnableTwitterSection"];
 	
-	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
 
-	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
 
-	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 
-	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-	[pfs registerBool:&twitterSupportSwitch default:NO forKey:@"twitterSupport"];
-
-	// Low Power, DND Mode And Ringer Detection
-	if (exceptionsSectionSupportSwitch) {
+	if (enableExceptionsSection) {
 		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
 		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
 	}
 
-	// Twitter
-	if (twitterSupportSwitch) {
+	if (enableTwitterSection) {
 		[pfs registerBool:&TWTtabBarSwitch default:NO forKey:@"TWTtabBar"];
 		[pfs registerBool:&TWTtweetViewSwitch default:NO forKey:@"TWTweetTap"];
 		[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
 		[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
 		[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
-	}
-
-	if (twitterSupportSwitch) {
 		[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
 		[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
 		[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
@@ -205,7 +189,7 @@ BOOL isRingerSilentSwitch;
 	}
 
     if (!dpkgInvalid && enabled) {
-        if (twitterSupportSwitch) {
+        if (enableTwitterSection) {
 			haptics = [[roseCall alloc] init];
 			tapticLVL = [tapticLevel intValue];
 			hapticLVL = [hapticLevel intValue];

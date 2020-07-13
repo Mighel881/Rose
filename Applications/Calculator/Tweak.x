@@ -3,13 +3,11 @@
 
 roseCall* haptics;
 
-// Option Switches
 BOOL enabled;
 BOOL enableTapticEngineSwitch;
 BOOL enableHapticEngineSwitch;
 BOOL enableLegacyEngineSwitch;
 
-// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
 NSString* tapticLevel;
 NSString* hapticLevel;
 NSString* legacyLevel;
@@ -23,21 +21,16 @@ int selectedLegacyMode;
 double customLegacyDuration;
 double customLegacyStrength;
 
-BOOL exceptionsSectionSupportSwitch;
+BOOL enableExceptionsSection;
 
-BOOL calculatorSupportSwitch;
+BOOL enableCalculatorSection;
 
-// Calculator
 BOOL CalculatorKeyPadButtonSwitch;
-
-// Calculator (Custom)
 NSString* customStrengthCalculatorApplicationKeyPadButtonControl;
 
-// Delay
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -53,7 +46,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !calculatorSupportSwitch || !CalculatorKeyPadButtonSwitch) return;
+	if (!CalculatorKeyPadButtonSwitch) return;
 	int customStrength = [customStrengthCalculatorApplicationKeyPadButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -74,41 +67,33 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	[pfs registerBool:&enableExceptionsSection default:nil forKey:@"EnableExceptionsSection"];
+	[pfs registerBool:&enableCalculatorSection default:nil forKey:@"EnableCalculatorSection"];
 	
-	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
 
-	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
 
-	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 
-	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-	[pfs registerBool:&calculatorSupportSwitch default:NO forKey:@"calculatorSupport"];
-
-	// Low Power, DND Mode And Ringer Detection
-	if (exceptionsSectionSupportSwitch) {
+	if (enableExceptionsSection) {
 		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
 		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
 	}
 
-	if (calculatorSupportSwitch) {
+	if (enableCalculatorSection) {
 		[pfs registerBool:&CalculatorKeyPadButtonSwitch default:NO forKey:@"CalculatorKeyPadButton"];
-	}
-
-	if (calculatorSupportSwitch) {
 		[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
 	}
 
     if (!dpkgInvalid && enabled) {
-        if (calculatorSupportSwitch) {
+        if (enableCalculatorSection) {
 			haptics = [[roseCall alloc] init];
 			tapticLVL = [tapticLevel intValue];
 			hapticLVL = [hapticLevel intValue];

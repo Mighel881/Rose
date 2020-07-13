@@ -3,13 +3,11 @@
 
 roseCall* haptics;
 
-// Option Switches
 BOOL enabled;
 BOOL enableTapticEngineSwitch;
 BOOL enableHapticEngineSwitch;
 BOOL enableLegacyEngineSwitch;
 
-// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
 NSString* tapticLevel;
 NSString* hapticLevel;
 NSString* legacyLevel;
@@ -23,11 +21,10 @@ int selectedLegacyMode;
 double customLegacyDuration;
 double customLegacyStrength;
 
-BOOL exceptionsSectionSupportSwitch;
+BOOL enableExceptionsSection;
 
-BOOL spotifySupportSwitch;
+BOOL enableSpotifySection;
 
-// Spotify
 BOOL SPTplayButtonSwitch;
 BOOL SPTplayBarButtonSwitch;
 BOOL SPTpreviousTrackButtonSwitch;
@@ -40,8 +37,6 @@ BOOL SPTfreeTierButtonSwitch;
 BOOL SPTavailableDevicesButtonSwitch;
 BOOL SPTnowPlayingLabelSwitch;
 BOOL SPTplaylistButtonsSwitch;
-
-// Spotify (Custom)
 NSString* customStrengthSPTplayButtonControl;
 NSString* customStrengthSPTplayBarButtonControl;
 NSString* customStrengthSPTpreviousTrackButtonControl;
@@ -55,11 +50,9 @@ NSString* customStrengthSPTavailableDevicesButtonControl;
 NSString* customStrengthSPTnowPlayingLabelControl;
 NSString* customStrengthSPTplaylistButtonsControl;
 
-// Delay
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -79,7 +72,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTplayButtonSwitch) return;
+	if (!SPTplayButtonSwitch) return;
 	int customStrength = [customStrengthSPTplayButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -99,7 +92,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTpreviousTrackButtonSwitch) return;
+	if (!SPTpreviousTrackButtonSwitch) return;
 	int customStrength = [customStrengthSPTpreviousTrackButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -119,7 +112,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTnextTrackButtonSwitch) return;
+	if (!SPTnextTrackButtonSwitch) return;
 	int customStrength = [customStrengthSPTnextTrackButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -139,7 +132,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTrepeatButtonSwitch) return;
+	if (!SPTrepeatButtonSwitch) return;
 	int customStrength = [customStrengthSPTrepeatButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -159,7 +152,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTshuffleButtonSwitch) return;
+	if (!SPTshuffleButtonSwitch) return;
 	int customStrength = [customStrengthSPTshuffleButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -179,7 +172,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTqueueButtonSwitch) return;
+	if (!SPTqueueButtonSwitch) return;
 	int customStrength = [customStrengthSPTqueueButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -199,7 +192,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTsliderSwitch) return;
+	if (!SPTsliderSwitch) return;
 	int customStrength = [customStrengthSPTsliderControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -219,7 +212,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTfreeTierButtonSwitch) return;
+	if (!SPTfreeTierButtonSwitch) return;
 	int customStrength = [customStrengthSPTfreeTierButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -239,7 +232,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTavailableDevicesButtonSwitch) return;
+	if (!SPTavailableDevicesButtonSwitch) return;
 	int customStrength = [customStrengthSPTavailableDevicesButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -259,7 +252,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTnowPlayingLabelSwitch) return;
+	if (!SPTnowPlayingLabelSwitch) return;
 	int customStrength = [customStrengthSPTnowPlayingLabelControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -279,7 +272,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTplayBarButtonSwitch) return;
+	if (!SPTplayBarButtonSwitch) return;
 	int customStrength = [customStrengthSPTplayBarButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -299,7 +292,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !spotifySupportSwitch || !SPTplaylistButtonsSwitch) return;
+	if (!SPTplaylistButtonsSwitch) return;
 	UIViewController* ancestor = [self _viewControllerForAncestor];
 
 	if ([ancestor isKindOfClass: %c(SPTFreeTierPlaylistVISREFHeaderViewController)]) {
@@ -325,32 +318,27 @@ BOOL isRingerSilentSwitch;
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
 	[pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	[pfs registerBool:&enableExceptionsSection default:nil forKey:@"EnableExceptionsSection"];
+	[pfs registerBool:&enableSpotifySection default:nil forKey:@"EnableSpotifySection"];
 	
-	// Engine Switches
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
 
-	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
 
-	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 
-	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-	[pfs registerBool:&spotifySupportSwitch default:NO forKey:@"spotifySupport"];
-
-	// Low Power, DND Mode And Ringer Detection
-	if (exceptionsSectionSupportSwitch) {
+	if (enableExceptionsSection) {
 		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
 		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
 	}
 
-	if (spotifySupportSwitch) {
+	if (enableSpotifySection) {
 		[pfs registerBool:&SPTplayButtonSwitch default:NO forKey:@"SPTplayButton"];
 		[pfs registerBool:&SPTplayBarButtonSwitch default:NO forKey:@"SPTplayBarButton"];
 		[pfs registerBool:&SPTpreviousTrackButtonSwitch default:NO forKey:@"SPTpreviousTrackButton"];
@@ -363,9 +351,6 @@ BOOL isRingerSilentSwitch;
 		[pfs registerBool:&SPTavailableDevicesButtonSwitch default:NO forKey:@"SPTavailableDevicesButton"];
 		[pfs registerBool:&SPTnowPlayingLabelSwitch default:NO forKey:@"SPTnowPlayingLabel"];
 		[pfs registerBool:&SPTplaylistButtonsSwitch default:NO forKey:@"SPTplaylistButtons"];
-	}
-
-	if (spotifySupportSwitch) {
 		[pfs registerObject:&customStrengthSPTplayButtonControl default:@"0" forKey:@"customStrengthSPTplayButton"];
 		[pfs registerObject:&customStrengthSPTplayBarButtonControl default:@"0" forKey:@"customStrengthSPTplayBarButton"];
 		[pfs registerObject:&customStrengthSPTpreviousTrackButtonControl default:@"0" forKey:@"customStrengthSPTpreviousTrackButton"];
@@ -381,7 +366,7 @@ BOOL isRingerSilentSwitch;
 	}
 
     if (!dpkgInvalid && enabled) {
-        if (spotifySupportSwitch) {
+        if (enableSpotifySection) {
 			haptics = [[roseCall alloc] init];
 			tapticLVL = [tapticLevel intValue];
 			hapticLVL = [hapticLevel intValue];

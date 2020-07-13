@@ -4,6 +4,7 @@
   "ENABLE_SECTION" = "Enable Section";
 
   "DISABLE_FEEDBACK_WHEN" = "Disable Feedback When..";
+  "ONLY_ENABLE_FEEDBACK_WHEN" = "Only Enable Feedback When..";
   "EXCEPTIONS_MAY_NOT_WORK_WITH_KEYBOARD_FEEDBACK" = "Exceptions May Not Work With Keyboard Feedback";
 
   "LOW_POWER_MODE_IS_ON" = "Low Power Mode Is On";

@@ -1,10 +1,6 @@
 #import "RSEExceptionsSubPrefsListController.h"
-#import <Preferences/PSControlTableCell.h>
-#import <Preferences/PSEditableTableCell.h>
 
-@interface PSEditableTableCell (Interface)
-- (id)textField;
-@end
+BOOL enableExceptionsSection = NO;
 
 @implementation RSEExceptionsSubPrefsListController
 
@@ -15,6 +11,11 @@
     if (self) {
         RSEAppearanceSettings *appearanceSettings = [[RSEAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
+        self.enableSwitch = [[UISwitch alloc] init];
+        self.enableSwitch.onTintColor = [UIColor colorWithRed: 0.64 green: 0.49 blue: 1.00 alpha: 1.00];
+        [self.enableSwitch addTarget:self action:@selector(toggleState) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* switchy = [[UIBarButtonItem alloc] initWithCustomView: self.enableSwitch];
+        self.navigationItem.rightBarButtonItem = switchy;
     }
 
     return self;
@@ -33,8 +34,13 @@
 
     [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
-    if (SYSTEM_VERSION_LESS_THAN(@"13.0"))
-        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] enabled:NO];
+    [self setCellState];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    [self setEnableSwitchState];
 
 }
 
@@ -60,12 +66,98 @@
 - (bool)shouldReloadSpecifiersOnResume {
 
     return false;
+
+}
+
+- (void)toggleState {
+
+    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"];
+    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
+    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"sh.litten.rosepreferences"];
     
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"]) {
+        enableExceptionsSection = YES;
+        [preferences setBool:enableExceptionsSection forKey:@"EnableExceptionsSection"];
+        [self toggleCellState:YES];
+    } else if (![allKeys containsObject:@"EnableExceptionsSection"]) {
+        enableExceptionsSection = YES;
+        [preferences setBool:enableExceptionsSection forKey:@"EnableExceptionsSection"];
+        [self toggleCellState:YES];
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(NO)]) {
+        enableExceptionsSection = YES;
+        [preferences setBool:enableExceptionsSection forKey:@"EnableExceptionsSection"];
+        [self toggleCellState:YES];   
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(YES)]) {
+        enableExceptionsSection = NO;
+        [preferences setBool:enableExceptionsSection forKey:@"EnableExceptionsSection"];
+        [self toggleCellState:NO];
+    }
+
+}
+
+- (void)setEnableSwitchState {
+
+    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"];
+    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
+    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"sh.litten.rosepreferences"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"]){
+        [[self enableSwitch] setOn:NO animated:YES];
+        [self toggleCellState:NO];
+    } else if (![allKeys containsObject:@"EnableExceptionsSection"]) {
+        [[self enableSwitch] setOn:NO animated:YES];
+        [self toggleCellState:NO];
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(YES)]) {
+        [[self enableSwitch] setOn:YES animated:YES];
+        [self toggleCellState:YES];
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(NO)]) {
+        [[self enableSwitch] setOn:NO animated:YES];
+        [self toggleCellState:NO];
+    }
+
+}
+
+- (void)setCellState {
+
+    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"];
+    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
+    HBPreferences* preferences = [[HBPreferences alloc] initWithIdentifier: @"sh.litten.rosepreferences"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Preferences/sh.litten.rosepreferences.plist"]){
+        [self toggleCellState:NO];
+    } else if (![allKeys containsObject:@"EnableExceptionsSection"]) {
+        [self toggleCellState:NO];
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(YES)]) {
+        [self toggleCellState:YES];
+    } else if ([[preferences objectForKey:@"EnableExceptionsSection"] isEqual:@(NO)]) {
+        [self toggleCellState:NO];
+    }
+
+}
+
+- (void)toggleCellState:(BOOL)enable {
+
+    if (enable) {
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] enabled:YES];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] enabled:YES];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] enabled:YES];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] enabled:YES];
+    } else {
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] enabled:NO];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] enabled:NO];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] enabled:NO];
+        [self setCellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] enabled:NO];
+    }
+
 }
 
 - (void)setCellForRowAtIndexPath:(NSIndexPath *)indexPath enabled:(BOOL)enabled {
 
     UITableViewCell *cell = [self tableView:self.table cellForRowAtIndexPath:indexPath];
+
     if (cell) {
         cell.userInteractionEnabled = enabled;
         cell.textLabel.enabled = enabled;

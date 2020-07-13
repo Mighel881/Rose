@@ -1,6 +1,6 @@
-#import "RSESubPrefsListController.h"
+#import "RSEContributorsSubPrefsListController.h"
 
-@implementation RSESubPrefsListController
+@implementation RSEContributorsSubPrefsListController
 
 - (instancetype)init {
 
@@ -30,7 +30,7 @@
 }
 
 - (void)loadFromSpecifier:(PSSpecifier *)specifier {
-    
+
     NSString *sub = [specifier propertyForKey:@"RSESub"];
     NSString *title = [specifier name];
 
@@ -45,12 +45,13 @@
 
     [self loadFromSpecifier:specifier];
     [super setSpecifier:specifier];
+
 }
 
 - (bool)shouldReloadSpecifiersOnResume {
 
     return false;
-    
+
 }
 
 @end

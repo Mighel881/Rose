@@ -150,13 +150,7 @@
             <key>user</key>
             <string>EthanKrueger4</string>
         </dict>
-
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>TRANSLATORS</string>
-		</dict>
+        
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>

@@ -17,8 +17,8 @@
  			<key>label</key>
  			<string>APOLLO</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSEApolloSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>ApolloSub</string>
  		</dict>
 		<dict>
@@ -27,8 +27,8 @@
  			<key>label</key>
  			<string>CALCULATOR</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSECalculatorSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>CalculatorSub</string>
  		</dict>
 		<dict>
@@ -37,8 +37,8 @@
  			<key>label</key>
  			<string>FACEBOOK</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSEFacebookSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>FacebookSub</string>
  		</dict>
 		<dict>
@@ -47,8 +47,8 @@
  			<key>label</key>
  			<string>INSTAGRAM</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSEInstagramSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>InstagramSub</string>
  		</dict>
 		<dict>
@@ -57,8 +57,8 @@
  			<key>label</key>
  			<string>MUSIC</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSEMusicSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>MusicSub</string>
  		</dict>
 		<dict>
@@ -67,8 +67,8 @@
  			<key>label</key>
  			<string>PHONE</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSEPhoneSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>PhoneSub</string>
  		</dict>
 		<dict>
@@ -77,28 +77,18 @@
  			<key>label</key>
  			<string>SAFARI</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSESafariSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>SafariSub</string>
  		</dict>
-		<!-- <dict>
- 			<key>cell</key>
- 			<string>PSLinkCell</string>
- 			<key>label</key>
- 			<string>SILEO</string>
- 			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
- 			<string>SileoSub</string>
- 		</dict> -->
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
  			<key>label</key>
  			<string>SPOTIFY</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSESpotifySubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>SpotifySub</string>
  		</dict>
 		<dict>
@@ -107,8 +97,8 @@
  			<key>label</key>
  			<string>TIKTOK</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSETikTokSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>TikTokSub</string>
  		</dict>
 		<dict>
@@ -117,8 +107,8 @@
  			<key>label</key>
  			<string>TWITTER</string>
  			<key>detail</key>
- 			<string>RSEApplicationsSubPrefsListController</string>
- 			<key>RSEApplicationsSub</key>
+ 			<string>RSETwitterSubPrefsListController</string>
+ 			<key>RSESub</key>
  			<string>TwitterSub</string>
  		</dict>
 

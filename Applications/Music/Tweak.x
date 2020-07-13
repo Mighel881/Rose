@@ -3,13 +3,11 @@
 
 roseCall* haptics;
 
-// Option Switches
 BOOL enabled;
 BOOL enableTapticEngineSwitch;
 BOOL enableHapticEngineSwitch;
 BOOL enableLegacyEngineSwitch;
 
-// Feedback Strength Segmented Controls, Custom Legacy Settings And Delay Slider
 NSString* tapticLevel;
 NSString* hapticLevel;
 NSString* legacyLevel;
@@ -23,11 +21,10 @@ int selectedLegacyMode;
 double customLegacyDuration;
 double customLegacyStrength;
 
-BOOL exceptionsSectionSupportSwitch;
+BOOL enableExceptionsSection;
 
-BOOL musicSupportSwitch;
+BOOL enableMusicSection;
 
-// Music (Custom)
 BOOL MusicPlayPauseButtonsSwitch;
 BOOL MusicVolumeSliderSwitch;
 BOOL MusicContextualActionsButtonSwitch;
@@ -37,8 +34,6 @@ BOOL MusicLibraryCellSwitch;
 BOOL MusicAlbumCellSwitch;
 BOOL MusicAirPlayButtonSwitch;
 BOOL MusicLiveLyricsQueueButtonSwitch;
-
-// Music (Custom)
 NSString *customStrengthMusicApplicationPlayButtonControl;
 NSString *customStrengthMusicApplicationVolumeSliderControl;
 NSString *customStrengthMusicApplicationContextualActionsButtonControl;
@@ -49,11 +44,9 @@ NSString *customStrengthMusicApplicationAlbumCellControl;
 NSString *customStrengthMPRouteButtonControl;
 NSString *customStrengthMPButtonControl;
 
-// Delay
 BOOL delaySwitch;
 NSString* delayLevel;
 
-// Low Power Mode, DND Mode And Ringer Recognition
 BOOL LowPowerMode;
 BOOL LowPowerModeSwitch;
 BOOL isDNDActive;
@@ -69,7 +62,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicPlayPauseButtonsSwitch) return;
+	if (!MusicPlayPauseButtonsSwitch) return;
 	int customStrength = [customStrengthMusicApplicationPlayButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -89,7 +82,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicVolumeSliderSwitch) return;
+	if (!MusicVolumeSliderSwitch) return;
 	int customStrength = [customStrengthMusicApplicationVolumeSliderControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -109,7 +102,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicContextualActionsButtonSwitch) return;
+	if (!MusicContextualActionsButtonSwitch) return;
 	int customStrength = [customStrengthMusicApplicationContextualActionsButtonControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -129,7 +122,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicTimeSliderSwitch) return;
+	if (!MusicTimeSliderSwitch) return;
 	int customStrength = [customStrengthMusicApplicationTimeSliderControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -149,7 +142,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicSongCellSwitch) return;
+	if (!MusicSongCellSwitch) return;
 	int customStrength = [customStrengthMusicApplicationSongCellControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -169,7 +162,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicLibraryCellSwitch) return;
+	if (!MusicLibraryCellSwitch) return;
 	int customStrength = [customStrengthLibraryCellControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -189,7 +182,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicAlbumCellSwitch) return;
+	if (!MusicAlbumCellSwitch) return;
 	int customStrength = [customStrengthMusicApplicationAlbumCellControl intValue];
 
 	if (customStrength == 0 && !enableLegacyEngineSwitch)
@@ -209,7 +202,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicAirPlayButtonSwitch) return;
+	if (!MusicAirPlayButtonSwitch) return;
 	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
 	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
@@ -234,7 +227,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!enabled || !musicSupportSwitch || !MusicLiveLyricsQueueButtonSwitch) return;
+	if (!MusicLiveLyricsQueueButtonSwitch) return;
 	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
 	if ([bundleIdentifier isEqualToString:@"com.apple.Music"]) {
@@ -258,34 +251,29 @@ BOOL isRingerSilentSwitch;
 %ctor {
 
 	pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
-	// Enabled Switch
-    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
 
-	// Engine Switches
+    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
+	[pfs registerBool:&enableExceptionsSection default:nil forKey:@"EnableExceptionsSection"];
+	[pfs registerBool:&enableMusicSection default:nil forKey:@"EnableMusicSection"];
+
 	[pfs registerBool:&enableTapticEngineSwitch default:NO forKey:@"enableTapticEngine"];
 	[pfs registerBool:&enableHapticEngineSwitch default:NO forKey:@"enableHapticEngine"];
 	[pfs registerBool:&enableLegacyEngineSwitch default:NO forKey:@"enableLegacyEngine"];
 
-	// Segmented Controls For Feedback Strength
 	[pfs registerObject:&tapticLevel default:@"0" forKey:@"TapticStrength"];
     [pfs registerObject:&hapticLevel default:@"0" forKey:@"HapticStrength"];
 	[pfs registerObject:&legacyLevel default:@"0" forKey:@"LegacyStrength"];
 
-	// Custom Legacy Sliders
 	[pfs registerObject:&customlegacyDurationLevel default:@"0" forKey:@"customLegacyDuration"];
 	[pfs registerObject:&customlegacyStrengthLevel default:@"0" forKey:@"customLegacyStrength"];
 
-	[pfs registerBool:&exceptionsSectionSupportSwitch default:NO forKey:@"exceptionsSectionSupport"];
-	[pfs registerBool:&musicSupportSwitch default:NO forKey:@"musicSupport"];
-
-	// Low Power, DND Mode And Ringer Detection
-	if (exceptionsSectionSupportSwitch) {
+	if (enableExceptionsSection) {
 		[pfs registerBool:&LowPowerModeSwitch default:NO forKey:@"lowPowerMode"];
 		[pfs registerBool:&isDNDActiveSwitch default:NO forKey:@"isDNDActive"];
 		[pfs registerBool:&isRingerSilentSwitch default:NO forKey:@"isRingerSilent"];
 	}
 
-	if (musicSupportSwitch) {
+	if (enableMusicSection) {
 		[pfs registerBool:&MusicPlayPauseButtonsSwitch default:NO forKey:@"MusicPlayPauseButtons"];
 		[pfs registerBool:&MusicVolumeSliderSwitch default:NO forKey:@"MusicVolumeSlider"];
 		[pfs registerBool:&MusicContextualActionsButtonSwitch default:NO forKey:@"MusicContextualActionsButton"];
@@ -295,9 +283,6 @@ BOOL isRingerSilentSwitch;
 		[pfs registerBool:&MusicAlbumCellSwitch default:NO forKey:@"MusicAlbumCell"];
 		[pfs registerBool:&MusicAirPlayButtonSwitch default:NO forKey:@"MusicAirPlayButton"];
 		[pfs registerBool:&MusicLiveLyricsQueueButtonSwitch default:NO forKey:@"MusicLiveLyricsQueueButton"];
-	}
-
-	if (musicSupportSwitch) {
 		[pfs registerObject:&customStrengthMusicApplicationPlayButtonControl default:@"0" forKey:@"customStrengthMusicApplicationPlayButton"];
 		[pfs registerObject:&customStrengthMusicApplicationVolumeSliderControl default:@"0" forKey:@"customStrengthMusicApplicationVolumeSlider"];
 		[pfs registerObject:&customStrengthMusicApplicationContextualActionsButtonControl default:@"0" forKey:@"customStrengthMusicApplicationContextualActionsButton"];
@@ -310,7 +295,7 @@ BOOL isRingerSilentSwitch;
 	}
 
     if (!dpkgInvalid && enabled) {
-        if (musicSupportSwitch) {
+        if (enableMusicSection) {
 			haptics = [[roseCall alloc] init];
 			tapticLVL = [tapticLevel intValue];
 			hapticLVL = [hapticLevel intValue];

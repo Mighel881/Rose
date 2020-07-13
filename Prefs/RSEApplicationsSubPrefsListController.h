@@ -3,10 +3,21 @@
 #import <Preferences/PSSpecifier.h>
 #import <CepheiPrefs/HBListController.h>
 #import <CepheiPrefs/HBAppearanceSettings.h>
+#import <Cephei/HBPreferences.h>
+#import <Preferences/PSControlTableCell.h>
+#import <Preferences/PSEditableTableCell.h>
 
 @interface RSEAppearanceSettings : HBAppearanceSettings
 @end
 
 @interface RSEApplicationsSubPrefsListController : HBListController
-@property (nonatomic, retain) UILabel *titleLabel;
+@property(nonatomic, retain)UISwitch* enableSwitch;
+@property(nonatomic, retain)UILabel* titleLabel;
+- (void)toggleState;
+- (void)setEnableSwitchState;
+- (void)setCellForRowAtIndexPath:(NSIndexPath *)indexPath enabled:(BOOL)enabled;
+@end
+
+@interface PSEditableTableCell (Interface)
+- (id)textField;
 @end
