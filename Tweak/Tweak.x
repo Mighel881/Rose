@@ -720,7 +720,7 @@ BOOL isRingerSilentSwitch;
 
 %hook CCUIButtonModuleView
 
-- (void)setSelected:(BOOL)arg1 {
+- (void)setHighlighted:(BOOL)arg1 {
 
 	%orig;
 

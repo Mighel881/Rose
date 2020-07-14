@@ -180,7 +180,7 @@
  			<key>label</key>
  			<string>CUSTOM_LEGACY_SETTINGS</string>
  			<key>detail</key>
- 			<string>RSESubPrefsListController</string>
+ 			<string>RSELegacySettingsSubPrefsListController</string>
  			<key>RSESub</key>
  			<string>LegacyCustomSettings</string>
  		</dict>
