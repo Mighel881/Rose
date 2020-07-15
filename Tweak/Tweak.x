@@ -768,7 +768,6 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
-	if (!(lockSwitch && lockAnimationSwitch)) return;
 	int customStrength = [customStrengthLockControl intValue];
 
 	if (lockAnimationSwitch) {
@@ -1185,7 +1184,7 @@ BOOL isRingerSilentSwitch;
 		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.litten.love/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.love to Cydia or Sileo."
 		preferredStyle:UIAlertControllerStyleAlert];
 
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Aww man" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
 
 			UIApplication *application = [UIApplication sharedApplication];
 			[application openURL:[NSURL URLWithString:@"https://repo.litten.love/"] options:@{} completionHandler:nil];
@@ -1354,6 +1353,7 @@ BOOL isRingerSilentSwitch;
 	if (enableStatusChangesSection) {
 		[pfs registerBool:&unlockSwitch default:NO forKey:@"unlock"];
 		[pfs registerBool:&lockSwitch default:NO forKey:@"lock"];
+		[pfs registerBool:&lockAnimationSwitch default:NO forKey:@"lockAnimation"];
 		[pfs registerBool:&authenticationSwitch default:NO forKey:@"authentication"];
 		[pfs registerBool:&callSwitch default:NO forKey:@"call"];
 		[pfs registerObject:&customStrengthUnlockControl default:@"0" forKey:@"customStrengthUnlock"];
