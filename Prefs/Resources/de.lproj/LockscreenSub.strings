@@ -1,19 +1,19 @@
 {
 
-  "ENABLE_LOCKSCREEN_SECTION" = "Aktiviere Sperrbildschirm Abschnitt";
-  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+  "ENABLE_LOCKSCREEN_SECTION" = "Abschnitt „Sperrbildschirm“";
+  "ENABLE_SECTION" = "Abschnitt aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "ENTERING_PASSCODE" = "Passcode eingegeben wird";
-  "PRESSING_QUICK_ACTIONS_BUTTON" = "Schnellaktionenknopf gedrückt wird";
+  "ENTERING_PASSCODE" = "Passwort eingegeben wird";
+  "PRESSING_QUICK_ACTIONS_BUTTON" = "Schnellaktionen gedrückt werden";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_PASSCODE_STRENGTH" = "Eigene Passcode Stärke";
-  "CUSTOM_QUICK_ACTIONS_BUTTON_STRENGTH" = "Eigene Schnellaktionen Stärke";
+  "CUSTOM_PASSCODE_STRENGTH" = "Passworteingabe";
+  "CUSTOM_QUICK_ACTIONS_BUTTON_STRENGTH" = "Schnellaktionen";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

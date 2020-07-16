@@ -1,11 +1,14 @@
 {
 
-  "ENABLE_EXCEPTIONS_SECTION" = "Aktiviere Ausnahmen Abschnitt";
-  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+  "ENABLE_EXCEPTIONS_SECTION" = "Abschnitt „Ausnahmen“";
+  "ENABLE_SECTION" = "Abschnitt aktivieren";
 
   "DISABLE_FEEDBACK_WHEN" = "Deaktiviere Feedback wenn...";
 
-  "LOW_POWER_MODE_IS_ON" = "Energiesparmodus eingeschaltet ist";
-  "DND_IS_ACTIVE" = "Nicht stören eingeschaltet ist";
+  "LOW_POWER_MODE_IS_ON" = "Energiesparmodus aktiviert ist";
+  "DND_IS_ACTIVE" = "Nicht stören aktiviert ist";
+  "RINGER IS SILENT" = "Auf Stumm gestellt ist";
+  
+  "EXCEPTIONS_MAY_NOT_WORK_WITH_KEYBOARD_FEEDBACK" = "Diese Einstellungen funktionieren möglicherweise nicht mit Tastaturfeedback.";
 
 }

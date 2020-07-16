@@ -7,12 +7,12 @@
   "HEAVY" = "Stark";
   "SOFT" = "Sanft";
   "RIGID" = "Starr";
-  "STRONG" = "Start";
+  "STRONG" = "Stark";
   "DEFAULT" = "Standard";
-  "CUSTOM" = "Eigenes";
+  "CUSTOM" = "Eigene";
 
   "TAPTIC_ENGINE_STRENGTH" = "Taptic Engine Stärke";
-  "IPHONE_7_OR_7PLUS_AND_UP" = "iPhone 7/7+ und höher";
+  "IPHONE_7_OR_7PLUS_AND_UP" = "iPhone 7/7+ und neuer";
   "USE_TAPTIC_ENGINE" = "Taptic Engine verwenden";
 
   "HAPTIC_ENGINE_STRENGTH" = "Haptic Engine Stärke";
@@ -20,58 +20,59 @@
   "USE_HAPTIC_ENGINE" = "Haptic Engine verwenden";
 
   "LEGACY_SUPPORT" = "Legacy Unterstützung";
-  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone SE/6..";
+  "IPHONE_SE_OR_6_AND_SO_FAR" = "iPhone SE/6 und älter";
   "USE_LEGACY_ENGINE" = "Legacy Engine verwenden";
-  "CUSTOM_LEGACY_SETTINGS" = "Eigene Legacy Einstellungen";
+  "CUSTOM_LEGACY_SETTINGS" = "Eigene Legacy-Einstellungen";
   
-  "HAPTIC_FEEDBACK_OPTIONS" = "Haptisches Feedback Optionen";
+  "HAPTIC_FEEDBACK_OPTIONS" = "Haptic Feedback Optionen";
   
   "HOMESCREEN" = "Home-Bildschirm";
   "LOCKSCREEN" = "Sperrbildschirm";
   "ANYWHERE" = "Überall";
   "HARDWARE_BUTTONS" = "Hardwareknöpfe";
   "CONTROL_CENTER" = "Kontrollzentrum";
-  "STATUS_CHANGES" = "Status ändert sich";
-  "OTHER_HARDWARE_ACTIONS" = "Andere Hardwareaktionen";
+  "STATUS_CHANGES" = "Statusänderungen";
+  "OTHER_HARDWARE_ACTIONS" = "Hardware";
   "SYSTEM_WIDE" = "Systemweit";
-  "APPLICATIONS" = "Applikationen";
+  "APPLICATIONS" = "Apps";
   "EXCEPTIONS" = "Ausnahmen";
-  "ADDITIONALS" = "Optional";
+  "ADDITIONALS" = "Extras";
 
-  "HAPTIC_DELAY_IN_SECONDS" = "Haptische Verzögerung - Sekunden";
+  "HAPTIC_DELAY_IN_SECONDS" = "Verzögerung des Feedbacks - in Sekunden";
   "ENABLE_DELAY" = "Aktiviere Verzögerung";
 
   "OTHER_OPTIONS" = "Andere Optionen";
   "RESPRING" = "Respringen";
   "RESET_PREFERENCES" = "Einstellungen zurücksetzen";
-  "SHOW_SETUP_AGAIN" = "Zeige Einrichtung nochmal";
+  "SHOW_SETUP_AGAIN" = "Zeige Setup nochmal";
+  "SHAKE_TO_TEST_HAPTICS" = "Schüttle das Gerät, um die Stärke der Haptiken zu testen.";
   
   "SENDING_LOVE_TO" = "Sende Liebe zu";
   "THANKS_KRITANTA_FOR_THE_PRETTY_TWITTER_CELLS" = "Danke kritanta für die schönen Twitterzellen";
 
-  "CONTRIBUTORS_CREDITS" = "Testen und Übersetzungen";
+  "CONTRIBUTORS_CREDITS" = "Beta-Tests und Übersetzungen";
   "CONTRIBUTORS" = "Mitwirkende";
-  "HELP_TRANSLATING_ROSE" = "Hilf mit Rose zu übersetzen";
+  "HELP_TRANSLATING_ROSE" = "Hilf mit, rose zu übersetzen";
 
-  "GIVE_THESE_A_LOOK" = "Schau dir das mal an";
-  "LUNE_DESCRIPTION" = "Lass einen Mondsymbol erscheinen wenn Nicht Stören aktiv ist";
-  "AESTEA_DESCRIPTION" = "Vermisst du Sahne? Versuche Aestea";
+  "YOU_MIGHT_LIKE" = "Schau dir das mal an";
+  "LUNE_DESCRIPTION" = "Lass einen Mond erscheinen, wenn Nicht Stören aktiviert ist";
+  "AESTEA_DESCRIPTION" = "Färbe deine Konnektivitätsknöpfe";
   "BUTTERFLY_DESCRIPTION" = "Textauswahl, aber farbig";
   
   "SUPPORT_ME" = "Unterstütze mich";
   "ROSE_BY_LITTEN_
 ARTWORKS_BY_TAKI" = "Rose von Litten
-Kunstwerke von taki";
+Artworks von taki";
 
-  "LITTLE_DONATION_🌺" = "Kleine Spende 🌺";
-  "APPRECIATED_💘" = "Geschätzt 💘";
+  "DONATE_TO_LITTEN" = "Kleine Spende 🌺";
+  "APPRECIATED" = "Ich wäre sehr dankbar 💘";
   "FEATURE_REQUEST?_✨" = "Funktionsanfrage? ✨";
   "SEND_ME_AN_EMAIL_WITH_YOUR_REQUEST" = "Sende mir eine Email mit deiner Anfrage";
-  "SOURCE_CODE_🌙" = "Quellcode 🌙";
-  "ITS_ON_MY_GITHUB" = "Es ist auf meinem Github";
+  "SOURCE_CODE" = "Quellcode 🌙";
+  "GITHUB" = "Auf meinem Github";
   "FOUND_A_BUG?_🌧" = "Hast du einen Bug gefunden? 🌧";
   "LEAVE_A_BUG_REPORT_HERE" = "Erstelle einen Fehlerbericht hier";
   
-  "MADE_WITH_💙" = "Mit 💙 gemacht";
+  "MADE_WITH" = "Mit 💙 gemacht";
 
 }

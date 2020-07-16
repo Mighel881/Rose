@@ -768,6 +768,7 @@ BOOL isRingerSilentSwitch;
 
 	%orig;
 
+	if (!lockSwitch && !lockAnimationSwitch) return;
 	int customStrength = [customStrengthLockControl intValue];
 
 	if (lockAnimationSwitch) {
@@ -1416,7 +1417,7 @@ BOOL isRingerSilentSwitch;
 			%init(Rose);
 			if (enableHomescreenSection) %init(Homescreen);
 			if (enableLockscreenSection) %init(Lockscreen);
-			if (enableLockscreenSection) %init(Anywhere);
+			if (enableAnywhereSection) %init(Anywhere);
 			if (enableHardwareButtonsSection) %init(HardwareButtons);
 			if (enableControlCenterSection) %init(ControlCenter);
 			if (enableStatusChangesSection) %init(StatusChanges);

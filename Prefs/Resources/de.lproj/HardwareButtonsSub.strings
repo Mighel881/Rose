@@ -1,22 +1,22 @@
 {
 
-  "ENABLE_HARDWARE_BUTTONS_SECTION" = "Aktiviere Hardwareknöpfe Abschnitt";
-  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+  "ENABLE_HARDWARE_BUTTONS_SECTION" = "Abschnitt „Hardwareknöpfe“";
+  "ENABLE_SECTION" = "Abschnitt aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "VOLUME_CHANGED" = "Lautstärke geändert wird";
-  "PRESSING_ONLY_SLEEP_BUTTON" = "Nur der Ausschaltknopf gedrückt wird";
-  "PRESSING_HOME_OR_SLEEP_BUTTON" = "Der Home / Ausschaltknopf gedrückt wird ";
-  "UNMUTING" = "laut gestellt wird";
+  "VOLUME_CHANGED" = "Lautstärkeknöpfe gedrückt werden";
+  "PRESSING_ONLY_SLEEP_BUTTON" = "Der Power-Knopf allein gedrückt wird";
+  "PRESSING_HOME_OR_SLEEP_BUTTON" = "Die Home-Taste/der Power-Knopf gedrückt wird";
+  "UNMUTING" = "Auf laut gestellt wird";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_VOLUME_STRENGTH" = "Eigene Lautstärke Stärke";
-  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Eigene Ausschaltknopfstärke";
-  "CUSTOM_RINGER_STRENGTH" = "Eigene Klingeltonstärke";
+  "CUSTOM_VOLUME_STRENGTH" = "Lautstärkeknöpfe";
+  "CUSTOM_SLEEP_BUTTON_STRENGTH" = "Power-Knopf";
+  "CUSTOM_RINGER_STRENGTH" = "Stummschalter";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

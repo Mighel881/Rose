@@ -1,7 +1,7 @@
 {
 
-  "ENABLE_FACEBOOK_SUPPORT" = "Aktiviere Facebook Unterstützung";
-  "FACEBOOK_SUPPORT" = "Facebook Unterstützung";
+  "ENABLE_FACEBOOK_SUPPORT" = "Unterstützung für Facebook";
+  "FACEBOOK_SUPPORT" = "Unterstützung für Facebook aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
@@ -11,11 +11,11 @@
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_TABBAR_STRENGTH" = "Eigene Tableistenstärke";
-  "CUSTOM_QUICK_ACCESS_BUTTONS_STRENGTH" = "Eigene Schnellzugriffknopfstärke";
-  "CUSTOM_NAVIGATION_BAR_BUTTONS_STRENGTH" = "Eigene Navigationsleistenknopfstärke";
+  "CUSTOM_TABBAR_STRENGTH" = "Tableiste";
+  "CUSTOM_QUICK_ACCESS_BUTTONS_STRENGTH" = "Schnellzugriffknöpfe";
+  "CUSTOM_NAVIGATION_BAR_BUTTONS_STRENGTH" = "Navigationsleistenknöpfee";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

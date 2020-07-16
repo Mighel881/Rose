@@ -1,7 +1,7 @@
 {
 
-  "ENABLE_APOLLO_SUPPORT" = "Aktiviere Apollo Unterstützung";
-  "APOLLO_SUPPORT" = "Apollo Unterstützung";
+  "ENABLE_APOLLO_SUPPORT" = "Unterstützung für Apollo";
+  "APOLLO_SUPPORT" = "Unterstützung für Apollo aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
@@ -12,12 +12,12 @@
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_JUMP_BAR_STRENGTH" = "Eigene Springleiste Stärke";
-  "CUSTOM_FLOATING_BUTTON_STRENGTH" = "Eigene schwebenden Knöpfe Stärke";
-  "CUSTOM_CERTAIN_ELEMENTS_STRENGTH" = "Eigene bestimmte Elemente Stärke";
-  "CUSTOM_UIBUTTON_STRENGTH" = "Eigene UIButton Stärke";
+  "CUSTOM_JUMP_BAR_STRENGTH" = "Springleiste";
+  "CUSTOM_FLOATING_BUTTON_STRENGTH" = "Schwebende Knöpfe";
+  "CUSTOM_CERTAIN_ELEMENTS_STRENGTH" = "Weitere Elemente";
+  "CUSTOM_UIBUTTON_STRENGTH" = "UIButton";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

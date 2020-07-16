@@ -1,7 +1,7 @@
 {
 
-  "ENABLE_SYSTEM_WIDE_SECTION" = "Aktiviere Systemweit Abschnitt";
-  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+  "ENABLE_SYSTEM_WIDE_SECTION" = "Abschnitt „Systemweit“";
+  "ENABLE_SECTION" = "Abschnitt aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
@@ -14,14 +14,14 @@
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_UIBUTTON_STRENGTH" = "Eigene UIButton Stärke";
-  "CUSTOM_UIBUTTONBARBUTTON_STRENGTH" = "Eigene UIButtonBarButton Stärke";
-  "CUSTOM_UITABBARBUTTON_STRENGTH" = "Eigene UITabBarButton Stärke";
-  "CUSTOM_UIIMAGEVIEW_STRENGTH" = "Eigene UIImageView Stärke";
-  "CUSTOM_UIVIEW_STRENGTH" = "Eigene UIView Stärke";
-  "CUSTOM_UIWINDOW_STRENGTH" = "Eigene UIWindow Stärke";
+  "CUSTOM_UIBUTTON_STRENGTH" = "UIButton";
+  "CUSTOM_UIBUTTONBARBUTTON_STRENGTH" = "UIButtonBarButton";
+  "CUSTOM_UITABBARBUTTON_STRENGTH" = "UITabBarButton";
+  "CUSTOM_UIIMAGEVIEW_STRENGTH" = "UIImageView";
+  "CUSTOM_UIVIEW_STRENGTH" = "UIView";
+  "CUSTOM_UIWINDOW_STRENGTH" = "UIWindow";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

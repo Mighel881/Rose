@@ -1,23 +1,23 @@
 {
 
-  "ENABLE_PHONE_SUPPORT" = "Aktiviere Telefon Unterstützung";
-  "PHONE_SUPPORT" = "Telefon Unterstützung";
+  "ENABLE_PHONE_SUPPORT" = "Unterstützung für „Telefon“";
+  "PHONE_SUPPORT" = "Telefon-Unterstützung aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "TAPPING_DIALER_NUMBER_PAD_BUTTON" = "Anruf Ziffernblockknopf getippt wird";
-  "TAPPING_CONTACTS_CELL" = "Kontaktezelle getippt wird";
-  "TAPPING_DIALER_DELETE_BUTTON" = "Anruf Löschknopf getippt wird";
+  "TAPPING_DIALER_NUMBER_PAD_BUTTON" = "Ziffernblock-Knöpfe getippt werden";
+  "TAPPING_CONTACTS_CELL" = "Kontaktzelle getippt wird";
+  "TAPPING_DIALER_DELETE_BUTTON" = "Löschknopf getippt wird";
   "TAPPING_DIALER_CALL_BUTTON" = "Anrufknopf getippt wird";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_DIALER_NUMBER_PAD_STRENGTH" = "Eigene Anruf Ziffernblock Stärke";
-  "CUSTOM_CONTACT_CELL_STRENGTH" = "Eigene Kontaktezelle Stärke";
-  "CUSTOM_DIALER_DELETE_BUTTON_STRENGTH" = "Eigene Anruf Löschknopf Stärke";
-  "CUSTOM_DIALER_CALL_BUTTON_STRENGTH" = "Eigene Anrufenknopf Stärke";
+  "CUSTOM_DIALER_NUMBER_PAD_STRENGTH" = "Ziffernblock";
+  "CUSTOM_CONTACT_CELL_STRENGTH" = "Kontaktzelle";
+  "CUSTOM_DIALER_DELETE_BUTTON_STRENGTH" = "Löschknopf";
+  "CUSTOM_DIALER_CALL_BUTTON_STRENGTH" = "Anrufknopf";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

@@ -1,17 +1,17 @@
 {
 
-  "ENABLE_SAFARI_SUPPORT" = "Aktiviere Safari Untersützung";
-  "SAFARI_SUPPORT" = "Safari Untersützung";
+  "ENABLE_SAFARI_SUPPORT" = "Untersützung für „Safari“";
+  "SAFARI_SUPPORT" = "Safari-Untersützung aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "TAPPING_THE_URL_BAR" = "Die URL Leiste getippt wird";
+  "TAPPING_THE_URL_BAR" = "Die URL-Leiste getippt wird";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_URL_STRENGTH" = "Eigene URL Stärke";
+  "CUSTOM_URL_STRENGTH" = "URL-Leiste";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

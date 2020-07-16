@@ -1,39 +1,39 @@
 {
 
-  "ENABLE_ANYWHERE_SECTION" = "Aktiviere Überallabschnitt";
-  "ENABLE_SECTION" = "Aktiviere Abschnitt";
+  "ENABLE_ANYWHERE_SECTION" = "Abschnitt „Überall“";
+  "ENABLE_SECTION" = "Abschnitt aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "KILLING_APP" = "App beendet wird";
-  "APP_SWITCHER_IS_USED" = "App Switcher verwendet wird";
+  "KILLING_APP" = "App geschlossen wird";
+  "APP_SWITCHER_IS_USED" = "App-Switcher verwendet wird";
   "CALLING_SIRI" = "Siri gerufen wird";
-  "TAKING_SCREENSHOT" = "Bildschirmfoto gemachet wird";
-  "BEGIN_OR_END_REACHABILITY" = "Erreichbarkeit gestartet / beendet wird";
-  "USING_TEXT_SELECTION" = "Textauswahl verwendet wird";
-  "ENTERING_POWER_DOWN_VIEW" = "Ausschaltbildschirm betreten wird";
-  "RESPRINING" = "Respringt wird";
+  "TAKING_SCREENSHOT" = "Bildschirmfoto gemacht wird";
+  "BEGIN_OR_END_REACHABILITY" = "Einhandmodus gestartet/beendet wird";
+  "USING_TEXT_SELECTION" = "Text ausgewählt wird";
+  "ENTERING_POWER_DOWN_VIEW" = "Ausschaltmenü betreten wird";
+  "RESPRINING" = "Das Springboard neu gestartet wird";
   "TYPING" = "Geschrieben wird";
   "ENTERING_HOMESCREEN" = "Home-Bilschirm betreten wird";
-  "ALERT_APPEARS" = "Alarm erscheint";
-  "ALERT_DISAPPEARS" = "Alarm verschwindet";
+  "ALERT_APPEARS" = "Promot erscheint (z.B. Niedriger Akku)";
+  "ALERT_DISAPPEARS" = "Prompt verschwindet";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_KILLING_STRENGTH" = "Eigene Beendungsstärke";
-  "CUSTOM_SWITCHER_STRENGTH" = "Eigene Wechslerstärke";
-  "CUSTOM_SIRI_STRENGTH" = "Eigene Siristärke";
-  "CUSTOM_SCREENSHOT_STRENGTH" = "Eigene Bildschirmfotostärke";
-  "CUSTOM_REACHABILITY_STRENGTH" = "Eigene Erreichbarkeitsstärke";
-  "CUSTOM_TEXT_SELECTION_STRENGTH" = "Eigene Textauswahlstärke";
-  "CUSTOM_POWER_DOWN_VIEW_STRENGTH" = "Eigene Ausschaltbildschirmstärke";
-  "CUSTOM_RESPRING_STRENGTH" = "Eigene Respringstärke";
-  "CUSTOM_TYPING_STRENGTH" = "Eigene Schreibstärke";
-  "CUSTOM_ENTERING_HOMESCREEN_STRENGTH" = "Eigene Home-Bilschirm Betretungsstärke";
-  "CUSTOM_ALERT_APPEARING_STRENGTH" = "Eigene Alarm erscheinungsstärke";
-  "CUSTOM_ALERT_DISAPPEARING_STRENGTH" = "Eigene Alarm verschwindungsstärke";
+  "CUSTOM_KILLING_STRENGTH" = "App schließen";
+  "CUSTOM_SWITCHER_STRENGTH" = "App-Switcher";
+  "CUSTOM_SIRI_STRENGTH" = "Siri";
+  "CUSTOM_SCREENSHOT_STRENGTH" = "Bildschirmfoto";
+  "CUSTOM_REACHABILITY_STRENGTH" = "Einhandmodus";
+  "CUSTOM_TEXT_SELECTION_STRENGTH" = "Textauswahl";
+  "CUSTOM_POWER_DOWN_VIEW_STRENGTH" = "Ausschaltmenü";
+  "CUSTOM_RESPRING_STRENGTH" = "Respring";
+  "CUSTOM_TYPING_STRENGTH" = "Schreiben";
+  "CUSTOM_ENTERING_HOMESCREEN_STRENGTH" = "Home-Bilschirm";
+  "CUSTOM_ALERT_APPEARING_STRENGTH" = "Prompt erscheint";
+  "CUSTOM_ALERT_DISAPPEARING_STRENGTH" = "Prompt verschwindet";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Stark: Haptic Engine";

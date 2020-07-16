@@ -1,17 +1,17 @@
 {
 
-  "ENABLE_CALCULATOR_SUPPORT" = "Aktiviere Taschenrechner Unterstützung";
-  "CALCULATOR_SUPPORT" = "Taschenrechner Unterstützung";
+  "ENABLE_CALCULATOR_SUPPORT" = "Unterstützung für den Taschenrechner";
+  "CALCULATOR_SUPPORT" = "Taschenrechner-Unterstützung aktivieren";
 
   "HAPTIC_FEEDBACK_WHEN" = "Haptisches Feedback wenn...";
 
-  "TAPPING_A_KEYPAD_BUTTON" = "Einen Tastenfeldknopf tippen";
+  "TAPPING_A_KEYPAD_BUTTON" = "Auf eine Taste getippt wird";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Eigene Stärkeeinstellungen";
 
-  "CUSTOM_KEYPAD_BUTTON_STRENGTH" = "Eigene Tastenfeldknopfstärke";
+  "CUSTOM_KEYPAD_BUTTON_STRENGTH" = "Tasten";
 
-  "NONE" = "Nichts";
+  "NONE" = "Standard";
   "LIGHT_HAPTIC_ENGINE" = "Leicht: Haptic Engine";
   "MEDIUM_HAPTIC_ENGINE" = "Mittel: Haptic Engine";
   "HEAVY_HAPTIC_ENGINE" = "Start: Haptic Engine";
