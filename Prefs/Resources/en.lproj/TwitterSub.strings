@@ -10,6 +10,7 @@
   "TAPPING_A_DM_CHAT" = "Tapping A DM Chat";
   "TAPPING_ON_A_NOTIFICATION" = "Tapping On A Notification";
   "USING_THE_FLOATING_TWEET_BUTTON" = "Using The Floating Tweet Button";
+  "TAPPING_LIKE_BUTTON" = "Tapping Like Button";
 
   "CUSTOM_STRENGTH_SETTINGS" = "Custom Strength Settings";
 
@@ -18,6 +19,7 @@
   "CUSTOM_DM_STRENGTH" = "Custom DM Strength";
   "CUSTOM_NOTIFICATION_STRENGTH" = "Custom Notification Strength";
   "CUSTOM_FLOATING_TWEET_BUTTON_STRENGTH" = "Custom Floating Tweet Button Strength";
+  "CUSTOM_LIKE_BUTTON_STRENGTH" = "Custom Like Button Strength";
 
   "NONE" = "None";
   "LIGHT_HAPTIC_ENGINE" = "Light: Haptic Engine";

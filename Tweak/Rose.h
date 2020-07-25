@@ -239,11 +239,13 @@ extern BOOL TWTtweetViewSwitch;
 extern BOOL TWTdirectMessagesTapSwitch;
 extern BOOL TWTactivityTapSwitch;
 extern BOOL TWTtweetButtonSwitch;
+extern BOOL T1FavoriteButtonSwitch;
 extern NSString* customStrengthTWTtabBarControl;
 extern NSString* customStrengthTWTtweetViewControl;
 extern NSString* customStrengthTWTdirectMessagesTapControl;
 extern NSString* customStrengthTWTactivityTapControl;
 extern NSString* customStrengthTWTtweetButtonControl;
+extern NSString* customStrengthT1FavoriteButtonControl;
 
 // Delay
 extern BOOL delaySwitch;

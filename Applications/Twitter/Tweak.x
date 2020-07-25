@@ -30,11 +30,13 @@ BOOL TWTtweetViewSwitch;
 BOOL TWTdirectMessagesTapSwitch;
 BOOL TWTactivityTapSwitch;
 BOOL TWTtweetButtonSwitch;
+BOOL T1FavoriteButtonSwitch;
 NSString* customStrengthTWTtabBarControl;
 NSString* customStrengthTWTtweetViewControl;
 NSString* customStrengthTWTdirectMessagesTapControl;
 NSString* customStrengthTWTactivityTapControl;
 NSString* customStrengthTWTtweetButtonControl;
+NSString* customStrengthT1FavoriteButtonControl;
 
 BOOL delaySwitch;
 NSString* delayLevel;
@@ -148,6 +150,26 @@ BOOL isRingerSilentSwitch;
 
 %end
 
+%hook T1StatusInlineFavoriteButton
+
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2 {
+
+	%orig;
+
+	if (!T1FavoriteButtonSwitch) return;
+	int customStrength = [customStrengthT1FavoriteButtonControl intValue];
+
+	if (customStrength == 0 && !enableLegacyEngineSwitch)
+		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
+	else if (customStrength != 0 && !enableLegacyEngineSwitch)
+		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
+	else if (customStrength == 0 && enableLegacyEngineSwitch)
+		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
+
+}
+
+%end
+
 %end
 
 %ctor {
@@ -181,11 +203,13 @@ BOOL isRingerSilentSwitch;
 		[pfs registerBool:&TWTdirectMessagesTapSwitch default:NO forKey:@"TWTdirectMessagesTap"];
 		[pfs registerBool:&TWTactivityTapSwitch default:NO forKey:@"TWTactivityTap"];
 		[pfs registerBool:&TWTtweetButtonSwitch default:NO forKey:@"TWTtweetButton"];
+		[pfs registerBool:&T1FavoriteButtonSwitch default:NO forKey:@"T1FavoriteButton"];
 		[pfs registerObject:&customStrengthTWTtabBarControl default:@"0" forKey:@"customStrengthTWTtabBar"];
 		[pfs registerObject:&customStrengthTWTtweetViewControl default:@"0" forKey:@"customStrengthTWTtweetView"];
 		[pfs registerObject:&customStrengthTWTdirectMessagesTapControl default:@"0" forKey:@"customStrengthTWTdirectMessagesTap"];
 		[pfs registerObject:&customStrengthTWTactivityTapControl default:@"0" forKey:@"customStrengthTWTactivityTap"];
 		[pfs registerObject:&customStrengthTWTtweetButtonControl default:@"0" forKey:@"customStrengthTWTtweetButton"];
+		[pfs registerObject:&customStrengthT1FavoriteButtonControl default:@"0" forKey:@"customStrengthT1FavoriteButton"];
 	}
 
     if (!dpkgInvalid && enabled) {
