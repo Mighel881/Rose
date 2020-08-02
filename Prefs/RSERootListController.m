@@ -45,7 +45,7 @@ UIImpactFeedbackGenerator* gen;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"7.7";
+        self.titleLabel.text = @"7.7.1";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -164,14 +164,12 @@ UIImpactFeedbackGenerator* gen;
         [UIView animateWithDuration:0.2 animations:^{
             self.iconView.alpha = 1.0;
             self.titleLabel.alpha = 0.0;
-
         }];
 
     } else {
         [UIView animateWithDuration:0.2 animations:^{
             self.iconView.alpha = 0.0;
             self.titleLabel.alpha = 1.0;
-
         }];
 
     }

@@ -384,14 +384,6 @@
  			<key>RSESub</key>
  			<string>contributorsSub</string>
  		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
-			<string>HELP_TRANSLATING_ROSE</string>
-			<key>url</key>
-			<string>https://github.com/Litteeen/RoseLocalizations</string>
-		</dict>
 
 		<dict>
 			<key>cell</key>
