@@ -3,7 +3,7 @@ Name: Rose 🌹
 Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14), firmware (>= 12.0)
 Version: 7.7.1
 Architecture: iphoneos-arm
-Description: Being Peeped By A Rose Doesn't Feel That Good, It's Time To Change That
+Description: Getting peeped by a rose doesn't feel that good, it's time to change that
 Maintainer: Litten <hiya@litten.love>
 Author: Litten <hiya@litten.love>
 Section: Tweaks
