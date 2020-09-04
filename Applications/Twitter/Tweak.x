@@ -212,18 +212,15 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthT1FavoriteButtonControl default:@"0" forKey:@"customStrengthT1FavoriteButton"];
 	}
 
-    if (!dpkgInvalid && enabled) {
-        if (enableTwitterSection) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Twitter);
-		}
-
+    if (enabled && enableTwitterSection) {
+		haptics = [[roseCall alloc] init];
+		tapticLVL = [tapticLevel intValue];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Twitter);
 		return;
     }
 

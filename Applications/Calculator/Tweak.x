@@ -92,18 +92,15 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthCalculatorApplicationKeyPadButtonControl default:@"0" forKey:@"customStrengthCalculatorApplicationKeyPadButton"];
 	}
 
-    if (!dpkgInvalid && enabled) {
-        if (enableCalculatorSection) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
-		}
-
+    if (enabled && enableCalculatorSection) {
+		haptics = [[roseCall alloc] init];
+		tapticLVL = [tapticLevel intValue];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Calculator, CalculatorApplicationKeyPadButton=objc_getClass("Calculator.CalculatorKeypadButton"));
 		return;
     }
 

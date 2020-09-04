@@ -1,11 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <Cephei/HBPreferences.h>
 
-#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
 HBPreferences *pfs;
-
-BOOL dpkgInvalid;
 
 extern BOOL enabled;
 extern BOOL enableHomescreenSection;

@@ -1029,179 +1029,6 @@ BOOL isRingerSilentSwitch;
 
 %end
 
-%group iOS12
-
-%hook SBUIIconForceTouchController
-
-- (void)iconForceTouchViewControllerWillDismiss:(id)arg1 {
-
-	%orig;
-
-	if (!forceSwitch) return;
-	int customStrength = [customStrengthForceTouchControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-%end
-
-%hook VolumeControl
-
-- (void)increaseVolume {
-
-	%orig;
-
-	if (!volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-- (void)decreaseVolume {
-
-	%orig;
-
-	if (!volumeSwitch) return;
-	int customStrength = [customStrengthVolumeControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-%end
-
-%hook SBPowerDownController
-
-- (void)orderFront {
-
-	%orig;
-
-	if (!powerSwitch) return;
-	int customStrength = [customStrengthPowerDownControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-%end
-
-%hook SBIconController
-
-- (void)iconTapped:(id)arg1 {
-
-	%orig;
-
-	if (!iconTapSwitch) return;
-	int customStrength = [customStrengthIconTapControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-%end
-
-%hook SBDashBoardViewController
-
-- (void)setAuthenticated:(BOOL)authenticated {
-
-    %orig;
-
-	if (!authenticationSwitch) return;
-    if (authenticated) {
-		int customStrength = [customStrengthAuthenticationControl intValue];
-
-		if (customStrength == 0 && !enableLegacyEngineSwitch)
-			[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-		else if (customStrength != 0 && !enableLegacyEngineSwitch)
-			[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-		else if (customStrength == 0 && enableLegacyEngineSwitch)
-			[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-	}
-
-}
-
-%end
-
-%hook SBDashBoardQuickActionsButton
-
-- (void)setSelected:(BOOL)arg1 {
-
-	%orig;
-
-	if (!enabled || !enableLockscreenSection || !quickActionsButtonSwitch) return;
-	int customStrength = [customStrengthQuickActionsButtonControl intValue];
-
-	if (customStrength == 0 && !enableLegacyEngineSwitch)
-		[haptics triggerFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :tapticLVL :hapticLVL];
-	else if (customStrength != 0 && !enableLegacyEngineSwitch)
-		[haptics triggerCustomFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customStrength];
-	else if (customStrength == 0 && enableLegacyEngineSwitch)
-		[haptics triggerLegacyFeedback:LowPowerModeSwitch :LowPowerMode :isDNDActiveSwitch :isDNDActive :isRingerSilentSwitch :isRingerSilent :delaySwitch :delayLVL :enabled :enableTapticEngineSwitch :enableHapticEngineSwitch :enableLegacyEngineSwitch :customLegacyDuration :customLegacyStrength :selectedLegacyMode];
-
-}
-
-%end
-
-%end
-
-%group RoseIntegrityFail
-
-%hook SBIconController
-
-- (void)viewDidAppear:(BOOL)animated {
-
-    %orig;
-
-    if (!dpkgInvalid) return;
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Rose"
-		message:@"Seriously? Pirating a free Tweak is awful!\nPiracy repo's Tweaks could contain Malware if you didn't know that, so go ahead and get Rose from the official Source https://repo.litten.love/.\nIf you're seeing this but you got it from the official source then make sure to add https://repo.litten.love to Cydia or Sileo."
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-
-			UIApplication *application = [UIApplication sharedApplication];
-			[application openURL:[NSURL URLWithString:@"https://repo.litten.love/"] options:@{} completionHandler:nil];
-
-	}];
-
-		[alertController addAction:cancelAction];
-
-		[self presentViewController:alertController animated:YES completion:nil];
-
-}
-
-%end
-
-%end
-
 %ctor {
 
 	if (![NSProcessInfo processInfo]) return;
@@ -1226,18 +1053,6 @@ BOOL isRingerSilentSwitch;
                 shouldLoad = YES;
             }
         }
-    }
-
-    if (!shouldLoad) return;
-
-    dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.list"];
-
-    if (!dpkgInvalid) dpkgInvalid = ![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/sh.litten.rose.md5sums"];
-
-	if (dpkgInvalid) {
-        %init(RoseIntegrityFail);
-        return;
-
     }
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
@@ -1400,34 +1215,24 @@ BOOL isRingerSilentSwitch;
 	[pfs registerBool:&delaySwitch default:NO forKey:@"enableHapticDelay"];
 	[pfs registerObject:&delayLevel default:@"0.0" forKey:@"Delay"];
 
-	if (!dpkgInvalid && enabled) {
-        BOOL ok = false;
-        
-        ok = ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"/var/lib/dpkg/info/%@%@%@%@%@%@%@%@%@.rose.md5sums", @"s", @"h", @".", @"l", @"i", @"t", @"t", @"e", @"n"]]
-        );
-
-        if (ok && [@"litten" isEqualToString:@"litten"]) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Rose);
-			if (enableHomescreenSection) %init(Homescreen);
-			if (enableLockscreenSection) %init(Lockscreen);
-			if (enableAnywhereSection) %init(Anywhere);
-			if (enableHardwareButtonsSection) %init(HardwareButtons);
-			if (enableControlCenterSection) %init(ControlCenter);
-			if (enableStatusChangesSection) %init(StatusChanges);
-			if (enableOtherHardwareActionsSection) %init(OtherHardwareActions);
-			if (enableSystemWideSection) %init(SystemWide);
-			if (SYSTEM_VERSION_LESS_THAN(@"13.0")) %init(iOS12);
-			return;
-        } else {
-            dpkgInvalid = YES;
-        }
+	if (enabled) {
+		haptics = [[roseCall alloc] init];
+		tapticLVL = [tapticLevel intValue];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Rose);
+		if (enableHomescreenSection) %init(Homescreen);
+		if (enableLockscreenSection) %init(Lockscreen);
+		if (enableAnywhereSection) %init(Anywhere);
+		if (enableHardwareButtonsSection) %init(HardwareButtons);
+		if (enableControlCenterSection) %init(ControlCenter);
+		if (enableStatusChangesSection) %init(StatusChanges);
+		if (enableOtherHardwareActionsSection) %init(OtherHardwareActions);
+		if (enableSystemWideSection) %init(SystemWide);
+		return;
     }
 
 }

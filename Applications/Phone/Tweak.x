@@ -165,18 +165,15 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthPHDialerCallButtonControl default:@"0" forKey:@"customStrengthPHDialerCallButton"];
 	}
 
-    if (!dpkgInvalid && enabled) {
-        if (enablePhoneSection) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Phone);
-		}
-
+    if (enabled && enablePhoneSection) {
+		haptics = [[roseCall alloc] init];
+		tapticLVL = [tapticLevel intValue];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Phone);
 		return;
     }
 

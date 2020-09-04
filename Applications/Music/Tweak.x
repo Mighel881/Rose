@@ -294,18 +294,15 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthMPButtonControl default:@"0" forKey:@"customStrengthMPButton"];
 	}
 
-    if (!dpkgInvalid && enabled) {
-        if (enableMusicSection) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
-		}
-
+    if (enabled && enableMusicSection) {
+		haptics = [[roseCall alloc] init];
+		tapticLVL = [tapticLevel intValue];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Music, MusicApplicationPlayButton=objc_getClass("MusicApplication.NowPlayingTransportButton"), MusicApplicationContextualActionsButton=objc_getClass("MusicApplication.ContextualActionsButton"), MusicApplicationTimeSlider=objc_getClass("MusicApplication.PlayerTimeControl"), MusicApplicationSongCell=objc_getClass("MusicApplication.SongCell"), MusicApplicationAlbumCell=objc_getClass("MusicApplication.AlbumCell"));
 		return;
     }
 

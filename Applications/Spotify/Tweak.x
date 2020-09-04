@@ -365,18 +365,14 @@ BOOL isRingerSilentSwitch;
 		[pfs registerObject:&customStrengthSPTplaylistButtonsControl default:@"0" forKey:@"customStrengthSPTplaylistButtons"];
 	}
 
-    if (!dpkgInvalid && enabled) {
-        if (enableSpotifySection) {
-			haptics = [[roseCall alloc] init];
-			tapticLVL = [tapticLevel intValue];
-			hapticLVL = [hapticLevel intValue];
-			delayLVL = [delayLevel doubleValue];
-			selectedLegacyMode = [legacyLevel intValue];
-			customLegacyDuration = [customlegacyDurationLevel doubleValue];
-			customLegacyStrength = [customlegacyStrengthLevel doubleValue];
-			%init(Spotify);
-		}
-
+    if (enabled && enableSpotifySection) {
+		haptics = [[roseCall alloc] init];
+		hapticLVL = [hapticLevel intValue];
+		delayLVL = [delayLevel doubleValue];
+		selectedLegacyMode = [legacyLevel intValue];
+		customLegacyDuration = [customlegacyDurationLevel doubleValue];
+		customLegacyStrength = [customlegacyStrengthLevel doubleValue];
+		%init(Spotify);
 		return;
     }
 
