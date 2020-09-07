@@ -1055,6 +1055,8 @@ BOOL isRingerSilentSwitch;
         }
     }
 
+	if (!shouldLoad) return;
+
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.rosepreferences"];
 
     [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
